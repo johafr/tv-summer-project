@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+/*Our code:*/
+
+.navbar-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.navbar-container a {
+  font-size: 2em;
+  text-decoration: none;
+}
+
+.navbar-container div {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin-left: 20rem;
+}
