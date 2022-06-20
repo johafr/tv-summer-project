@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Editor } from "./screens/Editor";
 
-const Router = () => {
+const Router: React.FC = () => {
   return (
     <div>
       <Routes>
@@ -13,12 +13,12 @@ const Router = () => {
   );
 };
 
-function App() {
+const App: React.FC = () => {
   return (
     <>
       <Router />
     </>
   );
-}
+};
 
 export default App;
