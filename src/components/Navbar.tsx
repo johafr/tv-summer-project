@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { signInWithGoogle } from "../Firebase";
 import { useRecoilState } from "recoil";
 import { usernameState } from "../atoms/username";
-import firebase from "firebase/compat";
 import { auth } from "../Firebase";
 
 export const Navbar: React.FC = () => {
