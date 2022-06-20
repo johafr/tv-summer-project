@@ -1,5 +1,5 @@
 import React from "react";
 
 export const Preview: React.FC = () => {
-  return <div>Preview</div>;
+  return <div>Hei</div>;
 };
