@@ -4,6 +4,7 @@ import { signInWithGoogle } from "../Firebase";
 import { useRecoilState } from "recoil";
 import { usernameState } from "../atoms/username";
 import { auth } from "../Firebase";
+import { Button } from "@mui/material";
 
 export const Navbar: React.FC = () => {
   const [username, setUsername] = useRecoilState(usernameState);
@@ -37,7 +38,9 @@ export const Navbar: React.FC = () => {
       {username ? (
         <div>Velkommen, {username}!</div>
       ) : (
-        <div onClick={() => signInWithGoogle()}>Log in</div>
+        <Button variant="outlined" onClick={() => signInWithGoogle()}>
+          Log in
+        </Button>
       )}
     </div>
   );

@@ -50,14 +50,12 @@
   text-decoration: none;
 }
 
-.navbar-container div {
+.navbar-container button{
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-self: center;
-  margin-left: 20rem;
   margin-top: 1rem;
-  background-color: beige;
   border-radius: 10px;
   padding: 1rem;
 }
