@@ -63,19 +63,20 @@ export const Editor: React.FC = () => {
     const newSentence = {
       id: sentences[sentences.length - 1].id + 1,
       person: selectedPerson,
-      content: inputText
-    }
-    setSentences((currentSentences) => addSentence(currentSentences, newSentence));
-    setInputText('');
-    
-    await postJSON('http://localhost:4000/sentences', {
-      id : newSentence.id,
-      name : selectedPerson?.name,
-      text : newSentence.content,
-    })
-    console.log(sentences)
-  }
+      content: inputText,
+    };
+    setSentences((currentSentences) =>
+      addSentence(currentSentences, newSentence)
+    );
+    setInputText("");
 
+    await postJSON("http://localhost:4000/sentences", {
+      id: newSentence.id,
+      name: selectedPerson?.name,
+      text: newSentence.content,
+    });
+    console.log(sentences);
+  };
 
   const handleChangeSentence = async (e: React.FormEvent, curID: number) => {
     e.preventDefault();
@@ -165,7 +166,7 @@ export const Editor: React.FC = () => {
           </form>
         </div>
       </div>
-      <Preview />
+      {/*<Preview />*/}
     </div>
   );
 };
