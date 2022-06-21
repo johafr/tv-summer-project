@@ -25,7 +25,7 @@ export const Navbar: React.FC = () => {
         to="/"
         style={({ isActive }) => ({
           borderBottom: isActive ? "6px double black" : "none",
-          color: isActive ? "#267659" : "black",
+          color: isActive ? "#407178" : "black",
         })}
       >
         Editor
@@ -34,7 +34,7 @@ export const Navbar: React.FC = () => {
         to="/preview"
         style={({ isActive }) => ({
           borderBottom: isActive ? "6px double black" : "none",
-          color: isActive ? "#267659" : "black",
+          color: isActive ? "#407178" : "black",
         })}
       >
         Preview
