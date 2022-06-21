@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Editor } from "./screens/Editor";
 import { Preview } from "./screens/Preview";
+import { Navbar } from "./components/Navbar";
 
 const Router: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const Router: React.FC = () => {
 const App: React.FC = () => {
   return (
     <>
+      <Navbar />
       <Router />
     </>
   );
