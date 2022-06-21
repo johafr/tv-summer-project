@@ -3,7 +3,7 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { DisplayMeasurments, screenMeasurments } from "../atoms/measurments";
-import "../CSS-styling/DisplayScreenStyling.css";
+import "../styles/DisplayScreenStyling.css";
 
 export const DisplayScreen: React.FC = () => {
   const [measurments] = useRecoilState(screenMeasurments);
