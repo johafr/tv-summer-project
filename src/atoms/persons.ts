@@ -1,3 +1,4 @@
+import { InsertInvitationOutlined } from "@mui/icons-material";
 import { atom } from "recoil";
 import { Person } from "./sentences";
 

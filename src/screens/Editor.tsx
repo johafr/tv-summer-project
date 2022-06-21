@@ -23,6 +23,7 @@ export const Editor: React.FC = () => {
 
   const [inputName,setInputName] = useState<string>(initialName);
   const [inputText,setInputText] = useState<string>("");
+  const [changeSentenceText,setChangeSentenceText] = useState<string>("")
   const [words,setWords] = useState<Word[]>([])
 
   const [persons,setPersons] = useRecoilState(personsState)
@@ -50,25 +51,40 @@ export const Editor: React.FC = () => {
 
   const handleAddSentence = (e: React.FormEvent) => {
     e.preventDefault()
+    const selectedPerson = persons.find((person) => inputName === person.name)
     const newSentence = {
       id: sentences[sentences.length-1].id+1,
+      person: selectedPerson,
       content: inputText
     }
     setSentences((currentSentences) => addSentence(currentSentences, newSentence));
     setInputText('');
+    console.log(sentences)
   }
 
+  const handleChangeSentence = (e: React.FormEvent,curID : number) => {
+    e.preventDefault()
+    const selectedSentenceIndex = sentences.findIndex((sentence) => sentence.id === curID);
+    const selectedSentence = sentences[selectedSentenceIndex];
 
+    const updatedSentences = [
+      ...sentences.slice(0,selectedSentenceIndex),
+      {...selectedSentence,content: changeSentenceText},
+      ...sentences.slice(selectedSentenceIndex + 1)
+    ];
+    setSentences(updatedSentences);
+  }
+
+  // Lists all names that are availbile, otherwise empty.
   const listNames = persons
   .map((person) => {
-    
     const selectedPerson = (name : string) => {if(name === inputName) return true;}
     
     return (
       <li
       key={person.id} 
       style={{backgroundColor: person.color?.toString(),
-      fontWeight: selectedPerson(person.name) ? 'bold' : 'normal'}}
+      fontWeight: selectedPerson(person.name) ? 'bold' : 'normal',}}
       onClick={(e) => handleSelectPerson(person.id)}
       >
         {person.name}
@@ -76,12 +92,26 @@ export const Editor: React.FC = () => {
     )
   })
 
+  // Delete when better solution exists
   const listSentences = sentences
-  .map((sentence) => {
+  .map((sentence, index) => {
     return (
-      <p>{sentence.content}</p>
+      <p key={index}>{sentence.content}</p>
     )
   })
+
+  // Delete2 when better solution exists
+  const listInputs = sentences
+  .map((sentence) => {
+    return (
+      <form key={sentence.id} onSubmit={(e) => handleChangeSentence(e,sentence.id)}>
+        <input type="text" defaultValue={sentence.content} onChange={(e) => setChangeSentenceText(e.target.value)} />
+      </form>
+    )
+  })
+
+
+
 
 
   // Editor final return
@@ -89,22 +119,31 @@ export const Editor: React.FC = () => {
  
   <div className="editor">
     <h1>Editor</h1>
+
     <div className="editor__nameList">
     <ul>
       {listNames}
     </ul>
     </div>
+
     <div className="editor__nameForm">
-      <form onSubmit={(e) => handleAddName(e)}>
-      <input type="text" placeholder="Name" value={inputName} onChange={(event) => setInputName(event.target.value)}/>
+      <form onSubmit={(event) => handleAddName(event)}>
+        <input type="text" placeholder="Name" value={inputName} onChange={(event) => setInputName(event.target.value)}/>
       </form>
     </div>
+
     <div className="editor__textForm">
+      {listInputs}
       <form onSubmit={(e) => handleAddSentence(e)}>
         <input type="text" placeholder ="Write a sentence..." value={inputText} onChange={(event) => setInputText(event.target.value)}/>
       </form>
+      
     </div>
-    <div> {listSentences}</div>
+    <div>
+      {listSentences}
+    </div>
+
+
   </div>
   )
 };

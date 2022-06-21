@@ -34,7 +34,7 @@ code {
 }
 
 .editor__nameList ul li:hover {
-  font-weight: bold;
+  font-weight: bold!important;
 }
 
 
@@ -45,7 +45,18 @@ code {
 
 .editor__nameForm input {
   width:400px;
-  height:50px;
+  height:30px;
+  border-radius:15px;
+  border: 1px solid black;
+  text-align:center;
+}
+
+.editor__textForm {
+  margin-top:20px;
+  border:1px solid black;
+  border-radius:15px;
+  padding:15px;
+  width:500px;
 }
 
 .editor__textForm input {
@@ -54,7 +65,7 @@ code {
   padding-left:2;
   line-height:1em;
   border: none;
-  border-bottom: 0.1px solid lightgrey;
+
 }
 
 .editor__textForm input:focus {
