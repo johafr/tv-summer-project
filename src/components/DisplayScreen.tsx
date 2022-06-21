@@ -69,18 +69,19 @@ const OutputScreen = styled.div<{ measurments: DisplayMeasurments }>`
   height: ${(props) => props.measurments.height}px;
   border-radius: 10px;
   background-color: white;
-  margin-top: 13%;
+  margin-top: 0%;
+  border: 1px solid black;
 `;
 
 const Bump = styled.span`
   position: absolute;
   left: 50%;
   width: 100px;
-  height: 30px;
+  height: 15px;
   margin-left: -50px;
-  margin-top: -15px;
-  border-radius: 5px;
-  background: linear-gradient(to top, #333333 50%, #232333 50%);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #333333;
 `;
 
 const Screen = styled.div<{ measurments: DisplayMeasurments }>`
@@ -92,7 +93,7 @@ const Screen = styled.div<{ measurments: DisplayMeasurments }>`
   justify-content: space-between;
   display: flex;
   align-items: center;
-  background-color: #232223;
+  overflow: hidden;
 `;
 
 const ContentDiv = styled.div<{ measurments: DisplayMeasurments }>`

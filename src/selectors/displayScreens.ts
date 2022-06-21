@@ -17,7 +17,6 @@ export const getDisplayScreenLength = selector<number>({
   key: "getDisplayScreenLength",
   get: ({ get }) => {
     const displayed = get(displayScreen);
-    console.log(displayed.length);
     return displayed.length;
   },
 });
