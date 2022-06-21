@@ -6,3 +6,12 @@ body {
   border: 2px solid red;
 }
 
+.development {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  font-size: 5em;
+  z-index: 2;
+  color: rgba(0, 0, 0, 0.5);
+}

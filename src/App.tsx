@@ -21,6 +21,7 @@ const Router: React.FC = () => {
 const App: React.FC = () => {
   return (
     <>
+      <h1 className="development">Under development</h1>
       <Navbar />
       <Router />
     </>
