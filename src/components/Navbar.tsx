@@ -25,7 +25,7 @@ export const Navbar: React.FC = () => {
         to="/"
         style={({ isActive }) => ({
           borderBottom: isActive ? "6px double black" : "none",
-          color: isActive ? "#267659" : "black",
+          color: isActive ? "#407178" : "black",
         })}
       >
         Editor
@@ -34,7 +34,7 @@ export const Navbar: React.FC = () => {
         to="/preview"
         style={({ isActive }) => ({
           borderBottom: isActive ? "6px double black" : "none",
-          color: isActive ? "#267659" : "black",
+          color: isActive ? "#407178" : "black",
         })}
       >
         Preview
@@ -51,9 +51,7 @@ export const Navbar: React.FC = () => {
       {username ? (
         <div>Logget inn som {username}</div>
       ) : (
-        <Button variant="outlined" onClick={() => signInWithGoogle()}>
-          Log in
-        </Button>
+        <Button onClick={() => signInWithGoogle()}>Log in</Button>
       )}
     </div>
   );
