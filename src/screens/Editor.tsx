@@ -16,8 +16,8 @@ type Sentence = {
 }
 
 const initialPersons = [
-  {id : 1, name: 'Markus',color: 'red'},
-  {id : 2, name : 'Lisa', color: 'green'},
+  {id : 1, name: 'Markus',color: 'rgb(132, 176, 214'},
+  {id : 2, name : 'Lisa', color: 'rgb(10, 214, 214'},
 ]
 const initialName = 'Markus'
 export const Editor: React.FC = () => {

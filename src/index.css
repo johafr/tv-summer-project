@@ -16,14 +16,24 @@ code {
 
 .editor {
   margin: 10px;
-  border: 1px solid black;
   width:408px;
 }
 
 .editor__nameList {
-  border: 1px solid black;
   width: 406px;
 }
+
+.editor__nameList ul li {
+  padding:10px;
+  margin:5px;
+  list-style-type: none;
+  width:120px;
+  border-radius:15px;
+  box-shadow:2px 5px 5px 2px rgba(0, 0, 0, 0.2)
+
+}
+
+
 
 .editor form {
   margin-top:30px;
