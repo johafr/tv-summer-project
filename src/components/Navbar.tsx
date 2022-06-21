@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { usernameState } from "../atoms/username";
 import { auth } from "../Firebase";
 import { Button } from "@mui/material";
+import "../styles/Navbar.css";
 
 export const Navbar: React.FC = () => {
   const [username, setUsername] = useRecoilState(usernameState);

@@ -1,32 +1,3 @@
-.App {
-  text-align: center;
-}
-
-/*Our code:*/
-
-.navbar-container {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-bottom: 1rem;
-}
-
-.navbar-container a {
-  font-size: 2em;
-  text-decoration: none;
-}
-
-.navbar-container button{
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  margin-top: 1rem;
-  border-radius: 10px;
-  padding: .5rem .5rem;
-}
-
-.navbar-container div {
-  display: flex;
-  align-items: center;
+body {
+    overflow: hidden;
 }
