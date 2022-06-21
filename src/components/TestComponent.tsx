@@ -16,9 +16,9 @@ export const TestComponent: React.FC<{}> = (props) => {
   useEffect(() => {
     async function postData() {
       await postJSON("http://localhost:4000/sentences", {
-        id: 7,
-        name: "Dummy Seven",
-        text: "I am dummy seven",
+        id: 10,
+        name: "Dummy Ten",
+        text: "I am dummy ten",
       });
     }
     postData();
