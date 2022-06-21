@@ -1,0 +1,19 @@
+{
+  "sentences": [
+    {
+      "id": 0,
+      "name": "Dummy One",
+      "text": "I am dummy one"
+    },
+    {
+      "id": 1,
+      "name": "Dummy Two",
+      "text": "I am dummy two"
+    },
+    {
+      "id": 3,
+      "name": "Dummy Three",
+      "text": "I am dummy three"
+    }
+  ]
+}

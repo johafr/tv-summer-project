@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SentenceCard } from "./SentenceCard";
+import { fetchJSON } from "../utils/fetchJSON";
 
 export const TestComponent: React.FC<{}> = (props) => {
+  const [data, setData] = useState([{}]);
+  useEffect(() => {
+    async function loadData() {
+      const res = await fetchJSON("http://localhost:4000/sentences");
+      setData(res);
+    }
+    loadData();
+  }, []);
+
+  console.log(data);
+
   return (
     <>
       <SentenceCard
