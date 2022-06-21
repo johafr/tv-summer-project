@@ -1,14 +1,8 @@
 
 import React, { useState } from "react";
+import { useRecoilState } from "recoil";
 import { json } from "stream/consumers";
-
-type Person = {
-  id : number,
-  name : string,
-  color? : string,
-  mood? : number
-}
-
+import {addSentence, Person, sentencesState} from "../atoms/sentences";
 // Expand with values at a later stage if needed, ie color or animation valeus...
 type Word = {
   id : number,
@@ -33,7 +27,7 @@ export const Editor: React.FC = () => {
 
   const [persons,setPersons] = useState<Person[]>(initialPersons)
   const [words,setWords] = useState<Word[]>([])
-  const [sentences,setSentences] = useState<Sentence[]>([])
+  const [sentences,setSentences] = useRecoilState(sentencesState)
   
 
   const handleInputText = () => {
@@ -60,8 +54,24 @@ export const Editor: React.FC = () => {
     setPersons(updatedList)
   }
 
+  const handleAddSentence = (e: React.FormEvent) => {
+    e.preventDefault()
+    const newSentence = {
+      id: sentences[sentences.length-1].id+1,
+      content: inputText
+    }
+
+    setSentences((currentSentences) => addSentence(currentSentences, newSentence));
+    setInputText('');
+  }
 
 
+  const listSentences = sentences
+  .map((sentence) => {
+    return (
+      <p>{sentence.content}</p>
+    )
+  })
 
   const listNames = persons
   .map((person) => {
@@ -90,12 +100,12 @@ export const Editor: React.FC = () => {
       </form>
     </div>
     <div className="editor__textForm">
-      <form onSubmit={handleInputText}>
+      <form onSubmit={(e) => handleAddSentence(e)}>
         <input type="text" placeholder ="Text" value={inputText} onChange={(event) => setInputText(event.target.value)}/>
       </form>
     </div>
     <div className="prodPreview" style={{display:"flex"}}>
-      <p></p>
+      <p>{listSentences}</p>
     </div>
     </div>
   )
