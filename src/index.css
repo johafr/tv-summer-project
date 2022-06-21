@@ -16,12 +16,13 @@ code {
 
 .editor {
   margin: 10px;
-  width:408px;
+  width:25.5rem;
+  position: relative;
 }
 
 .editor__nameList {
-  width: 406px;
-  height:200px;
+  width:25.3rem;
+  height:12.5rem;
 }
 
 .editor__nameList ul li {
@@ -44,8 +45,8 @@ code {
 }
 
 .editor__nameForm input {
-  width:400px;
-  height:30px;
+  width:25rem;
+  height:1.9rem;
   border-radius:15px;
   border: 1px solid black;
   text-align:center;
@@ -59,16 +60,19 @@ code {
 }
 
 .editor__textForm input {
-  min-width:403px;
+  min-width: 25rem;
   padding-top:2;
   padding-left:2;
   line-height:1em;
   border: none;
-
 }
 
 .editor__textForm input:focus {
   outline:none;
   
+}
+
+.editor__parent--div {
+  display: flex;
 }
 
