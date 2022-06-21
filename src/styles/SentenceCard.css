@@ -1,0 +1,22 @@
+.sentence-card-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    max-width: 10vw;
+}
+
+.sentence-card-container h3 {
+}
+
+.sentence-card-container p {
+    background-color: #DFD055;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px black;
+}
+
+.sentence-card-wrapper {
+    display: flex;
+    justify-content: center;
+}

@@ -4,6 +4,7 @@ import "./App.css";
 import { Editor } from "./screens/Editor";
 import { Preview } from "./screens/Preview";
 import { Navbar } from "./components/Navbar";
+import { TestComponent } from "./components/TestComponent";
 
 const Router: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const Router: React.FC = () => {
       <Routes>
         <Route element={<Editor />} path={"/"} />
         <Route element={<Preview />} path={"/preview"} />
+        <Route element={<TestComponent />} path={"/test"} />
       </Routes>
     </div>
   );
