@@ -1,11 +1,9 @@
-import { fontWeight } from "@mui/system";
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { json } from "stream/consumers";
 import { addPerson, personsState } from "../atoms/persons";
 import { addSentence, Person, sentencesState } from "../atoms/sentences";
 import { postJSON } from "../utils/postJSON";
-import { Preview } from "./Preview";
+import { DisplayScreen } from "../components/DisplayScreen";
 // Expand with values at a later stage if needed, ie color or animation valeus...
 type Word = {
   id: number;
@@ -166,7 +164,7 @@ export const Editor: React.FC = () => {
           </form>
         </div>
       </div>
-      {/*<Preview />*/}
+      <DisplayScreen />
     </div>
   );
 };
