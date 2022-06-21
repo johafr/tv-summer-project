@@ -40,6 +40,12 @@ export const Editor: React.FC = () => {
 
   const selectedPerson = persons.find((person) => person.name === inputName)
 
+  const handleSelectPerson = (selectedID : number) => {
+    const findPerson = persons.find((person) => person.id === selectedID)
+    if (findPerson) {setInputName(findPerson.name)}
+    
+  }
+
   // TODO: Convert to atom method
   const handleAddName = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,11 +66,23 @@ export const Editor: React.FC = () => {
       id: sentences[sentences.length-1].id+1,
       content: inputText
     }
-
     setSentences((currentSentences) => addSentence(currentSentences, newSentence));
     setInputText('');
   }
 
+
+  const listNames = persons
+  .map((person) => {
+    return (
+      <li
+      key={person.id} 
+      style={{backgroundColor: person.color?.toString()}}
+      onClick={(e) => handleSelectPerson(person.id)}
+      >
+        {person.name}
+      </li>
+    )
+  })
 
   const listSentences = sentences
   .map((sentence) => {
@@ -72,16 +90,6 @@ export const Editor: React.FC = () => {
       <p>{sentence.content}</p>
     )
   })
-
-  const listNames = persons
-  .map((person) => {
-    return (
-      <li style={{backgroundColor: person.color?.toString()}}>{person.name}</li>
-    )
-  })
-
-
-
 
 
   // Editor final return
