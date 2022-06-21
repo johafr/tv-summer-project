@@ -1,20 +1,63 @@
 import { Fab } from "@mui/material";
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { activeIndex } from "../atoms/displayScreens";
 import { DisplayMeasurments, screenMeasurments } from "../atoms/measurments";
-import "../CSS-styling/DisplayScreenStyling.css";
+import {
+  activePage,
+  getDisplayScreenLength,
+} from "../selectors/displayScreens";
+import "../styles/DisplayScreenStyling.css";
+import { SentenceCard, sentenceCardProps } from "./SentenceCard";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 
 export const DisplayScreen: React.FC = () => {
+  //Recoil values
   const [measurments] = useRecoilState(screenMeasurments);
+  const [pageNum, setPageNum] = useRecoilState(activeIndex);
+  //Recoil selectors
+  const activeScreen = useRecoilValue(activePage);
+  const numPages = useRecoilValue(getDisplayScreenLength);
+
+  const handleGoLeft = () => {
+    if (pageNum !== 0) {
+      setPageNum(pageNum - 1);
+    }
+  };
+
+  const handleGoRight = () => {
+    if (pageNum < numPages - 1) {
+      setPageNum(pageNum + 1);
+    }
+  };
+
   return (
     <>
       <Screen measurments={measurments}>
-        <Fab className="direction-left-button" size="small" />
+        <Fab
+          size="small"
+          onClick={handleGoLeft}
+          sx={{ backgroundColor: "green" }}
+        >
+          <ArrowLeftIcon sx={{ color: "white" }} />
+        </Fab>
         <OutputScreen measurments={measurments}>
           <Bump />
+          <ContentDiv measurments={measurments}>
+            {activeScreen.map((card: sentenceCardProps) => (
+              <SentenceCard name={card.name} text={card.text} />
+            ))}
+          </ContentDiv>
         </OutputScreen>
-        <Fab className="direction-right-button" size="small" />
+        <Fab
+          size="small"
+          onClick={handleGoRight}
+          sx={{ backgroundColor: "green" }}
+        >
+          <ArrowRightIcon sx={{ color: "white" }} />
+        </Fab>
       </Screen>
     </>
   );
@@ -48,4 +91,13 @@ const Screen = styled.div<{ measurments: DisplayMeasurments }>`
   justify-content: space-between;
   display: flex;
   align-items: center;
+`;
+
+const ContentDiv = styled.div<{ measurments: DisplayMeasurments }>`
+  width: ${(props) => props.measurments.width - 20}px;
+  height: ${(props) => props.measurments.height - 30}px;
+  margin-top: 20px;
+  margin-left: 10px;
+  background-color: #d3d3d3;
+  color: black;
 `;
