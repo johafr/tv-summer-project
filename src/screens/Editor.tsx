@@ -51,7 +51,7 @@ export const Editor: React.FC = () => {
       else return colorList[random]
     };
 
-    
+
     const newPerson = {
       id : persons[persons.length - 1].id +1,
       name : inputName,
@@ -76,6 +76,7 @@ export const Editor: React.FC = () => {
       name : selectedPerson?.name,
       text : newSentence.content,
     })
+    console.log(sentences)
   }
 
   const handleChangeSentence = async(e: React.FormEvent,curID : number) => {
