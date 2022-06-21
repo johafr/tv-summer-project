@@ -30,7 +30,7 @@ export const Editor: React.FC = () => {
   const [persons,setPersons] = useRecoilState(personsState)
   const [sentences,setSentences] = useRecoilState(sentencesState)
   
-
+  const colorList: string[] = ['#407178','#9CA9EA','#D6BF5A','#F49850']
 
 
 
@@ -43,9 +43,19 @@ export const Editor: React.FC = () => {
   // TODO: Convert to atom method
   const handleAddName = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Replace with a colorpicker or something..
+    const randomColor = () => { 
+      let random = Math.floor(Math.random() * persons.length)
+      if(persons.find((person) => person.color === colorList[random])) {randomColor()}
+      else return colorList[random]
+    };
+
+    
     const newPerson = {
       id : persons[persons.length - 1].id +1,
       name : inputName,
+      color: randomColor()
     }
     setPersons((currentPersons) => addPerson(currentPersons,newPerson))
   }
@@ -107,7 +117,7 @@ export const Editor: React.FC = () => {
     )
   })
 
-  // Delete2 when better solution exists
+  // Delete when better solution exists
   const listInputs = sentences
   .map((sentence) => {
     return (
@@ -146,11 +156,6 @@ export const Editor: React.FC = () => {
       </form>
       
     </div>
-    <div>
-      {listSentences}
-    </div>
-
-
   </div>
   )
 };
