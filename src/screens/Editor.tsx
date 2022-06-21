@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { json } from "stream/consumers";
 import { addPerson, personsState } from "../atoms/persons";
 import {addSentence, Person, sentencesState} from "../atoms/sentences";
+import { postJSON } from "../utils/postJSON";
 // Expand with values at a later stage if needed, ie color or animation valeus...
 type Word = {
   id : number,
@@ -49,7 +50,7 @@ export const Editor: React.FC = () => {
     setPersons((currentPersons) => addPerson(currentPersons,newPerson))
   }
 
-  const handleAddSentence = (e: React.FormEvent) => {
+  const handleAddSentence = async(e: React.FormEvent) => {
     e.preventDefault()
     const selectedPerson = persons.find((person) => inputName === person.name)
     const newSentence = {
@@ -59,20 +60,26 @@ export const Editor: React.FC = () => {
     }
     setSentences((currentSentences) => addSentence(currentSentences, newSentence));
     setInputText('');
-    console.log(sentences)
+    
+    await postJSON('http://localhost:4000/sentences', {
+      id : newSentence.id,
+      name : selectedPerson?.name,
+      text : newSentence.content,
+    })
   }
 
-  const handleChangeSentence = (e: React.FormEvent,curID : number) => {
+  const handleChangeSentence = async(e: React.FormEvent,curID : number) => {
     e.preventDefault()
     const selectedSentenceIndex = sentences.findIndex((sentence) => sentence.id === curID);
     const selectedSentence = sentences[selectedSentenceIndex];
-
     const updatedSentences = [
       ...sentences.slice(0,selectedSentenceIndex),
       {...selectedSentence,content: changeSentenceText},
       ...sentences.slice(selectedSentenceIndex + 1)
     ];
     setSentences(updatedSentences);
+
+    
   }
 
   // Lists all names that are availbile, otherwise empty.

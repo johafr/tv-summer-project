@@ -39,6 +39,11 @@
       "id": 10,
       "name": "Dummy Ten",
       "text": "I am dummy ten"
+    },
+    {
+      "id": 2,
+      "name": "Markus",
+      "text": "hei"
     }
   ]
 }
