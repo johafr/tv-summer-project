@@ -38,6 +38,15 @@ export const Navbar: React.FC = () => {
       >
         Preview
       </NavLink>
+      <NavLink
+        to="/test"
+        style={({ isActive }) => ({
+          borderBottom: isActive ? "6px double black" : "none",
+          color: isActive ? "#267659" : "black",
+        })}
+      >
+        Test
+      </NavLink>
       {username ? (
         <div>Logget inn som {username}</div>
       ) : (
