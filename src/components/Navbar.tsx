@@ -36,7 +36,7 @@ export const Navbar: React.FC = () => {
         Preview
       </NavLink>
       {username ? (
-        <div>Velkommen, {username}!</div>
+        <div>Logget inn som {username}</div>
       ) : (
         <Button variant="outlined" onClick={() => signInWithGoogle()}>
           Log in
