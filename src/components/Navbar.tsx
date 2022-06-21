@@ -51,9 +51,7 @@ export const Navbar: React.FC = () => {
       {username ? (
         <div>Logget inn som {username}</div>
       ) : (
-        <Button variant="outlined" onClick={() => signInWithGoogle()}>
-          Log in
-        </Button>
+        <Button onClick={() => signInWithGoogle()}>Log in</Button>
       )}
     </div>
   );
