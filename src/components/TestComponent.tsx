@@ -24,8 +24,6 @@ export const TestComponent: React.FC<{}> = (props) => {
     postData();
   }, []);
 
-  console.log(data);
-
   return (
     <>
       <SentenceCard
