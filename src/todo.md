@@ -1,0 +1,2 @@
+- Make custom theme
+- Implement different format for different phones
