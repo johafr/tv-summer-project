@@ -1,0 +1,44 @@
+{
+  "sentences": [
+    {
+      "id": 0,
+      "name": "Dummy One",
+      "text": "I am dummy one"
+    },
+    {
+      "id": 1,
+      "name": "Dummy Two",
+      "text": "I am dummy two"
+    },
+    {
+      "id": 3,
+      "name": "Dummy Three",
+      "text": "I am dummy three"
+    },
+    {
+      "id": 4,
+      "name": "Dummy Four (from Postman)",
+      "text": "I am dummy our"
+    },
+    {
+      "id": 5,
+      "name": "Dummy Five (from Postman)",
+      "text": "I am dummy five"
+    },
+    {
+      "id": 6,
+      "name": "Dummy Six",
+      "text": "I am dummy six"
+    },
+    {
+      "id": 7,
+      "name": "Dummy Seven",
+      "text": "I am dummy seven"
+    },
+    {
+      "id": 10,
+      "name": "Dummy Ten",
+      "text": "I am dummy ten"
+    }
+  ]
+}

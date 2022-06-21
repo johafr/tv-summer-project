@@ -1,17 +1,17 @@
 import React from "react";
 import "../styles/SentenceCard.css";
 
-type Props = {
+export type sentenceCardProps = {
   name: string;
   text: string;
 };
 
-export const SentenceCard: React.FC<Props> = ({ name, text }) => {
+export const SentenceCard: React.FC<sentenceCardProps> = (props) => {
   return (
     <div className={"sentence-card-wrapper"}>
       <div className="sentence-card-container">
-        <h3>{name}</h3>
-        <p>{text}</p>
+        <h3>{props.name}</h3>
+        <p>{props.text}</p>
       </div>
     </div>
   );
