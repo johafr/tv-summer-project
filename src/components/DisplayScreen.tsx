@@ -92,6 +92,7 @@ const Screen = styled.div<{ measurments: DisplayMeasurments }>`
   justify-content: space-between;
   display: flex;
   align-items: center;
+  background-color: #232223;
 `;
 
 const ContentDiv = styled.div<{ measurments: DisplayMeasurments }>`
