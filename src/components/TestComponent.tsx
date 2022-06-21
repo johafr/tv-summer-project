@@ -13,7 +13,7 @@ export const TestComponent: React.FC<{}> = (props) => {
     loadData();
   }, []);
 
-  useEffect(() => {
+  /*useEffect(() => {
     async function postData() {
       await postJSON("http://localhost:4000/sentences", {
         id: 10,
@@ -22,7 +22,7 @@ export const TestComponent: React.FC<{}> = (props) => {
       });
     }
     postData();
-  }, []);
+  }, []);*/
 
   return (
     <>
