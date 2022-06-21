@@ -76,12 +76,6 @@ export const Editor: React.FC = () => {
     console.log(sentences)
   }
 
-    await postJSON("http://localhost:4000/sentences", {
-      id: newSentence.id,
-      name: selectedPerson?.name,
-      text: newSentence.content,
-    });
-  };
 
   const handleChangeSentence = async (e: React.FormEvent, curID: number) => {
     e.preventDefault();
