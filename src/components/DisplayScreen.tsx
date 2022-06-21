@@ -4,6 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { activeIndex } from "../atoms/displayScreens";
 import { DisplayMeasurments, screenMeasurments } from "../atoms/measurments";
+
 import {
   activePage,
   getDisplayScreenLength,

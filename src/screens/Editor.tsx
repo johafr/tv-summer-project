@@ -1,7 +1,9 @@
 
+import { fontWeight } from "@mui/system";
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import { json } from "stream/consumers";
+import { addPerson, personsState } from "../atoms/persons";
 import {addSentence, Person, sentencesState} from "../atoms/sentences";
 // Expand with values at a later stage if needed, ie color or animation valeus...
 type Word = {
@@ -15,30 +17,20 @@ type Sentence = {
   content : Word[],
 }
 
-const initialPersons = [
-  {id : 1, name: 'Markus',color: 'rgb(132, 176, 214'},
-  {id : 2, name : 'Lisa', color: 'rgb(10, 214, 214'},
-]
+
 const initialName = 'Markus'
 export const Editor: React.FC = () => {
 
   const [inputName,setInputName] = useState<string>(initialName);
   const [inputText,setInputText] = useState<string>("");
-
-  const [persons,setPersons] = useState<Person[]>(initialPersons)
   const [words,setWords] = useState<Word[]>([])
+
+  const [persons,setPersons] = useRecoilState(personsState)
   const [sentences,setSentences] = useRecoilState(sentencesState)
   
 
-  const handleInputText = () => {
-    setInputText(inputText);
-  }
 
-  const handleNameChange = () => {
-    setInputName(inputName);
-  }
 
-  const selectedPerson = persons.find((person) => person.name === inputName)
 
   const handleSelectPerson = (selectedID : number) => {
     const findPerson = persons.find((person) => person.id === selectedID)
@@ -53,11 +45,7 @@ export const Editor: React.FC = () => {
       id : persons[persons.length - 1].id +1,
       name : inputName,
     }
-    const updatedList = [
-      ...persons,
-      newPerson,
-    ]
-    setPersons(updatedList)
+    setPersons((currentPersons) => addPerson(currentPersons,newPerson))
   }
 
   const handleAddSentence = (e: React.FormEvent) => {
@@ -73,10 +61,14 @@ export const Editor: React.FC = () => {
 
   const listNames = persons
   .map((person) => {
+    
+    const selectedPerson = (name : string) => {if(name === inputName) return true;}
+    
     return (
       <li
       key={person.id} 
-      style={{backgroundColor: person.color?.toString()}}
+      style={{backgroundColor: person.color?.toString(),
+      fontWeight: selectedPerson(person.name) ? 'bold' : 'normal'}}
       onClick={(e) => handleSelectPerson(person.id)}
       >
         {person.name}
@@ -109,12 +101,10 @@ export const Editor: React.FC = () => {
     </div>
     <div className="editor__textForm">
       <form onSubmit={(e) => handleAddSentence(e)}>
-        <input type="text" placeholder ="Text" value={inputText} onChange={(event) => setInputText(event.target.value)}/>
+        <input type="text" placeholder ="Write a sentence..." value={inputText} onChange={(event) => setInputText(event.target.value)}/>
       </form>
     </div>
-    <div className="prodPreview" style={{display:"flex"}}>
-      <p>{listSentences}</p>
-    </div>
-    </div>
+    <div> {listSentences}</div>
+  </div>
   )
 };

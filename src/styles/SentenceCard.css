@@ -2,11 +2,12 @@
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    margin: 0;
     max-width: 10vw;
+    margin-bottom: 2rem;
 }
 
 .sentence-card-container h3 {
+    margin: 0;
 }
 
 .sentence-card-container p {
@@ -14,6 +15,7 @@
     padding: 10px;
     border-radius: 10px;
     box-shadow: 2px 2px 5px black;
+    margin: 0;
 }
 
 .sentence-card-wrapper {
