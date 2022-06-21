@@ -21,6 +21,7 @@ code {
 
 .editor__nameList {
   width: 406px;
+  height:200px;
 }
 
 .editor__nameList ul li {
@@ -48,8 +49,16 @@ code {
 }
 
 .editor__textForm input {
-  width:400px;
-  height:200px;
+  min-width:403px;
+  padding-top:2;
+  padding-left:2;
+  line-height:1em;
+  border: none;
+  border-bottom: 0.1px solid lightgrey;
+}
 
+.editor__textForm input:focus {
+  outline:none;
+  
 }
 
