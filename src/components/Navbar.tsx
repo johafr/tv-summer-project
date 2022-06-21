@@ -9,12 +9,15 @@ import { Button } from "@mui/material";
 export const Navbar: React.FC = () => {
   const [username, setUsername] = useRecoilState(usernameState);
 
+  // Checks if the user is logged in, and sets the username if the person is logged in
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setUsername(user?.displayName);
     });
   }, []);
 
+  // Navigation bar, with links to respective paths
+  // Checks which link is active and styles the active link
   return (
     <div className="navbar-container">
       <NavLink
