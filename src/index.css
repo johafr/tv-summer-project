@@ -53,8 +53,7 @@ code {
 
 .editor__textForm {
   margin-top:20px;
-  border:1px solid black;
-  border-radius:15px;
+  border-left: 1px solid #adadad;
   padding:15px;
   width:500px;
 }
