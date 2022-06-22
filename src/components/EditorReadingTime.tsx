@@ -22,8 +22,8 @@ export const EditorReadingTime: React.FC<Props> = ({  }) => {
     })
 
     // Calculate est. reading time based on 250 words per minute.
-    if(wordCount < 200) { readingTime = '< 0'}
-    else {readingTime = Math.ceil(wordCount/250);}
+    if(wordCount < 100) { readingTime = '< 0'}
+    else {readingTime = Math.ceil(wordCount/100);}
 
     
 

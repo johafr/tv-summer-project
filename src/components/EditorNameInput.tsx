@@ -1,7 +1,9 @@
 import React from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useRecoilState } from "recoil";
 import { inputNameState } from "../atoms/inputName";
 import { addPerson, personsState } from "../atoms/persons";
+import { Tooltip } from "@mui/material";
 import * as S from "../styles/components/EditorNameInput";
 
 // Component props
