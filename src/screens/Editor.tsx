@@ -4,37 +4,29 @@ import { DisplayScreen } from "../components/DisplayScreen";
 import { EditorReadingTime } from "../components/EditorReadingTime";
 import { EditorNameInput } from "../components/EditorNameInput";
 import { EditorTextInput } from "../components/EditorTextInput";
-import styled from "styled-components";
-// Expand with values at a later stage if needed, ie color or animation valeus...
+import * as S from "../styles/screens/EditorStyles";
+
+// Expand with values at a later stage if needed, ie color or animation values...
 type Word = {
   id: number;
   content: string;
 };
 // Expand with values at a later stage if needed, ie color or animation values...
 
-
-
 export const Editor: React.FC = () => {
-
-
   // Editor final return
   return (
-    <div className="editor__parent--div">
-      <div className="editor">
-        <EditorNameInput/>
-        <EditorReadingTime/>
-        <div className="editor__textForm">
-          <EditorTextInput/>
-        </div>
-      </div>
-      <DisplayScreenContainer>
+    <S.ParentDiv>
+      <S.Editor>
+        <EditorNameInput />
+        <EditorReadingTime />
+        <S.TextForm>
+          <EditorTextInput />
+        </S.TextForm>
+      </S.Editor>
+      <S.DisplayScreenContainer>
         <DisplayScreen />
-      </DisplayScreenContainer>
-    </div>
+      </S.DisplayScreenContainer>
+    </S.ParentDiv>
   );
 };
-
-const DisplayScreenContainer = styled.div`
-  position: relative;
-  left: 25rem;
-`;
