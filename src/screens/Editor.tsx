@@ -4,6 +4,7 @@ import { addPerson, personsState } from "../atoms/persons";
 import { addSentence, Person, sentencesState } from "../atoms/sentences";
 import { postJSON } from "../utils/postJSON";
 import { DisplayScreen } from "../components/DisplayScreen";
+import styled from "styled-components";
 // Expand with values at a later stage if needed, ie color or animation valeus...
 type Word = {
   id: number;
@@ -164,7 +165,14 @@ export const Editor: React.FC = () => {
           </form>
         </div>
       </div>
-      <DisplayScreen />
+      <DisplayScreenContainer>
+        <DisplayScreen />
+      </DisplayScreenContainer>
     </div>
   );
 };
+
+const DisplayScreenContainer = styled.div`
+  position: relative;
+  left: 25rem;
+`;
