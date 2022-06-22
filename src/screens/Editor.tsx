@@ -3,8 +3,8 @@ import React from "react";
 import { DisplayScreen } from "../components/DisplayScreen";
 import { EditorReadingTime } from "../components/EditorReadingTime";
 import { EditorNameInput } from "../components/EditorNameInput";
-
 import { EditorTextInput } from "../components/EditorTextInput";
+import styled from "styled-components";
 // Expand with values at a later stage if needed, ie color or animation valeus...
 type Word = {
   id: number;
@@ -27,7 +27,14 @@ export const Editor: React.FC = () => {
           <EditorTextInput/>
         </div>
       </div>
-      <DisplayScreen />
+      <DisplayScreenContainer>
+        <DisplayScreen />
+      </DisplayScreenContainer>
     </div>
   );
 };
+
+const DisplayScreenContainer = styled.div`
+  position: relative;
+  left: 25rem;
+`;
