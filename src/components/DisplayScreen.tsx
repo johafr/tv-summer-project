@@ -1,7 +1,9 @@
-import { Fab } from "@mui/material";
+import { Fab, Theme as ThemeInterface } from "@mui/material";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { activeIndex } from "../atoms/displayScreens";
+
+import { Theme } from "../styles/Theme";
 import { DisplayMeasurements, screenMeasurements } from "../atoms/measurements";
 import * as S from "../styles/components/DisplayScreenStyles";
 
@@ -43,15 +45,16 @@ export const DisplayScreen: React.FC = () => {
           id="fab"
           size="small"
           onClick={handleGoLeft}
-          sx={{ backgroundColor: "green", boxShadow: "none" }}
+
+          sx={{ backgroundColor: Theme.palette.primary.main }}
         >
           <ArrowLeftIcon sx={{ color: "white" }} />
         </Fab>
+            {activeScreen.map((card: sentenceCardProps) => (
+              <SentenceCard name={card.name} text={card.text} />
         <S.OutputScreen measurements={measurements}>
-          <S.Bump />
+          <S.Bump theme={Theme}/>
           <S.ContentDiv measurements={measurements}>
-            {sentences.map((sentence) => (
-              <SentenceCard person={sentence.person} content={sentence.content} />
             ))}
           </S.ContentDiv>
         </S.OutputScreen>
@@ -59,7 +62,9 @@ export const DisplayScreen: React.FC = () => {
           id="fab"
           size="small"
           onClick={handleGoRight}
-          sx={{ backgroundColor: "green", boxShadow: "none" }}
+
+          sx={{ backgroundColor: Theme.palette.primary.main }}
+
         >
           <ArrowRightIcon sx={{ color: "white" }} />
         </Fab>
