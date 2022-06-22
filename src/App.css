@@ -14,3 +14,23 @@ body {
   z-index: 2;
   color: rgba(0, 0, 0, 0.5);
 }
+
+@media only screen and (max-width: 480px) {
+  .navbar-container > * {
+    display: none;
+  }
+
+  body {
+    overflow: auto;
+  }
+
+  .mobile-style-container {
+    position: relative;
+    top: 1rem;
+    left: 1rem;
+  }
+
+  #fab {
+    display: none;
+  }
+}

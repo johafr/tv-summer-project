@@ -12,6 +12,12 @@ const defaultMeasurements: DisplayMeasurements = {
   height: 422 * 1.5,
 };
 
+export const iphoneEight: DisplayMeasurements = {
+  premade: "iphone 8",
+  width: 375 / 1.5,
+  height: 767 / 1.5,
+};
+
 export const screenMeasurements: RecoilState<DisplayMeasurements> = atom({
   key: "Measurements",
   default: defaultMeasurements,
