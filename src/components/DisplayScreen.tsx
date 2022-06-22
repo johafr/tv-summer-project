@@ -37,9 +37,10 @@ export const DisplayScreen: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="mobile-style-container">
       <S.Screen measurements={measurements}>
         <Fab
+          id="fab"
           size="small"
           onClick={handleGoLeft}
           sx={{ backgroundColor: "green", boxShadow: "none" }}
@@ -55,6 +56,7 @@ export const DisplayScreen: React.FC = () => {
           </S.ContentDiv>
         </S.OutputScreen>
         <Fab
+          id="fab"
           size="small"
           onClick={handleGoRight}
           sx={{ backgroundColor: "green", boxShadow: "none" }}
@@ -62,6 +64,6 @@ export const DisplayScreen: React.FC = () => {
           <ArrowRightIcon sx={{ color: "white" }} />
         </Fab>
       </S.Screen>
-    </>
+    </div>
   );
 };

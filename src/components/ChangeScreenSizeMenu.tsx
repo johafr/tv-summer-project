@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import * as S from "../styles/components/ChangeScreenSizeMenuStyles";
+import { screenMeasurements } from "../atoms/measurements";
+import { useRecoilState } from "recoil";
+import { iphoneEight } from "../atoms/measurements";
 
 export const ChangeScreenSizeMenu: React.FC = () => {
   const [clicked, setClicked] = useState<boolean>(false);
+  const [screenSize, setScreenSize] = useRecoilState(screenMeasurements);
 
   const handleOpenModal = () => {
     setClicked(!clicked);
@@ -28,6 +32,9 @@ export const ChangeScreenSizeMenu: React.FC = () => {
             <S.ContentRow>Ipad</S.ContentRow>
             <S.ContentRow>Samsung galaxy 10</S.ContentRow>
             <S.ContentRow>Desktop</S.ContentRow>
+            <S.ContentRow onClick={() => setScreenSize(iphoneEight)}>
+              iPhone 8
+            </S.ContentRow>
           </S.TableBody>
           <S.TableFooter>
             <S.CloseButton onClick={() => setClicked(false)}>
