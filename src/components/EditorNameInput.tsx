@@ -1,7 +1,9 @@
 import React from "react";
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useRecoilState } from "recoil";
 import { inputNameState } from "../atoms/inputName";
 import { addPerson, personsState } from "../atoms/persons";
+import { Tooltip } from "@mui/material";
 
 // Component props
 type Props = {
@@ -47,16 +49,26 @@ export const EditorNameInput: React.FC<Props> = ({  }) => {
         };
     
         return (
+        <div className="editor__nameList-item" style={{backgroundColor: person.color?.toString(),}}>
+        <Tooltip title="Name" placement="top-end"> 
+        
           <li
             key={person.id}
             style={{
-              backgroundColor: person.color?.toString(),
+              
               fontWeight: selectedPerson(person.name) ? "bold" : "normal",
             }}
             onClick={(e) => handleSelectPerson(person.id)}
           >
-            {person.name}
+            {person.name} 
           </li>
+        
+        </Tooltip>
+        <div >
+            <DeleteIcon className="editor__delete-button" sx={{fontSize:20,color:'#407178',position:'relative',top:-30,right:-100}}/>
+        </div>
+        </div>
+        
         );
       });
 

@@ -13,6 +13,7 @@ import "../styles/DisplayScreenStyling.css";
 import { SentenceCard, sentenceCardProps } from "./SentenceCard";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import { sentencesState } from "../atoms/sentences";
 
 export const DisplayScreen: React.FC = () => {
   //Recoil values
@@ -21,6 +22,7 @@ export const DisplayScreen: React.FC = () => {
   //Recoil selectors
   const activeScreen = useRecoilValue(activePage);
   const numPages = useRecoilValue(getDisplayScreenLength);
+  const [sentences,] = useRecoilState(sentencesState)
 
   const handleGoLeft = () => {
     if (pageNum !== 0) {
@@ -47,8 +49,8 @@ export const DisplayScreen: React.FC = () => {
         <S.OutputScreen measurements={measurements}>
           <S.Bump />
           <S.ContentDiv measurements={measurements}>
-            {activeScreen.map((card: sentenceCardProps) => (
-              <SentenceCard name={card.name} text={card.text} />
+            {sentences.map((sentence) => (
+              <SentenceCard person={sentence.person} content={sentence.content} />
             ))}
           </S.ContentDiv>
         </S.OutputScreen>

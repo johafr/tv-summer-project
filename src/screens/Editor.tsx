@@ -5,12 +5,7 @@ import { EditorReadingTime } from "../components/EditorReadingTime";
 import { EditorNameInput } from "../components/EditorNameInput";
 import { EditorTextInput } from "../components/EditorTextInput";
 import styled from "styled-components";
-// Expand with values at a later stage if needed, ie color or animation valeus...
-type Word = {
-  id: number;
-  content: string;
-};
-// Expand with values at a later stage if needed, ie color or animation values...
+
 
 
 
