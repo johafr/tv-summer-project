@@ -50,9 +50,9 @@ export const Navbar: React.FC = () => {
         Test
       </NavLink>
       {username ? (
-        <S.LoggedInDiv>Logget inn som {username}</S.LoggedInDiv>
+        <S.LoggedInDiv>Logged in as {username}</S.LoggedInDiv>
       ) : (
-        <Button onClick={() => signInWithGoogle()}>Log in</Button>
+        <Button onClick={() => signInWithGoogle()}>Log In</Button>
       )}
     </S.Container>
   );
