@@ -5,6 +5,8 @@ import { Editor } from "./screens/Editor";
 import { Preview } from "./screens/Preview";
 import { Navbar } from "./components/Navbar";
 import { TestComponent } from "./components/TestComponent";
+import { ThemeProvider } from "@mui/material/styles";
+import { Theme } from "./styles/Theme";
 
 const Router: React.FC = () => {
   return (
@@ -20,11 +22,11 @@ const Router: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <>
+    <ThemeProvider theme={Theme}>
       {/*<h1 className="development">Under development</h1>*/}
       <Navbar />
       <Router />
-    </>
+    </ThemeProvider>
   );
 };
 

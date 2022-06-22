@@ -7,8 +7,7 @@ export const activePage = selector<sentenceCardProps[]>({
   get: ({ get }) => {
     const activeIndex = get(aI);
     const displayed = get(displayScreen);
-    const activeSentences = [...displayed[activeIndex]];
-
+    const activeSentences = displayed[activeIndex];
     return activeSentences;
   },
 });

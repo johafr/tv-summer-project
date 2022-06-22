@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { DisplayMeasurements } from "../../atoms/measurements";
+import { Theme as MuiTheme } from "@mui/material";
 
 export const OutputScreen = styled.div<{ measurements: DisplayMeasurements }>`
   width: ${(props) => props.measurements.width}px;
@@ -10,7 +11,7 @@ export const OutputScreen = styled.div<{ measurements: DisplayMeasurements }>`
   border: 1px solid black;
 `;
 
-export const Bump = styled.span`
+export const Bump = styled.span<{ Theme: MuiTheme }>`
   position: absolute;
   left: 50%;
   width: 100px;
@@ -18,7 +19,7 @@ export const Bump = styled.span`
   margin-left: -50px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  background-color: #333333;
+  background-color: ${(props) => props.Theme.palette.primary.main};
 `;
 
 export const Screen = styled.div<{ measurements: DisplayMeasurements }>`

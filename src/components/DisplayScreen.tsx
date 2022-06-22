@@ -2,7 +2,9 @@ import { Fab } from "@mui/material";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { activeIndex } from "../atoms/displayScreens";
-import { DisplayMeasurements, screenMeasurements } from "../atoms/measurements";
+
+import { Theme } from "../styles/Theme";
+import { screenMeasurements } from "../atoms/measurements";
 import * as S from "../styles/components/DisplayScreenStyles";
 
 import {
@@ -13,7 +15,6 @@ import "../styles/DisplayScreenStyling.css";
 import { SentenceCard, sentenceCardProps } from "./SentenceCard";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import { sentencesState } from "../atoms/sentences";
 
 export const DisplayScreen: React.FC = () => {
   //Recoil values
@@ -22,7 +23,6 @@ export const DisplayScreen: React.FC = () => {
   //Recoil selectors
   const activeScreen = useRecoilValue(activePage);
   const numPages = useRecoilValue(getDisplayScreenLength);
-  const [sentences,] = useRecoilState(sentencesState)
 
   const handleGoLeft = () => {
     if (pageNum !== 0) {
@@ -43,15 +43,15 @@ export const DisplayScreen: React.FC = () => {
           id="fab"
           size="small"
           onClick={handleGoLeft}
-          sx={{ backgroundColor: "green", boxShadow: "none" }}
+          sx={{ backgroundColor: Theme.palette.primary.main }}
         >
           <ArrowLeftIcon sx={{ color: "white" }} />
         </Fab>
         <S.OutputScreen measurements={measurements}>
-          <S.Bump />
+          <S.Bump Theme={Theme} />
           <S.ContentDiv measurements={measurements}>
-            {sentences.map((sentence) => (
-              <SentenceCard person={sentence.person} content={sentence.content} />
+            {activeScreen.map((card: sentenceCardProps) => (
+              <SentenceCard name={card.name} content={card.content} />
             ))}
           </S.ContentDiv>
         </S.OutputScreen>
@@ -59,7 +59,7 @@ export const DisplayScreen: React.FC = () => {
           id="fab"
           size="small"
           onClick={handleGoRight}
-          sx={{ backgroundColor: "green", boxShadow: "none" }}
+          sx={{ backgroundColor: Theme.palette.primary.main }}
         >
           <ArrowRightIcon sx={{ color: "white" }} />
         </Fab>
