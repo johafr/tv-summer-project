@@ -47,13 +47,14 @@ export const DisplayScreen: React.FC = () => {
         >
           <ArrowLeftIcon sx={{ color: "white" }} />
         </Fab>
-        {activeScreen.map((card: sentenceCardProps) => (
-          <S.OutputScreen measurements={measurements}>
-            <SentenceCard name={card.name} content={card.content} />
-            <S.Bump theme={Theme} />
-            <S.ContentDiv measurements={measurements}></S.ContentDiv>
-          </S.OutputScreen>
-        ))}
+        <S.OutputScreen measurements={measurements}>
+          <S.Bump theme={Theme} />{" "}
+          <S.ContentDiv measurements={measurements}>
+            {activeScreen.map((card: sentenceCardProps) => (
+              <SentenceCard name={card.name} content={card.content} />
+            ))}
+          </S.ContentDiv>
+        </S.OutputScreen>
         <Fab
           id="fab"
           size="small"
