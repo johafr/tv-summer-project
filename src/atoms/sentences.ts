@@ -6,14 +6,14 @@ export type Person = {
     name : string,
     color? : string,
     mood? : number
-  }  
+}  
 
-// Expand with values at a later stage if needed, ie color or animation valeus...
+// Expand with values at a later stage if needed, ie color or animation values...
 export type Word = {
     id : number,
     content : string,
-  }
-  // Expand with values at a later stage if needed, ie color or animation values...
+}
+// Expand with values at a later stage if needed, ie color or animation values...
 export type Sentence = {
     id : number,
     person?: Person

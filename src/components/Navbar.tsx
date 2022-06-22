@@ -5,7 +5,8 @@ import { useRecoilState } from "recoil";
 import { usernameState } from "../atoms/username";
 import { auth } from "../Firebase";
 import { Button } from "@mui/material";
-import "../styles/Navbar.css";
+import "../styles/components/Navbar.css";
+import * as S from "../styles/components/NavbarStyles";
 
 export const Navbar: React.FC = () => {
   const [username, setUsername] = useRecoilState(usernameState);
@@ -20,7 +21,7 @@ export const Navbar: React.FC = () => {
   // Navigation bar, with links to respective paths
   // Checks which link is active and styles the active link
   return (
-    <div className="navbar-container">
+    <S.Container className="navbar-container">
       <NavLink
         to="/"
         style={({ isActive }) => ({
@@ -49,10 +50,10 @@ export const Navbar: React.FC = () => {
         Test
       </NavLink>
       {username ? (
-        <div>Logget inn som {username}</div>
+        <S.LoggedInDiv>Logged in as {username}</S.LoggedInDiv>
       ) : (
-        <Button onClick={() => signInWithGoogle()}>Log in</Button>
+        <Button onClick={() => signInWithGoogle()}>Log In</Button>
       )}
-    </div>
+    </S.Container>
   );
 };

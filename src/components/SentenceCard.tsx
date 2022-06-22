@@ -1,18 +1,20 @@
 import React from "react";
-import "../styles/SentenceCard.css";
+import { personsState } from "../atoms/persons";
+import { Person } from "../atoms/sentences";
+import * as S from "../styles/components/SentenceCardStyles";
 
 export type sentenceCardProps = {
-  name: string;
-  text: string;
+  person: Person | undefined
+  content: string;
 };
 
-export const SentenceCard: React.FC<sentenceCardProps> = (props) => {
+export const SentenceCard: React.FC<sentenceCardProps> = ({person, content}) => {
   return (
-    <div className={"sentence-card-wrapper"}>
-      <div className="sentence-card-container">
-        <h3>{props.name}</h3>
-        <p>{props.text}</p>
-      </div>
-    </div>
+    <S.Wrapper>
+      <S.Container>
+        <S.Name>{person?.name}</S.Name>
+        <S.Text>{content}</S.Text>
+      </S.Container>
+    </S.Wrapper>
   );
 };
