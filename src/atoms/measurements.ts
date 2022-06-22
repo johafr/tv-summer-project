@@ -8,8 +8,8 @@ export type DisplayMeasurements = {
 
 const defaultMeasurements: DisplayMeasurements = {
   premade: "iphone 13",
-  width: 195 * 1.5,
-  height: 422 * 1.5,
+  width: 195,
+  height: 422,
 };
 
 export const iphoneEight: DisplayMeasurements = {
