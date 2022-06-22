@@ -3,7 +3,7 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { activeIndex } from "../atoms/displayScreens";
-import { DisplayMeasurments, screenMeasurments } from "../atoms/measurments";
+import { DisplayMeasurements, screenMeasurements } from "../atoms/measurements";
 
 import {
   activePage,
@@ -16,7 +16,7 @@ import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 
 export const DisplayScreen: React.FC = () => {
   //Recoil values
-  const [measurments] = useRecoilState(screenMeasurments);
+  const [measurements] = useRecoilState(screenMeasurements);
   const [pageNum, setPageNum] = useRecoilState(activeIndex);
   //Recoil selectors
   const activeScreen = useRecoilValue(activePage);
@@ -36,17 +36,17 @@ export const DisplayScreen: React.FC = () => {
 
   return (
     <>
-      <Screen measurments={measurments}>
+      <Screen measurements={measurements}>
         <Fab
           size="small"
           onClick={handleGoLeft}
-          sx={{ backgroundColor: "green" }}
+          sx={{ backgroundColor: "green", boxShadow: "none" }}
         >
           <ArrowLeftIcon sx={{ color: "white" }} />
         </Fab>
-        <OutputScreen measurments={measurments}>
+        <OutputScreen measurements={measurements}>
           <Bump />
-          <ContentDiv measurments={measurments}>
+          <ContentDiv measurements={measurements}>
             {activeScreen.map((card: sentenceCardProps) => (
               <SentenceCard name={card.name} text={card.text} />
             ))}
@@ -55,7 +55,7 @@ export const DisplayScreen: React.FC = () => {
         <Fab
           size="small"
           onClick={handleGoRight}
-          sx={{ backgroundColor: "green" }}
+          sx={{ backgroundColor: "green", boxShadow: "none" }}
         >
           <ArrowRightIcon sx={{ color: "white" }} />
         </Fab>
@@ -64,9 +64,9 @@ export const DisplayScreen: React.FC = () => {
   );
 };
 
-const OutputScreen = styled.div<{ measurments: DisplayMeasurments }>`
-  width: ${(props) => props.measurments.width}px;
-  height: ${(props) => props.measurments.height}px;
+const OutputScreen = styled.div<{ measurements: DisplayMeasurements }>`
+  width: ${(props) => props.measurements.width}px;
+  height: ${(props) => props.measurements.height}px;
   border-radius: 10px;
   background-color: white;
   margin-top: 0%;
@@ -84,11 +84,11 @@ const Bump = styled.span`
   background-color: #333333;
 `;
 
-const Screen = styled.div<{ measurments: DisplayMeasurments }>`
+const Screen = styled.div<{ measurements: DisplayMeasurements }>`
   position: relative;
-  width: ${(props) => props.measurments.width + 100}px;
+  width: ${(props) => props.measurements.width + 100}px;
   left: 50%;
-  margin-left: ${(props) => -props.measurments.width / 2 - 50}px;
+  margin-left: ${(props) => -props.measurements.width / 2 - 50}px;
   height: 90vh;
   justify-content: space-between;
   display: flex;
@@ -96,9 +96,9 @@ const Screen = styled.div<{ measurments: DisplayMeasurments }>`
   overflow: hidden;
 `;
 
-const ContentDiv = styled.div<{ measurments: DisplayMeasurments }>`
-  width: ${(props) => props.measurments.width - 20}px;
-  height: ${(props) => props.measurments.height - 30}px;
+const ContentDiv = styled.div<{ measurements: DisplayMeasurements }>`
+  width: ${(props) => props.measurements.width - 20}px;
+  height: ${(props) => props.measurements.height - 30}px;
   margin-top: 20px;
   margin-left: 10px;
   background-color: #d3d3d3;
