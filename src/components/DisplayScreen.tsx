@@ -1,4 +1,4 @@
-import { Fab, Theme as ThemeInterface } from "@mui/material";
+import { Fab } from "@mui/material";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { activeIndex } from "../atoms/displayScreens";
@@ -48,7 +48,7 @@ export const DisplayScreen: React.FC = () => {
           <ArrowLeftIcon sx={{ color: "white" }} />
         </Fab>
         <S.OutputScreen measurements={measurements}>
-          <S.Bump theme={Theme} />{" "}
+          <S.Bump Theme={Theme} />
           <S.ContentDiv measurements={measurements}>
             {activeScreen.map((card: sentenceCardProps) => (
               <SentenceCard name={card.name} content={card.content} />
