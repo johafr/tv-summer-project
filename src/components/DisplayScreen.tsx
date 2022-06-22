@@ -1,9 +1,10 @@
-import { Fab } from "@mui/material";
+import { Fab, Theme as ThemeInterface } from "@mui/material";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { activeIndex } from "../atoms/displayScreens";
 import { DisplayMeasurments, screenMeasurments } from "../atoms/measurments";
+import { Theme } from "../styles/Theme";
 
 import {
   activePage,
@@ -40,12 +41,12 @@ export const DisplayScreen: React.FC = () => {
         <Fab
           size="small"
           onClick={handleGoLeft}
-          sx={{ backgroundColor: "green" }}
+          sx={{ backgroundColor: Theme.palette.primary.main }}
         >
           <ArrowLeftIcon sx={{ color: "white" }} />
         </Fab>
         <OutputScreen measurments={measurments}>
-          <Bump />
+          <Bump theme={Theme} />
           <ContentDiv measurments={measurments}>
             {activeScreen.map((card: sentenceCardProps) => (
               <SentenceCard name={card.name} text={card.text} />
@@ -55,7 +56,7 @@ export const DisplayScreen: React.FC = () => {
         <Fab
           size="small"
           onClick={handleGoRight}
-          sx={{ backgroundColor: "green" }}
+          sx={{ backgroundColor: Theme.palette.primary.main }}
         >
           <ArrowRightIcon sx={{ color: "white" }} />
         </Fab>
@@ -73,7 +74,7 @@ const OutputScreen = styled.div<{ measurments: DisplayMeasurments }>`
   border: 1px solid black;
 `;
 
-const Bump = styled.span`
+const Bump = styled.span<{ theme: ThemeInterface }>`
   position: absolute;
   left: 50%;
   width: 100px;
@@ -81,7 +82,8 @@ const Bump = styled.span`
   margin-left: -50px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  background-color: #333333;
+  //background-color: #333333;
+  background-color: ${(props) => props.theme.palette.primary.main};
 `;
 
 const Screen = styled.div<{ measurments: DisplayMeasurments }>`
