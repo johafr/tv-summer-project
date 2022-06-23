@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { signInWithGoogle } from "../Firebase";
+import { signInWithGoogle, signOutWithGoogle } from "../Firebase";
 import { useRecoilState } from "recoil";
 import { usernameState } from "../atoms/username";
 import { auth } from "../Firebase";
@@ -49,8 +49,9 @@ export const Navbar: React.FC = () => {
       >
         Test
       </NavLink>
+      {username && <S.LoggedInDiv>Logged in as {username}</S.LoggedInDiv>}
       {username ? (
-        <S.LoggedInDiv>Logged in as {username}</S.LoggedInDiv>
+        <Button onClick={() => signOutWithGoogle()}>Log Out</Button>
       ) : (
         <Button onClick={() => signInWithGoogle()}>Log In</Button>
       )}

@@ -21,3 +21,8 @@ export const realtimeDb = getDatabase(app);
 export const auth = getAuth(app);
 export const provider = new GoogleAuthProvider();
 export const signInWithGoogle = () => signInWithRedirect(auth, provider);
+export const signOutWithGoogle = () => {
+  auth.onAuthStateChanged((user) => {
+    auth.signOut();
+  });
+};
