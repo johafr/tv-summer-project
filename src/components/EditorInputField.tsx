@@ -16,18 +16,17 @@ export const EditorInputField: React.FC = () => {
 
   const handleUpdateMessage = (e: React.FormEvent, message: messageProps) => {
     e.preventDefault();
-    const activeIndex = activeScreen.findIndex(
+    const activeMessageIndex = activeScreen.findIndex(
       (messageInList: messageProps) => message.id === messageInList.id
     );
-    const selectedMessage = activeScreen[activeIndex];
+    const selectedMessage = activeScreen[activeMessageIndex];
     const newMessageList = [
-      ...activeScreen.slice(0, activeIndex),
+      ...activeScreen.slice(0, activeMessageIndex),
       { ...selectedMessage, content: messageInputText },
-      ...activeScreen.slice(activeIndex + 1),
+      ...activeScreen.slice(activeMessageIndex + 1),
     ];
     setStoryPages(updatePage(storyPages, newMessageList, pageNum));
     setMessageInputText("");
-    console.log(storyPages[pageNum]);
   };
 
   const handleAddMessage = (e: React.FormEvent) => {
