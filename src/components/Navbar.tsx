@@ -7,12 +7,15 @@ import { auth } from "../Firebase";
 import { Button } from "@mui/material";
 import "../styles/components/Navbar.css";
 import * as S from "../styles/components/NavbarStyles";
+import { userIdRefState } from "../atoms/authentication";
 
 export const Navbar: React.FC = () => {
   const [username, setUsername] = useRecoilState(usernameState);
+  const [userId, setUserId] = useRecoilState(userIdRefState);
 
   // Checks if the user is logged in, and sets the username if the person is logged in
   useEffect(() => {
+    setUserId(auth.currentUser?.uid);
     auth.onAuthStateChanged((user) => {
       setUsername(user?.displayName);
     });
