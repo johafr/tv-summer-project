@@ -82,12 +82,13 @@ export const EditorNameInput: React.FC<Props> = ({}) => {
   return (
     <div>
       <S.NameList>
-        <ul>{listNames}</ul>
+        <S.ListParent>{listNames}</S.ListParent>
       </S.NameList>
 
       <S.NameForm>
         <form onSubmit={(event) => handleAddName(event)}>
           <S.Input
+            
             type="text"
             placeholder="Name"
             value={inputName}

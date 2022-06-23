@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useRecoilState } from "recoil";
 import { changeSentenceTextState } from "../atoms/changeSentenceText";
 import { inputNameState } from "../atoms/inputName";
@@ -19,6 +19,7 @@ export const EditorTextInput: React.FC<Props> = ({}) => {
   const [inputName, setInputName] = useRecoilState(inputNameState);
   const [changeSentenceText, setChangeSentenceText] = useRecoilState(changeSentenceTextState);
 
+
   // Takes data from input field and namefield, creates new Sentence via atom function.
   const handleAddSentence = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +33,6 @@ export const EditorTextInput: React.FC<Props> = ({}) => {
       person: selectedPerson,
       content: inputText,
     };
-    console.log(sentences.length);
 
     setSentences((currentSentences) => addSentence(currentSentences, newSentence)
     );
@@ -44,6 +44,7 @@ export const EditorTextInput: React.FC<Props> = ({}) => {
       text: newSentence.content,
     });
     console.log(sentences);
+    
   }; // End handleAddSentence
 
 
@@ -83,6 +84,7 @@ export const EditorTextInput: React.FC<Props> = ({}) => {
       {listInputs}
       <form onSubmit={(e) => handleAddSentence(e)}>
         <S.FormInput
+          id="lastInput"
           type="text"
           placeholder="Write a sentence..."
           value={inputText}

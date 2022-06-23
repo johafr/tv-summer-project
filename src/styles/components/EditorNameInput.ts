@@ -2,7 +2,14 @@ import styled from "styled-components";
 
 export const NameList = styled.div`
   width: 25.3rem;
-  height: 12.5rem;
+  height: 14.5rem;
+  overflow: auto;
+  margin-bottom:10px;
+`;
+
+export const ListParent = styled.ul`
+  display: flex;
+  flex-flow: row wrap;
 `;
 
 export const List = styled.li`
@@ -11,6 +18,7 @@ export const List = styled.li`
   list-style-type: none;
   width: 120px;
   border-radius: 15px;
+  
   box-shadow: 2px 5px 5px 2px rgba(0, 0, 0, 0.2);
   &:hover {
     font-weight: bold !important;

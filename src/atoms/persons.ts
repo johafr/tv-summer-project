@@ -19,6 +19,7 @@ export const personsState = atom<Person[]>({
 
 // Modifer (ie adding items to a list state)
 export const addPerson = (persons : Person[], newPerson : Person) => {
+    document.getElementById("lastInput")?.focus()
     return (
         [ ...persons,newPerson,]
         )
