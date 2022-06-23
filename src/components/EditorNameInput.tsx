@@ -58,6 +58,7 @@ export const EditorNameInput: React.FC = () => {
         <S.List
           key={person.id}
           onClick={(e) => handleSelectPerson(person)}
+          style={{border: person === selectedPerson ? "1px solid blue": "none"}}
         >
           <div style={{ backgroundColor: person.color?.toString(), width: "30px", height: "30px", borderRadius: "50%", marginRight: ".5rem" }}/>
           {person.name}{" "}
