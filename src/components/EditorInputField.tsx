@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { activeIndex, StoryPages as sp, updatePage } from "../atoms/StoryPages";
-import { activePage as aP } from "../selectors/StoryPages";
+import { activePage } from "../selectors/StoryPages";
 import * as S from "../styles/components/EditorTextInputStyles";
 import { messageProps } from "../atoms/StoryPages";
 import { persons as ps } from "../atoms/persons";
@@ -12,20 +12,20 @@ export const EditorInputField: React.FC = () => {
   const [persons] = useRecoilState(ps);
   const [storyPages, setStoryPages] = useRecoilState(sp);
   const activePerson = useRecoilValue(activePersonValue);
-  const activePage = useRecoilValue(aP);
+  const activeScreen = useRecoilValue(activePage);
   const [inputText, setInputText] = useState("");
   const [messageInputText, setMessageInputText] = useState("");
 
   const handleUpdateMessage = (e: React.FormEvent, message: messageProps) => {
     e.preventDefault();
-    const activeIndex = activePage.findIndex(
+    const activeIndex = activeScreen.findIndex(
       (messageInList: messageProps) => message.id === messageInList.id
     );
-    const selectedMessage = activePage[activeIndex];
+    const selectedMessage = activeScreen[activeIndex];
     const newMessageList = [
-      ...activePage.slice(0, activeIndex),
+      ...activeScreen.slice(0, activeIndex),
       { ...selectedMessage, content: messageInputText },
-      ...activePage.slice(activeIndex + 1),
+      ...activeScreen.slice(activeIndex + 1),
     ];
     setStoryPages(updatePage(storyPages, newMessageList, pageNum));
     setMessageInputText("");
@@ -38,16 +38,16 @@ export const EditorInputField: React.FC = () => {
       (person) => activePerson.id === person.id
     );
     const newMessage = {
-      id: activePage[activePage.length - 1].id + 1,
+      id: activeScreen[activeScreen.length - 1].id + 1,
       person: markedPerson,
       content: inputText,
     };
-    const newMessageList = [...activePage, newMessage];
+    const newMessageList = [...activeScreen, newMessage];
     setStoryPages(updatePage(storyPages, newMessageList, pageNum));
     setInputText("");
   };
 
-  const messageList = activePage.map((message) => {
+  const messageList = activeScreen.map((message) => {
     return (
       <form key={message.id} onSubmit={(e) => handleUpdateMessage(e, message)}>
         <S.FormInput
@@ -58,6 +58,7 @@ export const EditorInputField: React.FC = () => {
       </form>
     );
   });
+
   return (
     <>
       {messageList}

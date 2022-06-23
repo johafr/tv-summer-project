@@ -1,16 +1,12 @@
 import { selector } from "recoil";
-import {
-  activeIndex as aI,
-  messageProps,
-  StoryPages,
-} from "../atoms/StoryPages";
+import { activeIndex, messageProps, StoryPages } from "../atoms/StoryPages";
 
 export const activePage = selector<messageProps[]>({
   key: "activePage",
   get: ({ get }) => {
-    const activeIndex = get(aI);
+    const pageNum = get(activeIndex);
     const displayed = get(StoryPages);
-    const activeMessages = displayed[activeIndex];
+    const activeMessages = displayed[pageNum];
     return activeMessages;
   },
 });
