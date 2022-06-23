@@ -16,8 +16,16 @@ export const Theme = createTheme({
       dark: "#306168",
       light: "#508188",
     },
+    secondary: {
+      main: "#9ca9ea",
+      dark: "#8ca9ea",
+      light: "#a3afea",
+    },
     primaryText: {
       main: "#",
     },
+  },
+  typography: {
+    fontFamily: "Montserrat",
   },
 });
