@@ -66,6 +66,9 @@ export const EditorNameInput: React.FC<Props> = ({}) => {
     setSelectedPersonColor(newPerson.color);
   };
 
+  const handleRemovePerson = (id : number) => {
+    console.log('Removing person')
+  }
 
 
 
@@ -75,6 +78,7 @@ export const EditorNameInput: React.FC<Props> = ({}) => {
     };
 
     return (
+      <div>
       <S.List
         key={person.id}
         style={{
@@ -83,8 +87,12 @@ export const EditorNameInput: React.FC<Props> = ({}) => {
         }}
         onClick={() => handleSelectPerson(person.id)}
       >
-        {person.name}
+        {person.name} <DeleteIcon onClick={() => handleRemovePerson(person.id)} sx={{fontSize:22}}className="editor__deletePerson"/>
+  
+        
       </S.List>
+      
+      </div>
     );
   });
 
@@ -100,7 +108,7 @@ export const EditorNameInput: React.FC<Props> = ({}) => {
           <S.Input
             style={{backgroundColor: selectedPersonColor}}
             type="text"
-            placeholder="Name"
+            placeholder="Write a name..."
             value={inputName}
             onChange={(event) => setInputName(event.target.value)}
             onClick={() => {
