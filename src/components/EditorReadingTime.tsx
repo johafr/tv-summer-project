@@ -1,39 +1,34 @@
 import React from "react";
 import { useRecoilState } from "recoil";
-import { sentencesState } from "../atoms/sentences";
-
-// Component props
-type Props = {
-
-};
+import { messageProps, StoryPages } from "../atoms/StoryPages";
 
 // Component wrapper function // This component calculates reading time based on amount of words written via editor
-export const EditorReadingTime: React.FC<Props> = ({  }) => {
-    const [sentences,] = useRecoilState(sentencesState);
+export const EditorReadingTime: React.FC = () => {
+  const [storyPages] = useRecoilState(StoryPages);
 
+  let wordCount: number = 0;
+  let readingTime: number | string = 0;
 
-    let wordCount : number = 0;
-    let readingTime : number | string = 0;
-
-    // Split and count all words in sentences
-    sentences.map((sentence) => {
-      const words = sentence.content.split(' ');
+  // Split and count all words in sentences
+  storyPages.map((page: messageProps[]) => {
+    page.map((message: messageProps) => {
+      const words = message.content.split(" ");
       wordCount += words.length;
-    })
+    });
+  });
 
-    // Calculate est. reading time based on 250 words per minute.
-    if(wordCount < 100) { readingTime = '< 0'}
-    else {readingTime = Math.ceil(wordCount/100);}
+  // Calculate est. reading time based on 250 words per minute.
+  if (wordCount < 100) {
+    readingTime = "< 0";
+  } else {
+    readingTime = Math.ceil(wordCount / 100);
+  }
 
-    
-
-
-
-    // Component end-return
-    return (
+  // Component end-return
+  return (
     <div>
-        <p>Wordcount : {wordCount}</p>
-        <p>Estimated reading time {readingTime} minutes... </p>
+      <p>Wordcount : {wordCount}</p>
+      <p>Estimated reading time {readingTime} minutes... </p>
     </div>
-    )
-}
+  );
+};

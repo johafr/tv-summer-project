@@ -1,2 +1,2 @@
-- Make custom theme
 - Implement different format for different phones
+- move messageList in useEffect and render default form value every update

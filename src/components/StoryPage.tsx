@@ -1,22 +1,19 @@
 import { Fab } from "@mui/material";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { activeIndex } from "../atoms/displayScreens";
+import { activeIndex, messageProps } from "../atoms/StoryPages";
 
 import { Theme } from "../styles/Theme";
 import { screenMeasurements } from "../atoms/measurements";
 import * as S from "../styles/components/DisplayScreenStyles";
 
-import {
-  activePage,
-  getDisplayScreenLength,
-} from "../selectors/displayScreens";
+import { activePage, getDisplayScreenLength } from "../selectors/StoryPages";
 import "../styles/DisplayScreenStyling.css";
-import { SentenceCard, sentenceCardProps } from "./SentenceCard";
+import { SentenceCard } from "./SentenceCard";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 
-export const DisplayScreen: React.FC = () => {
+export const StoryPage: React.FC = () => {
   //Recoil values
   const [measurements] = useRecoilState(screenMeasurements);
   const [pageNum, setPageNum] = useRecoilState(activeIndex);
@@ -50,8 +47,12 @@ export const DisplayScreen: React.FC = () => {
         <S.OutputScreen measurements={measurements}>
           <S.Bump Theme={Theme} />
           <S.ContentDiv measurements={measurements}>
-            {activeScreen.map((card: sentenceCardProps) => (
-              <SentenceCard name={card.name} content={card.content} />
+            {activeScreen.map((card: messageProps) => (
+              <SentenceCard
+                key={card.id}
+                person={card.person}
+                content={card.content}
+              />
             ))}
           </S.ContentDiv>
         </S.OutputScreen>
