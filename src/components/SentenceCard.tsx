@@ -1,22 +1,20 @@
 import React from "react";
-import { personsState } from "../atoms/persons";
-import { Person } from "../atoms/sentences";
+import { Person } from "../atoms/persons";
 import * as S from "../styles/components/SentenceCardStyles";
 
-export type sentenceCardProps = {
-  name: string;
-  //person: Person | undefined
+type sentenceCardProps = {
+  person?: Person | undefined;
   content: string;
 };
 
 export const SentenceCard: React.FC<sentenceCardProps> = ({
-  name,
+  person,
   content,
 }) => {
   return (
     <S.Wrapper>
       <S.Container>
-        <S.Name>{name}</S.Name>
+        {person ? <S.Name>{person.name}</S.Name> : <></>}
         <S.Text>{content}</S.Text>
       </S.Container>
     </S.Wrapper>

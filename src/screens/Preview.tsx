@@ -1,12 +1,12 @@
 import React from "react";
 import { ChangeScreenSizeMenu } from "../components/ChangeScreenSizeMenu";
-import { DisplayScreen } from "../components/DisplayScreen";
+import { StoryPage } from "../components/StoryPage";
 import * as S from "../styles/screens/PreviewStyles";
 
 export const Preview: React.FC = () => {
   return (
     <S.ScreenDiv>
-      <DisplayScreen />
+      <StoryPage />
       <ChangeScreenSizeMenu />
     </S.ScreenDiv>
   );

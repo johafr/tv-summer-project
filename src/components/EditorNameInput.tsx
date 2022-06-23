@@ -1,9 +1,6 @@
-import React from "react";
-import DeleteIcon from '@mui/icons-material/Delete';
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { inputNameState } from "../atoms/inputName";
-import { addPerson, personsState } from "../atoms/persons";
-import { Tooltip } from "@mui/material";
+import { addPerson, persons as ps } from "../atoms/persons";
 import * as S from "../styles/components/EditorNameInput";
 
 // Component props
@@ -11,8 +8,8 @@ type Props = {};
 
 // Component wrapper function
 export const EditorNameInput: React.FC<Props> = ({}) => {
-  const [persons, setPersons] = useRecoilState(personsState);
-  const [inputName, setInputName] = useRecoilState(inputNameState);
+  const [persons, setPersons] = useRecoilState(ps);
+  const [inputName, setInputName] = useState("");
 
   const colorList: string[] = ["#407178", "#9CA9EA", "#D6BF5A", "#F49850"];
 
@@ -38,6 +35,7 @@ export const EditorNameInput: React.FC<Props> = ({}) => {
       id: persons[persons.length - 1].id + 1,
       name: inputName,
       color: randomColor(),
+      isSelected: false,
     };
     setPersons((currentPersons) => addPerson(currentPersons, newPerson));
   };

@@ -1,17 +1,10 @@
 import React from "react";
 
-import { DisplayScreen } from "../components/DisplayScreen";
+import { StoryPage } from "../components/StoryPage";
 import { EditorReadingTime } from "../components/EditorReadingTime";
 import { EditorNameInput } from "../components/EditorNameInput";
-import { EditorTextInput } from "../components/EditorTextInput";
 import * as S from "../styles/screens/EditorStyles";
-
-// Expand with values at a later stage if needed, ie color or animation values...
-type Word = {
-  id: number;
-  content: string;
-};
-// Expand with values at a later stage if needed, ie color or animation values...
+import { EditorInputField } from "../components/EditorInputField";
 
 export const Editor: React.FC = () => {
   // Editor final return
@@ -21,11 +14,11 @@ export const Editor: React.FC = () => {
         <EditorNameInput />
         <EditorReadingTime />
         <S.TextForm>
-          <EditorTextInput />
+          <EditorInputField />
         </S.TextForm>
       </S.Editor>
       <S.DisplayScreenContainer>
-        <DisplayScreen />
+        <StoryPage />
       </S.DisplayScreenContainer>
     </S.ParentDiv>
   );
