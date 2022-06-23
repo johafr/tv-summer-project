@@ -28,8 +28,10 @@ export const EditorNameInput: React.FC = () => {
   ];
 
   const handleSelectPerson = (selectedPerson: Person) => {
+
     const findPerson = personList.find((person) => person === selectedPerson);
     findPerson ? setSelectedPerson(findPerson) : setSelectedPerson(null);
+
   };
 
   const handleAddName = (e: React.FormEvent) => {
