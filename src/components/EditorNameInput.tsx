@@ -53,15 +53,16 @@ export const EditorNameInput: React.FC = () => {
   };
 
   const handleDeletePerson = (person: Person) => {
-
-    const selectedPersonIndex = personList.findIndex((currentperson) => currentperson.id === person.id);
+    const selectedPersonIndex = personList.findIndex(
+      (currentperson) => currentperson.id === person.id
+    );
 
     const updatedPersons = [
-      ...personList.slice(0,selectedPersonIndex),
-      ...personList.slice(selectedPersonIndex + 1)
-    ]
+      ...personList.slice(0, selectedPersonIndex),
+      ...personList.slice(selectedPersonIndex + 1),
+    ];
     setPersonList(updatedPersons);
-  }
+  };
 
   const listNames = personList.map((person) => {
     return (
@@ -69,12 +70,25 @@ export const EditorNameInput: React.FC = () => {
         <S.List
           key={person.id}
           onClick={(e) => handleSelectPerson(person)}
-          style={{border: person === selectedPerson ? "1px solid blue": "none"}}
+          style={{
+            border: person === selectedPerson ? "1px solid blue" : "none",
+          }}
         >
-          <div style={{ backgroundColor: person.color?.toString(), width: "30px", height: "30px", borderRadius: "50%", marginRight: ".5rem" }}/>
+          <div
+            style={{
+              backgroundColor: person.color?.toString(),
+              width: "30px",
+              height: "30px",
+              borderRadius: "50%",
+              marginRight: ".5rem",
+            }}
+          />
           {person.name}{" "}
-          <DeleteIcon sx={{ fontSize: 22 }} className="editor__deletePerson"
-          onClick={() => handleDeletePerson(person)} />
+          <DeleteIcon
+            sx={{ fontSize: 22 }}
+            className="editor__deletePerson"
+            onClick={() => handleDeletePerson(person)}
+          />
         </S.List>
       </div>
     );
@@ -90,7 +104,11 @@ export const EditorNameInput: React.FC = () => {
       <S.NameForm>
         <form onSubmit={(event) => handleAddName(event)}>
           <S.Input
-            style={{ backgroundColor: "white" }}
+            style={{
+              backgroundColor: selectedPerson?.color
+                ? selectedPerson.color
+                : "white",
+            }}
             type="text"
             placeholder="Write a name..."
             value={nameNewPerson}

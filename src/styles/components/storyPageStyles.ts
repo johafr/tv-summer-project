@@ -15,8 +15,9 @@ export const Bump = styled.span<{ Theme: MuiTheme }>`
   position: absolute;
   left: 50%;
   width: 100px;
-  height: 15px;
+  height: 16px;
   margin-left: -50px;
+  margin-top: -1px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   background-color: ${(props) => props.Theme.palette.primary.main};

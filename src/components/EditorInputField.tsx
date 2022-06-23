@@ -25,7 +25,10 @@ export const EditorInputField: React.FC = () => {
       { ...selectedMessage, content: messageInputText },
       ...activeScreen.slice(activeMessageIndex + 1),
     ];
-    setStoryPages(updatePage(storyPages, newMessageList, pageNum));
+
+    if (messageInputText !== "") {
+      setStoryPages(updatePage(storyPages, newMessageList, pageNum));
+    }
     setMessageInputText("");
   };
 
