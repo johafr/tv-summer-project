@@ -19,14 +19,22 @@ export const EditorNameInput: React.FC<Props> = ({}) => {
   const [persons, setPersons] = useRecoilState(personsState);
   const [inputName, setInputName] = useRecoilState(inputNameState);
   const [colorList,setColorList] = useState<string[]>(initcolorList)
+  const [selectedPersonColor,setSelectedPersonColor] = useState<any>('White')
+
 
 
   const handleSelectPerson = (selectedID: number) => {
     const findPerson = persons.find((person) => person.id === selectedID);
     if (findPerson) {
       setInputName(findPerson.name);
+      return setSelectedPersonColor(findPerson.color)
+      
+      
     }
+  
   };
+
+
 
   const handleAddName = (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,6 +62,8 @@ export const EditorNameInput: React.FC<Props> = ({}) => {
         ...colorList.slice(0,random),
         ...colorList.slice(random + 1)
     ])
+
+    setSelectedPersonColor(newPerson.color);
   };
 
 
@@ -71,7 +81,7 @@ export const EditorNameInput: React.FC<Props> = ({}) => {
           backgroundColor: person.color?.toString(),
           fontWeight: selectedPerson(person.name) ? "bold" : "normal",
         }}
-        onClick={(e) => handleSelectPerson(person.id)}
+        onClick={() => handleSelectPerson(person.id)}
       >
         {person.name}
       </S.List>
@@ -85,14 +95,17 @@ export const EditorNameInput: React.FC<Props> = ({}) => {
         <S.ListParent>{listNames}</S.ListParent>
       </S.NameList>
 
-      <S.NameForm>
-        <form onSubmit={(event) => handleAddName(event)}>
+      <S.NameForm >
+        <form onSubmit={(event) => handleAddName(event)} >
           <S.Input
-            
+            style={{backgroundColor: selectedPersonColor}}
             type="text"
             placeholder="Name"
             value={inputName}
             onChange={(event) => setInputName(event.target.value)}
+            onClick={() => {
+              setInputName("")
+              setSelectedPersonColor("White")}}
           />
         </form>
       </S.NameForm>

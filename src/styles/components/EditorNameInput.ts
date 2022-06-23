@@ -10,6 +10,7 @@ export const NameList = styled.div`
 export const ListParent = styled.ul`
   display: flex;
   flex-flow: row wrap;
+  
 `;
 
 export const List = styled.li`
@@ -18,6 +19,8 @@ export const List = styled.li`
   list-style-type: none;
   width: 120px;
   border-radius: 15px;
+  flex-grow:2;
+  align-self: center;
   
   box-shadow: 2px 5px 5px 2px rgba(0, 0, 0, 0.2);
   &:hover {
