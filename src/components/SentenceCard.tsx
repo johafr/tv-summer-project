@@ -1,6 +1,5 @@
 import React from "react";
 import { personsState } from "../atoms/persons";
-import { Person } from "../atoms/sentences";
 import * as S from "../styles/components/SentenceCardStyles";
 
 export type sentenceCardProps = {

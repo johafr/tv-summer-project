@@ -4,7 +4,7 @@ import { changeSentenceTextState } from "../atoms/changeSentenceText";
 import { inputNameState } from "../atoms/inputName";
 import { inputTextState } from "../atoms/inputText";
 import { personsState } from "../atoms/persons";
-import { addSentence, initSentences, sentencesState } from "../atoms/sentences";
+import { addSentence, sentencesState } from "../atoms/sentences";
 import { postJSON } from "../utils/postJSON";
 import * as S from "../styles/components/EditorTextInputStyles";
 
@@ -19,6 +19,7 @@ export const EditorTextInput: React.FC<Props> = ({}) => {
   const [inputName, setInputName] = useRecoilState(inputNameState);
   const [changeSentenceText, setChangeSentenceText] = useRecoilState(changeSentenceTextState);
 
+  // Takes data from input field and namefield, creates new Sentence via atom function.
   const handleAddSentence = async (e: React.FormEvent) => {
     e.preventDefault();
     const selectedPerson = persons.find((person) => inputName === person.name);
@@ -33,22 +34,20 @@ export const EditorTextInput: React.FC<Props> = ({}) => {
     };
     console.log(sentences.length);
 
-    setSentences((currentSentences) =>
-        addSentence(currentSentences, newSentence)
+    setSentences((currentSentences) => addSentence(currentSentences, newSentence)
     );
-
-
     setInputText("");
     
-
-/*     await postJSON("http://localhost:4000/sentences", {
+    await postJSON("http://localhost:4000/sentences", {
       id: newSentence.id,
       name: selectedPerson?.name,
       text: newSentence.content,
-    }); */
+    });
     console.log(sentences);
-  };
+  }; // End handleAddSentence
 
+
+  // Updates the selected sentence with the new/changed data.
   const handleChangeSentence = async (e: React.FormEvent, curID: number) => {
     e.preventDefault();
     const selectedSentenceIndex = sentences.findIndex(
@@ -61,10 +60,9 @@ export const EditorTextInput: React.FC<Props> = ({}) => {
       ...sentences.slice(selectedSentenceIndex + 1),
     ];
     setSentences(updatedSentences);
-  };
+  }; // End handleChangeSentence
 
   const listInputs = sentences.map((sentence) => {
-    
     return (
       <form
         key={sentence.id}
@@ -77,7 +75,7 @@ export const EditorTextInput: React.FC<Props> = ({}) => {
         />
       </form>
     );
-  });
+  }); // End listInputs
 
   // Component end-return
   return (
