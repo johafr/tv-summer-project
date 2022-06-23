@@ -37,9 +37,7 @@ export const EditorNameInput: React.FC = () => {
     // Replace with a colorpicker or something..
     const randomColor = () => {
       let random = Math.floor(Math.random() * personList.length);
-      if (personList.find((person) => person.color === colorList[random])) {
-        randomColor();
-      } else return colorList[random];
+      return colorList[random];
     };
 
     const newPerson = {
@@ -51,6 +49,17 @@ export const EditorNameInput: React.FC = () => {
     setPersonList((currentPersons) => addPerson(currentPersons, newPerson));
     setNameNewPerson("");
   };
+
+  const handleDeletePerson = (person: Person) => {
+
+    const selectedPersonIndex = personList.findIndex((currentperson) => currentperson.id === person.id);
+
+    const updatedPersons = [
+      ...personList.slice(0,selectedPersonIndex),
+      ...personList.slice(selectedPersonIndex + 1)
+    ]
+    setPersonList(updatedPersons);
+  }
 
   const listNames = personList.map((person) => {
     return (
@@ -64,7 +73,8 @@ export const EditorNameInput: React.FC = () => {
           onClick={(e) => handleSelectPerson(person)}
         >
           {person.name}{" "}
-          <DeleteIcon sx={{ fontSize: 22 }} className="editor__deletePerson" />
+          <DeleteIcon sx={{ fontSize: 22 }} className="editor__deletePerson"
+          onClick={() => handleDeletePerson(person)} />
         </S.List>
       </div>
     );
