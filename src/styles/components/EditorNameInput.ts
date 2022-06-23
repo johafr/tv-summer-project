@@ -5,17 +5,14 @@ export const NameList = styled.div`
   height: 14.5rem;
   overflow: auto;
   margin-bottom:10px;
-  border: 2px solid red;
 `;
 
 export const ListParent = styled.ul`
   display: flex;
   flex-flow: row wrap;
-  border: 2px solid blue;
 `;
 
 export const List = styled.li`
-  border: 2px solid green;
   position: relative;
   padding: 10px;
   margin: 5px;
