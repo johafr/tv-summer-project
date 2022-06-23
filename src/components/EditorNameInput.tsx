@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useRecoilState } from "recoil";
 import { inputNameState } from "../atoms/inputName";
@@ -9,12 +9,17 @@ import * as S from "../styles/components/EditorNameInput";
 // Component props
 type Props = {};
 
+let initcolorList = [
+    "#407178", "#9CA9EA", "#D6BF5A", "#F49850",
+    "#507168", "#7CA9EB", "#D7BF5A", "#F19850",
+    "Red","Blue","Cyan","Green","Yellow","Lightgray"];
+
 // Component wrapper function
 export const EditorNameInput: React.FC<Props> = ({}) => {
   const [persons, setPersons] = useRecoilState(personsState);
   const [inputName, setInputName] = useRecoilState(inputNameState);
+  const [colorList,setColorList] = useState<string[]>(initcolorList)
 
-  const colorList: string[] = ["#407178", "#9CA9EA", "#D6BF5A", "#F49850"];
 
   const handleSelectPerson = (selectedID: number) => {
     const findPerson = persons.find((person) => person.id === selectedID);
@@ -26,21 +31,33 @@ export const EditorNameInput: React.FC<Props> = ({}) => {
   const handleAddName = (e: React.FormEvent) => {
     e.preventDefault();
 
+    let personID : number;
+    if (persons.length === 0) {personID = 1}
+    else {personID = persons[persons.length - 1].id + 1}
+
     // Replace with a colorpicker or something..
-    const randomColor = () => {
-      let random = Math.floor(Math.random() * persons.length);
-      if (persons.find((person) => person.color === colorList[random])) {
-        randomColor();
-      } else return colorList[random];
-    };
+    
+    let random = Math.floor(Math.random() * persons.length);
+        
+  
+    
 
     const newPerson = {
-      id: persons[persons.length - 1].id + 1,
+      id: personID,
       name: inputName,
-      color: randomColor(),
+      color: colorList[random],
     };
     setPersons((currentPersons) => addPerson(currentPersons, newPerson));
+
+    // DERP RANDOM COLORLIST
+    setColorList( [
+        ...colorList.slice(0,random),
+        ...colorList.slice(random + 1)
+    ])
   };
+
+
+
 
   const listNames = persons.map((person) => {
     const selectedPerson = (name: string) => {

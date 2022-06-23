@@ -13,7 +13,7 @@ const initialData = [
 // State
 export const personsState = atom<Person[]>({
     key: 'personsState',
-    default: initialData,
+    default: [],
 })
 
 // Modifer (ie adding items to a list state)
