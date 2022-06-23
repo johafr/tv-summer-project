@@ -17,12 +17,9 @@ export const Navbar: React.FC = () => {
   useEffect(() => {
     setUserId(auth.currentUser?.uid);
     auth.currentUser?.getIdToken().then((result) =>  {
-      console.log(result);
+      //console.log(result);
     })
     auth.onAuthStateChanged((user) => {
-      user?.getIdToken().then((result) => {
-        console.log(result);
-      })
       setUsername(user?.displayName);
     });
   }, []);
