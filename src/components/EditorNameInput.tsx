@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useRecoilState } from "recoil";
 import { activePerson, addPerson, Person, persons } from "../atoms/persons";
 import * as S from "../styles/components/EditorNameInput";
@@ -9,7 +10,22 @@ export const EditorNameInput: React.FC = () => {
   const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
   const [nameNewPerson, setNameNewPerson] = useState("");
 
-  const colorList: string[] = ["#407178", "#9CA9EA", "#D6BF5A", "#F49850"];
+  let colorList = [
+    "#407178",
+    "#9CA9EA",
+    "#D6BF5A",
+    "#F49850",
+    "#507168",
+    "#7CA9EB",
+    "#D7BF5A",
+    "#F19850",
+    "Red",
+    "Blue",
+    "Cyan",
+    "Green",
+    "Yellow",
+    "Lightgray",
+  ];
 
   const handleSelectPerson = (selectedPerson: Person) => {
     const findPerson = personList.find((person) => person === selectedPerson);
@@ -18,7 +34,6 @@ export const EditorNameInput: React.FC = () => {
 
   const handleAddName = (e: React.FormEvent) => {
     e.preventDefault();
-
     // Replace with a colorpicker or something..
     const randomColor = () => {
       let random = Math.floor(Math.random() * personList.length);
@@ -28,7 +43,8 @@ export const EditorNameInput: React.FC = () => {
     };
 
     const newPerson = {
-      id: personList[personList.length - 1].id + 1,
+      id:
+        personList.length !== 0 ? personList[personList.length - 1].id + 1 : 0,
       name: nameNewPerson,
       color: randomColor(),
     };
@@ -38,16 +54,19 @@ export const EditorNameInput: React.FC = () => {
 
   const listNames = personList.map((person) => {
     return (
-      <S.List
-        key={person.id}
-        style={{
-          backgroundColor: person.color?.toString(),
-          fontWeight: person === selectedPerson ? "bold" : "normal",
-        }}
-        onClick={(e) => handleSelectPerson(person)}
-      >
-        {person.name}
-      </S.List>
+      <div>
+        <S.List
+          key={person.id}
+          style={{
+            backgroundColor: person.color?.toString(),
+            fontWeight: person === selectedPerson ? "bold" : "normal",
+          }}
+          onClick={(e) => handleSelectPerson(person)}
+        >
+          {person.name}{" "}
+          <DeleteIcon sx={{ fontSize: 22 }} className="editor__deletePerson" />
+        </S.List>
+      </div>
     );
   });
 
@@ -55,14 +74,15 @@ export const EditorNameInput: React.FC = () => {
   return (
     <div>
       <S.NameList>
-        <ul>{listNames}</ul>
+        <S.ListParent>{listNames}</S.ListParent>
       </S.NameList>
 
       <S.NameForm>
         <form onSubmit={(event) => handleAddName(event)}>
           <S.Input
+            style={{ backgroundColor: "white" }}
             type="text"
-            placeholder="Name"
+            placeholder="Write a name..."
             value={nameNewPerson}
             onChange={(event) => setNameNewPerson(event.target.value)}
           />
