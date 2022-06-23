@@ -5,7 +5,7 @@ import { activeIndex, messageProps } from "../atoms/StoryPages";
 
 import { Theme } from "../styles/Theme";
 import { screenMeasurements } from "../atoms/measurements";
-import * as S from "../styles/components/DisplayScreenStyles";
+import * as S from "../styles/components/storyPageStyles";
 
 import { activePage, getDisplayScreenLength } from "../selectors/StoryPages";
 import "../styles/DisplayScreenStyling.css";
@@ -40,7 +40,13 @@ export const StoryPage: React.FC = () => {
           id="fab"
           size="small"
           onClick={handleGoLeft}
-          sx={{ backgroundColor: Theme.palette.primary.main }}
+          sx={{
+            backgroundColor: Theme.palette.primary.main,
+            boxShadow: "none",
+            "&:hover": {
+              backgroundColor: Theme.palette.primary.dark,
+            },
+          }}
         >
           <ArrowLeftIcon sx={{ color: "white" }} />
         </Fab>
@@ -60,7 +66,13 @@ export const StoryPage: React.FC = () => {
           id="fab"
           size="small"
           onClick={handleGoRight}
-          sx={{ backgroundColor: Theme.palette.primary.main }}
+          sx={{
+            backgroundColor: Theme.palette.primary.main,
+            boxShadow: "none",
+            "&:hover": {
+              backgroundColor: Theme.palette.primary.dark,
+            },
+          }}
         >
           <ArrowRightIcon sx={{ color: "white" }} />
         </Fab>

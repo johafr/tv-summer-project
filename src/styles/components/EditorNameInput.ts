@@ -4,7 +4,7 @@ export const NameList = styled.div`
   width: 25.3rem;
   height: 14.5rem;
   overflow: auto;
-  margin-bottom:10px;
+  margin-bottom: 10px;
 `;
 
 export const ListParent = styled.ul`
@@ -23,15 +23,15 @@ export const List = styled.li`
   align-items: center;
   box-shadow: 2px 5px 5px 2px rgba(0, 0, 0, 0.2);
   &:hover {
-    cursor:pointer;
+    cursor: pointer;
   }
 
   & .editor__deletePerson {
-    opacity:0%;
+    opacity: 0%;
     text-align: right;
-    position:absolute;
-    right:5px;
-    color:black;
+    position: absolute;
+    right: 5px;
+    color: black;
   }
 
   &:hover .editor__deletePerson {
@@ -39,15 +39,13 @@ export const List = styled.li`
   }
 `;
 
-
-export const NameForm = styled.div`
-`;
+export const NameForm = styled.div``;
 
 export const Input = styled.input`
   width: 25rem;
   height: 1.9rem;
   border-radius: 15px;
   border: none;
-  box-shadow: 1px 2px 2px 1px rgba(0,0,0,0.2);
+  box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.2);
   text-align: center;
 `;
