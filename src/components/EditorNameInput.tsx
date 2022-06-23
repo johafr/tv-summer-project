@@ -66,12 +66,10 @@ export const EditorNameInput: React.FC = () => {
       <div>
         <S.List
           key={person.id}
-          style={{
-            backgroundColor: person.color?.toString(),
-            fontWeight: person === selectedPerson ? "bold" : "normal",
-          }}
           onClick={(e) => handleSelectPerson(person)}
+          style={{border: person === selectedPerson ? "1px solid blue": "none"}}
         >
+          <div style={{ backgroundColor: person.color?.toString(), width: "30px", height: "30px", borderRadius: "50%", marginRight: ".5rem" }}/>
           {person.name}{" "}
           <DeleteIcon sx={{ fontSize: 22 }} className="editor__deletePerson"
           onClick={() => handleDeletePerson(person)} />
