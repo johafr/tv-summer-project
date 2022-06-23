@@ -3,7 +3,7 @@ import { Person } from "./persons";
 
 export type messageProps = {
   id: number;
-  person?: Person | undefined;
+  person: Person | null;
   content: string;
 };
 
@@ -16,7 +16,6 @@ export const StoryPages = atom<messageProps[][]>({
         person: {
           id: 0,
           name: "Johannes",
-          isSelected: false,
         },
         content: "Dummy data",
       },
@@ -25,7 +24,6 @@ export const StoryPages = atom<messageProps[][]>({
         person: {
           id: 0,
           name: "Johannes",
-          isSelected: false,
         },
         content: "Dummy data 2",
       },
@@ -36,7 +34,6 @@ export const StoryPages = atom<messageProps[][]>({
         person: {
           id: 1,
           name: "Torstein",
-          isSelected: false,
         },
         content: "Test overload",
       },
@@ -44,6 +41,7 @@ export const StoryPages = atom<messageProps[][]>({
     [
       {
         id: 0,
+        person: null,
         content: "This is the third page",
       },
     ],

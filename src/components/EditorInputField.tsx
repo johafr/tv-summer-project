@@ -4,14 +4,12 @@ import { activeIndex, StoryPages as sp, updatePage } from "../atoms/StoryPages";
 import { activePage } from "../selectors/StoryPages";
 import * as S from "../styles/components/EditorTextInputStyles";
 import { messageProps } from "../atoms/StoryPages";
-import { persons as ps } from "../atoms/persons";
-import { activePersonValue } from "../selectors/persons";
+import { activePerson } from "../atoms/persons";
 
 export const EditorInputField: React.FC = () => {
   const [pageNum] = useRecoilState(activeIndex);
-  const [persons] = useRecoilState(ps);
   const [storyPages, setStoryPages] = useRecoilState(sp);
-  const activePerson = useRecoilValue(activePersonValue);
+  const [selectedPerson] = useRecoilState(activePerson);
   const activeScreen = useRecoilValue(activePage);
   const [inputText, setInputText] = useState("");
   const [messageInputText, setMessageInputText] = useState("");
@@ -34,9 +32,7 @@ export const EditorInputField: React.FC = () => {
 
   const handleAddMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    const markedPerson = persons.find(
-      (person) => activePerson.id === person.id
-    );
+    const markedPerson = selectedPerson;
     const newMessage = {
       id: activeScreen[activeScreen.length - 1].id + 1,
       person: markedPerson,

@@ -5,19 +5,23 @@ export type Person = {
   name: string;
   color?: string;
   mood?: number;
-  isSelected: boolean;
 };
 
 // Init data
 const initialData = [
-  { id: 1, name: "Markus", color: "rgb(132, 176, 214", isSelected: false },
-  { id: 2, name: "Lisa", color: "rgb(10, 214, 214", isSelected: false },
+  { id: 1, name: "Markus", color: "rgb(132, 176, 214" },
+  { id: 2, name: "Lisa", color: "rgb(10, 214, 214" },
 ];
 
 // State
 export const persons = atom<Person[]>({
   key: "personsState",
   default: initialData,
+});
+
+export const activePerson = atom<Person | null>({
+  key: "activePerson",
+  default: null,
 });
 
 // Modifer (ie adding items to a list state)
