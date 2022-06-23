@@ -5,27 +5,27 @@ export const NameList = styled.div`
   height: 14.5rem;
   overflow: auto;
   margin-bottom:10px;
+  border: 2px solid red;
 `;
 
 export const ListParent = styled.ul`
   display: flex;
   flex-flow: row wrap;
-  
+  border: 2px solid blue;
 `;
 
 export const List = styled.li`
+  border: 2px solid green;
   position: relative;
   padding: 10px;
   margin: 5px;
   list-style-type: none;
-  width: 120px;
+  width: 8rem;
   border-radius: 15px;
-  flex-grow:2;
-  align-self: center;
-  
+  display: flex;
+  align-items: center;
   box-shadow: 2px 5px 5px 2px rgba(0, 0, 0, 0.2);
   &:hover {
-    font-weight: bold !important;
     cursor:pointer;
   }
 
