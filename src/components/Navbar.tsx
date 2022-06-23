@@ -16,7 +16,13 @@ export const Navbar: React.FC = () => {
   // Checks if the user is logged in, and sets the username if the person is logged in
   useEffect(() => {
     setUserId(auth.currentUser?.uid);
+    auth.currentUser?.getIdToken().then((result) =>  {
+      console.log(result);
+    })
     auth.onAuthStateChanged((user) => {
+      user?.getIdToken().then((result) => {
+        console.log(result);
+      })
       setUsername(user?.displayName);
     });
   }, []);
