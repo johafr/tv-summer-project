@@ -39,7 +39,10 @@ export const EditorInputField: React.FC = () => {
     e.preventDefault();
     const markedPerson = selectedPerson;
     const newMessage = {
-      id: activeScreen.length !== 0 ? activeScreen[activeScreen.length - 1].id + 1 : 0,
+      id:
+        activeScreen.length !== 0
+          ? activeScreen[activeScreen.length - 1].id + 1
+          : 0,
       person: markedPerson,
       content: inputText,
     };
@@ -59,20 +62,24 @@ export const EditorInputField: React.FC = () => {
   const messageList = activeScreen.map((message: messageProps) => {
     return (
       <div>
-      
-      <form key={message.id} onSubmit={(e) => handleUpdateMessage(e, message)}>
-      <S.ColorCircle style={{backgroundColor: message.person?.color?.toString()}}/>
-        <S.FormInput
-          type="text"
-          onSelect={() => handleOnSelect(message)}
-          value={
-            selectedInputArea === message.id
-              ? messageInputText
-              : message.content
-          }
-          onChange={(e) => setMessageInputText(e.target.value)}
-        />
-      </form>
+        <form
+          key={message.id}
+          onSubmit={(e) => handleUpdateMessage(e, message)}
+        >
+          <S.ColorCircle
+            style={{ backgroundColor: message.person?.color?.toString() }}
+          />
+          <S.FormInput
+            type="text"
+            onSelect={() => handleOnSelect(message)}
+            value={
+              selectedInputArea === message.id
+                ? messageInputText
+                : message.content
+            }
+            onChange={(e) => setMessageInputText(e.target.value)}
+          />
+        </form>
       </div>
     );
   });
@@ -81,15 +88,19 @@ export const EditorInputField: React.FC = () => {
     <>
       {messageList}
       <form onSubmit={(e) => handleAddMessage(e)}>
-        <S.ColorCircle style={{backgroundColor: selectedPerson?.color?.toString(),
-        opacity: selectedPerson ? '1' : '0'}}/>
+        <S.ColorCircle
+          style={{
+            backgroundColor: selectedPerson?.color?.toString(),
+            opacity: selectedPerson ? "1" : "0",
+          }}
+        />
         <S.FormInput
           id="lastInput"
           type="text"
           placeholder="Write a sentence..."
           value={inputText}
           onChange={(event) => setInputText(event.target.value)}
-          style={{marginTop:'15px;'}}
+          style={{ marginTop: "15px;" }}
         />
       </form>
     </>
