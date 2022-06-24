@@ -39,7 +39,8 @@ export const List = styled.li`
   }
 `;
 
-export const NameForm = styled.div``;
+export const NameForm = styled.div`
+`;
 
 export const Input = styled.input`
   width: 25rem;
@@ -48,4 +49,5 @@ export const Input = styled.input`
   border: none;
   box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.2);
   text-align: center;
+
 `;
