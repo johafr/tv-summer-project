@@ -43,10 +43,9 @@ export const EditorNameInput: React.FC = () => {
     document.getElementById("lastInput")?.focus();
 
   };
-
+  
   const handleAddName = (e: React.FormEvent) => {
     e.preventDefault();
-    // Replace with a colorpicker or something..
     const randomColor = () => {
       let random = Math.floor(Math.random() * colorList.length);
       return colorList[random];
@@ -82,7 +81,7 @@ export const EditorNameInput: React.FC = () => {
       <div key={index}>
         <S.List
           key={person.id}
-          onClick={(e) => handleSelectPerson(person)}
+          onClick={(e) => setSelectedPerson(person)}
           style={{
             border: person === selectedPerson ? "1px solid blue" : "none",
           }}
@@ -96,7 +95,7 @@ export const EditorNameInput: React.FC = () => {
               marginRight: ".5rem",
             }}
           />
-          {person.name}{" "}
+          {person.name}
           <DeleteIcon
             sx={{ fontSize: 22 }}
             className="editor__deletePerson"
@@ -113,7 +112,6 @@ export const EditorNameInput: React.FC = () => {
       <S.NameList>
         <S.ListParent>{listNames}</S.ListParent>
       </S.NameList>
-
       <S.NameForm>
         <Tooltip title="Add name/remove name.">
         <form onSubmit={(event) => handleAddName(event)}>

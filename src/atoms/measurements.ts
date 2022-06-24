@@ -1,24 +1,25 @@
 import { atom, RecoilState } from "recoil";
 
 export type DisplayMeasurements = {
-  premade?: string;
+  id: string | null;
   width: number;
   height: number;
 };
 
-const defaultMeasurements: DisplayMeasurements = {
-  premade: "iphone 13",
-  width: 195,
-  height: 422,
-};
-
-export const iphoneEight: DisplayMeasurements = {
-  premade: "iphone 8",
-  width: 375 / 1.5,
-  height: 767 / 1.5,
-};
+export const measurementsList: DisplayMeasurements[] = [
+  {
+    id: "iphone 13",
+    width: 195,
+    height: 422,
+  },
+  {
+    id: "iphone 8",
+    width: 375 / 1.5,
+    height: 767 / 1.5,
+  },
+];
 
 export const screenMeasurements: RecoilState<DisplayMeasurements> = atom({
   key: "Measurements",
-  default: defaultMeasurements,
+  default: measurementsList[0],
 });

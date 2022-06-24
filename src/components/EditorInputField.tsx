@@ -16,6 +16,9 @@ export const EditorInputField: React.FC = () => {
   const activeScreen = useRecoilValue(activePage);
   const [inputText, setInputText] = useState("");
   const [messageInputText, setMessageInputText] = useState("");
+  const [selectedInputArea, setSelectedInputArea] = useState<number | null>(
+    null
+  );
 
   const handleUpdateMessage = (e: React.FormEvent, message: messageProps) => {
     e.preventDefault();
@@ -32,14 +35,17 @@ export const EditorInputField: React.FC = () => {
     if (messageInputText !== "") {
       setStoryPages(updatePage(storyPages, newMessageList, pageNum));
     }
-    setMessageInputText("");
+    setSelectedInputArea(null);
   };
 
   const handleAddMessage = (e: React.FormEvent) => {
     e.preventDefault();
     const markedPerson = selectedPerson;
     const newMessage = {
-      id: activeScreen.length !== 0 ? activeScreen[activeScreen.length - 1].id + 1 : 0,
+      id:
+        activeScreen.length !== 0
+          ? activeScreen[activeScreen.length - 1].id + 1
+          : 0,
       person: markedPerson,
       content: inputText,
     };
@@ -48,25 +54,44 @@ export const EditorInputField: React.FC = () => {
     setInputText("");
   };
 
+
   const handleDeleteMessage = (selectedmessage : messageProps) => {
-    const selectedMessageIndex = activeScreen.findIndex(
-      (currentmessage) => currentmessage.id === selectedmessage.id
-    )
-    //setStoryPages((currentMessages) => deleteMessage(currentMessages,selectedMessageIndex))
+      const selectedMessageIndex = activeScreen.findIndex(
+        (currentmessage) => currentmessage.id === selectedmessage.id
+      )
+      //setStoryPages((currentMessages) => deleteMessage(currentMessages,selectedMessageIndex))
+    };
+  const handleOnSelect = (message: messageProps) => {
+    if (selectedInputArea !== message.id) {
+      setSelectedInputArea(message.id);
+      setMessageInputText(message.content);
+      console.log("hei");
+    }
   };
 
-  const messageList = activeScreen.map((message) => {
+  const messageList = activeScreen.map((message: messageProps) => {
     return (
       <div>
-      <form key={message.id} onSubmit={(e) => handleUpdateMessage(e, message)}>
-      <S.ColorCircle style={{backgroundColor: message.person?.color?.toString(), opacity: message.person? '1' : '0'}}/>
-        <S.FormInput
-          type="text"
-          defaultValue={message.content}
-          onChange={(e) => setMessageInputText(e.target.value)}
-        />
+        <form
+          key={message.id}
+          onSubmit={(e) => handleUpdateMessage(e, message)}
+        >
+          <S.ColorCircle style={{
+            backgroundColor: message.person?.color?.toString(), 
+            opacity: message.person? '1' : '0'}}
+          />
+          <S.FormInput
+            type="text"
+            onSelect={() => handleOnSelect(message)}
+            value={
+              selectedInputArea === message.id
+                ? messageInputText
+                : message.content
+            }
+            onChange={(e) => setMessageInputText(e.target.value)}
+          />
         <DeleteIcon sx={{fontSize:12}} onClick={() => handleDeleteMessage(message)}/>
-      </form>
+        </form>
       </div>
     );
   });
@@ -76,15 +101,20 @@ export const EditorInputField: React.FC = () => {
       {messageList}
       <div>
       <form onSubmit={(e) => handleAddMessage(e)}>
-        <S.ColorCircle style={{backgroundColor: personList.length > 0 ? selectedPerson?.color?.toString() : 'White',
-        opacity: selectedPerson ? '1' : '0'}}/>
+
+        <S.ColorCircle
+          style={{
+            backgroundColor: selectedPerson?.color?.toString(),
+            opacity: selectedPerson ? "1" : "0",
+          }}
+        />
         <S.FormInput
           id="lastInput"
           type="text"
           placeholder="Write a sentence..."
           value={inputText}
           onChange={(event) => setInputText(event.target.value)}
-          style={{marginTop:'15px;'}}
+          style={{ marginTop: "15px;" }}
         />
       </form>
       </div>
