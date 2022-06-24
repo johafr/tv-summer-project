@@ -13,6 +13,9 @@ export const EditorInputField: React.FC = () => {
   const activeScreen = useRecoilValue(activePage);
   const [inputText, setInputText] = useState("");
   const [messageInputText, setMessageInputText] = useState("");
+  const [selectedInputArea, setSelectedInputArea] = useState<number | null>(
+    null
+  );
 
   const handleUpdateMessage = (e: React.FormEvent, message: messageProps) => {
     e.preventDefault();
@@ -29,7 +32,7 @@ export const EditorInputField: React.FC = () => {
     if (messageInputText !== "") {
       setStoryPages(updatePage(storyPages, newMessageList, pageNum));
     }
-    setMessageInputText("");
+    setSelectedInputArea(null);
   };
 
   const handleAddMessage = (e: React.FormEvent) => {
@@ -45,12 +48,25 @@ export const EditorInputField: React.FC = () => {
     setInputText("");
   };
 
-  const messageList = activeScreen.map((message) => {
+  const handleOnSelect = (message: messageProps) => {
+    if (selectedInputArea !== message.id) {
+      setSelectedInputArea(message.id);
+      setMessageInputText(message.content);
+      console.log("hei");
+    }
+  };
+
+  const messageList = activeScreen.map((message: messageProps) => {
     return (
       <form key={message.id} onSubmit={(e) => handleUpdateMessage(e, message)}>
         <S.FormInput
           type="text"
-          defaultValue={message.content}
+          onSelect={() => handleOnSelect(message)}
+          value={
+            selectedInputArea === message.id
+              ? messageInputText
+              : message.content
+          }
           onChange={(e) => setMessageInputText(e.target.value)}
         />
       </form>
