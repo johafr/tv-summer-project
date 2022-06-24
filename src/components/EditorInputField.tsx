@@ -47,13 +47,17 @@ export const EditorInputField: React.FC = () => {
 
   const messageList = activeScreen.map((message) => {
     return (
+      <div>
+      
       <form key={message.id} onSubmit={(e) => handleUpdateMessage(e, message)}>
+      <S.ColorCircle style={{backgroundColor: message.person?.color?.toString()}}/>
         <S.FormInput
           type="text"
           defaultValue={message.content}
           onChange={(e) => setMessageInputText(e.target.value)}
         />
       </form>
+      </div>
     );
   });
 
@@ -61,12 +65,14 @@ export const EditorInputField: React.FC = () => {
     <>
       {messageList}
       <form onSubmit={(e) => handleAddMessage(e)}>
+        <S.ColorCircle style={{backgroundColor: selectedPerson?.color?.toString()}}/>
         <S.FormInput
           id="lastInput"
           type="text"
           placeholder="Write a sentence..."
           value={inputText}
           onChange={(event) => setInputText(event.target.value)}
+          style={{marginTop:'15px;'}}
         />
       </form>
     </>
