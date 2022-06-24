@@ -65,3 +65,20 @@ export const activeIndex = atom<number>({
   key: "activeIndex",
   default: 0,
 });
+
+// const handleUpdateMessage = () => {
+//   const activeMessageIndex = activeScreen.findIndex(
+//     (messageInList: messageProps) => message.id === messageInList.id
+//   );
+//   const selectedMessage = activeScreen[activeMessageIndex];
+//   const newMessageList: messageProps[] = [
+//     ...activeScreen.slice(0, activeMessageIndex),
+//     { ...selectedMessage, content: updatedMessage },
+//     ...activeScreen.slice(activeMessageIndex + 1),
+//   ];
+
+//   if (updatedMessage !== "") {
+//     setStoryPages(updatePage(storyPages, newMessageList, pageNum));
+//   }
+//   setMessageInputText("");
+// };

@@ -2,16 +2,26 @@ import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import * as S from "../styles/components/ChangeScreenSizeMenuStyles";
-import { screenMeasurements } from "../atoms/measurements";
+import {
+  DisplayMeasurements,
+  measurementsList,
+  screenMeasurements,
+} from "../atoms/measurements";
 import { useRecoilState } from "recoil";
-import { iphoneEight } from "../atoms/measurements";
 
 export const ChangeScreenSizeMenu: React.FC = () => {
   const [clicked, setClicked] = useState<boolean>(false);
-  const [screenSize, setScreenSize] = useRecoilState(screenMeasurements);
+  const [, setScreenSize] = useRecoilState(screenMeasurements);
 
   const handleOpenModal = () => {
     setClicked(!clicked);
+  };
+
+  const handleChangeScreenSize = (premade: string) => {
+    const newScreen = measurementsList.find(
+      (format: DisplayMeasurements) => format.id === premade
+    )!;
+    setScreenSize(newScreen);
   };
 
   return (
@@ -19,20 +29,26 @@ export const ChangeScreenSizeMenu: React.FC = () => {
       {clicked ? (
         <S.Table>
           <S.TableHeader>
-            <S.SpanHeader style={{ color: "black" }}>
-              Change screen format
-            </S.SpanHeader>
+            <S.SpanHeader>Change screen format</S.SpanHeader>
             <KeyboardArrowDownIcon
               sx={{ marginRight: 1, color: "black" }}
               onClick={() => setClicked(false)}
             />
           </S.TableHeader>
           <S.TableBody>
-            <S.ContentRow>Iphone 13</S.ContentRow>
-            <S.ContentRow>Ipad</S.ContentRow>
-            <S.ContentRow>Samsung galaxy 10</S.ContentRow>
-            <S.ContentRow>Desktop</S.ContentRow>
-            <S.ContentRow onClick={() => setScreenSize(iphoneEight)}>
+            <S.ContentRow onClick={() => handleChangeScreenSize("iphone 13")}>
+              Iphone 13
+            </S.ContentRow>
+            <S.ContentRow onClick={() => handleChangeScreenSize("ipad")}>
+              Ipad
+            </S.ContentRow>
+            <S.ContentRow onClick={() => handleChangeScreenSize("galaxy 10")}>
+              Samsung galaxy 10
+            </S.ContentRow>
+            <S.ContentRow onClick={() => handleChangeScreenSize("desktop")}>
+              Desktop
+            </S.ContentRow>
+            <S.ContentRow onClick={() => handleChangeScreenSize("iphone 8")}>
               iPhone 8
             </S.ContentRow>
           </S.TableBody>

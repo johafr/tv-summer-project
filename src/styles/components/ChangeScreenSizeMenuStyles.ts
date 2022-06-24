@@ -6,6 +6,7 @@ export const Button = styled.button`
   right: 10px;
   background-color: #232333;
   border: none;
+  border-radius: 7px;
 `;
 
 export const Table = styled.table`
@@ -36,6 +37,7 @@ export const TableFooter = styled.tfoot`
 export const SpanHeader = styled.span`
   margin-left: 5px;
   margin-bottom: 5px;
+  color: "black";
 `;
 
 export const ContentRow = styled.button`

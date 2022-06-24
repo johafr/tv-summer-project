@@ -5,6 +5,7 @@ import { EditorReadingTime } from "../components/EditorReadingTime";
 import { EditorNameInput } from "../components/EditorNameInput";
 import * as S from "../styles/screens/EditorStyles";
 import { EditorInputField } from "../components/EditorInputField";
+import { ChangeScreenSizeMenu } from "../components/ChangeScreenSizeMenu";
 
 export const Editor: React.FC = () => {
   // Editor final return
@@ -20,6 +21,7 @@ export const Editor: React.FC = () => {
       <S.DisplayScreenContainer>
         <StoryPage />
       </S.DisplayScreenContainer>
+      <ChangeScreenSizeMenu />
     </S.ParentDiv>
   );
 };
