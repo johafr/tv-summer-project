@@ -65,7 +65,8 @@ export const EditorInputField: React.FC = () => {
     <>
       {messageList}
       <form onSubmit={(e) => handleAddMessage(e)}>
-        <S.ColorCircle style={{backgroundColor: selectedPerson?.color?.toString()}}/>
+        <S.ColorCircle style={{backgroundColor: selectedPerson?.color?.toString(),
+        opacity: selectedPerson ? '1' : '0'}}/>
         <S.FormInput
           id="lastInput"
           type="text"

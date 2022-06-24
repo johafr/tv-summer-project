@@ -17,7 +17,6 @@ export const Editor = styled.div`
 
 export const TextForm = styled.div`
   margin-top: 20px;
-  border-top: 1px inset #adadad;
   border-left: 1px outset #adadad;
   padding: 15px;
   width: 500px;

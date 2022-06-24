@@ -49,6 +49,7 @@ export const EditorNameInput: React.FC = () => {
       color: randomColor(),
     };
     setPersonList((currentPersons) => addPerson(currentPersons, newPerson));
+    setSelectedPerson(newPerson);
     setNameNewPerson("");
   };
 
@@ -57,11 +58,13 @@ export const EditorNameInput: React.FC = () => {
       (currentperson) => currentperson.id === person.id
     );
 
+    
     const updatedPersons = [
       ...personList.slice(0, selectedPersonIndex),
       ...personList.slice(selectedPersonIndex + 1),
     ];
     setPersonList(updatedPersons);
+    setSelectedPerson(null)
   };
 
   const listNames = personList.map((person) => {
@@ -105,13 +108,15 @@ export const EditorNameInput: React.FC = () => {
         <form onSubmit={(event) => handleAddName(event)}>
           <S.Input
             style={{
+              cursor: selectedPerson ? 'pointer' : 'text',
               backgroundColor: selectedPerson?.color
                 ? selectedPerson.color
                 : "white",
             }}
             type="text"
+            onClick={(event) => setSelectedPerson(null)} 
             placeholder="Write a name..."
-            value={nameNewPerson}
+            value={selectedPerson ? selectedPerson?.name : nameNewPerson}
             onChange={(event) => setNameNewPerson(event.target.value)}
           />
         </form>
