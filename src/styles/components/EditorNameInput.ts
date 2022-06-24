@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const NameList = styled.div`
   width: 25.3rem;
-  height: 14.5rem;
+  min-height:5.9rem;
+  max-height: 14.5rem;
   overflow: auto;
   margin-bottom: 10px;
 `;

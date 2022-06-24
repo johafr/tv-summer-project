@@ -4,12 +4,15 @@ import { activeIndex, StoryPages as sp, updatePage } from "../atoms/StoryPages";
 import { activePage } from "../selectors/StoryPages";
 import * as S from "../styles/components/EditorTextInputStyles";
 import { messageProps } from "../atoms/StoryPages";
-import { activePerson } from "../atoms/persons";
+import { activePerson, persons } from "../atoms/persons";
+
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export const EditorInputField: React.FC = () => {
   const [pageNum] = useRecoilState(activeIndex);
   const [storyPages, setStoryPages] = useRecoilState(sp);
   const [selectedPerson] = useRecoilState(activePerson);
+  const [personList, setPersonList] = useRecoilState(persons);
   const activeScreen = useRecoilValue(activePage);
   const [inputText, setInputText] = useState("");
   const [messageInputText, setMessageInputText] = useState("");
@@ -45,17 +48,24 @@ export const EditorInputField: React.FC = () => {
     setInputText("");
   };
 
+  const handleDeleteMessage = (selectedmessage : messageProps) => {
+    const selectedMessageIndex = activeScreen.findIndex(
+      (currentmessage) => currentmessage.id === selectedmessage.id
+    )
+    //setStoryPages((currentMessages) => deleteMessage(currentMessages,selectedMessageIndex))
+  };
+
   const messageList = activeScreen.map((message) => {
     return (
       <div>
-      
       <form key={message.id} onSubmit={(e) => handleUpdateMessage(e, message)}>
-      <S.ColorCircle style={{backgroundColor: message.person?.color?.toString()}}/>
+      <S.ColorCircle style={{backgroundColor: message.person?.color?.toString(), opacity: message.person? '1' : '0'}}/>
         <S.FormInput
           type="text"
           defaultValue={message.content}
           onChange={(e) => setMessageInputText(e.target.value)}
         />
+        <DeleteIcon sx={{fontSize:12}} onClick={() => handleDeleteMessage(message)}/>
       </form>
       </div>
     );
@@ -64,8 +74,9 @@ export const EditorInputField: React.FC = () => {
   return (
     <>
       {messageList}
+      <div>
       <form onSubmit={(e) => handleAddMessage(e)}>
-        <S.ColorCircle style={{backgroundColor: selectedPerson?.color?.toString(),
+        <S.ColorCircle style={{backgroundColor: personList.length > 0 ? selectedPerson?.color?.toString() : 'White',
         opacity: selectedPerson ? '1' : '0'}}/>
         <S.FormInput
           id="lastInput"
@@ -76,6 +87,7 @@ export const EditorInputField: React.FC = () => {
           style={{marginTop:'15px;'}}
         />
       </form>
+      </div>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Tooltip from '@mui/material/Tooltip';
 import { useRecoilState } from "recoil";
 import { activePerson, addPerson, Person, persons } from "../atoms/persons";
 import * as S from "../styles/components/EditorNameInput";
@@ -76,9 +77,9 @@ export const EditorNameInput: React.FC = () => {
     setSelectedPerson(null)
   };
 
-  const listNames = personList.map((person) => {
+  const listNames = personList.map((person,index) => {
     return (
-      <div>
+      <div key={index}>
         <S.List
           key={person.id}
           onClick={(e) => handleSelectPerson(person)}
@@ -86,7 +87,7 @@ export const EditorNameInput: React.FC = () => {
             border: person === selectedPerson ? "1px solid blue" : "none",
           }}
         >
-          <div
+          <div onClick={() => console.log('Fargesirkel')}
             style={{
               backgroundColor: person.color?.toString(),
               width: "30px",
@@ -114,21 +115,23 @@ export const EditorNameInput: React.FC = () => {
       </S.NameList>
 
       <S.NameForm>
+        <Tooltip title="Add name/remove name.">
         <form onSubmit={(event) => handleAddName(event)}>
           <S.Input
             style={{
               cursor: selectedPerson ? 'pointer' : 'text',
-              backgroundColor: selectedPerson?.color
-                ? selectedPerson.color
+              backgroundColor: personList.length > 0
+                ? selectedPerson?.color
                 : "white",
             }}
             type="text"
             onClick={(event) => setSelectedPerson(null)} 
             placeholder="Write a name..."
-            value={selectedPerson ? selectedPerson?.name : nameNewPerson}
+            value={selectedPerson && personList.length > 0 ? selectedPerson?.name : nameNewPerson}
             onChange={(event) => setNameNewPerson(event.target.value)}
           />
         </form>
+        </Tooltip>
       </S.NameForm>
     </div>
   );
