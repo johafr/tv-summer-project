@@ -4,12 +4,14 @@ import Tooltip from '@mui/material/Tooltip';
 import { useRecoilState } from "recoil";
 import { activePerson, addPerson, Person, persons } from "../atoms/persons";
 import * as S from "../styles/components/EditorNameInput";
+import {ChromePicker} from 'react-color';
 
 // Component wrapper function
 export const EditorNameInput: React.FC = () => {
   const [personList, setPersonList] = useRecoilState(persons);
   const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
   const [nameNewPerson, setNameNewPerson] = useState("");
+  const [viewColorPicker, setViewColorPicker] = useState(false);
 
   let colorList = [
     "#407178",
@@ -76,6 +78,11 @@ export const EditorNameInput: React.FC = () => {
     setSelectedPerson(null)
   };
 
+  const handleClickColorPicker = () => {
+    setViewColorPicker(true);
+    console.log('Viser colorpicker');
+  }
+  
   const listNames = personList.map((person,index) => {
     return (
       <div key={index}>
@@ -86,7 +93,7 @@ export const EditorNameInput: React.FC = () => {
             border: person === selectedPerson ? "1px solid blue" : "none",
           }}
         >
-          <div onClick={() => console.log('Fargesirkel')}
+          <div onClick={handleClickColorPicker}
             style={{
               backgroundColor: person.color?.toString(),
               width: "30px",
@@ -95,6 +102,7 @@ export const EditorNameInput: React.FC = () => {
               marginRight: ".5rem",
             }}
           />
+
           {person.name}
           <DeleteIcon
             sx={{ fontSize: 22 }}
@@ -111,6 +119,12 @@ export const EditorNameInput: React.FC = () => {
     <div>
       <S.NameList>
         <S.ListParent>{listNames}</S.ListParent>
+        { viewColorPicker ? 
+            <div style={ {position: "absolute",zIndex: "2"}}>
+              <div style={ {position: "fixed",top: "0px",bottom: "0px",left: "0px",right: "0px"}} onClick={() => setViewColorPicker(false)}/>
+              <ChromePicker onChangeComplete={(color) => console.log(color.hex)} className="s_listParent__chromepicker"/>
+          </div> : null
+        }
       </S.NameList>
       <S.NameForm>
         <Tooltip title="Add name/remove name.">
