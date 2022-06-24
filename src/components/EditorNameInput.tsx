@@ -81,7 +81,7 @@ export const EditorNameInput: React.FC = () => {
       <div key={index}>
         <S.List
           key={person.id}
-          onClick={(e) => setSelectedPerson(person)}
+          onClick={(e) => {setSelectedPerson(person);document.getElementById("lastInput")?.focus()}}
           style={{
             border: person === selectedPerson ? "1px solid blue" : "none",
           }}
