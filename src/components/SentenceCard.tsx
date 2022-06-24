@@ -12,10 +12,10 @@ export const SentenceCard: React.FC<sentenceCardProps> = ({
   content,
 }) => {
   return (
-    <S.Wrapper>
-      <S.Container>
+    <S.Wrapper >
+      <S.Container >
         {person ? <S.Name>{person.name}</S.Name> : <></>}
-        <S.Text>{content}</S.Text>
+        <S.Text style ={{backgroundColor: person?.color}}>{content}</S.Text>
       </S.Container>
     </S.Wrapper>
   );

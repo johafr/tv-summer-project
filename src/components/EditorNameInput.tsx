@@ -19,6 +19,14 @@ export const EditorNameInput: React.FC = () => {
     "#7CA9EB",
     "#D7BF5A",
     "#F19850",
+    "#427178",
+    "#9CA8EA",
+    "#D3BF5A",
+    "#F59850",
+    "#527168",
+    "#9CA9EB",
+    "#D8BF5A",
+    "#F89850",
     "Red",
     "Blue",
     "Cyan",
@@ -31,6 +39,7 @@ export const EditorNameInput: React.FC = () => {
 
     const findPerson = personList.find((person) => person === selectedPerson);
     findPerson ? setSelectedPerson(findPerson) : setSelectedPerson(null);
+    document.getElementById("lastInput")?.focus();
 
   };
 
@@ -38,7 +47,7 @@ export const EditorNameInput: React.FC = () => {
     e.preventDefault();
     // Replace with a colorpicker or something..
     const randomColor = () => {
-      let random = Math.floor(Math.random() * personList.length);
+      let random = Math.floor(Math.random() * colorList.length);
       return colorList[random];
     };
 
