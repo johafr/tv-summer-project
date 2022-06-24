@@ -21,3 +21,5 @@ export const TextForm = styled.div`
   padding: 15px;
   width: 500px;
 `;
+
+export const CreateNewPageButton = styled.button``;
