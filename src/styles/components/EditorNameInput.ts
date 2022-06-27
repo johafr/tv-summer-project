@@ -1,15 +1,28 @@
 import styled from "styled-components";
 
 export const NameList = styled.div`
+  position: relative;
   width: 25.3rem;
   min-height:5.9rem;
   max-height: 14.5rem;
   overflow: auto;
   margin-bottom: 10px;
+
+  & .s_listParent__chromepicker {
+    position: fixed;
+    width: 20rem;
+    height: 15rem;
+    top:6rem;
+    left:30rem;
+    bottom:0;
+    right:1;
+
+  }
 `;
 
 export const ListParent = styled.ul`
   display: flex;
+  position:relative;
   flex-flow: row wrap;
 `;
 
@@ -38,6 +51,8 @@ export const List = styled.li`
   &:hover .editor__deletePerson {
     opacity: 100%;
   }
+
+
 `;
 
 export const NameForm = styled.div`
