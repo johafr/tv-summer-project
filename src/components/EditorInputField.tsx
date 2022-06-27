@@ -63,7 +63,6 @@ export const EditorInputField: React.FC = () => {
     if (selectedInputArea !== message.id) {
       setSelectedInputArea(message.id);
       setMessageInputText(message.content);
-      console.log("hei");
     }
   };
 
@@ -116,7 +115,7 @@ export const EditorInputField: React.FC = () => {
             placeholder="Write a sentence..."
             value={inputText}
             onChange={(event) => setInputText(event.target.value)}
-            style={{ marginTop: "15px;" }}
+            style={{ marginTop: "15px" }}
           />
         </form>
       </div>

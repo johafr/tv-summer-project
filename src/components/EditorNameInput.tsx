@@ -4,7 +4,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { useRecoilState } from "recoil";
 import { activePerson, addPerson, Person, persons } from "../atoms/persons";
 import * as S from "../styles/components/EditorNameInput";
-import {ChromePicker} from 'react-color';
+import { ChromePicker } from "react-color";
 
 // Component wrapper function
 export const EditorNameInput: React.FC = () => {
@@ -77,10 +77,10 @@ export const EditorNameInput: React.FC = () => {
 
   const handleClickColorPicker = () => {
     setViewColorPicker(true);
-    console.log('Viser colorpicker');
-  }
-  
-  const listNames = personList.map((person,index) => {
+    console.log("Viser colorpicker");
+  };
+
+  const listNames = personList.map((person, index) => {
     return (
       <div key={index}>
         <S.List
@@ -93,7 +93,8 @@ export const EditorNameInput: React.FC = () => {
             border: person === selectedPerson ? "1px solid blue" : "none",
           }}
         >
-          <div onClick={handleClickColorPicker}
+          <div
+            onClick={handleClickColorPicker}
             style={{
               backgroundColor: person.color?.toString(),
               width: "30px",
@@ -119,12 +120,24 @@ export const EditorNameInput: React.FC = () => {
     <div>
       <S.NameList>
         <S.ListParent>{listNames}</S.ListParent>
-        { viewColorPicker ? 
-            <div style={ {position: "absolute",zIndex: "2"}}>
-              <div style={ {position: "fixed",top: "0px",bottom: "0px",left: "0px",right: "0px"}} onClick={() => setViewColorPicker(false)}/>
-              <ChromePicker onChangeComplete={(color) => console.log(color.hex)} className="s_listParent__chromepicker"/>
-          </div> : null
-        }
+        {viewColorPicker ? (
+          <div style={{ position: "absolute", zIndex: "2" }}>
+            <div
+              style={{
+                position: "fixed",
+                top: "0px",
+                bottom: "0px",
+                left: "0px",
+                right: "0px",
+              }}
+              onClick={() => setViewColorPicker(false)}
+            />
+            <ChromePicker
+              onChangeComplete={(color) => console.log(color.hex)}
+              className="s_listParent__chromepicker"
+            />
+          </div>
+        ) : null}
       </S.NameList>
       <S.NameForm>
         <Tooltip title="Add name/remove name.">

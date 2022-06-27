@@ -28,11 +28,12 @@ export const Screen = styled.div<{ measurements: DisplayMeasurements }>`
   width: ${(props) => props.measurements.width + 100}px;
   left: 50%;
   margin-left: ${(props) => -props.measurements.width / 2 - 50}px;
-  height: 90vh;
+  height: ${(props) => props.measurements.height + 2}px;
   justify-content: space-between;
   display: flex;
   align-items: center;
   overflow: hidden;
+  //background-color: aqua;
 `;
 
 export const ContentDiv = styled.div<{ measurements: DisplayMeasurements }>`

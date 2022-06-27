@@ -19,8 +19,8 @@ export const measurementsList: DisplayMeasurements[] = [
   },
   {
     id: "desktop",
-    width: 1920 * 0.5,
-    height: 1080 * 0.5,
+    width: 1920 * 0.39,
+    height: 1080 * 0.39,
   },
 ];
 

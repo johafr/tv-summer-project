@@ -2,7 +2,13 @@ import styled from "styled-components";
 
 export const DisplayScreenContainer = styled.div`
   position: relative;
-  left: 25rem;
+  left: 10rem;
+  top: 2rem;
+  width: 960px;
+  height: 570px;
+  align-items: center;
+  display: flex;
+  //background-color: red;
 `;
 
 export const ParentDiv = styled.div`
@@ -23,3 +29,5 @@ export const TextForm = styled.div`
 `;
 
 export const CreateNewPageButton = styled.button``;
+
+export const DeletePageButton = styled.button``;
