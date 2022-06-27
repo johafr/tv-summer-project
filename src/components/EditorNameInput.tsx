@@ -12,6 +12,7 @@ export const EditorNameInput: React.FC = () => {
   const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
   const [nameNewPerson, setNameNewPerson] = useState("");
   const [viewColorPicker, setViewColorPicker] = useState(false);
+  const [selectedColor,setSelectedColor] = useState<any>(selectedPerson?.color);
 
   let colorList = [
     "#407178",
@@ -38,21 +39,28 @@ export const EditorNameInput: React.FC = () => {
     "Lightgray",
   ];
 
-  const handleSelectPerson = (selectedPerson: Person) => {
+  // State-handlers
+  // Toggle for the visibility of the color-picker state
+  const handleClickColorPicker = () => {
+    setViewColorPicker(true);
+  }
 
-    const findPerson = personList.find((person) => person === selectedPerson);
-    findPerson ? setSelectedPerson(findPerson) : setSelectedPerson(null);
-    document.getElementById("lastInput")?.focus();
+  // Handler for animating mouse dragging in the color picker.
+  const handleChangeColor = ( color : any) => {
+    setSelectedColor(color);
+  }
 
-  };
-  
+
+
+
+  // "CRUD"-handlers for names
+  // Adds a new person to the personList - Also assigns a "random" color
   const handleAddName = (e: React.FormEvent) => {
     e.preventDefault();
     const randomColor = () => {
       let random = Math.floor(Math.random() * colorList.length);
       return colorList[random];
     };
-
     const newPerson = {
       id:
         personList.length !== 0 ? personList[personList.length - 1].id + 1 : 0,
@@ -62,33 +70,50 @@ export const EditorNameInput: React.FC = () => {
     setPersonList((currentPersons) => addPerson(currentPersons, newPerson));
     setSelectedPerson(newPerson);
     setNameNewPerson("");
-  };
+  }; // End add person
 
+  // Deletes a person when <user> clicks the delete trashcan icon.
   const handleDeletePerson = (person: Person) => {
     const selectedPersonIndex = personList.findIndex(
       (currentperson) => currentperson.id === person.id
-    );
-
-    
+    );    
     const updatedPersons = [
       ...personList.slice(0, selectedPersonIndex),
       ...personList.slice(selectedPersonIndex + 1),
     ];
     setPersonList(updatedPersons);
     setSelectedPerson(null)
-  };
+  }; // End delete person
 
-  const handleClickColorPicker = () => {
-    setViewColorPicker(true);
-    console.log('Viser colorpicker');
-  }
+  // Updates selected persons color based on the value of color-picker component.
+  const handleUpdateColor = (person : Person | null) => {
+    const newColor = selectedColor.hex
+    const selectedPersonIndex = personList.findIndex((currentperson) => currentperson == person);
+    const selectedPerson = personList[selectedPersonIndex];
+    
+    // Makes an updated personList (and updated person-object for instant color change across app).
+    const updatedPersons = [
+      ...personList.slice(0,selectedPersonIndex),
+      {...selectedPerson, color: newColor},
+      ...personList.slice(selectedPersonIndex + 1)
+    ];
+    const updatedPerson = {id : selectedPerson.id, name : selectedPerson.name, color : selectedColor.hex};
+    setPersonList(updatedPersons);
+    setSelectedPerson(updatedPerson)
+    setViewColorPicker(false);
+  } // End update person color
+
+
+
   
+
+  // Listing of all names the user has inputted or retrieved from DB.
   const listNames = personList.map((person,index) => {
     return (
       <div key={index}>
         <S.List
           key={person.id}
-          onClick={(e) => {setSelectedPerson(person);document.getElementById("lastInput")?.focus()}}
+          onClick={(e) => {setSelectedPerson(person);setSelectedColor(person.color);document.getElementById("lastInput")?.focus()}}
           style={{
             border: person === selectedPerson ? "1px solid blue" : "none",
           }}
@@ -119,10 +144,10 @@ export const EditorNameInput: React.FC = () => {
     <div>
       <S.NameList>
         <S.ListParent>{listNames}</S.ListParent>
-        { viewColorPicker ? 
+        { viewColorPicker ?
             <div style={ {position: "absolute",zIndex: "2"}}>
-              <div style={ {position: "fixed",top: "0px",bottom: "0px",left: "0px",right: "0px"}} onClick={() => setViewColorPicker(false)}/>
-              <ChromePicker onChangeComplete={(color) => console.log(color.hex)} className="s_listParent__chromepicker"/>
+              <div style={ {position: "fixed",top: "0px",bottom: "0px",left: "0px",right: "0px"}} onClick={() => handleUpdateColor(selectedPerson)}/>
+              <ChromePicker onChange={handleChangeColor} color={selectedColor} className="s_listParent__chromepicker"/>
           </div> : null
         }
       </S.NameList>
