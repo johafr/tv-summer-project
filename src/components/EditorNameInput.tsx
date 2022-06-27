@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from "@mui/material/Tooltip";
 import { useRecoilState } from "recoil";
 import { activePerson, addPerson, Person, persons } from "../atoms/persons";
 import * as S from "../styles/components/EditorNameInput";
@@ -39,6 +39,7 @@ export const EditorNameInput: React.FC = () => {
     "Lightgray",
   ];
 
+
   // State-handlers
   // Toggle for the visibility of the color-picker state
   const handleClickColorPicker = () => {
@@ -55,6 +56,7 @@ export const EditorNameInput: React.FC = () => {
 
   // "CRUD"-handlers for names
   // Adds a new person to the personList - Also assigns a "random" color
+
   const handleAddName = (e: React.FormEvent) => {
     e.preventDefault();
     const randomColor = () => {
@@ -105,6 +107,14 @@ export const EditorNameInput: React.FC = () => {
 
 
 
+
+  const handleToggleSelectPerson = (person: Person) => {
+    selectedPerson === person
+      ? setSelectedPerson(null)
+      : setSelectedPerson(person);
+  };
+
+
   
 
   // Listing of all names the user has inputted or retrieved from DB.
@@ -153,21 +163,24 @@ export const EditorNameInput: React.FC = () => {
       </S.NameList>
       <S.NameForm>
         <Tooltip title="Add name/remove name.">
-        <form onSubmit={(event) => handleAddName(event)}>
-          <S.Input
-            style={{
-              cursor: selectedPerson ? 'pointer' : 'text',
-              backgroundColor: personList.length > 0
-                ? selectedPerson?.color
-                : "white",
-            }}
-            type="text"
-            onClick={(event) => setSelectedPerson(null)} 
-            placeholder="Write a name..."
-            value={selectedPerson && personList.length > 0 ? selectedPerson?.name : nameNewPerson}
-            onChange={(event) => setNameNewPerson(event.target.value)}
-          />
-        </form>
+          <form onSubmit={(event) => handleAddName(event)}>
+            <S.Input
+              style={{
+                cursor: selectedPerson ? "pointer" : "text",
+                backgroundColor:
+                  personList.length > 0 ? selectedPerson?.color : "white",
+              }}
+              type="text"
+              onClick={(event) => setSelectedPerson(null)}
+              placeholder="Write a name..."
+              value={
+                selectedPerson && personList.length > 0
+                  ? selectedPerson?.name
+                  : nameNewPerson
+              }
+              onChange={(event) => setNameNewPerson(event.target.value)}
+            />
+          </form>
         </Tooltip>
       </S.NameForm>
     </div>
