@@ -114,10 +114,7 @@ export const EditorNameInput: React.FC = () => {
       : setSelectedPerson(person);
   };
 
-  const handleClickColorPicker = () => {
-    setViewColorPicker(true);
-    console.log("Viser colorpicker");
-  };
+
   
   const listNames = personList.map((person, index) => {
     return (
