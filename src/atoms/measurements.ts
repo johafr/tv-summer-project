@@ -17,6 +17,11 @@ export const measurementsList: DisplayMeasurements[] = [
     width: 375 / 1.5,
     height: 767 / 1.5,
   },
+  {
+    id: "desktop",
+    width: 1920 * 0.5,
+    height: 1080 * 0.5,
+  },
 ];
 
 export const screenMeasurements: RecoilState<DisplayMeasurements> = atom({

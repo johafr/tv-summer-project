@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip from "@mui/material/Tooltip";
 import { useRecoilState } from "recoil";
 import { activePerson, addPerson, Person, persons } from "../atoms/persons";
 import * as S from "../styles/components/EditorNameInput";
@@ -38,14 +38,6 @@ export const EditorNameInput: React.FC = () => {
     "Lightgray",
   ];
 
-  const handleSelectPerson = (selectedPerson: Person) => {
-
-    const findPerson = personList.find((person) => person === selectedPerson);
-    findPerson ? setSelectedPerson(findPerson) : setSelectedPerson(null);
-    document.getElementById("lastInput")?.focus();
-
-  };
-  
   const handleAddName = (e: React.FormEvent) => {
     e.preventDefault();
     const randomColor = () => {
@@ -69,13 +61,18 @@ export const EditorNameInput: React.FC = () => {
       (currentperson) => currentperson.id === person.id
     );
 
-    
     const updatedPersons = [
       ...personList.slice(0, selectedPersonIndex),
       ...personList.slice(selectedPersonIndex + 1),
     ];
     setPersonList(updatedPersons);
-    setSelectedPerson(null)
+    setSelectedPerson(null);
+  };
+
+  const handleToggleSelectPerson = (person: Person) => {
+    selectedPerson === person
+      ? setSelectedPerson(null)
+      : setSelectedPerson(person);
   };
 
   const handleClickColorPicker = () => {
@@ -88,7 +85,10 @@ export const EditorNameInput: React.FC = () => {
       <div key={index}>
         <S.List
           key={person.id}
-          onClick={(e) => {setSelectedPerson(person);document.getElementById("lastInput")?.focus()}}
+          onClick={(e) => {
+            handleToggleSelectPerson(person);
+            document.getElementById("lastInput")?.focus();
+          }}
           style={{
             border: person === selectedPerson ? "1px solid blue" : "none",
           }}
@@ -128,21 +128,24 @@ export const EditorNameInput: React.FC = () => {
       </S.NameList>
       <S.NameForm>
         <Tooltip title="Add name/remove name.">
-        <form onSubmit={(event) => handleAddName(event)}>
-          <S.Input
-            style={{
-              cursor: selectedPerson ? 'pointer' : 'text',
-              backgroundColor: personList.length > 0
-                ? selectedPerson?.color
-                : "white",
-            }}
-            type="text"
-            onClick={(event) => setSelectedPerson(null)} 
-            placeholder="Write a name..."
-            value={selectedPerson && personList.length > 0 ? selectedPerson?.name : nameNewPerson}
-            onChange={(event) => setNameNewPerson(event.target.value)}
-          />
-        </form>
+          <form onSubmit={(event) => handleAddName(event)}>
+            <S.Input
+              style={{
+                cursor: selectedPerson ? "pointer" : "text",
+                backgroundColor:
+                  personList.length > 0 ? selectedPerson?.color : "white",
+              }}
+              type="text"
+              onClick={(event) => setSelectedPerson(null)}
+              placeholder="Write a name..."
+              value={
+                selectedPerson && personList.length > 0
+                  ? selectedPerson?.name
+                  : nameNewPerson
+              }
+              onChange={(event) => setNameNewPerson(event.target.value)}
+            />
+          </form>
         </Tooltip>
       </S.NameForm>
     </div>
