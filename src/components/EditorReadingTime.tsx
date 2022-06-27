@@ -31,7 +31,7 @@ export const EditorReadingTime: React.FC = () => {
     <div>
       <p>Wordcount : {wordCount}</p>
       <p>Estimated reading time {readingTime} minutes... </p>
-      <p> Page number: {pagenumber}</p>
+      <p>Page number: {pagenumber}</p>
     </div>
   );
 };
