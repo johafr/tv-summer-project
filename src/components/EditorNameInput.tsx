@@ -95,7 +95,7 @@ export const EditorNameInput: React.FC = () => {
     // Prevents settings the color to null
     if(newColor !== undefined) {
       const selectedPersonIndex = personList.findIndex(
-        (currentperson) => currentperson == person
+        (currentperson) => currentperson === person
       );
       const selectedPerson = personList[selectedPersonIndex];
 
