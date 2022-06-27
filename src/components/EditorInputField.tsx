@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { activeIndex, StoryPages as sp, updatePage } from "../atoms/StoryPages";
+import { activeIndex, deleteMessage, StoryPages as sp, updatePage } from "../atoms/StoryPages";
 import { activePage } from "../selectors/StoryPages";
 import * as S from "../styles/components/EditorTextInputStyles";
 import { messageProps } from "../atoms/StoryPages";
@@ -54,20 +54,10 @@ export const EditorInputField: React.FC = () => {
   };
 
   const handleDeleteMessage = (selectedmessage: messageProps) => {
-    const selectedPageIndex = pageNum;
     const selectedMessageIndex = activeScreen.findIndex(
       (currentmessage) => currentmessage.id === selectedmessage.id
     );
-    const updatedMessagelist = [
-      ...activeScreen.slice(0, selectedMessageIndex),
-      ...activeScreen.slice(selectedMessageIndex + 1)
-    ]
-    const updatedPagesList = [
-      ...storyPages.slice(0,selectedPageIndex),
-      updatedMessagelist,
-      ...storyPages.slice(selectedPageIndex + 1)
-    ]
-    setStoryPages(updatedPagesList);
+    setStoryPages((deleteMessage(selectedMessageIndex,pageNum,activeScreen,storyPages)));
   }; // End delete message
 
 
