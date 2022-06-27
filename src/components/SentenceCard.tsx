@@ -4,18 +4,20 @@ import * as S from "../styles/components/SentenceCardStyles";
 
 type sentenceCardProps = {
   person?: Person | null;
+  align: string;
   content: string;
 };
 
 export const SentenceCard: React.FC<sentenceCardProps> = ({
   person,
+  align,
   content,
 }) => {
   return (
-    <S.Wrapper >
-      <S.Container >
-        {person ? <S.Name>{person.name}</S.Name> : <></>}
-        <S.Text style ={{backgroundColor: person?.color}}>{content}</S.Text>
+    <S.Wrapper align={align}>
+      <S.Container>
+        {person ? <S.Name align={align}>{person.name}</S.Name> : <></>}
+        <S.Text style={{ backgroundColor: person?.color }}>{content}</S.Text>
       </S.Container>
     </S.Wrapper>
   );

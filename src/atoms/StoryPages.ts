@@ -5,6 +5,7 @@ export type messageProps = {
   id: number;
   person: Person | null;
   content: string;
+  align: string;
 };
 
 const dummyData = [
@@ -17,6 +18,7 @@ const dummyData = [
         color: "rgb(132, 176, 214",
       },
       content: "This is dummy data",
+      align: "right",
     },
     {
       id: 1,
@@ -26,6 +28,7 @@ const dummyData = [
         color: "rgb(10, 214, 214",
       },
       content: "This is the second line",
+      align: "left",
     },
   ],
   [
@@ -33,6 +36,7 @@ const dummyData = [
       id: 0,
       person: null,
       content: "This is a message without an assigned person",
+      align: "center",
     },
   ],
 ];
@@ -55,20 +59,25 @@ export const updatePage = (
   return newList;
 };
 
-export const deleteMessage = (messageIndex : number, pagenumber : number, messages: messageProps[], stories: messageProps[][]) => {
+export const deleteMessage = (
+  messageIndex: number,
+  pagenumber: number,
+  messages: messageProps[],
+  stories: messageProps[][]
+) => {
   // Remove the message (object) from the sublist (page[])
   const updatedMessagelist = [
     ...messages.slice(0, messageIndex),
-    ...messages.slice(messageIndex + 1)
-  ]
+    ...messages.slice(messageIndex + 1),
+  ];
   // Replace the sublist (page[]) in the parent list (pages[][])
   const updatedPagesList = [
-    ...stories.slice(0,pagenumber),
+    ...stories.slice(0, pagenumber),
     updatedMessagelist,
-    ...stories.slice(pagenumber + 1)
-  ]
+    ...stories.slice(pagenumber + 1),
+  ];
   return updatedPagesList;
-}
+};
 
 export const activeIndex = atom<number>({
   key: "activeIndex",
