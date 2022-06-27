@@ -60,7 +60,6 @@ export const EditorInputField: React.FC = () => {
     setStoryPages((deleteMessage(selectedMessageIndex,pageNum,activeScreen,storyPages)));
   }; // End delete message
 
-
   const handleOnSelect = (message: messageProps) => {
     if (selectedInputArea !== message.id) {
       setSelectedInputArea(message.id);
@@ -117,7 +116,7 @@ export const EditorInputField: React.FC = () => {
             placeholder="Write a sentence..."
             value={inputText}
             onChange={(event) => setInputText(event.target.value)}
-            style={{ marginTop: "15px;" }}
+            style={{ marginTop: "15px" }}
           />
         </form>
       </div>

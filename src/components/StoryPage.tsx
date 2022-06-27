@@ -8,7 +8,6 @@ import { screenMeasurements } from "../atoms/measurements";
 import * as S from "../styles/components/storyPageStyles";
 
 import { activePage, getDisplayScreenLength } from "../selectors/StoryPages";
-import "../styles/DisplayScreenStyling.css";
 import { SentenceCard } from "./SentenceCard";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
@@ -34,7 +33,7 @@ export const StoryPage: React.FC = () => {
   };
 
   return (
-    <div className="mobile-style-container">
+    <>
       <S.Screen measurements={measurements}>
         <Fab
           id="fab"
@@ -77,6 +76,6 @@ export const StoryPage: React.FC = () => {
           <ArrowRightIcon sx={{ color: "white" }} />
         </Fab>
       </S.Screen>
-    </div>
+    </>
   );
 };

@@ -9,8 +9,8 @@ export type Person = {
 
 // Init data
 const initialData = [
-  { id: 1, name: "Markus", color: "rgb(132, 176, 214" },
-  { id: 2, name: "Lisa", color: "rgb(10, 214, 214" },
+  { id: 0, name: "Markus", color: "rgb(132, 176, 214" },
+  { id: 1, name: "Lisa", color: "rgb(10, 214, 214" },
 ];
 
 // State
