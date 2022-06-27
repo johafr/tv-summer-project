@@ -114,16 +114,13 @@ export const EditorNameInput: React.FC = () => {
       : setSelectedPerson(person);
   };
 
-
-  
-
   // Listing of all names the user has inputted or retrieved from DB.
   const listNames = personList.map((person,index) => {
     return (
       <div key={index}>
         <S.List
           key={person.id}
-          onClick={(e) => {setSelectedPerson(person);setSelectedColor(person.color);document.getElementById("lastInput")?.focus()}}
+          onClick={(e) => {handleToggleSelectPerson(person);setSelectedColor(person.color);document.getElementById("lastInput")?.focus()}}
           style={{
             border: person === selectedPerson ? "1px solid blue" : "none",
           }}
