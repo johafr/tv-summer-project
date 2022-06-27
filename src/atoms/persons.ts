@@ -19,9 +19,9 @@ export const persons = atom<Person[]>({
   default: initialData,
 });
 
-export const activePerson = atom<Person | null>({
+export const activePerson = atom<Person | undefined>({
   key: "activePerson",
-  default: null,
+  default: undefined,
 });
 
 // Modifer (ie adding items to a list state)

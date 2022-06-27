@@ -82,15 +82,15 @@ export const EditorNameInput: React.FC = () => {
       ...personList.slice(selectedPersonIndex + 1),
     ];
     setPersonList(updatedPersons);
-    setSelectedPerson(null);
+    setSelectedPerson(undefined);
   }; // End delete person
 
   // Updates selected persons color based on the value of color-picker component.
-  const handleUpdateColor = (person: Person | null) => {
+  const handleUpdateColor = (person: Person | undefined) => {
     const newColor = selectedColor.hex;
 
     // Prevents settings the color to null
-    if(newColor !== undefined) {
+    if (newColor !== undefined) {
       const selectedPersonIndex = personList.findIndex(
         (currentperson) => currentperson === person
       );
@@ -109,13 +109,13 @@ export const EditorNameInput: React.FC = () => {
       };
       setPersonList(updatedPersons);
       setSelectedPerson(updatedPerson);
-  }
+    }
     setViewColorPicker(false);
   }; // End update person color
 
   const handleToggleSelectPerson = (person: Person) => {
     selectedPerson === person
-      ? setSelectedPerson(null)
+      ? setSelectedPerson(undefined)
       : setSelectedPerson(person);
   };
 
@@ -190,7 +190,7 @@ export const EditorNameInput: React.FC = () => {
                   personList.length > 0 ? selectedPerson?.color : "white",
               }}
               type="text"
-              onClick={(event) => setSelectedPerson(null)}
+              onClick={(event) => setSelectedPerson(undefined)}
               placeholder="Write a name..."
               value={
                 selectedPerson && personList.length > 0

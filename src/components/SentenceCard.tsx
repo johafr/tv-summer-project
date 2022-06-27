@@ -3,7 +3,7 @@ import { Person } from "../atoms/persons";
 import * as S from "../styles/components/SentenceCardStyles";
 
 type sentenceCardProps = {
-  person?: Person | null;
+  person?: Person;
   align: string;
   content: string;
 };
