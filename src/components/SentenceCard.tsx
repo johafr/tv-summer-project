@@ -15,10 +15,16 @@ export const SentenceCard: React.FC<sentenceCardProps> = ({
 }) => {
   return (
     <S.Wrapper align={align}>
-      <S.Container>
-        {person ? <S.Name align={align}>{person.name}</S.Name> : <></>}
-        <S.Text style={{ backgroundColor: person?.color }}>{content}</S.Text>
-      </S.Container>
+      {person ? (
+        <S.DialogContainer>
+          <S.Name align={align}>{person.name}</S.Name>
+          <S.Dialog>{content}</S.Dialog>
+        </S.DialogContainer>
+      ) : (
+        <S.TextContainer>
+          <S.Text>{content}</S.Text>
+        </S.TextContainer>
+      )}
     </S.Wrapper>
   );
 };

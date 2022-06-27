@@ -56,7 +56,7 @@ export const EditorInputField: React.FC = () => {
           : 0,
       person: markedPerson,
       content: inputText,
-      align: markedPerson === null ? "center" : "right",
+      align: markedPerson === undefined ? "center" : "right",
     };
     const newMessageList = [...activeScreen, newMessage];
     setStoryPages(updatePage(storyPages, newMessageList, pageNum));
@@ -81,7 +81,7 @@ export const EditorInputField: React.FC = () => {
 
   const messageList = activeScreen.map((message: messageProps) => {
     return (
-      <div>
+      <div key={message.id}>
         <form
           key={message.id}
           onSubmit={(e) => handleUpdateMessage(e, message)}

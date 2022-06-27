@@ -3,7 +3,7 @@ import { atom } from "recoil";
 export type Person = {
   id: number;
   name: string;
-  color?: string;
+  color: string;
   mood?: number;
 };
 
