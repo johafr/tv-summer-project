@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { activeIndex, deleteMessage, StoryPages as sp, updatePage } from "../atoms/StoryPages";
+import {
+  activeIndex,
+  deleteMessage,
+  StoryPages as sp,
+  updatePage,
+} from "../atoms/StoryPages";
 import { activePage } from "../selectors/StoryPages";
 import * as S from "../styles/components/EditorTextInputStyles";
 import { messageProps } from "../atoms/StoryPages";
@@ -27,7 +32,11 @@ export const EditorInputField: React.FC = () => {
     const selectedMessage = activeScreen[activeMessageIndex];
     const newMessageList = [
       ...activeScreen.slice(0, activeMessageIndex),
-      { ...selectedMessage, content: messageInputText },
+      {
+        ...selectedMessage,
+        content: messageInputText,
+        align: message.align === "right" ? "left" : "right",
+      },
       ...activeScreen.slice(activeMessageIndex + 1),
     ];
 
@@ -47,6 +56,7 @@ export const EditorInputField: React.FC = () => {
           : 0,
       person: markedPerson,
       content: inputText,
+      align: markedPerson === null ? "center" : "right",
     };
     const newMessageList = [...activeScreen, newMessage];
     setStoryPages(updatePage(storyPages, newMessageList, pageNum));
@@ -57,7 +67,9 @@ export const EditorInputField: React.FC = () => {
     const selectedMessageIndex = activeScreen.findIndex(
       (currentmessage) => currentmessage.id === selectedmessage.id
     );
-    setStoryPages((deleteMessage(selectedMessageIndex,pageNum,activeScreen,storyPages)));
+    setStoryPages(
+      deleteMessage(selectedMessageIndex, pageNum, activeScreen, storyPages)
+    );
   }; // End delete message
 
   const handleOnSelect = (message: messageProps) => {
@@ -117,6 +129,7 @@ export const EditorInputField: React.FC = () => {
             value={inputText}
             onChange={(event) => setInputText(event.target.value)}
             style={{ marginTop: "15px" }}
+            onSelect={() => setSelectedInputArea(null)}
           />
         </form>
       </div>

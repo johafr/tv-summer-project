@@ -4,9 +4,12 @@ export const Button = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: #232333;
+  background-color: inherit;
+  border: 1px solid #adadad;
   border: none;
   border-radius: 7px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 `;
 
 export const Table = styled.table`
@@ -16,6 +19,9 @@ export const Table = styled.table`
   background-color: white;
   width: 220px;
   border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px;
 `;
 
 export const TableHeader = styled.thead`

@@ -89,7 +89,7 @@ export const EditorNameInput: React.FC = () => {
   const handleUpdateColor = (person: Person | null) => {
     const newColor = selectedColor.hex;
     const selectedPersonIndex = personList.findIndex(
-      (currentperson) => currentperson == person
+      (currentperson) => currentperson === person
     );
     const selectedPerson = personList[selectedPersonIndex];
 

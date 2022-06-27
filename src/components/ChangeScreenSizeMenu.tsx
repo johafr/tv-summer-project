@@ -17,7 +17,7 @@ export const ChangeScreenSizeMenu: React.FC = () => {
     setClicked(!clicked);
   };
 
-  const handleChangeScreenSize = (premade: string) => {
+  const handleChangeScreenSize = (premade: string | null) => {
     const newScreen = measurementsList.find(
       (format: DisplayMeasurements) => format.id === premade
     )!;
@@ -36,21 +36,15 @@ export const ChangeScreenSizeMenu: React.FC = () => {
             />
           </S.TableHeader>
           <S.TableBody>
-            <S.ContentRow onClick={() => handleChangeScreenSize("iphone 13")}>
-              Iphone 13
-            </S.ContentRow>
-            <S.ContentRow onClick={() => handleChangeScreenSize("ipad")}>
-              Ipad
-            </S.ContentRow>
-            <S.ContentRow onClick={() => handleChangeScreenSize("galaxy 10")}>
-              Samsung galaxy 10
-            </S.ContentRow>
-            <S.ContentRow onClick={() => handleChangeScreenSize("desktop")}>
-              Desktop
-            </S.ContentRow>
-            <S.ContentRow onClick={() => handleChangeScreenSize("iphone 8")}>
-              iPhone 8
-            </S.ContentRow>
+            {measurementsList.map((display: DisplayMeasurements) => {
+              return (
+                <S.ContentRow
+                  onClick={() => handleChangeScreenSize(display.id)}
+                >
+                  {display.id ? display.id : "custom"}
+                </S.ContentRow>
+              );
+            })}
           </S.TableBody>
           <S.TableFooter>
             <S.CloseButton onClick={() => setClicked(false)}>
@@ -60,7 +54,7 @@ export const ChangeScreenSizeMenu: React.FC = () => {
         </S.Table>
       ) : (
         <S.Button onClick={handleOpenModal}>
-          <MenuIcon sx={{ color: "white" }} />
+          <MenuIcon sx={{ color: "#adadad" }} />
         </S.Button>
       )}
     </>

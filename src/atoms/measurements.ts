@@ -22,6 +22,11 @@ export const measurementsList: DisplayMeasurements[] = [
     width: 1920 * 0.39,
     height: 1080 * 0.39,
   },
+  {
+    id: "ipad",
+    width: 1536 * 0.2,
+    height: 2048 * 0.2,
+  },
 ];
 
 export const screenMeasurements: RecoilState<DisplayMeasurements> = atom({

@@ -57,6 +57,7 @@ export const StoryPage: React.FC = () => {
                 key={card.id}
                 person={card.person}
                 content={card.content}
+                align={card.align}
               />
             ))}
           </S.ContentDiv>
