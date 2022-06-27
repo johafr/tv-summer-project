@@ -6,7 +6,8 @@ import { EditorNameInput } from "../components/EditorNameInput";
 import * as S from "../styles/screens/EditorStyles";
 import { EditorInputField } from "../components/EditorInputField";
 import { ChangeScreenSizeMenu } from "../components/ChangeScreenSizeMenu";
-import { CreateNewPageButton } from "../components/CreateNewPageButton";
+import { UpdatePageDisplay } from "../components/UpdatePageDisplay";
+import { CurrentPageDisplay } from "../components/CurrentPageDisplay";
 
 export const Editor: React.FC = () => {
   // Editor final return
@@ -18,10 +19,11 @@ export const Editor: React.FC = () => {
         <S.TextForm>
           <EditorInputField />
         </S.TextForm>
-        <CreateNewPageButton />
+        <UpdatePageDisplay />
       </S.Editor>
       <S.DisplayScreenContainer>
         <StoryPage />
+        <CurrentPageDisplay />
       </S.DisplayScreenContainer>
       <ChangeScreenSizeMenu />
     </S.ParentDiv>

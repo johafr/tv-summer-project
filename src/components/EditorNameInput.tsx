@@ -4,7 +4,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { useRecoilState } from "recoil";
 import { activePerson, addPerson, Person, persons } from "../atoms/persons";
 import * as S from "../styles/components/EditorNameInput";
-import {ChromePicker} from 'react-color';
+import { ChromePicker } from "react-color";
 
 // Component wrapper function
 export const EditorNameInput: React.FC = () => {
@@ -114,8 +114,12 @@ export const EditorNameInput: React.FC = () => {
       : setSelectedPerson(person);
   };
 
-  // Listing of all names the user has inputted or retrieved from DB.
-  const listNames = personList.map((person,index) => {
+  const handleClickColorPicker = () => {
+    setViewColorPicker(true);
+    console.log("Viser colorpicker");
+  };
+  
+  const listNames = personList.map((person, index) => {
     return (
       <div key={index}>
         <S.List
@@ -125,7 +129,8 @@ export const EditorNameInput: React.FC = () => {
             border: person === selectedPerson ? "1px solid blue" : "none",
           }}
         >
-          <div onClick={handleClickColorPicker}
+          <div
+            onClick={handleClickColorPicker}
             style={{
               backgroundColor: person.color?.toString(),
               width: "30px",
