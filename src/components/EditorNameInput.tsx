@@ -12,7 +12,9 @@ export const EditorNameInput: React.FC = () => {
   const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
   const [nameNewPerson, setNameNewPerson] = useState("");
   const [viewColorPicker, setViewColorPicker] = useState(false);
-  const [selectedColor,setSelectedColor] = useState<any>(selectedPerson?.color);
+  const [selectedColor, setSelectedColor] = useState<any>(
+    selectedPerson?.color
+  );
 
   let colorList = [
     "#407178",
@@ -39,20 +41,16 @@ export const EditorNameInput: React.FC = () => {
     "Lightgray",
   ];
 
-
   // State-handlers
   // Toggle for the visibility of the color-picker state
   const handleClickColorPicker = () => {
     setViewColorPicker(true);
-  }
+  };
 
   // Handler for animating mouse dragging in the color picker.
-  const handleChangeColor = ( color : any) => {
+  const handleChangeColor = (color: any) => {
     setSelectedColor(color);
-  }
-
-
-
+  };
 
   // "CRUD"-handlers for names
   // Adds a new person to the personList - Also assigns a "random" color
@@ -78,35 +76,38 @@ export const EditorNameInput: React.FC = () => {
   const handleDeletePerson = (person: Person) => {
     const selectedPersonIndex = personList.findIndex(
       (currentperson) => currentperson.id === person.id
-    );    
+    );
     const updatedPersons = [
       ...personList.slice(0, selectedPersonIndex),
       ...personList.slice(selectedPersonIndex + 1),
     ];
     setPersonList(updatedPersons);
-    setSelectedPerson(null)
+    setSelectedPerson(null);
   }; // End delete person
 
   // Updates selected persons color based on the value of color-picker component.
-  const handleUpdateColor = (person : Person | null) => {
-    const newColor = selectedColor.hex
-    const selectedPersonIndex = personList.findIndex((currentperson) => currentperson == person);
+  const handleUpdateColor = (person: Person | null) => {
+    const newColor = selectedColor.hex;
+    const selectedPersonIndex = personList.findIndex(
+      (currentperson) => currentperson == person
+    );
     const selectedPerson = personList[selectedPersonIndex];
-    
+
     // Makes an updated personList (and updated person-object for instant color change across app).
     const updatedPersons = [
-      ...personList.slice(0,selectedPersonIndex),
-      {...selectedPerson, color: newColor},
-      ...personList.slice(selectedPersonIndex + 1)
+      ...personList.slice(0, selectedPersonIndex),
+      { ...selectedPerson, color: newColor },
+      ...personList.slice(selectedPersonIndex + 1),
     ];
-    const updatedPerson = {id : selectedPerson.id, name : selectedPerson.name, color : selectedColor.hex};
+    const updatedPerson = {
+      id: selectedPerson.id,
+      name: selectedPerson.name,
+      color: selectedColor.hex,
+    };
     setPersonList(updatedPersons);
-    setSelectedPerson(updatedPerson)
+    setSelectedPerson(updatedPerson);
     setViewColorPicker(false);
-  } // End update person color
-
-
-
+  }; // End update person color
 
   const handleToggleSelectPerson = (person: Person) => {
     selectedPerson === person
@@ -114,17 +115,16 @@ export const EditorNameInput: React.FC = () => {
       : setSelectedPerson(person);
   };
 
-  const handleClickColorPicker = () => {
-    setViewColorPicker(true);
-    console.log("Viser colorpicker");
-  };
-  
   const listNames = personList.map((person, index) => {
     return (
       <div key={index}>
         <S.List
           key={person.id}
-          onClick={(e) => {handleToggleSelectPerson(person);setSelectedColor(person.color);document.getElementById("lastInput")?.focus()}}
+          onClick={(e) => {
+            handleToggleSelectPerson(person);
+            setSelectedColor(person.color);
+            document.getElementById("lastInput")?.focus();
+          }}
           style={{
             border: person === selectedPerson ? "1px solid blue" : "none",
           }}
@@ -156,12 +156,25 @@ export const EditorNameInput: React.FC = () => {
     <div>
       <S.NameList>
         <S.ListParent>{listNames}</S.ListParent>
-        { viewColorPicker ?
-            <div style={ {position: "absolute",zIndex: "2"}}>
-              <div style={ {position: "fixed",top: "0px",bottom: "0px",left: "0px",right: "0px"}} onClick={() => handleUpdateColor(selectedPerson)}/>
-              <ChromePicker onChange={handleChangeColor} color={selectedColor} className="s_listParent__chromepicker"/>
-          </div> : null
-        }
+        {viewColorPicker ? (
+          <div style={{ position: "absolute", zIndex: "2" }}>
+            <div
+              style={{
+                position: "fixed",
+                top: "0px",
+                bottom: "0px",
+                left: "0px",
+                right: "0px",
+              }}
+              onClick={() => handleUpdateColor(selectedPerson)}
+            />
+            <ChromePicker
+              onChange={handleChangeColor}
+              color={selectedColor}
+              className="s_listParent__chromepicker"
+            />
+          </div>
+        ) : null}
       </S.NameList>
       <S.NameForm>
         <Tooltip title="Add name/remove name.">
