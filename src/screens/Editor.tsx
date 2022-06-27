@@ -15,7 +15,7 @@ export const Editor: React.FC = () => {
     <S.ParentDiv>
       <S.Editor>
         <EditorNameInput />
-        <EditorReadingTime />
+        {/* <EditorReadingTime /> */}
         <S.TextForm>
           <EditorInputField />
         </S.TextForm>
