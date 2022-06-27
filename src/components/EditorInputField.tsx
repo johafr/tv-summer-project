@@ -60,16 +60,15 @@ export const EditorInputField: React.FC = () => {
     );
     const updatedMessagelist = [
       ...activeScreen.slice(0, selectedMessageIndex),
-      ...activeScreen.slice(selectedMessageIndex + 1)
-    ]
+      ...activeScreen.slice(selectedMessageIndex + 1),
+    ];
     const updatedPagesList = [
-      ...storyPages.slice(0,selectedPageIndex),
+      ...storyPages.slice(0, selectedPageIndex),
       updatedMessagelist,
-      ...storyPages.slice(selectedPageIndex + 1)
-    ]
+      ...storyPages.slice(selectedPageIndex + 1),
+    ];
     setStoryPages(updatedPagesList);
   }; // End delete message
-
 
   const handleOnSelect = (message: messageProps) => {
     if (selectedInputArea !== message.id) {
