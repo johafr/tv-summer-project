@@ -1,4 +1,4 @@
-import { atom, useRecoilState } from "recoil";
+import { atom } from "recoil";
 import { Person } from "./persons";
 
 export type messageProps = {
@@ -30,7 +30,8 @@ export const activeIndex = atom<number>({
   default: 0,
 });
 
-export const AddNewPage = () => {
-  const [pages, setPages] = useRecoilState(StoryPages);
-  setPages([...pages, []]);
+export const createNewPage = (currentList: messageProps[][]) => {
+  const newList = [...currentList, []];
+  console.log(newList);
+  return newList;
 };
