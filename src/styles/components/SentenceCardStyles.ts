@@ -5,11 +5,15 @@ export const Wrapper = styled.div<{ align: string }>`
   justify-content: ${(props) => props.align};
 `;
 
-export const Container = styled.div`
+export const DialogContainer = styled.div`
   display: inline-flex;
   flex-direction: column;
-  max-width: 10vw;
-  margin-bottom: 2rem;
+  max-width: 12vw;
+`;
+
+export const TextContainer = styled.div`
+  max-width: 100%;
+  text-align: center;
 `;
 
 export const Name = styled.p<{ align: string }>`
@@ -19,10 +23,14 @@ export const Name = styled.p<{ align: string }>`
   font-size: x-small;
 `;
 
-export const Text = styled.p`
-  background-color: #c9e4d4;
+export const Dialog = styled.p`
+  background-color: #d3d3d3;
   padding: 10px;
   border-radius: 10px;
   margin: 0;
   font-size: 0.8em;
+`;
+
+export const Text = styled.p`
+  font-size: 0.8rem;
 `;

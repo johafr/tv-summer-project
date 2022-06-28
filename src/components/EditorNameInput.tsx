@@ -85,45 +85,41 @@ export const EditorNameInput: React.FC = () => {
       ...personList.slice(selectedPersonIndex + 1),
     ];
     setPersonList(updatedPersons);
-    setSelectedPerson(null);
+    setSelectedPerson(undefined);
   }; // End delete person
 
   // Updates selected persons color based on the value of color-picker component.
-  const handleUpdateColor = (person: Person | null) => {
-    if(selectedPerson !== null) { // <- This if-test is a workaround in the case where the user is already selected and gets unselected when choosing color..
-      const newColor = selectedColor.hex;
+  const handleUpdateColor = (person: Person | undefined) => {
+    const newColor = selectedColor.hex;
 
-      // Prevents settings the color to null
-      if(newColor !== undefined) {
-        const selectedPersonIndex = personList.findIndex(
-          (currentperson) => currentperson === person
-        );
-        const selectedPerson = personList[selectedPersonIndex];
+    // Prevents settings the color to null
+    if (newColor !== undefined) {
+      const selectedPersonIndex = personList.findIndex(
+        (currentperson) => currentperson === person
+      );
+      const selectedPerson = personList[selectedPersonIndex];
 
-        // Makes an updated personList (and updated person-object for instant color change across app).
-        const updatedPersons = [
-          ...personList.slice(0, selectedPersonIndex),
-          { ...selectedPerson, color: newColor },
-          ...personList.slice(selectedPersonIndex + 1),
-        ];
-        const updatedPerson = {
-          id: selectedPerson.id,
-          name: selectedPerson.name,
-          color: selectedColor.hex,
-        };
-        
-        setPersonList(updatedPersons);
-        setSelectedPerson(updatedPerson);
-        setStoryPages(updatePersonColor(selectedPerson,updatedPerson, storyPages))
+      // Makes an updated personList (and updated person-object for instant color change across app).
+      const updatedPersons = [
+        ...personList.slice(0, selectedPersonIndex),
+        { ...selectedPerson, color: newColor },
+        ...personList.slice(selectedPersonIndex + 1),
+      ];
+      const updatedPerson = {
+        id: selectedPerson.id,
+        name: selectedPerson.name,
+        color: selectedColor.hex,
+      };
+      setPersonList(updatedPersons);
+      setSelectedPerson(updatedPerson);
     }
-  }
     setViewColorPicker(false);
   }; // End update person color
 
   const handleToggleSelectPerson = (person: Person) => {
 
     selectedPerson === person
-      ? setSelectedPerson(null)
+      ? setSelectedPerson(undefined)
       : setSelectedPerson(person);
   };
 
@@ -198,7 +194,7 @@ export const EditorNameInput: React.FC = () => {
                   personList.length > 0 ? selectedPerson?.color : "white",
               }}
               type="text"
-              onClick={(event) => setSelectedPerson(null)}
+              onClick={(event) => setSelectedPerson(undefined)}
               placeholder="Write a name..."
               value={
                 selectedPerson && personList.length > 0

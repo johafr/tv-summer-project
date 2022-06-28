@@ -4,7 +4,7 @@ import { Person } from "./persons";
 
 export type messageProps = {
   id: number;
-  person: Person | null;
+  person?: Person;
   content: string;
   align: string;
 };
@@ -35,7 +35,6 @@ const dummyData = [
   [
     {
       id: 0,
-      person: null,
       content: "This is a message without an assigned person",
       align: "center",
     },

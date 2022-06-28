@@ -40,10 +40,10 @@ export const StoryPage: React.FC = () => {
           size="small"
           onClick={handleGoLeft}
           sx={{
-            backgroundColor: Theme.palette.primary.main,
+            backgroundColor: Theme.palette.mainGreen.main,
             boxShadow: "none",
             "&:hover": {
-              backgroundColor: Theme.palette.primary.dark,
+              backgroundColor: Theme.palette.mainGreen.dark,
             },
           }}
         >
@@ -67,10 +67,10 @@ export const StoryPage: React.FC = () => {
           size="small"
           onClick={handleGoRight}
           sx={{
-            backgroundColor: Theme.palette.primary.main,
+            backgroundColor: Theme.palette.mainGreen.main,
             boxShadow: "none",
             "&:hover": {
-              backgroundColor: Theme.palette.primary.dark,
+              backgroundColor: Theme.palette.mainGreen.dark,
             },
           }}
         >
