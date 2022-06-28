@@ -43,7 +43,6 @@ export const EditorInputField: React.FC = () => {
     if (messageInputText !== "") {
       setStoryPages(updatePage(storyPages, newMessageList, pageNum));
     }
-    setSelectedInputArea(null);
   };
 
   const handleAddMessage = (e: React.FormEvent) => {
@@ -72,11 +71,14 @@ export const EditorInputField: React.FC = () => {
     );
   }; // End delete message
 
-  const handleOnSelect = (message: messageProps) => {
-    if (selectedInputArea !== message.id) {
-      setSelectedInputArea(message.id);
-      setMessageInputText(message.content);
-    }
+  const handleOnFocus = (message: messageProps) => {
+    setSelectedInputArea(message.id);
+    setMessageInputText(message.content);
+  };
+
+  const handleOnBlur = () => {
+    setSelectedInputArea(null);
+    setMessageInputText("");
   };
 
   const messageList = activeScreen.map((message: messageProps) => {
@@ -94,7 +96,8 @@ export const EditorInputField: React.FC = () => {
           />
           <S.FormInput
             type="text"
-            onSelect={() => handleOnSelect(message)}
+            onFocus={() => handleOnFocus(message)}
+            onBlur={handleOnBlur}
             value={
               selectedInputArea === message.id
                 ? messageInputText
@@ -129,7 +132,6 @@ export const EditorInputField: React.FC = () => {
             value={inputText}
             onChange={(event) => setInputText(event.target.value)}
             style={{ marginTop: "15px" }}
-            onSelect={() => setSelectedInputArea(null)}
           />
         </form>
       </div>

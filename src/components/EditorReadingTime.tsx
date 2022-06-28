@@ -1,6 +1,7 @@
 import React from "react";
-import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
+import { useRecoilState } from "recoil";
 import { activeIndex, messageProps, StoryPages } from "../atoms/StoryPages";
+import { WordHighlight } from "./WordHighlight";
 
 // Component wrapper function // This component calculates reading time based on amount of words written via editor
 export const EditorReadingTime: React.FC = () => {
@@ -31,6 +32,7 @@ export const EditorReadingTime: React.FC = () => {
     <div>
       <p>Wordcount : {wordCount}</p>
       <p>Estimated reading time {readingTime} minutes... </p>
+      <WordHighlight />
       <p>Page number: {pagenumber}</p>
     </div>
   );
