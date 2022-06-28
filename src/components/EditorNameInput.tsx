@@ -90,29 +90,31 @@ export const EditorNameInput: React.FC = () => {
 
   // Updates selected persons color based on the value of color-picker component.
   const handleUpdateColor = (person: Person | undefined) => {
-    const newColor = selectedColor.hex;
+    if(selectedPerson !== null) {
+      const newColor = selectedColor.hex;
 
-    // Prevents settings the color to null
-    if (newColor !== undefined) {
-      const selectedPersonIndex = personList.findIndex(
-        (currentperson) => currentperson === person
-      );
-      const selectedPerson = personList[selectedPersonIndex];
+      // Prevents settings the color to null
+      if (newColor !== undefined) {
+        const selectedPersonIndex = personList.findIndex(
+          (currentperson) => currentperson === person
+        );
+        const selectedPerson = personList[selectedPersonIndex];
 
-      // Makes an updated personList (and updated person-object for instant color change across app).
-      const updatedPersons = [
-        ...personList.slice(0, selectedPersonIndex),
-        { ...selectedPerson, color: newColor },
-        ...personList.slice(selectedPersonIndex + 1),
-      ];
-      const updatedPerson = {
-        id: selectedPerson.id,
-        name: selectedPerson.name,
-        color: selectedColor.hex,
-      };
-      setPersonList(updatedPersons);
-      setSelectedPerson(updatedPerson);
-    }
+        // Makes an updated personList (and updated person-object for instant color change across app).
+        const updatedPersons = [
+          ...personList.slice(0, selectedPersonIndex),
+          { ...selectedPerson, color: newColor },
+          ...personList.slice(selectedPersonIndex + 1),
+        ];
+        const updatedPerson = {
+          id: selectedPerson.id,
+          name: selectedPerson.name,
+          color: selectedColor.hex,
+        };
+        setPersonList(updatedPersons);
+        setSelectedPerson(updatedPerson);
+      }
+  }
     setViewColorPicker(false);
   }; // End update person color
 
