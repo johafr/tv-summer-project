@@ -5,9 +5,12 @@ import { useRecoilState } from "recoil";
 import { activePerson, addPerson, Person, persons } from "../atoms/persons";
 import * as S from "../styles/components/EditorNameInput";
 import { ChromePicker } from "react-color";
+import { updatePersonColor } from "../atoms/StoryPages";
+import { StoryPages as sp } from "../atoms/StoryPages";
 
 // Component wrapper function
 export const EditorNameInput: React.FC = () => {
+  const [storyPages,setStoryPages] = useRecoilState(sp);
   const [personList, setPersonList] = useRecoilState(persons);
   const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
   const [nameNewPerson, setNameNewPerson] = useState("");
@@ -114,6 +117,7 @@ export const EditorNameInput: React.FC = () => {
   }; // End update person color
 
   const handleToggleSelectPerson = (person: Person) => {
+
     selectedPerson === person
       ? setSelectedPerson(undefined)
       : setSelectedPerson(person);
