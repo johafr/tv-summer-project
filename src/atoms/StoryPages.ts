@@ -1,4 +1,3 @@
-import { Pages } from "@mui/icons-material";
 import { atom } from "recoil";
 import { Person } from "./persons";
 
@@ -7,6 +6,12 @@ export type messageProps = {
   person?: Person;
   content: string;
   align: string;
+};
+
+export type Story = {
+  id: number;
+  name: string;
+  pages: messageProps[][];
 };
 
 const dummyData = [
@@ -99,19 +104,21 @@ export const deletePage = (
 };
 
 // Attempt at making updates for every instance of the person that had a color change.
-export const updatePersonColor = (oldPerson : Person, newPerson : Person, stories : messageProps[][]) => {
+export const updatePersonColor = (
+  oldPerson: Person,
+  newPerson: Person,
+  stories: messageProps[][]
+) => {
   const totalPages = stories.length;
-  let updatedStoriesList : messageProps[][];
-  let updatedMessagesList : messageProps[]; 
+  let updatedStoriesList: messageProps[][];
+  let updatedMessagesList: messageProps[];
 
   for (let i = 0; i < totalPages; i++) {
-    for(let j = 0; j < stories[i].length; j++) {
-      if(stories[i][j].person?.id === oldPerson.id) {
+    for (let j = 0; j < stories[i].length; j++) {
+      if (stories[i][j].person?.id === oldPerson.id) {
         console.table(stories[i][j].person);
       }
     }
   }
-  return (
-    stories
-  );
-}
+  return stories;
+};
