@@ -7,6 +7,7 @@ import { Navbar } from "./components/Navbar";
 import { TestComponent } from "./components/TestComponent";
 import { ThemeProvider } from "@mui/material/styles";
 import { Theme } from "./styles/Theme";
+import { EditorSplitscreen } from "./components/EditorSplitscreen";
 
 const Router: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const Router: React.FC = () => {
         <Route element={<Editor />} path={"/"} />
         <Route element={<Preview />} path={"/preview"} />
         <Route element={<TestComponent />} path={"/test"} />
+        <Route element={<EditorSplitscreen />} path = {"/testeditor"} />
       </Routes>
     </div>
   );
