@@ -44,6 +44,11 @@ export const EditorNamesInput: React.FC<Props> = ({  }) => {
 
     const handleAddName = (e: React.FormEvent) => {
         e.preventDefault();
+
+        const nameExists = personList.findIndex(
+          (person) => person.name.toUpperCase() === nameNewPerson.toUpperCase()
+        )
+        if (nameExists === -1) {
         const randomColor = () => {
           let random = Math.floor(Math.random() * colorList.length);
           return colorList[random];
@@ -57,6 +62,11 @@ export const EditorNamesInput: React.FC<Props> = ({  }) => {
         setPersonList((currentPersons) => addPerson(currentPersons, newPerson));
         setSelectedPerson(newPerson);
         setNameNewPerson("");
+      }
+      else {
+        setSelectedPerson(personList[nameExists])
+        setNameNewPerson("");
+      }
       }; // End add person
 
     // Component end-return
