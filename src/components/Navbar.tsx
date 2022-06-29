@@ -11,18 +11,19 @@ import { userIdRefState } from "../atoms/authentication";
 
 export const Navbar: React.FC = () => {
   const [username, setUsername] = useRecoilState(usernameState);
-  const [userId, setUserId] = useRecoilState(userIdRefState);
+  const [, setUserId] = useRecoilState(userIdRefState);
+
 
   // Checks if the user is logged in, and sets the username if the person is logged in
   useEffect(() => {
     setUserId(auth.currentUser?.uid);
-    auth.currentUser?.getIdToken().then((result) =>  {
+    auth.currentUser?.getIdToken().then((result) => {
       //console.log(result);
-    })
+    });
     auth.onAuthStateChanged((user) => {
       setUsername(user?.displayName);
     });
-  }, []);
+  });
 
   // Navigation bar, with links to respective paths
   // Checks which link is active and styles the active link

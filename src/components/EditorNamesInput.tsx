@@ -15,83 +15,82 @@ export const EditorNamesInput: React.FC<Props> = ({ nameInputid  }) => {
     const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
     const [nameNewPerson, setNameNewPerson] = useState("");
 
-    let colorList = [
-        "#407178",
-        "#9CA9EA",
-        "#D6BF5A",
-        "#F49850",
-        "#507168",
-        "#7CA9EB",
-        "#D7BF5A",
-        "#F19850",
-        "#427178",
-        "#9CA8EA",
-        "#D3BF5A",
-        "#F59850",
-        "#527168",
-        "#9CA9EB",
-        "#D8BF5A",
-        "#F89850",
-        "Red",
-        "Blue",
-        "Cyan",
-        "Green",
-        "Yellow",
-        "Lightgray",
-      ];
+  let colorList = [
+    "#407178",
+    "#9CA9EA",
+    "#D6BF5A",
+    "#F49850",
+    "#507168",
+    "#7CA9EB",
+    "#D7BF5A",
+    "#F19850",
+    "#427178",
+    "#9CA8EA",
+    "#D3BF5A",
+    "#F59850",
+    "#527168",
+    "#9CA9EB",
+    "#D8BF5A",
+    "#F89850",
+    "Red",
+    "Blue",
+    "Cyan",
+    "Green",
+    "Yellow",
+    "Lightgray",
+  ];
 
+  const handleAddName = (e: React.FormEvent) => {
+    e.preventDefault();
 
+    const nameExists = personList.findIndex(
+      (person) => person.name.toUpperCase() === nameNewPerson.toUpperCase()
+    );
+    if (nameExists === -1) {
+      const randomColor = () => {
+        let random = Math.floor(Math.random() * colorList.length);
+        return colorList[random];
+      };
+      const newPerson = {
+        id:
+          personList.length !== 0
+            ? personList[personList.length - 1].id + 1
+            : 0,
+        name: nameNewPerson,
+        color: randomColor(),
+      };
+      setPersonList((currentPersons) => addPerson(currentPersons, newPerson));
+      setSelectedPerson(newPerson);
+      setNameNewPerson("");
+    } else {
+      setSelectedPerson(personList[nameExists]);
+      setNameNewPerson("");
+    }
+  }; // End add person
 
-    const handleAddName = (e: React.FormEvent, inputID : string | undefined) => {
-        e.preventDefault();
-        console.log(inputID)
-
-        const nameExists = personList.findIndex(
-          (person) => person.name.toUpperCase() === nameNewPerson.toUpperCase())
-        if (nameExists === -1) {
-          const randomColor = () => {
-            let random = Math.floor(Math.random() * colorList.length);
-            return colorList[random];
-          };
-          const newPerson = {
-            id:
-              personList.length !== 0 ? personList[personList.length - 1].id + 1 : 0,
-            name: nameNewPerson,
-            color: randomColor(),
-          };
-          setPersonList((currentPersons) => addPerson(currentPersons, newPerson));
-          setSelectedPerson(newPerson);
-          setNameNewPerson("");
-        }
-        else {
-          setSelectedPerson(personList[nameExists])
-          setNameNewPerson("");
-        }
-    }; // End add person
-
-    // Component end-return
-    return (
-        <S.NameForm>
-        <Tooltip title="Add name/remove name.">
-          <form id={nameInputid} onSubmit={(event) => handleAddName(event,nameInputid)} >
-            <S.Input
-              style={{
-                cursor: selectedPerson ? "pointer" : "text",
-                backgroundColor:
-                  personList.length > 0 ? selectedPerson?.color : "white",
-              }}
-              type="text"
-              onClick={(event) => setSelectedPerson(undefined)}
-              placeholder="Write a name..."
-              value={
-                selectedPerson && personList.length > 0
-                  ? selectedPerson?.name
-                  : nameNewPerson
-              }
-              onChange={(event) => setNameNewPerson(event.target.value)}
-            />
-          </form>
-        </Tooltip>
-      </S.NameForm>
-    )
-}
+  // Component end-return
+  return (
+    <S.NameForm>
+      <Tooltip title="Add name/remove name.">
+        <form onSubmit={(event) => handleAddName(event)}>
+          <S.Input
+            style={{
+              cursor: selectedPerson ? "pointer" : "text",
+              backgroundColor:
+                personList.length > 0 ? selectedPerson?.color : "white",
+            }}
+            type="text"
+            onClick={(event) => setSelectedPerson(undefined)}
+            placeholder="Write a name..."
+            value={
+              selectedPerson && personList.length > 0
+                ? selectedPerson?.name
+                : nameNewPerson
+            }
+            onChange={(event) => setNameNewPerson(event.target.value)}
+          />
+        </form>
+      </Tooltip>
+    </S.NameForm>
+  );
+};

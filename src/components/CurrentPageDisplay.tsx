@@ -2,8 +2,8 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { DisplayMeasurements, screenMeasurements } from "../atoms/measurements";
-import { activeIndex } from "../atoms/StoryPages";
-import { getDisplayScreenLength } from "../selectors/StoryPages";
+import { activeIndex } from "../atoms/story";
+import { getDisplayScreenLength } from "../selectors/story";
 
 export const CurrentPageDisplay: React.FC = () => {
   const [pageNum] = useRecoilState(activeIndex);
