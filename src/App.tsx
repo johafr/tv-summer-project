@@ -16,7 +16,7 @@ const Router: React.FC = () => {
         <Route element={<Editor />} path={"/"} />
         <Route element={<Preview />} path={"/preview"} />
         <Route element={<TestComponent />} path={"/test"} />
-        <Route element={<EditorSplitscreen />} path = {"/testeditor"} />
+        <Route element={<EditorSplitscreen />} path={"/testeditor"} />
       </Routes>
     </div>
   );

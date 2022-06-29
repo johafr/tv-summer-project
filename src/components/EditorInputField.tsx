@@ -3,19 +3,19 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   activeIndex,
   deleteMessage,
-  StoryPages as sp,
+  story as sp,
   updatePage,
-} from "../atoms/StoryPages";
-import { activePage } from "../selectors/StoryPages";
+} from "../atoms/story";
+import { activePage } from "../selectors/story";
 import * as S from "../styles/components/EditorTextInputStyles";
-import { messageProps } from "../atoms/StoryPages";
+import { messageProps } from "../atoms/story";
 import { activePerson } from "../atoms/persons";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export const EditorInputField: React.FC = () => {
   const [pageNum] = useRecoilState(activeIndex);
-  const [storyPages, setStoryPages] = useRecoilState(sp);
+  const [story, setStory] = useRecoilState(sp);
   const [selectedPerson] = useRecoilState(activePerson);
   const activeScreen = useRecoilValue(activePage);
   const [inputText, setInputText] = useState("");
@@ -41,7 +41,7 @@ export const EditorInputField: React.FC = () => {
     ];
 
     if (messageInputText !== "") {
-      setStoryPages(updatePage(storyPages, newMessageList, pageNum));
+      setStory(updatePage(story, newMessageList, pageNum));
     }
   };
 
@@ -58,7 +58,7 @@ export const EditorInputField: React.FC = () => {
       align: markedPerson === undefined ? "center" : "right",
     };
     const newMessageList = [...activeScreen, newMessage];
-    setStoryPages(updatePage(storyPages, newMessageList, pageNum));
+    setStory(updatePage(story, newMessageList, pageNum));
     setInputText("");
   };
 
@@ -66,9 +66,7 @@ export const EditorInputField: React.FC = () => {
     const selectedMessageIndex = activeScreen.findIndex(
       (currentmessage) => currentmessage.id === selectedmessage.id
     );
-    setStoryPages(
-      deleteMessage(selectedMessageIndex, pageNum, activeScreen, storyPages)
-    );
+    setStory(deleteMessage(selectedMessageIndex, pageNum, activeScreen, story));
   }; // End delete message
 
   const handleOnFocus = (message: messageProps) => {

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { messageProps, StoryPages } from "../atoms/StoryPages";
+import { messageProps } from "../atoms/story";
+import { storyPages } from "../selectors/story";
 
 export const WordHighlight: React.FC = () => {
   const [searchFieldText, setSearchFieldText] = useState("");
   const [instances, setInstances] = useState<number>(-1);
-  const [pages] = useRecoilState(StoryPages);
+  const pages = useRecoilValue(storyPages);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();

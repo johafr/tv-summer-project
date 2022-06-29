@@ -1,7 +1,6 @@
 import React from "react";
-import { SketchPicker } from "react-color";
 
-export const TestComponent: React.FC = (props) => {
+export const TestComponent: React.FC = () => {
   return (
     <>
       <div>Bing bong!</div>
