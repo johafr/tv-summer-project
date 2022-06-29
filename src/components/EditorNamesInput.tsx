@@ -6,11 +6,11 @@ import * as S from "../styles/components/EditorNameInput";
 
 // Component props
 type Props = {
-
+  nameInputid? : string | undefined
 };
 
 // Component wrapper function
-export const EditorNamesInput: React.FC<Props> = ({  }) => {
+export const EditorNamesInput: React.FC<Props> = ({ nameInputid  }) => {
     const [personList, setPersonList] = useRecoilState(persons);
     const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
     const [nameNewPerson, setNameNewPerson] = useState("");
@@ -42,38 +42,38 @@ export const EditorNamesInput: React.FC<Props> = ({  }) => {
 
 
 
-    const handleAddName = (e: React.FormEvent) => {
+    const handleAddName = (e: React.FormEvent, inputID : string | undefined) => {
         e.preventDefault();
+        console.log(inputID)
 
         const nameExists = personList.findIndex(
-          (person) => person.name.toUpperCase() === nameNewPerson.toUpperCase()
-        )
+          (person) => person.name.toUpperCase() === nameNewPerson.toUpperCase())
         if (nameExists === -1) {
-        const randomColor = () => {
-          let random = Math.floor(Math.random() * colorList.length);
-          return colorList[random];
-        };
-        const newPerson = {
-          id:
-            personList.length !== 0 ? personList[personList.length - 1].id + 1 : 0,
-          name: nameNewPerson,
-          color: randomColor(),
-        };
-        setPersonList((currentPersons) => addPerson(currentPersons, newPerson));
-        setSelectedPerson(newPerson);
-        setNameNewPerson("");
-      }
-      else {
-        setSelectedPerson(personList[nameExists])
-        setNameNewPerson("");
-      }
-      }; // End add person
+          const randomColor = () => {
+            let random = Math.floor(Math.random() * colorList.length);
+            return colorList[random];
+          };
+          const newPerson = {
+            id:
+              personList.length !== 0 ? personList[personList.length - 1].id + 1 : 0,
+            name: nameNewPerson,
+            color: randomColor(),
+          };
+          setPersonList((currentPersons) => addPerson(currentPersons, newPerson));
+          setSelectedPerson(newPerson);
+          setNameNewPerson("");
+        }
+        else {
+          setSelectedPerson(personList[nameExists])
+          setNameNewPerson("");
+        }
+    }; // End add person
 
     // Component end-return
     return (
         <S.NameForm>
         <Tooltip title="Add name/remove name.">
-          <form onSubmit={(event) => handleAddName(event)}>
+          <form id={nameInputid} onSubmit={(event) => handleAddName(event,nameInputid)} >
             <S.Input
               style={{
                 cursor: selectedPerson ? "pointer" : "text",

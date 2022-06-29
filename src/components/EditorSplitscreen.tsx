@@ -85,25 +85,33 @@ export const EditorSplitscreen: React.FC<Props> = ({  }) => {
     // Component end-return
     return (
         <div>
-            <div className="editor__namelist">
-                <EditorNamesList/>
+            <div className="editor__name-section">
+                <div className="editor__name-section-input">
+                    <EditorNamesInput nameInputid="1"/>
+                </div>
+                <div className="editor__namelist">
+                    
+                    <EditorNamesList/>
+                </div>
             </div>
             <div className="editor__v2">
             <div className="editor__output">
+                <div className="editor__output-content">
                 {listsentences}
+                </div>
             </div>
             <div className="editor__main-container">
             <div className="editor__left-container">
                 <div className="editor__left-name">
-                    <EditorNamesInput/>
+                    <EditorNamesInput nameInputid="1"/>
                 </div>
-                <input placeholder="left"/> 
+                <input placeholder="Write a sentence..."/> 
             </div>
             <div className="editor__right-container">
                 <div className="editor__right-name">
-                    <EditorNamesInput/>
+                    <EditorNamesInput nameInputid="2"/>
                 </div>
-                <input placeholder="right"/> 
+                <input placeholder="Write a sentence..."/> 
             </div>
             </div>
             <div className="editor__bottom-container">

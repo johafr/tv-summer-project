@@ -3,32 +3,63 @@ body {
   padding: 0;
 }
 
-.editor__namelist {
-  border:5px solid black;
+.editor__name-section-input input {
   width:10rem;
-  height: 46.24rem;
+  display:flex;
+}
+
+.editor__namelist {
+  /* border:1px solid black; */
+  width:15rem;
+  height: 47.7rem!important;
   display:flex;
   flex-wrap:column;
-  position:absolute;
+  position: fixed;
+  left:1vw;
+  
+
+}
+
+.editor__namelist div {
+  position:relative;
+  overflow-y:visible !important;
+  overflow-x:visible !important;
+}
+
+.editor__namelist ul {
+  display:relative;
+ 
+  
+  
 }
 
 .editor__namelist li {
   width:7.5rem;
-  margin-left:-30px;
+  height:1rem;
+  margin-left:-1.875rem;
 }
 
 
 .editor__v2 {
-  border:5px solid black;
+  /* border:5px solid black; */
+  border:1px solid lightgray;
   margin-left:12.5vw;
-  margin-top:20px;
+  margin-top:1.25rem;
   width:52rem;
 }
 
 .editor__output {
-  border:1px solid black;
+  /* border:1px solid lightgray; */
+  border-bottom:1px solid lightgray;
+  margin-bottom:0.938rem;
   height:30rem;
   width:52rem;
+}
+
+.editor__output .editor__output-content {
+  margin-top:0.625rem;
+  margin-right:1.25rem;
+  margin-left:1.25rem;
 }
 
 .editor__v2 h1{
@@ -39,12 +70,11 @@ body {
   /* border:1px solid red; */
   display:flex;
   height:8rem;
-  width:50rem;
+  width:52rem;
 }
 
 .editor__main-container div {
   /* border:1px solid blue; */
-  border:1px solid black;
   width:26rem;
   height:8rem;
 }
@@ -67,7 +97,7 @@ body {
 
 .editor__bottom-container {
   /* border:1px solid black; */
-  border:1px solid black;
+  border-top: 1px solid lightgray;
   height:8rem;
   width:100%;
   align-content: flex-end;
@@ -91,8 +121,31 @@ body {
   width:90%;
 }
 
+
+.editor__left-container > input {
+  position:relative;
+  top:-50px;
+}
+
+.editor__right-container > input {
+  position:relative;
+  top:-50px;
+}
+
 .editor__left-name input, .editor__right-name input {
+  /* border:1px solid black; */
   height:40px;
+  box-shadow:none;
+}
+
+.editor__left-name input[type='text'] {
+  text-align:left;
+  padding-left:10px;
+}
+
+.editor__right-name input[type='text'] {
+  text-align:right;
+  padding-right:10px;
 }
 
 
