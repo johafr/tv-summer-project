@@ -1,10 +1,12 @@
+import { Pages } from "@mui/icons-material";
 import { atom } from "recoil";
 import { Person } from "./persons";
 
 export type messageProps = {
   id: number;
-  person: Person | null;
+  person?: Person;
   content: string;
+  align: string;
 };
 
 const dummyData = [
@@ -17,6 +19,7 @@ const dummyData = [
         color: "rgb(132, 176, 214",
       },
       content: "This is dummy data",
+      align: "right",
     },
     {
       id: 1,
@@ -26,13 +29,14 @@ const dummyData = [
         color: "rgb(10, 214, 214",
       },
       content: "This is the second line",
+      align: "left",
     },
   ],
   [
     {
       id: 0,
-      person: null,
       content: "This is a message without an assigned person",
+      align: "center",
     },
   ],
 ];
@@ -55,20 +59,25 @@ export const updatePage = (
   return newList;
 };
 
-export const deleteMessage = (messageIndex : number, pagenumber : number, messages: messageProps[], stories: messageProps[][]) => {
+export const deleteMessage = (
+  messageIndex: number,
+  pagenumber: number,
+  messages: messageProps[],
+  stories: messageProps[][]
+) => {
   // Remove the message (object) from the sublist (page[])
   const updatedMessagelist = [
     ...messages.slice(0, messageIndex),
-    ...messages.slice(messageIndex + 1)
-  ]
+    ...messages.slice(messageIndex + 1),
+  ];
   // Replace the sublist (page[]) in the parent list (pages[][])
   const updatedPagesList = [
-    ...stories.slice(0,pagenumber),
+    ...stories.slice(0, pagenumber),
     updatedMessagelist,
-    ...stories.slice(pagenumber + 1)
-  ]
+    ...stories.slice(pagenumber + 1),
+  ];
   return updatedPagesList;
-}
+};
 
 export const activeIndex = atom<number>({
   key: "activeIndex",
@@ -88,3 +97,21 @@ export const deletePage = (
     ? [[]]
     : currentList.filter((page) => page !== pageToBeDeleted);
 };
+
+// Attempt at making updates for every instance of the person that had a color change.
+export const updatePersonColor = (oldPerson : Person, newPerson : Person, stories : messageProps[][]) => {
+  const totalPages = stories.length;
+  let updatedStoriesList : messageProps[][];
+  let updatedMessagesList : messageProps[]; 
+
+  for (let i = 0; i < totalPages; i++) {
+    for(let j = 0; j < stories[i].length; j++) {
+      if(stories[i][j].person?.id === oldPerson.id) {
+        console.table(stories[i][j].person);
+      }
+    }
+  }
+  return (
+    stories
+  );
+}

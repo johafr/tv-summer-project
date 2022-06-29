@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { activeIndex, deleteMessage, StoryPages as sp, updatePage } from "../atoms/StoryPages";
+import {
+  activeIndex,
+  deleteMessage,
+  StoryPages as sp,
+  updatePage,
+} from "../atoms/StoryPages";
 import { activePage } from "../selectors/StoryPages";
 import * as S from "../styles/components/EditorTextInputStyles";
 import { messageProps } from "../atoms/StoryPages";
@@ -27,14 +32,17 @@ export const EditorInputField: React.FC = () => {
     const selectedMessage = activeScreen[activeMessageIndex];
     const newMessageList = [
       ...activeScreen.slice(0, activeMessageIndex),
-      { ...selectedMessage, content: messageInputText },
+      {
+        ...selectedMessage,
+        content: messageInputText,
+        align: message.align === "right" ? "left" : "right",
+      },
       ...activeScreen.slice(activeMessageIndex + 1),
     ];
 
     if (messageInputText !== "") {
       setStoryPages(updatePage(storyPages, newMessageList, pageNum));
     }
-    setSelectedInputArea(null);
   };
 
   const handleAddMessage = (e: React.FormEvent) => {
@@ -47,6 +55,7 @@ export const EditorInputField: React.FC = () => {
           : 0,
       person: markedPerson,
       content: inputText,
+      align: markedPerson === undefined ? "center" : "right",
     };
     const newMessageList = [...activeScreen, newMessage];
     setStoryPages(updatePage(storyPages, newMessageList, pageNum));
@@ -57,19 +66,24 @@ export const EditorInputField: React.FC = () => {
     const selectedMessageIndex = activeScreen.findIndex(
       (currentmessage) => currentmessage.id === selectedmessage.id
     );
-    setStoryPages((deleteMessage(selectedMessageIndex,pageNum,activeScreen,storyPages)));
+    setStoryPages(
+      deleteMessage(selectedMessageIndex, pageNum, activeScreen, storyPages)
+    );
   }; // End delete message
 
-  const handleOnSelect = (message: messageProps) => {
-    if (selectedInputArea !== message.id) {
-      setSelectedInputArea(message.id);
-      setMessageInputText(message.content);
-    }
+  const handleOnFocus = (message: messageProps) => {
+    setSelectedInputArea(message.id);
+    setMessageInputText(message.content);
+  };
+
+  const handleOnBlur = () => {
+    setSelectedInputArea(null);
+    setMessageInputText("");
   };
 
   const messageList = activeScreen.map((message: messageProps) => {
     return (
-      <div>
+      <div key={message.id}>
         <form
           key={message.id}
           onSubmit={(e) => handleUpdateMessage(e, message)}
@@ -82,7 +96,8 @@ export const EditorInputField: React.FC = () => {
           />
           <S.FormInput
             type="text"
-            onSelect={() => handleOnSelect(message)}
+            onFocus={() => handleOnFocus(message)}
+            onBlur={handleOnBlur}
             value={
               selectedInputArea === message.id
                 ? messageInputText

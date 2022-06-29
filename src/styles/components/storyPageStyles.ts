@@ -20,7 +20,7 @@ export const Bump = styled.span<{ Theme: MuiTheme }>`
   margin-top: -1px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  background-color: ${(props) => props.Theme.palette.primary.main};
+  background-color: ${(props) => props.Theme.palette.phoneColor.main};
 `;
 
 export const Screen = styled.div<{ measurements: DisplayMeasurements }>`
@@ -41,6 +41,6 @@ export const ContentDiv = styled.div<{ measurements: DisplayMeasurements }>`
   height: ${(props) => props.measurements.height - 30}px;
   margin-top: 20px;
   margin-left: 10px;
-  background-color: #d3d3d3;
+  //background-color: #d3d3d3;
   color: black;
 `;

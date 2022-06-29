@@ -1,27 +1,36 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ align: string }>`
   display: flex;
-  justify-content: center;
+  justify-content: ${(props) => props.align};
 `;
 
-export const Container = styled.div`
+export const DialogContainer = styled.div`
   display: inline-flex;
   flex-direction: column;
-  align-items: center;
-  max-width: 10vw;
-  margin-bottom: 2rem;
+  max-width: 12vw;
 `;
 
-export const Name = styled.h3`
+export const TextContainer = styled.div`
+  max-width: 100%;
+  text-align: center;
+`;
+
+export const Name = styled.p<{ align: string }>`
   margin: 0;
+  display: flex;
+  justify-content: ${(props) => props.align};
+  font-size: x-small;
+`;
+
+export const Dialog = styled.p`
+  background-color: #d3d3d3;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0;
+  font-size: 0.8em;
 `;
 
 export const Text = styled.p`
-  background-color: #c9e4d4;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 5px black;
-  margin: 0;
-  font-size: 0.8em;
+  font-size: 0.8rem;
 `;

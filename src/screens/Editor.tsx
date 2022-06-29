@@ -2,7 +2,7 @@ import React from "react";
 
 import { StoryPage } from "../components/StoryPage";
 import { EditorReadingTime } from "../components/EditorReadingTime";
-import { EditorNameInput } from "../components/EditorNameInput";
+import { EditorNames } from "../components/EditorNames";
 import * as S from "../styles/screens/EditorStyles";
 import { EditorInputField } from "../components/EditorInputField";
 import { ChangeScreenSizeMenu } from "../components/ChangeScreenSizeMenu";
@@ -14,8 +14,8 @@ export const Editor: React.FC = () => {
   return (
     <S.ParentDiv>
       <S.Editor>
-        <EditorNameInput />
-        {/* <EditorReadingTime /> */}
+        <EditorNames />
+        <EditorReadingTime />
         <S.TextForm>
           <EditorInputField />
         </S.TextForm>
