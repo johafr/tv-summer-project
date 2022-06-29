@@ -1,12 +1,19 @@
 import { atom } from "recoil";
-import { Story } from "./StoryPages";
+import { Story } from "./story";
 
-type Props = {
+type StoriesProps = {
+  id: number;
   author: string;
   stories: Story[];
 };
 
-export const stories = atom<Props>({
+const dummyData = {
+  id: 0,
+  author: "dev",
+  stories: [],
+};
+
+export const stories = atom<StoriesProps>({
   key: "stories",
-  default: { author: "dev", stories: [] },
+  default: dummyData,
 });

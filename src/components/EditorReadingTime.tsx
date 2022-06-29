@@ -1,18 +1,19 @@
 import React from "react";
-import { useRecoilState } from "recoil";
-import { messageProps, StoryPages } from "../atoms/StoryPages";
+import { useRecoilValue } from "recoil";
+import { messageProps } from "../atoms/story";
+import { storyPages } from "../selectors/story";
 import { WordHighlight } from "./WordHighlight";
 
 // Component wrapper function // This component calculates reading time based on amount of words written via editor
 export const EditorReadingTime: React.FC = () => {
-  const [storyPages] = useRecoilState(StoryPages);
+  const pages = useRecoilValue(storyPages);
 
   let wordCount: number = 0;
   let readingTime: number | string = 0;
 
   // Split and count all words in sentences
-  storyPages.map((page: messageProps[]) => {
-    page.map((message: messageProps) => {
+  pages.forEach((page: messageProps[]) => {
+    page.forEach((message: messageProps) => {
       const words = message.content.split(" ");
       wordCount += words.length;
     });

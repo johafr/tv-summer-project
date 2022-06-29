@@ -1,13 +1,13 @@
 import { Fab } from "@mui/material";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { activeIndex, messageProps } from "../atoms/StoryPages";
+import { activeIndex, messageProps } from "../atoms/story";
 
 import { Theme } from "../styles/Theme";
 import { screenMeasurements } from "../atoms/measurements";
 import * as S from "../styles/components/storyPageStyles";
 
-import { activePage, getDisplayScreenLength } from "../selectors/StoryPages";
+import { activePage, getDisplayScreenLength } from "../selectors/story";
 import { SentenceCard } from "./SentenceCard";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";

@@ -46,42 +46,44 @@ const dummyData = [
   ],
 ];
 
-export const StoryPages = atom<messageProps[][]>({
+export const story = atom<Story>({
   key: "displayScreens",
-  default: dummyData,
+  default: { id: 0, name: "dummy story", pages: dummyData },
 });
 
 export const updatePage = (
-  currentList: messageProps[][],
+  currentStory: Story,
   newPage: messageProps[],
   index: number
 ) => {
   const newList = [
-    ...currentList.slice(0, index),
+    ...currentStory.pages.slice(0, index),
     newPage,
-    ...currentList.slice(index + 1),
+    ...currentStory.pages.slice(index + 1),
   ];
-  return newList;
+  const newStory = { ...currentStory, pages: newList };
+  return newStory;
 };
 
 export const deleteMessage = (
   messageIndex: number,
   pagenumber: number,
-  messages: messageProps[],
-  stories: messageProps[][]
+  page: messageProps[],
+  currentStory: Story
 ) => {
   // Remove the message (object) from the sublist (page[])
   const updatedMessagelist = [
-    ...messages.slice(0, messageIndex),
-    ...messages.slice(messageIndex + 1),
+    ...page.slice(0, messageIndex),
+    ...page.slice(messageIndex + 1),
   ];
   // Replace the sublist (page[]) in the parent list (pages[][])
   const updatedPagesList = [
-    ...stories.slice(0, pagenumber),
+    ...currentStory.pages.slice(0, pagenumber),
     updatedMessagelist,
-    ...stories.slice(pagenumber + 1),
+    ...currentStory.pages.slice(pagenumber + 1),
   ];
-  return updatedPagesList;
+  const newStory = { ...currentStory, pages: updatedPagesList };
+  return newStory;
 };
 
 export const activeIndex = atom<number>({
@@ -89,36 +91,40 @@ export const activeIndex = atom<number>({
   default: 0,
 });
 
-export const createNewPage = (currentList: messageProps[][]) => {
-  const newList = [...currentList, []];
-  return newList;
+export const createNewPage = (currentStory: Story) => {
+  const newPages = [...currentStory.pages, []];
+  const newStory = { ...currentStory, pages: newPages };
+  return newStory;
 };
 
 export const deletePage = (
-  currentList: messageProps[][],
+  currentStory: Story,
   pageToBeDeleted: messageProps[]
 ) => {
-  return currentList.length === 1
-    ? [[]]
-    : currentList.filter((page) => page !== pageToBeDeleted);
+  return currentStory.pages.length === 1
+    ? { ...currentStory, pages: [[]] }
+    : {
+        ...currentStory,
+        pages: currentStory.pages.filter((page) => page !== pageToBeDeleted),
+      };
 };
 
 // Attempt at making updates for every instance of the person that had a color change.
 export const updatePersonColor = (
   oldPerson: Person,
   newPerson: Person,
-  stories: messageProps[][]
+  story: Story
 ) => {
-  const totalPages = stories.length;
-  let updatedStoriesList: messageProps[][];
-  let updatedMessagesList: messageProps[];
+  const totalPages = story.pages.length;
+  //let updatedStoriesList: messageProps[][];
+  //let updatedMessagesList: messageProps[];
 
   for (let i = 0; i < totalPages; i++) {
-    for (let j = 0; j < stories[i].length; j++) {
-      if (stories[i][j].person?.id === oldPerson.id) {
-        console.table(stories[i][j].person);
+    for (let j = 0; j < story.pages[i].length; j++) {
+      if (story.pages[i][j].person?.id === oldPerson.id) {
+        console.table(story.pages[i][j].person);
       }
     }
   }
-  return stories;
+  return story;
 };

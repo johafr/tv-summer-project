@@ -1,15 +1,10 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  activeIndex,
-  createNewPage,
-  deletePage,
-  StoryPages,
-} from "../atoms/StoryPages";
-import { getDisplayScreenLength } from "../selectors/StoryPages";
+import { activeIndex, createNewPage, deletePage, story } from "../atoms/story";
+import { getDisplayScreenLength } from "../selectors/story";
 import * as S from "../styles/screens/EditorStyles";
 
 export const UpdatePageDisplay = () => {
-  const [pages, setPages] = useRecoilState(StoryPages);
+  const [pages, setPages] = useRecoilState(story);
   const [pageNum, setPageNum] = useRecoilState(activeIndex);
   const numPages = useRecoilValue(getDisplayScreenLength);
   const handleSetPages = () => {
@@ -19,10 +14,10 @@ export const UpdatePageDisplay = () => {
   };
 
   const handleDeleteCurrentPage = () => {
-    if (pageNum + 1 === pages.length && pageNum !== 0) {
+    if (pageNum + 1 === pages.pages.length && pageNum !== 0) {
       setPageNum(pageNum - 1);
     }
-    setPages(deletePage(pages, pages[pageNum]));
+    setPages(deletePage(pages, pages.pages[pageNum]));
   };
 
   return (
