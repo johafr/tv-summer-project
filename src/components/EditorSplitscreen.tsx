@@ -3,8 +3,12 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { persons } from "../atoms/persons";
 import { messageProps } from "../atoms/story";
-import { story as sp, updatePage } from "../atoms/story";
+import { activeIndex, deleteMessage, story as sp, updatePage } from "../atoms/story";
 import { activePage } from "../selectors/story";
+import { NameForm } from "../styles/components/EditorNameInput";
+import { EditorNames } from "./EditorNames";
+import { EditorNamesInput } from "./EditorNamesInput";
+import { EditorNamesList } from "./EditorNamesList";
 import { SentenceCard } from "./SentenceCard";
 
 // Component wrapper function
@@ -18,37 +22,36 @@ export const EditorSplitscreen: React.FC = () => {
 
   const activeScreen = useRecoilValue(activePage);
   const pageNum: number = 0;
-
-  const handleAddMessage = (e: React.FormEvent, direction: string) => {
-    e.preventDefault();
-
-    const checkInput = () => {
-      let inputText: string | boolean;
-      switch (direction) {
-        case "LEFT":
-          return (inputText = inputLeft);
-        case "RIGHT":
-          return (inputText = inputRight);
-        case "BOTTOM":
-          return (inputText = inputBottom);
-        default:
-          return (inputText = false);
-      }
-    };
-    let text: string | boolean = checkInput();
-    if (text !== false) {
-      const newMessage: messageProps = {
-        id: 1,
-        person: undefined,
-        content: text,
-        align: "left",
-      };
-      const newMessageList = [...activeScreen, newMessage];
-      setStory(updatePage(story, newMessageList, pageNum));
-    }
-    setInputLeft("");
-    setInputRight("");
-    setInputBottom("");
+  
+    const handleAddMessage = (e : React.FormEvent, direction : string) => {
+        e.preventDefault();
+        
+        const checkInput = () => {
+            let inputText : string | boolean;
+            let correctAlign : string
+            switch(direction) {
+                case 'LEFT':
+                    correctAlign = 'left'
+                    return inputText = inputLeft;
+                case 'RIGHT':
+                    correctAlign = 'right'
+                    return inputText = inputRight;
+                case 'BOTTOM':
+                    correctAlign = 'center';
+                    return inputText = inputBottom;
+                default:
+                    return inputText = false;
+            }
+        }
+        let text : string | boolean = checkInput();
+        if (text !== false) {
+            const newMessage : messageProps = {id : 1, person : undefined, content : text, align:'left'};
+            const newMessageList = [...activeScreen,newMessage];
+            setStory(updatePage(story, newMessageList, pageNum));
+        }
+        setInputLeft('')
+        setInputRight('')
+        setInputBottom('')
   };
 
   const listsentences = activeScreen.map((card: messageProps) => {
@@ -64,6 +67,7 @@ export const EditorSplitscreen: React.FC = () => {
 
   const listpersons = personList.map((person, index) => {
     return (
+
       <div key={index}>
         <li key={person.id}>{person.name}</li>
       </div>
@@ -77,38 +81,34 @@ export const EditorSplitscreen: React.FC = () => {
         <ul>{listpersons}</ul>
       </div>
       <div className="editor__v2">
-        <div className="editor__output">{listsentences}</div>
-        <div className="editor__main-container">
-          <div className="editor__left-container">
-            {/* <EditorNameInput/> */}
-            <form onSubmit={(e) => handleAddMessage(e, "LEFT")}>
-              <input
-                value={inputLeft}
-                onChange={(event) => setInputLeft(event.target.value)}
-                placeholder="venstre person skriver..."
-              />
-            </form>
-          </div>
-          <div className="editor__right-container">
-            <h2>NAVN</h2>
-            <form onSubmit={(e) => handleAddMessage(e, "RIGHT")}>
-              <input
-                value={inputRight}
-                onChange={(event) => setInputRight(event.target.value)}
-                placeholder="høyre person skriver..."
-              />
-            </form>
-          </div>
-        </div>
-        <div className="editor__bottom-container">
-          <h2>BRØDTEKST</h2>
-          <form onSubmit={(e) => handleAddMessage(e, "BOTTOM")}>
-            <input
-              value={inputBottom}
-              onChange={(event) => setInputBottom(event.target.value)}
-              placeholder="bottom person skriver..."
-            />
-          </form>
+        <div>
+            <div className="editor__namelist">
+                <EditorNamesList/>
+            </div>
+            <div className="editor__v2">
+            <div className="editor__output">
+                {listsentences}
+            </div>
+            <div className="editor__main-container">
+            <div className="editor__left-container">
+                <div className="editor__left-name">
+                    <EditorNamesInput/>
+                </div>
+                <input placeholder="left"/> 
+            </div>
+            <div className="editor__right-container">
+                <div className="editor__right-name">
+                    <EditorNamesInput/>
+                </div>
+                <input placeholder="right"/> 
+            </div>
+            </div>
+            <div className="editor__bottom-container">
+                <h2>BRØDTEKST</h2>
+                <form onSubmit={(e) => handleAddMessage(e,'BOTTOM')}>
+                    <input value={inputBottom} onChange={(event)=> setInputBottom(event.target.value)} placeholder="bottom person skriver..."/>
+                </form>
+            </div>
         </div>
       </div>
     </div>

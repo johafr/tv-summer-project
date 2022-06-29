@@ -7,8 +7,14 @@ body {
   border:5px solid black;
   width:10rem;
   height: 46.24rem;
-  display:block;
+  display:flex;
+  flex-wrap:column;
   position:absolute;
+}
+
+.editor__namelist li {
+  width:7.5rem;
+  margin-left:-30px;
 }
 
 
@@ -16,13 +22,13 @@ body {
   border:5px solid black;
   margin-left:12.5vw;
   margin-top:20px;
-  width:50rem;
+  width:52rem;
 }
 
 .editor__output {
   border:1px solid black;
   height:30rem;
-  width:50rem;
+  width:52rem;
 }
 
 .editor__v2 h1{
@@ -83,6 +89,10 @@ body {
   margin-top:2px;
   margin-left:40px;
   width:90%;
+}
+
+.editor__left-name input, .editor__right-name input {
+  height:40px;
 }
 
 
