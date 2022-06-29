@@ -79,9 +79,6 @@ export const EditorSplitscreen: React.FC = () => {
   // Component end-return
   return (
     <div>
-      <div className="editor__namelist">
-        <ul>{listpersons}</ul>
-      </div>
       <div className="editor__v2">
         <div>
             <div className="editor__name-section">
@@ -92,7 +89,6 @@ export const EditorSplitscreen: React.FC = () => {
                     <EditorNamesList/>
                 </div>
             </div>
-            <div className="editor__v2">
             <div className="editor__output">
                 <div className="editor__output-content">
                 {listsentences}
@@ -119,19 +115,8 @@ export const EditorSplitscreen: React.FC = () => {
                 </form>
             </div>
           </div>
-          <div className="editor__bottom-container">
-            <h2>BRØDTEKST</h2>
-            <form onSubmit={(e) => handleAddMessage(e, "BOTTOM")}>
-              <input
-                value={inputBottom}
-                onChange={(event) => setInputBottom(event.target.value)}
-                placeholder="bottom person skriver..."
-              />
-            </form>
-          </div>
         </div>
       </div>
-    </div>
   );
 };
 
