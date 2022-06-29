@@ -51,7 +51,7 @@ export const EditorNamesList: React.FC<Props> = ({  }) => {
     }; // End delete person
 
     const handleUpdateColor = (person: Person | undefined) => {
-        if(selectedPerson !== null) {
+        if(selectedPerson !== undefined) {
           const newColor = selectedColor.hex;
     
           // Prevents settings the color to null

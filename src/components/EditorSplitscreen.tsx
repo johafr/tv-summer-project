@@ -8,6 +8,8 @@ import { activeIndex, deleteMessage, StoryPages as sp, updatePage } from "../ato
 import { activePage } from "../selectors/StoryPages";
 import { NameForm } from "../styles/components/EditorNameInput";
 import { EditorNames } from "./EditorNames";
+import { EditorNamesInput } from "./EditorNamesInput";
+import { EditorNamesList } from "./EditorNamesList";
 import { SentenceCard } from "./SentenceCard";
 
 // Component props
@@ -32,12 +34,16 @@ export const EditorSplitscreen: React.FC<Props> = ({  }) => {
         
         const checkInput = () => {
             let inputText : string | boolean;
+            let correctAlign : string
             switch(direction) {
                 case 'LEFT':
+                    correctAlign = 'left'
                     return inputText = inputLeft;
                 case 'RIGHT':
+                    correctAlign = 'right'
                     return inputText = inputRight;
                 case 'BOTTOM':
+                    correctAlign = 'center';
                     return inputText = inputBottom;
                 default:
                     return inputText = false;
@@ -80,9 +86,7 @@ export const EditorSplitscreen: React.FC<Props> = ({  }) => {
     return (
         <div>
             <div className="editor__namelist">
-                <ul>
-                    {listpersons}
-                </ul>
+                <EditorNamesList/>
             </div>
             <div className="editor__v2">
             <div className="editor__output">
@@ -90,16 +94,16 @@ export const EditorSplitscreen: React.FC<Props> = ({  }) => {
             </div>
             <div className="editor__main-container">
             <div className="editor__left-container">
-                {/* <EditorNameInput/> */}
-                <form onSubmit={(e) => handleAddMessage(e,'LEFT')}>
-                    <input value={inputLeft} onChange={(event)=> setInputLeft(event.target.value)} placeholder="venstre person skriver..."/>
-                </form>
+                <div className="editor__left-name">
+                    <EditorNamesInput/>
+                </div>
+                <input placeholder="left"/> 
             </div>
             <div className="editor__right-container">
-                <h2>NAVN</h2>
-                <form onSubmit={(e) => handleAddMessage(e,'RIGHT')}>
-                    <input value={inputRight} onChange={(event)=> setInputRight(event.target.value)} placeholder="høyre person skriver..."/>
-                </form>
+                <div className="editor__right-name">
+                    <EditorNamesInput/>
+                </div>
+                <input placeholder="right"/> 
             </div>
             </div>
             <div className="editor__bottom-container">
