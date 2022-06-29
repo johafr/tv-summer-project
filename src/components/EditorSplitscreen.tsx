@@ -7,7 +7,7 @@ import { messageProps } from "../atoms/StoryPages";
 import { activeIndex, deleteMessage, StoryPages as sp, updatePage } from "../atoms/StoryPages";
 import { activePage } from "../selectors/StoryPages";
 import { NameForm } from "../styles/components/EditorNameInput";
-import { EditorNameInput } from "./EditorNameInput";
+import { EditorNames } from "./EditorNames";
 import { SentenceCard } from "./SentenceCard";
 
 // Component props
@@ -45,7 +45,7 @@ export const EditorSplitscreen: React.FC<Props> = ({  }) => {
         }
         let text : string | boolean = checkInput();
         if (text !== false) {
-            const newMessage : messageProps = {id : 1, person : null, content : text};
+            const newMessage : messageProps = {id : 1, person : undefined, content : text, align:'left'};
             const newMessageList = [...activeScreen,newMessage];
             setStoryPages(updatePage(storyPages, newMessageList, pageNum));
         }
@@ -60,6 +60,7 @@ export const EditorSplitscreen: React.FC<Props> = ({  }) => {
             key={card.id}
             person={card.person}
             content={card.content}
+            align={card.align}
             />
         )})
 
