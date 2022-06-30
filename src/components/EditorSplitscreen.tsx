@@ -147,7 +147,7 @@ export const EditorSplitscreen: React.FC = () => {
         <div>
           <div className="editor__name-section">
             <div className="editor__namelist">
-              <EditorNamesList />
+              <EditorNamesList numSelections={1} />
             </div>
           </div>
           <div className="editor__output">
