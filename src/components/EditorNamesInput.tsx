@@ -6,11 +6,11 @@ import * as S from "../styles/components/EditorNameInput";
 
 // Component props
 type Props = {
-  nameInputid? : string | undefined
+  numSelections? : number
 };
 
 // Component wrapper function
-export const EditorNamesInput: React.FC<Props> = ({ nameInputid  }) => {
+export const EditorNamesInput: React.FC<Props> = ({ numSelections  }) => {
     const [personList, setPersonList] = useRecoilState(persons);
     const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
     const [nameNewPerson, setNameNewPerson] = useState("");
@@ -68,6 +68,12 @@ export const EditorNamesInput: React.FC<Props> = ({ nameInputid  }) => {
     }
   }; // End add person
 
+  const handleNameClick = () => {
+    if(numSelections === 1) {
+      setSelectedPerson(undefined)
+    }
+  }
+
   // Component end-return
   return (
     <S.NameForm>
@@ -80,7 +86,7 @@ export const EditorNamesInput: React.FC<Props> = ({ nameInputid  }) => {
                 personList.length > 0 ? selectedPerson?.color : "white",
             }}
             type="text"
-            onClick={(event) => setSelectedPerson(undefined)}
+            onClick={handleNameClick}
             placeholder="Write a name..."
             value={
               selectedPerson && personList.length > 0

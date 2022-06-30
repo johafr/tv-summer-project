@@ -24,6 +24,11 @@ export const activePerson = atom<Person | undefined>({
   default: undefined,
 });
 
+export const selectedPersonsState = atom<Person[]>({
+  key: "selectedPersonsState",
+  default: [],
+})
+
 // Modifer (ie adding items to a list state)
 export const addPerson = (persons: Person[], newPerson: Person) => {
   document.getElementById("lastInput")?.focus();

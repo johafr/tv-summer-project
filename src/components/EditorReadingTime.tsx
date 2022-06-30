@@ -1,5 +1,6 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
+import styled from "styled-components";
 import { messageProps } from "../atoms/story";
 import { storyPages } from "../selectors/story";
 import { WordHighlight } from "./WordHighlight";
@@ -19,19 +20,43 @@ export const EditorReadingTime: React.FC = () => {
     });
   });
 
-  // Calculate est. reading time based on 250 words per minute.
+  // Calculate est. reading time based on 100 words per minute.
   if (wordCount < 100) {
-    readingTime = "< 0";
+    readingTime = "0";
   } else {
     readingTime = Math.ceil(wordCount / 100);
   }
 
   // Component end-return
   return (
-    <div>
-      <p>Wordcount : {wordCount}</p>
-      <p>Estimated reading time {readingTime} minutes... </p>
-      <WordHighlight />
-    </div>
+    <CountDiv>
+      <div className="wordcount">
+        <p>{wordCount} words total</p>
+        <p>{readingTime} minutes estimated time </p>
+        <WordHighlight />
+      </div>
+      
+    </CountDiv>
   );
 };
+
+export const CountDiv = styled.div`
+  text-align:left;
+  padding-top:1px;
+  padding-bottom:1px;
+  height:8.2rem;
+  background:rgb(255, 255, 255);
+  min-width:25rem;
+  max-width:52rem;
+  border-radius:4px;
+  box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.05);
+  margin-top:10px;
+  margin-bottom:10px;
+
+  & p {
+    margin-left:15px;
+  }
+`;
+
+
+

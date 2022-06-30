@@ -1,6 +1,15 @@
 body {
   margin: 0;
   padding: 0;
+  /* font-family:Verdana, Geneva, Tahoma, sans-serif;
+  color:rgb(84, 84, 84); */
+}
+
+.editor__name-section {
+  /* border:1px solid black; */
+  position:relative;
+  
+  
 }
 
 .editor__name-section-input input {
@@ -10,12 +19,12 @@ body {
 
 .editor__namelist {
   /* border:1px solid black; */
-  width:15rem;
   height: 47.7rem!important;
+  width:15rem;
   display:flex;
   flex-wrap:column;
-  position: fixed;
-  left:1vw;
+  position: absolute;
+  left:-10.5vw;
   
 
 }
