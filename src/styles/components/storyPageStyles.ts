@@ -20,7 +20,7 @@ export const Bump = styled.span<{ Theme: MuiTheme }>`
   margin-top: -1px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  background-color: ${(props) => props.Theme.palette.phoneColor.main};
+  background-color: ${(props) => props.Theme.palette.black.main};
 `;
 
 export const Screen = styled.div<{ measurements: DisplayMeasurements }>`

@@ -11,10 +11,11 @@ export type messageProps = {
 export type Story = {
   id: number;
   name: string;
+  author: string;
   pages: messageProps[][];
 };
 
-const dummyData = [
+export const dummyData = [
   [
     {
       id: 0,
@@ -48,7 +49,12 @@ const dummyData = [
 
 export const story = atom<Story>({
   key: "displayScreens",
-  default: { id: 0, name: "dummy story", pages: dummyData },
+  default: {
+    id: 0,
+    name: "dummy story",
+    author: "dummy author",
+    pages: dummyData,
+  },
 });
 
 export const updatePage = (

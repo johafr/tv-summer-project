@@ -25,3 +25,5 @@ yarn-error.log*
 /.firebase/
 src/db.json
 .env
+usefull links.md
+todo.md

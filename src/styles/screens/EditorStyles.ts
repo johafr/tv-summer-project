@@ -14,6 +14,7 @@ export const DisplayScreenContainer = styled.div`
 
 export const ParentDiv = styled.div`
   display: flex;
+  position: relative;
 `;
 
 export const Editor = styled.div`

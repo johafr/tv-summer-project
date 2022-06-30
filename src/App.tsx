@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Editor } from "./screens/Editor";
@@ -8,15 +8,22 @@ import { TestComponent } from "./components/TestComponent";
 import { ThemeProvider } from "@mui/material/styles";
 import { Theme } from "./styles/Theme";
 import { EditorSplitscreen } from "./components/EditorSplitscreen";
+import { Home } from "./screens/Home";
 
 const Router: React.FC = () => {
+  useEffect(() => {
+    // window.location.href.indexOf("story") > -1
+    //   ? setInstory(true)
+    //   : setInstory(false);
+  });
   return (
     <div>
       <Routes>
-        <Route element={<Editor />} path={"/"} />
-        <Route element={<Preview />} path={"/preview"} />
-        <Route element={<TestComponent />} path={"/test"} />
-        <Route element={<EditorSplitscreen />} path={"/testeditor"} />
+        <Route element={<Home />} path={"/"} />
+        <Route element={<Editor />} path={"story:id/editor"} />
+        <Route element={<Preview />} path={"story:id/preview"} />
+        <Route element={<TestComponent />} path={"story:id/test"} />
+        <Route element={<EditorSplitscreen />} path={"story:id/testeditor"} />
       </Routes>
     </div>
   );
@@ -25,7 +32,6 @@ const Router: React.FC = () => {
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={Theme}>
-      {/*<h1 className="development">Under development</h1>*/}
       <Navbar />
       <Router />
     </ThemeProvider>
