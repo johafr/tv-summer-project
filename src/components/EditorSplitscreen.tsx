@@ -14,19 +14,19 @@ import * as S2 from "../styles/components/EditorTextInputStyles";
 
 // Component wrapper function
 export const EditorSplitscreen: React.FC = () => {
-  const [personList,setPersonList] = useRecoilState(persons);
+  const [personList, setPersonList] = useRecoilState(persons);
   const [story, setStory] = useRecoilState(sp);
   const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
 
-  const [inputNameLeft,setInputNameLeft] = useState("");
-  const [inputNameRight,setInputNameRight] = useState("");
+  const [inputNameLeft, setInputNameLeft] = useState("");
+  const [inputNameRight, setInputNameRight] = useState("");
 
   const [inputLeft, setInputLeft] = useState<string>("");
   const [inputRight, setInputRight] = useState<string>("");
   const [inputBottom, setInputBottom] = useState<string>("");
 
   const activeScreen = useRecoilValue(activePage);
-  const pageNum : number = 0;
+  const pageNum: number = 0;
 
   let colorList = [
     "#407178",
@@ -59,8 +59,8 @@ export const EditorSplitscreen: React.FC = () => {
     const correctState = () => {
       if (direction === "LEFT") return inputNameLeft;
       else return inputNameRight;
-    } 
-    console.log(direction)
+    };
+    console.log(direction);
     const nameExists = personList.findIndex(
       (person) => person.name.toUpperCase() === correctState().toUpperCase()
     );
@@ -79,39 +79,43 @@ export const EditorSplitscreen: React.FC = () => {
       };
       setPersonList((currentPersons) => addPerson(currentPersons, newPerson));
       setSelectedPerson(newPerson);
-      if(correctState() === 'LEFT') {setInputNameLeft("");}
-      else setInputNameRight("")
-
-    } 
-    else {
+      if (correctState() === "LEFT") {
+        setInputNameLeft("");
+      } else setInputNameRight("");
+    } else {
       setSelectedPerson(personList[nameExists]);
-      if(correctState() === 'LEFT') {setInputNameLeft("");}
-      else setInputNameRight("");
-      
+      if (correctState() === "LEFT") {
+        setInputNameLeft("");
+      } else setInputNameRight("");
     }
   }; // End add person
 
   const handleAddMessage = (e: React.FormEvent, direction: string) => {
     e.preventDefault();
 
-    
     let inputText: string | boolean;
-    let correctAlign: string
-    if(direction === 'LEFT') {inputText = inputLeft; correctAlign ='left'}
-    else if(direction === 'RIGHT') {inputText = inputRight; correctAlign ='right'}
-    else {inputText = inputBottom; correctAlign ='center'}
+    let correctAlign: string;
+    if (direction === "LEFT") {
+      inputText = inputLeft;
+      correctAlign = "left";
+    } else if (direction === "RIGHT") {
+      inputText = inputRight;
+      correctAlign = "right";
+    } else {
+      inputText = inputBottom;
+      correctAlign = "center";
+    }
 
-
-    const text = inputText
+    const text = inputText;
     const newMessage: messageProps = {
       id: 1,
       person: undefined,
       content: text,
-      align: correctAlign
+      align: correctAlign,
     };
     const newMessageList = [...activeScreen, newMessage];
     setStory(updatePage(story, newMessageList, pageNum));
-    
+
     setInputLeft("");
     setInputRight("");
     setInputBottom("");
@@ -141,85 +145,103 @@ export const EditorSplitscreen: React.FC = () => {
     <div>
       <div className="editor__v2">
         <div>
-            <div className="editor__name-section">
-                <div className="editor__namelist">
-                    <EditorNamesList/>
-                </div>
+          <div className="editor__name-section">
+            <div className="editor__namelist">
+              <EditorNamesList numSelections={2} />
             </div>
-            <div className="editor__output">
-                <div className="editor__output-content">
-                {listsentences}
-                </div>
-            </div>
-            <div className="editor__main-container">
+          </div>
+          <div className="editor__output">
+            <div className="editor__output-content">{listsentences}</div>
+          </div>
+          <div className="editor__main-container">
             <div className="editor__left-container">
-                <div className="editor__left-name">
+              <div className="editor__left-name">
                 <S.NameForm>
-                    <Tooltip title="Add name/remove name.">
-                      <form onSubmit={(event) => handleAddName(event, 'LEFT')}>
-                        <S.Input
-                          style={{
-                            cursor: selectedPerson ? "pointer" : "text",
-                            backgroundColor:
-                              personList.length > 0 ? selectedPerson?.color : "white",
-                          }}
-                          type="text"
-                          onClick={(event) => setSelectedPerson(undefined)}
-                          placeholder="Write a name..."
-                          value={
-                            selectedPerson && personList.length > 0
-                              ? selectedPerson?.name
-                              : inputNameLeft
-                          }
-                          onChange={(event) => setInputNameLeft(event.target.value)}
-                        />
-                      </form>
-                    </Tooltip>
-                  </S.NameForm>
-                </div>
-                <form onSubmit={(e) => handleAddMessage(e,'LEFT')}>
-                  <S2.FormInput value={inputLeft} onChange={(event)=> setInputLeft(event.target.value)} placeholder="Write a sentence..."/>
-                </form> 
+                  <Tooltip title="Add name/remove name.">
+                    <form onSubmit={(event) => handleAddName(event, "LEFT")}>
+                      <S.Input
+                        style={{
+                          cursor: selectedPerson ? "pointer" : "text",
+                          backgroundColor:
+                            personList.length > 0
+                              ? selectedPerson?.color
+                              : "white",
+                        }}
+                        type="text"
+                        onClick={(event) => setSelectedPerson(undefined)}
+                        placeholder="Write a name..."
+                        value={
+                          selectedPerson && personList.length > 0
+                            ? selectedPerson?.name
+                            : inputNameLeft
+                        }
+                        onChange={(event) =>
+                          setInputNameLeft(event.target.value)
+                        }
+                      />
+                    </form>
+                  </Tooltip>
+                </S.NameForm>
+              </div>
+              <form onSubmit={(e) => handleAddMessage(e, "LEFT")}>
+                <S2.FormInput
+                  value={inputLeft}
+                  onChange={(event) => setInputLeft(event.target.value)}
+                  placeholder="Write a sentence..."
+                />
+              </form>
             </div>
             <div className="editor__right-container">
-                <div className="editor__right-name">
-                  <S.NameForm>
-                    <Tooltip title="Add name/remove name.">
-                      <form onSubmit={(event) => handleAddName(event, 'RIGHT')}>
-                        <S.Input
-                          style={{
-                            cursor: selectedPerson ? "pointer" : "text",
-                            backgroundColor:
-                              personList.length > 0 ? selectedPerson?.color : "white",
-                          }}
-                          type="text"
-                          onClick={(event) => setSelectedPerson(undefined)}
-                          placeholder="Write a name..."
-                          value={
-                            selectedPerson && personList.length > 0
-                              ? selectedPerson?.name
-                              : inputNameRight
-                          }
-                          onChange={(event) => setInputNameRight(event.target.value)}
-                        />
-                      </form>
-                    </Tooltip>
-                  </S.NameForm>
-                </div>
-                <form onSubmit={(e) => handleAddMessage(e, 'RIGHT')}>
-                  <S2.FormInput value={inputRight} onChange={(event)=> setInputRight(event.target.value)} placeholder="Write a sentence..."/> 
-                </form>
+              <div className="editor__right-name">
+                <S.NameForm>
+                  <Tooltip title="Add name/remove name.">
+                    <form onSubmit={(event) => handleAddName(event, "RIGHT")}>
+                      <S.Input
+                        style={{
+                          cursor: selectedPerson ? "pointer" : "text",
+                          backgroundColor:
+                            personList.length > 0
+                              ? selectedPerson?.color
+                              : "white",
+                        }}
+                        type="text"
+                        onClick={(event) => setSelectedPerson(undefined)}
+                        placeholder="Write a name..."
+                        value={
+                          selectedPerson && personList.length > 0
+                            ? selectedPerson?.name
+                            : inputNameRight
+                        }
+                        onChange={(event) =>
+                          setInputNameRight(event.target.value)
+                        }
+                      />
+                    </form>
+                  </Tooltip>
+                </S.NameForm>
+              </div>
+              <form onSubmit={(e) => handleAddMessage(e, "RIGHT")}>
+                <S2.FormInput
+                  value={inputRight}
+                  onChange={(event) => setInputRight(event.target.value)}
+                  placeholder="Write a sentence..."
+                />
+              </form>
             </div>
-            </div>
-            <div className="editor__bottom-container">
-                <h2>BRØDTEKST</h2>
-                <form onSubmit={(e) => handleAddMessage(e,'BOTTOM')}>
-                    <input value={inputBottom} onChange={(event)=> setInputBottom(event.target.value)} placeholder="bottom person skriver..."/>
-                </form>
-            </div>
+          </div>
+          <div className="editor__bottom-container">
+            <h2>BRØDTEKST</h2>
+            <form onSubmit={(e) => handleAddMessage(e, "BOTTOM")}>
+              <input
+                value={inputBottom}
+                onChange={(event) => setInputBottom(event.target.value)}
+                placeholder="bottom person skriver..."
+              />
+            </form>
           </div>
         </div>
       </div>
+    </div>
   );
 };
 
