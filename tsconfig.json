@@ -16,6 +16,10 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules/@types/node"
+    ],
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx"
