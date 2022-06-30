@@ -19,17 +19,17 @@ export const Home: React.FC = () => {
         }}
       >
         {stories.stories.map((story) => (
-          <Grid item xs={3.5} sx={{ marginTop: "1rem" }}>
+          <Grid item xs={3.5} sx={{ marginTop: "1rem" }} key={story.id}>
             <StoryCard story={story} />
           </Grid>
         ))}
         {stories.stories.map((story) => (
-          <Grid item xs={3.5} sx={{ marginTop: "1rem" }}>
+          <Grid item xs={3.5} sx={{ marginTop: "1rem" }} key={story.id}>
             <StoryCard story={story} />
           </Grid>
         ))}
         {stories.stories.map((story) => (
-          <Grid item xs={3.5} sx={{ marginTop: "1rem" }}>
+          <Grid item xs={3.5} sx={{ marginTop: "1rem" }} key={story.id}>
             <StoryCard story={story} />
           </Grid>
         ))}

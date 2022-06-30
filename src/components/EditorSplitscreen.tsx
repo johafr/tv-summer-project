@@ -132,7 +132,7 @@ export const EditorSplitscreen: React.FC = () => {
     );
   });
 
-  const listpersons = personList.map((person, index) => {
+  const listPersons = personList.map((person, index) => {
     return (
       <div key={index}>
         <li key={person.id}>{person.name}</li>
@@ -147,7 +147,7 @@ export const EditorSplitscreen: React.FC = () => {
         <div>
           <div className="editor__name-section">
             <div className="editor__namelist">
-              <EditorNamesList numSelections={2} />
+              <EditorNamesList numSelections={1} />
             </div>
           </div>
           <div className="editor__output">
