@@ -37,8 +37,10 @@ export const Button = styled.button`
   background-color: #508188;
   color: white;
   margin: 0.5rem;
+  font-family: 'montserrat', sans-serif;
   
   &:hover {
   background-color: #407178;
   cursor: pointer;
+ 
 `;

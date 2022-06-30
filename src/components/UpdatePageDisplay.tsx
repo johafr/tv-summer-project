@@ -22,7 +22,7 @@ export const UpdatePageDisplay = () => {
 
   return (
     <>
-      <S.Button onClick={handleSetPages}>new page</S.Button>
+      <S.Button onClick={handleSetPages}>New Page</S.Button>
       <S.Button onClick={handleDeleteCurrentPage}>Delete Page</S.Button>
     </>
   );
