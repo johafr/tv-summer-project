@@ -16,7 +16,6 @@ export const Editor: React.FC = () => {
   // Editor final return
   return (
     <div>
-      {" "}
       {username ? (
         <S.ParentDiv>
           <S.Editor>

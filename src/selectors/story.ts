@@ -26,3 +26,18 @@ export const getDisplayScreenLength = selector<number>({
     return displayed.pages.length;
   },
 });
+
+export const numWordsInStory = selector<number>({
+  key: "numWordsInStory",
+  get: ({ get }) => {
+    var wordCount: number = 0;
+    const currentStory = get(story);
+    currentStory.pages.forEach((page) => {
+      page.forEach((message) => {
+        const words = message.content.split(" ");
+        wordCount += words.length;
+      });
+    });
+    return wordCount;
+  },
+});

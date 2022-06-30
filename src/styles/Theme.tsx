@@ -4,12 +4,12 @@ declare module "@mui/material/styles" {
   interface Palette {
     primaryText: Palette["primary"];
     mainGreen: Palette["primary"];
-    phoneColor: Palette["primary"];
+    black: Palette["primary"];
   }
   interface PaletteOptions {
     primaryText: PaletteOptions["primary"];
     mainGreen: PaletteOptions["primary"];
-    phoneColor: PaletteOptions["primary"];
+    black: PaletteOptions["primary"];
   }
 }
 
@@ -28,7 +28,7 @@ export const Theme = createTheme({
     primaryText: {
       main: "#",
     },
-    phoneColor: {
+    black: {
       main: "#262626",
     },
   },

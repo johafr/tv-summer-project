@@ -1,0 +1,1 @@
+- Navbar need additional click to update
