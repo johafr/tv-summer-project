@@ -10,6 +10,7 @@ import { UpdatePageDisplay } from "../components/UpdatePageDisplay";
 import { CurrentPageDisplay } from "../components/CurrentPageDisplay";
 import { useRecoilState } from "recoil";
 import { usernameState } from "../atoms/username";
+import { EditorSplitscreen } from "../components/EditorSplitscreen";
 
 export const Editor: React.FC = () => {
   const [username] = useRecoilState(usernameState);

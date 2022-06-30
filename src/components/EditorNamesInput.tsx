@@ -4,11 +4,16 @@ import { useRecoilState } from "recoil";
 import { activePerson, addPerson, persons } from "../atoms/persons";
 import * as S from "../styles/components/EditorNameInput";
 
+// Component props
+type Props = {
+  numSelections? : number
+};
+
 // Component wrapper function
-export const EditorNamesInput: React.FC = () => {
-  const [personList, setPersonList] = useRecoilState(persons);
-  const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
-  const [nameNewPerson, setNameNewPerson] = useState("");
+export const EditorNamesInput: React.FC<Props> = ({ numSelections  }) => {
+    const [personList, setPersonList] = useRecoilState(persons);
+    const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
+    const [nameNewPerson, setNameNewPerson] = useState("");
 
   let colorList = [
     "#407178",
@@ -63,6 +68,12 @@ export const EditorNamesInput: React.FC = () => {
     }
   }; // End add person
 
+  const handleNameClick = () => {
+    if(numSelections === 1) {
+      setSelectedPerson(undefined)
+    }
+  }
+
   // Component end-return
   return (
     <S.NameForm>
@@ -75,7 +86,7 @@ export const EditorNamesInput: React.FC = () => {
                 personList.length > 0 ? selectedPerson?.color : "white",
             }}
             type="text"
-            onClick={(event) => setSelectedPerson(undefined)}
+            onClick={handleNameClick}
             placeholder="Write a name..."
             value={
               selectedPerson && personList.length > 0

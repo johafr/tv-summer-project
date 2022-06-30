@@ -7,8 +7,8 @@ export const EditorNames: React.FC = () => {
   // Component end-return
   return (
     <div>
-      <EditorNamesList />
-      <EditorNamesInput />
+      <EditorNamesList numSelections={1} />
+      <EditorNamesInput numSelections={1} />
     </div>
   );
 };
