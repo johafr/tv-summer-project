@@ -29,8 +29,6 @@ export const TextForm = styled.div`
   border-bottom: 2px solid black;
 `;
 
-export const DeletePageButton = styled.button``;
-
 export const Button = styled.button`
   border-radius: 6px;
   padding: 0.5rem;
