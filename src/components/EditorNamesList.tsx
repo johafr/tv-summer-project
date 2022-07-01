@@ -31,7 +31,7 @@ export const EditorNamesList: React.FC<Props> = ( {numSelections} ) => {
     setSelectedColor(color);
   };
 
-  const handleToggleSelectPerson = (person: Person) => {
+  const handleToggleSelectPerson = (person: Person, index? : number) => {
 
     // Uses selectionPerson state when only 1 nameInput exists
     if(numSelections === 1) {
@@ -79,7 +79,7 @@ export const EditorNamesList: React.FC<Props> = ( {numSelections} ) => {
   }; // End delete person
 
   const handleUpdateColor = (person: Person | undefined) => {
-    if (selectedPerson !== null) {
+    if (selectedPerson !== undefined) {
       const newColor = selectedColor.hex;
 
       // Prevents settings the color to null

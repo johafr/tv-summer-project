@@ -1,8 +1,8 @@
 import { Tooltip } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { activePerson, addPerson, persons } from "../atoms/persons";
+import { activePerson, addPerson, Person, persons } from "../atoms/persons";
 import { messageProps } from "../atoms/story";
 import { story as sp, updatePage } from "../atoms/story";
 import { activePage } from "../selectors/story";
@@ -13,13 +13,21 @@ import * as S from "../styles/components/EditorNameInput";
 import * as S2 from "../styles/components/EditorTextInputStyles";
 
 // Component wrapper function
+// type InputName = {
+//   personName : string;
+// }
+
+const initialInputs = [
+  {personName : ''},
+  {personName : ''}]
+
+
 export const EditorSplitscreen: React.FC = () => {
   const [personList, setPersonList] = useRecoilState(persons);
   const [story, setStory] = useRecoilState(sp);
   const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
 
-  const [inputNameLeft, setInputNameLeft] = useState("");
-  const [inputNameRight, setInputNameRight] = useState("");
+
 
   const [inputLeft, setInputLeft] = useState<string>("");
   const [inputRight, setInputRight] = useState<string>("");
@@ -27,6 +35,16 @@ export const EditorSplitscreen: React.FC = () => {
 
   const activeScreen = useRecoilValue(activePage);
   const pageNum: number = 0;
+
+  const [inputNames,setInputNames] = useState([
+    [{personName : ''}],
+    [{personName : ''}]
+  ])
+
+  const [selectPersons,setSelectedPersons] = useState<Person[][]>([
+    [{id : -1, name: '', color : ''}],
+    [{id : -2, name: '', color : ''}],
+  ])
 
   let colorList = [
     "#407178",
@@ -53,54 +71,78 @@ export const EditorSplitscreen: React.FC = () => {
     "Lightgray",
   ];
 
-  const handleAddName = (e: React.FormEvent, direction: string) => {
+  const handleResetNamefield = (index : number) => {
+    const selectvalues = [...selectPersons];
+    const resetid = index - (index+2);
+    selectvalues[index][0] = {id : resetid, name: '', color : ''}
+    setSelectedPersons(selectvalues)
+
+  }
+
+  const handleSubmitName = (index : number , direction : string, e : React.FormEvent) => {
     e.preventDefault();
 
     const correctState = () => {
-      if (direction === "LEFT") return inputNameLeft;
-      else return inputNameRight;
-    };
-    console.log(direction);
-    const nameExists = personList.findIndex(
-      (person) => person.name.toUpperCase() === correctState().toUpperCase()
-    );
+      if (direction === "LEFT") return inputNames[0][0];
+      else return inputNames[1][0];
+    }
+    // Choses correct name-value and check if it already exists in personList
+    const correctName = correctState()
+    const nameExists = personList.findIndex(person => person.name.toUpperCase() === correctName.personName.toUpperCase());
+
+    // If the person is new, this logic executes.
     if (nameExists === -1) {
-      const randomColor = () => {
-        let random = Math.floor(Math.random() * colorList.length);
-        return colorList[random];
-      };
-      const newPerson = {
+      const randomColor = () => { let random = Math.floor(Math.random() * colorList.length); return colorList[random]; };
+      const newPerson : Person = {
         id:
           personList.length !== 0
-            ? personList[personList.length - 1].id + 1
-            : 0,
-        name: correctState(),
-        color: randomColor(),
+          ? personList[personList.length - 1].id + 1
+          : 0,
+        name : correctName.personName,
+        color : randomColor(),
       };
+      // Setters
       setPersonList((currentPersons) => addPerson(currentPersons, newPerson));
-      setSelectedPerson(newPerson);
-      if (correctState() === "LEFT") {
-        setInputNameLeft("");
-      } else setInputNameRight("");
-    } else {
-      setSelectedPerson(personList[nameExists]);
-      if (correctState() === "LEFT") {
-        setInputNameLeft("");
-      } else setInputNameRight("");
+
+      // Reset for inputNames
+      const values = [...inputNames];
+      values[index][0] = {personName : ''};
+      setInputNames(values);
+
+      // Setter for selectedperson to new person
+      const selectvalues = [...selectPersons]
+      selectvalues[index][0] = newPerson;
+      setSelectedPersons(selectvalues)
     }
-  }; // End add person
+    // If the person already exists, this logic executes
+    else {
+      // Setter for selectedperson to the found person
+      const selectvalues = [...selectPersons];
+      selectvalues[index][0] = personList[nameExists];
+      setSelectedPersons(selectvalues);
+    }
+  }
+
+  const handleChangeInput = (index : number,e : React.ChangeEvent<HTMLInputElement>) => {
+    const values = [...inputNames];
+    values[index][0] = {personName : e.target.value}
+    setInputNames(values);
+    console.log(values);  }
 
   const handleAddMessage = (e: React.FormEvent, direction: string) => {
     e.preventDefault();
 
     let inputText: string | boolean;
     let correctAlign: string;
+    let correctPerson : Person | undefined = undefined;
     if (direction === "LEFT") {
       inputText = inputLeft;
       correctAlign = "left";
+      correctPerson = selectPersons[0][0];
     } else if (direction === "RIGHT") {
       inputText = inputRight;
       correctAlign = "right";
+      correctPerson = selectPersons[1][0];
     } else {
       inputText = inputBottom;
       correctAlign = "center";
@@ -109,7 +151,7 @@ export const EditorSplitscreen: React.FC = () => {
     const text = inputText;
     const newMessage: messageProps = {
       id: 1,
-      person: undefined,
+      person : correctPerson,
       content: text,
       align: correctAlign,
     };
@@ -147,36 +189,40 @@ export const EditorSplitscreen: React.FC = () => {
         <div>
           <div className="editor__name-section">
             <div className="editor__namelist">
-              <EditorNamesList />
+              <EditorNamesList numSelections={2}/>
             </div>
           </div>
           <div className="editor__output">
             <div className="editor__output-content">{listsentences}</div>
           </div>
           <div className="editor__main-container">
+
+
+
             <div className="editor__left-container">
               <div className="editor__left-name">
                 <S.NameForm>
                   <Tooltip title="Add name/remove name.">
-                    <form onSubmit={(event) => handleAddName(event, "LEFT")}>
+                    <form onSubmit={(event) => handleSubmitName(0,"LEFT",event)}>
                       <S.Input
                         style={{
-                          cursor: selectedPerson ? "pointer" : "text",
+                          cursor: selectPersons[0][0].name !== '' ? "pointer" : "text",
                           backgroundColor:
                             personList.length > 0
-                              ? selectedPerson?.color
+                              ? selectPersons[0][0].color
                               : "white",
                         }}
+                        name="personName"
                         type="text"
-                        onClick={(event) => setSelectedPerson(undefined)}
+                        onClick={() => handleResetNamefield(0)}
                         placeholder="Write a name..."
                         value={
-                          selectedPerson && personList.length > 0
-                            ? selectedPerson?.name
-                            : inputNameLeft
+                          selectPersons[0][0].name !== '' && personList.length > 0
+                            ? selectPersons[0][0].name
+                            : inputNames[0][0].personName
                         }
                         onChange={(event) =>
-                          setInputNameLeft(event.target.value)
+                          handleChangeInput(0,event)
                         }
                       />
                     </form>
@@ -184,36 +230,40 @@ export const EditorSplitscreen: React.FC = () => {
                 </S.NameForm>
               </div>
               <form onSubmit={(e) => handleAddMessage(e, "LEFT")}>
-                <S2.FormInput
+                <SplitInput
+                  className="messagetextinput"
                   value={inputLeft}
                   onChange={(event) => setInputLeft(event.target.value)}
                   placeholder="Write a sentence..."
                 />
               </form>
             </div>
+
+
+
             <div className="editor__right-container">
               <div className="editor__right-name">
                 <S.NameForm>
                   <Tooltip title="Add name/remove name.">
-                    <form onSubmit={(event) => handleAddName(event, "RIGHT")}>
+                    <form onSubmit={(event) => handleSubmitName(1,"RIGHT",event)}>
                       <S.Input
                         style={{
-                          cursor: selectedPerson ? "pointer" : "text",
+                          cursor: selectPersons[1][0].name !== '' ? "pointer" : "text",
                           backgroundColor:
                             personList.length > 0
-                              ? selectedPerson?.color
+                              ? selectPersons[1][0].color
                               : "white",
                         }}
                         type="text"
-                        onClick={(event) => setSelectedPerson(undefined)}
+                        onClick={() => handleResetNamefield(1)}
                         placeholder="Write a name..."
                         value={
-                          selectedPerson && personList.length > 0
-                            ? selectedPerson?.name
-                            : inputNameRight
+                          selectPersons[1][0].name !== '' && personList.length > 0
+                            ? selectPersons[1][0].name
+                            : inputNames[1][0].personName
                         }
                         onChange={(event) =>
-                          setInputNameRight(event.target.value)
+                          handleChangeInput(1,event)
                         }
                       />
                     </form>
@@ -221,7 +271,8 @@ export const EditorSplitscreen: React.FC = () => {
                 </S.NameForm>
               </div>
               <form onSubmit={(e) => handleAddMessage(e, "RIGHT")}>
-                <S2.FormInput
+                <SplitInput
+                  className="messagetextinput"
                   value={inputRight}
                   onChange={(event) => setInputRight(event.target.value)}
                   placeholder="Write a sentence..."
@@ -232,7 +283,7 @@ export const EditorSplitscreen: React.FC = () => {
           <div className="editor__bottom-container">
             <h2>BRØDTEKST</h2>
             <form onSubmit={(e) => handleAddMessage(e, "BOTTOM")}>
-              <input
+              <SplitInput
                 value={inputBottom}
                 onChange={(event) => setInputBottom(event.target.value)}
                 placeholder="bottom person skriver..."
@@ -252,4 +303,17 @@ export const ColorCircle = styled.div`
   height: 10px;
   border-radius: 0%;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+`;
+
+export const SplitInput = styled.input`
+  min-width: 20rem;
+  padding-top: 2px;
+  padding-left: 2px;
+  line-height: 1em;
+  margin-left:14px;
+  border-bottom:2px solid lightgray;
+  &:focus {
+    outline: none;
+    border-bottom: 3px solid lightgray;
+  } 
 `;
