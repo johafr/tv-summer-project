@@ -11,6 +11,7 @@ import { EditorNamesList } from "./EditorNamesList";
 import { SentenceCard } from "./SentenceCard";
 import * as S from "../styles/components/EditorNameInput";
 import * as S2 from "../styles/components/EditorTextInputStyles";
+import { EditorReadingTime } from "./EditorReadingTime";
 
 // Component wrapper function
 // type InputName = {
@@ -26,6 +27,7 @@ export const EditorSplitscreen: React.FC = () => {
   const [personList, setPersonList] = useRecoilState(persons);
   const [story, setStory] = useRecoilState(sp);
   const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
+  //const [selectedPersons, setSelectedPersons] = useRecoilState<Person[]>(selectedPersonsState);
 
 
 
@@ -150,8 +152,8 @@ export const EditorSplitscreen: React.FC = () => {
 
     const text = inputText;
     const newMessage: messageProps = {
-      id: 1,
-      person : correctPerson,
+      id: activeScreen[activeScreen.length-1].id+1,
+      person: correctPerson,
       content: text,
       align: correctAlign,
     };
@@ -162,6 +164,21 @@ export const EditorSplitscreen: React.FC = () => {
     setInputRight("");
     setInputBottom("");
   };
+
+
+
+
+  const handleSelectValue = (name : string) => {
+    const userExists = personList.findIndex(p => p.name === name)
+    if (userExists === -1) {
+      
+    }
+  }
+
+
+
+
+
 
   const listsentences = activeScreen.map((card: messageProps) => {
     return (
@@ -290,6 +307,9 @@ export const EditorSplitscreen: React.FC = () => {
               />
             </form>
           </div>
+        </div>
+        <div style={{marginLeft:'13.2rem'}}>
+          <EditorReadingTime/>
         </div>
       </div>
     </div>
