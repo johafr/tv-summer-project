@@ -156,7 +156,7 @@ body {
 
 .editor__right-name input[type='text'] {
   
-  text-align:right;
+  text-align:left;
   padding-right:10px;
   top:10px;
 }

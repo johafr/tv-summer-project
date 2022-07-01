@@ -189,7 +189,7 @@ export const EditorSplitscreen: React.FC = () => {
         <div>
           <div className="editor__name-section">
             <div className="editor__namelist">
-              <EditorNamesList numSelections={2}/>
+              <EditorNamesList numSelections={1}/>
             </div>
           </div>
           <div className="editor__output">
@@ -201,7 +201,7 @@ export const EditorSplitscreen: React.FC = () => {
 
             <div className="editor__left-container">
               <div className="editor__left-name">
-                <S.NameForm>
+                <S.NameForm style={{paddingLeft:'0rem'}}>
                   <Tooltip title="Add name/remove name.">
                     <form onSubmit={(event) => handleSubmitName(0,"LEFT",event)}>
                       <S.Input
@@ -243,7 +243,7 @@ export const EditorSplitscreen: React.FC = () => {
 
             <div className="editor__right-container">
               <div className="editor__right-name">
-                <S.NameForm>
+                <S.NameForm style={{paddingLeft:'4.5rem'}}>
                   <Tooltip title="Add name/remove name.">
                     <form onSubmit={(event) => handleSubmitName(1,"RIGHT",event)}>
                       <S.Input
@@ -270,7 +270,7 @@ export const EditorSplitscreen: React.FC = () => {
                   </Tooltip>
                 </S.NameForm>
               </div>
-              <form onSubmit={(e) => handleAddMessage(e, "RIGHT")}>
+              <form onSubmit={(e) => handleAddMessage(e, "RIGHT")} style={{paddingLeft:'4.5rem'}} >
                 <SplitInput
                   className="messagetextinput"
                   value={inputRight}
