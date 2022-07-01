@@ -30,7 +30,8 @@ export const WordHighlight: React.FC = () => {
     <>
       <Form onSubmit={handleSearch}>
         <Input
-          placeholder="Search for instance of word..."
+          className={"form-input"}
+          placeholder="Search for instance of a word..."
           type="text"
           value={searchFieldText}
           contentEditable
@@ -40,10 +41,10 @@ export const WordHighlight: React.FC = () => {
           }}
         />
       </Form>
-      <span>
+      <Span>
         number of instances of "{searchFieldText}" :
         {instances !== -1 ? " " + instances : ""}
-      </span>
+      </Span>
     </>
   );
 };
@@ -53,3 +54,5 @@ const Form = styled.form``;
 const Input = styled.input`
   width: 50%;
 `;
+
+const Span = styled.span``;

@@ -25,7 +25,7 @@ export const ChangeScreenSizeMenu: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="menu-container">
       {clicked ? (
         <S.Table>
           <S.TableHeader>
@@ -57,6 +57,6 @@ export const ChangeScreenSizeMenu: React.FC = () => {
           <MenuIcon sx={{ color: "#adadad" }} />
         </S.Button>
       )}
-    </>
+    </div>
   );
 };
