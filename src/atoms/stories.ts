@@ -149,7 +149,7 @@ export const addPage = (newPage: PageProps) => {
     ...currentStory,
     pages: [...currentStory.pages, newPage],
   };
-  addStory(newStory);
+  updateStory(newStory);
 };
 
 export const deletePage = (currentPage: PageProps) => {
@@ -183,7 +183,7 @@ export const addMessage = (newMessage: MessageProps) => {
     ...currentPage,
     messages: [...currentPage.messages, newMessage],
   };
-  addPage(newPage);
+  updatePage(newPage);
 };
 
 export const deleteMessage = (currentMessage: MessageProps) => {

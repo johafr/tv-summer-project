@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
     return (
       <S.NavbarDiv>
         <NavLink
-          to="/story:id/editor"
+          to={"/story:" + insideStory + "/editor"}
           style={({ isActive }) => ({
             borderBottom: isActive ? "6px double black" : "none",
             color: isActive ? "#407178" : "black",
@@ -39,7 +39,7 @@ export const Navbar: React.FC = () => {
           Editor
         </NavLink>
         <NavLink
-          to="/story:id/preview"
+          to={"/story:" + insideStory + "/preview"}
           style={({ isActive }) => ({
             borderBottom: isActive ? "6px double black" : "none",
             color: isActive ? "#407178" : "black",
@@ -48,7 +48,7 @@ export const Navbar: React.FC = () => {
           Preview
         </NavLink>
         <NavLink
-          to="/story:id/test"
+          to={"/story:" + insideStory + "/test"}
           style={({ isActive }) => ({
             borderBottom: isActive ? "6px double black" : "none",
             color: isActive ? "#267659" : "black",
@@ -57,7 +57,7 @@ export const Navbar: React.FC = () => {
           Test
         </NavLink>
         <NavLink
-          to="/story:id/testeditor"
+          to={"/story:" + insideStory + "/testeditor"}
           style={({ isActive }) => ({
             borderBottom: isActive ? "6px double black" : "none",
             color: isActive ? "#267659" : "black",
@@ -78,7 +78,7 @@ export const Navbar: React.FC = () => {
           <AiFillHome style={{ color: "#262626" }} />
         </NavLink>
       </S.NavbarDiv>
-      {insideStory ? navigationStory() : null}
+      {insideStory > -1 ? navigationStory() : null}
       {username && <S.NavbarDiv>Logged in as {username}</S.NavbarDiv>}
       {username ? (
         <S.NavbarButton onClick={() => signOutWithGoogle()}>

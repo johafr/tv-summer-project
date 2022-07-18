@@ -20,6 +20,7 @@ export const UpdatePageDisplay = () => {
     };
     addPage(newPage);
     setPageNum(numPages);
+    console.log(pages);
   };
 
   const handleDeleteCurrentPage = () => {

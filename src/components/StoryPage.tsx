@@ -1,5 +1,5 @@
 import { Fab } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { activePageIndex, MessageProps } from "../atoms/stories";
 
@@ -52,7 +52,7 @@ export const StoryPage: React.FC = () => {
         <S.OutputScreen measurements={measurements}>
           <S.Bump Theme={Theme} />
           <S.ContentDiv measurements={measurements}>
-            {currentPage.messages.map((card: MessageProps) => (
+            {currentPage?.messages.map((card: MessageProps) => (
               <SentenceCard
                 key={card.id}
                 person={card.person}
