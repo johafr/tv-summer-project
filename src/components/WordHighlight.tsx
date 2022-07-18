@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { messageProps } from "../atoms/story";
-import { storyPages } from "../selectors/story";
+import { MessageProps, PageProps } from "../atoms/stories";
+import { activeStory } from "../selectors/stories";
 
 export const WordHighlight: React.FC = () => {
   const [searchFieldText, setSearchFieldText] = useState("");
   const [instances, setInstances] = useState<number>(-1);
-  const pages = useRecoilValue(storyPages);
+  const pages = useRecoilValue(activeStory).selectedStory?.pages;
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setInstances(0);
     var tempCount = 0;
-    pages.forEach((page: messageProps[]) => {
-      page.forEach((message: messageProps) => {
+    pages?.forEach((page: PageProps) => {
+      page.messages.forEach((message: MessageProps) => {
         const words = message.content.toLowerCase().split(" ");
         console.log(words);
         console.log(searchFieldText.trim().toLowerCase());

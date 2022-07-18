@@ -3,19 +3,16 @@ import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { activePerson, addPerson, persons } from "../atoms/persons";
-import { messageProps } from "../atoms/story";
-import { story as sp, updatePage } from "../atoms/story";
-import { activePage } from "../selectors/story";
-import { EditorNamesInput } from "./EditorNamesInput";
+import { addMessage, MessageProps } from "../atoms/stories";
 import { EditorNamesList } from "./EditorNamesList";
 import { SentenceCard } from "./SentenceCard";
 import * as S from "../styles/components/EditorNameInput";
 import * as S2 from "../styles/components/EditorTextInputStyles";
+import { activePage } from "../selectors/stories";
 
 // Component wrapper function
 export const EditorSplitscreen: React.FC = () => {
   const [personList, setPersonList] = useRecoilState(persons);
-  const [story, setStory] = useRecoilState(sp);
   const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
 
   const [inputNameLeft, setInputNameLeft] = useState("");
@@ -25,8 +22,7 @@ export const EditorSplitscreen: React.FC = () => {
   const [inputRight, setInputRight] = useState<string>("");
   const [inputBottom, setInputBottom] = useState<string>("");
 
-  const activeScreen = useRecoilValue(activePage);
-  const pageNum: number = 0;
+  const currentPage = useRecoilValue(activePage)!;
 
   let colorList = [
     "#407178",
@@ -107,21 +103,19 @@ export const EditorSplitscreen: React.FC = () => {
     }
 
     const text = inputText;
-    const newMessage: messageProps = {
+    const newMessage: MessageProps = {
       id: 1,
       person: undefined,
       content: text,
       align: correctAlign,
     };
-    const newMessageList = [...activeScreen, newMessage];
-    setStory(updatePage(story, newMessageList, pageNum));
-
+    addMessage(newMessage);
     setInputLeft("");
     setInputRight("");
     setInputBottom("");
   };
 
-  const listsentences = activeScreen.map((card: messageProps) => {
+  const listsentences = currentPage.messages.map((card: MessageProps) => {
     return (
       <SentenceCard
         key={card.id}
@@ -129,14 +123,6 @@ export const EditorSplitscreen: React.FC = () => {
         content={card.content}
         align={card.align}
       />
-    );
-  });
-
-  const listPersons = personList.map((person, index) => {
-    return (
-      <div key={index}>
-        <li key={person.id}>{person.name}</li>
-      </div>
     );
   });
 

@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StoryCard } from "../components/StoryCard";
-import { useRecoilState } from "recoil";
-import { stories as s } from "../atoms/stories";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  activePageIndex,
+  activeStoryIndex,
+  storiesState,
+} from "../atoms/stories";
 import styled from "styled-components";
 import { Grid } from "@mui/material";
 
 export const Home: React.FC = () => {
-  const [stories] = useRecoilState(s);
+  const stories = useRecoilValue(storiesState);
+  const [, setStoryIndex] = useRecoilState(activeStoryIndex);
+  const [, setPageIndex] = useRecoilState(activePageIndex);
+
+  useEffect(() => {
+    setStoryIndex(-1);
+    setPageIndex(0);
+  }, []);
 
   return (
     <ScreenDiv>
@@ -23,18 +34,7 @@ export const Home: React.FC = () => {
             <StoryCard story={story} />
           </Grid>
         ))}
-        {stories.stories.map((story) => (
-          <Grid item xs={3.5} sx={{ marginTop: "1rem" }} key={story.id}>
-            <StoryCard story={story} />
-          </Grid>
-        ))}
-        {stories.stories.map((story) => (
-          <Grid item xs={3.5} sx={{ marginTop: "1rem" }} key={story.id}>
-            <StoryCard story={story} />
-          </Grid>
-        ))}
       </Grid>
-      <p>this is a test</p>
     </ScreenDiv>
   );
 };

@@ -1,75 +1,54 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  activeIndex,
-  deleteMessage,
-  story as sp,
-  updatePage,
-} from "../atoms/story";
-import { activePage } from "../selectors/story";
 import * as S from "../styles/components/EditorTextInputStyles";
-import { messageProps } from "../atoms/story";
 import { activePerson } from "../atoms/persons";
-
 import DeleteIcon from "@mui/icons-material/Delete";
+import {
+  addMessage,
+  deleteMessage,
+  MessageProps,
+  PageProps,
+  updateMessage,
+} from "../atoms/stories";
+import { activePage as ap } from "../selectors/stories";
 
 export const EditorInputField: React.FC = () => {
-  const [pageNum] = useRecoilState(activeIndex);
-  const [story, setStory] = useRecoilState(sp);
   const [selectedPerson] = useRecoilState(activePerson);
-  const activeScreen = useRecoilValue(activePage);
+  const activePage = useRecoilValue(ap);
   const [inputText, setInputText] = useState("");
   const [messageInputText, setMessageInputText] = useState("");
   const [selectedInputArea, setSelectedInputArea] = useState<number | null>(
     null
   );
 
-  const handleUpdateMessage = (e: React.FormEvent, message: messageProps) => {
+  const handleUpdateMessage = (e: React.FormEvent, message: MessageProps) => {
     e.preventDefault();
-    const activeMessageIndex = activeScreen.findIndex(
-      (messageInList: messageProps) => message.id === messageInList.id
-    );
-    const selectedMessage = activeScreen[activeMessageIndex];
-    const newMessageList = [
-      ...activeScreen.slice(0, activeMessageIndex),
-      {
-        ...selectedMessage,
-        content: messageInputText,
-        align: message.align === "right" ? "left" : "right",
-      },
-      ...activeScreen.slice(activeMessageIndex + 1),
-    ];
-
     if (messageInputText !== "") {
-      setStory(updatePage(story, newMessageList, pageNum));
+      updateMessage(message);
     }
   };
 
   const handleAddMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    const markedPerson = selectedPerson;
-    const newMessage = {
+    const currentPage: PageProps = activePage!;
+    const newMessage: MessageProps = {
       id:
-        activeScreen.length !== 0
-          ? activeScreen[activeScreen.length - 1].id + 1
+        currentPage.messages.length !== 0
+          ? currentPage.messages[currentPage.messages.length - 1].id + 1
           : 0,
-      person: markedPerson,
+      person: selectedPerson,
       content: inputText,
-      align: markedPerson === undefined ? "center" : "right",
+      align: selectedPerson === undefined ? "center" : "right",
     };
-    const newMessageList = [...activeScreen, newMessage];
-    setStory(updatePage(story, newMessageList, pageNum));
+    addMessage(newMessage);
     setInputText("");
   };
 
-  const handleDeleteMessage = (selectedmessage: messageProps) => {
-    const selectedMessageIndex = activeScreen.findIndex(
-      (currentmessage) => currentmessage.id === selectedmessage.id
-    );
-    setStory(deleteMessage(selectedMessageIndex, pageNum, activeScreen, story));
-  }; // End delete message
+  const handleDeleteMessage = (selectedmessage: MessageProps) => {
+    deleteMessage(selectedmessage);
+  };
 
-  const handleOnFocus = (message: messageProps) => {
+  const handleOnFocus = (message: MessageProps) => {
     setSelectedInputArea(message.id);
     setMessageInputText(message.content);
   };
@@ -79,7 +58,7 @@ export const EditorInputField: React.FC = () => {
     setMessageInputText("");
   };
 
-  const messageList = activeScreen.map((message: messageProps) => {
+  const messageList = activePage?.messages.map((message: MessageProps) => {
     return (
       <div key={message.id}>
         <form

@@ -1,13 +1,13 @@
 import { Fab } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { activeIndex, messageProps } from "../atoms/story";
+import { activePageIndex, MessageProps } from "../atoms/stories";
 
 import { Theme } from "../styles/Theme";
 import { screenMeasurements } from "../atoms/measurements";
 import * as S from "../styles/components/storyPageStyles";
 
-import { activePage, getDisplayScreenLength } from "../selectors/story";
+import { activePage, activeStoryStats } from "../selectors/stories";
 import { SentenceCard } from "./SentenceCard";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
@@ -15,20 +15,20 @@ import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 export const StoryPage: React.FC = () => {
   //Recoil values
   const [measurements] = useRecoilState(screenMeasurements);
-  const [pageNum, setPageNum] = useRecoilState(activeIndex);
+  const [pageNum, setPageNum] = useRecoilState(activePageIndex);
   //Recoil selectors
-  const activeScreen = useRecoilValue(activePage);
-  const numPages = useRecoilValue(getDisplayScreenLength);
+  const currentPage = useRecoilValue(activePage);
+  const numberOfPages = useRecoilValue(activeStoryStats).numPages!;
 
   const handleGoLeft = () => {
     if (pageNum !== 0) {
-      setPageNum(pageNum - 1);
+      setPageNum(pageNum! - 1);
     }
   };
 
   const handleGoRight = () => {
-    if (pageNum < numPages - 1) {
-      setPageNum(pageNum + 1);
+    if (pageNum! < numberOfPages - 1) {
+      setPageNum(pageNum! + 1);
     }
   };
 
@@ -52,7 +52,7 @@ export const StoryPage: React.FC = () => {
         <S.OutputScreen measurements={measurements}>
           <S.Bump Theme={Theme} />
           <S.ContentDiv measurements={measurements}>
-            {activeScreen.map((card: messageProps) => (
+            {currentPage.messages.map((card: MessageProps) => (
               <SentenceCard
                 key={card.id}
                 person={card.person}

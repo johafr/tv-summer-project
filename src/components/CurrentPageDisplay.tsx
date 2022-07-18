@@ -2,12 +2,12 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { DisplayMeasurements, screenMeasurements } from "../atoms/measurements";
-import { activeIndex } from "../atoms/story";
-import { getDisplayScreenLength } from "../selectors/story";
+import { activePageIndex } from "../atoms/stories";
+import { activeStoryStats } from "../selectors/stories";
 
 export const CurrentPageDisplay: React.FC = () => {
-  const [pageNum] = useRecoilState(activeIndex);
-  const numPages = useRecoilValue(getDisplayScreenLength);
+  const pageNum = useRecoilValue(activePageIndex)!;
+  const { numPages } = useRecoilValue(activeStoryStats);
   const [measurements] = useRecoilState(screenMeasurements);
   return (
     <StyledDiv measurements={measurements}>
