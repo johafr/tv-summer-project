@@ -1,9 +1,15 @@
 import React from "react";
+import styled from "styled-components";
 
-export const TestComponent: React.FC = () => {
+type LeftCardProps = {
+  name: string;
+  text: string;
+};
+
+export const TestComponent: React.FC<LeftCardProps> = ({ name, text }) => {
   return (
     <>
-      <div>Bing bong!</div>
+      <h1>Bing bong!</h1>
     </>
   );
 };

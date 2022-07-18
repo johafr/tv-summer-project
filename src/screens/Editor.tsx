@@ -11,6 +11,7 @@ import { CurrentPageDisplay } from "../components/CurrentPageDisplay";
 import { useRecoilState } from "recoil";
 import { usernameState } from "../atoms/username";
 import { EditorSplitscreen } from "../components/EditorSplitscreen";
+import { TestComponent } from "../components/TestComponent";
 
 export const Editor: React.FC = () => {
   const [username] = useRecoilState(usernameState);
@@ -19,6 +20,7 @@ export const Editor: React.FC = () => {
     <div>
       {username ? (
         <S.ParentDiv>
+          <TestComponent name={"Cornelius"} text={"hei på deg"} />
           <S.Editor>
             <EditorNames />
             <EditorReadingTime />
