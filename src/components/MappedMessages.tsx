@@ -1,13 +1,13 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { messageProps } from "../atoms/story";
-import { activePage } from "../selectors/story";
+import { MessageProps } from "../atoms/stories";
+import { activePage } from "../selectors/stories";
 
 export const MappedMessages: React.FC = () => {
-  const activeScreen = useRecoilValue(activePage);
+  const currentPage = useRecoilValue(activePage)!;
   return (
     <>
-      {activeScreen.map((message: messageProps) => (
+      {currentPage.messages.map((message: MessageProps) => (
         <p>{message.content}</p>
       ))}
       <form>

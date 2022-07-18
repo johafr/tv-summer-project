@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { signInWithGoogle, signOutWithGoogle } from "../Firebase";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { usernameState } from "../atoms/username";
 import { auth } from "../Firebase";
 import "../styles/components/Navbar.css";
 import * as S from "../styles/components/NavbarStyles";
 import { userIdRefState } from "../atoms/authentication";
 import { AiFillHome } from "react-icons/ai";
-import { insideStory } from "../atoms/stories";
+import { activeStoryIndex } from "../atoms/stories";
 
 export const Navbar: React.FC = () => {
   const [username, setUsername] = useRecoilState(usernameState);
-  const [, setUserId] = useRecoilState(userIdRefState);
-  const [activeStoryNavbar, setActiveStoryNavbar] = useRecoilState(insideStory);
+  const setUserId = useSetRecoilState(userIdRefState);
+  const insideStory = useRecoilValue(activeStoryIndex);
 
   // Checks if the user is logged in, and sets the username if the person is logged in
   useEffect(() => {
@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
     return (
       <S.NavbarDiv>
         <NavLink
-          to="/story:id/editor"
+          to={"/story:" + insideStory + "/editor"}
           style={({ isActive }) => ({
             borderBottom: isActive ? "6px double black" : "none",
             color: isActive ? "#407178" : "black",
@@ -39,7 +39,7 @@ export const Navbar: React.FC = () => {
           Editor
         </NavLink>
         <NavLink
-          to="/story:id/preview"
+          to={"/story:" + insideStory + "/preview"}
           style={({ isActive }) => ({
             borderBottom: isActive ? "6px double black" : "none",
             color: isActive ? "#407178" : "black",
@@ -48,7 +48,7 @@ export const Navbar: React.FC = () => {
           Preview
         </NavLink>
         <NavLink
-          to="/story:id/test"
+          to={"/story:" + insideStory + "/test"}
           style={({ isActive }) => ({
             borderBottom: isActive ? "6px double black" : "none",
             color: isActive ? "#267659" : "black",
@@ -57,7 +57,7 @@ export const Navbar: React.FC = () => {
           Test
         </NavLink>
         <NavLink
-          to="/story:id/testeditor"
+          to={"/story:" + insideStory + "/testeditor"}
           style={({ isActive }) => ({
             borderBottom: isActive ? "6px double black" : "none",
             color: isActive ? "#267659" : "black",
@@ -69,22 +69,16 @@ export const Navbar: React.FC = () => {
     );
   };
 
-  const handleUpdateNavbar = () => {
-    window.location.href.indexOf("story") > -1
-      ? setActiveStoryNavbar(true)
-      : setActiveStoryNavbar(false);
-  };
-
   // Navigation bar, with links to respective paths
   // Checks which link is active and styles the active link
   return (
-    <S.Container className="navbar-container" onClick={handleUpdateNavbar}>
+    <S.Container className="navbar-container">
       <S.NavbarDiv>
         <NavLink to="/">
           <AiFillHome style={{ color: "#262626" }} />
         </NavLink>
       </S.NavbarDiv>
-      {activeStoryNavbar ? navigationStory() : null}
+      {insideStory > -1 ? navigationStory() : null}
       {username && <S.NavbarDiv>Logged in as {username}</S.NavbarDiv>}
       {username ? (
         <S.NavbarButton onClick={() => signOutWithGoogle()}>

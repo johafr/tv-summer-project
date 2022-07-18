@@ -7,21 +7,34 @@ import {
 } from "@mui/material";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { Story } from "../atoms/story";
-import { numWordsInStory } from "../selectors/story";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { activeStoryStats } from "../selectors/stories";
 import Placeholder from "../images/placeholder.png";
 import "../styles/components/StoryCard.css";
+import {
+  activePageIndex,
+  activeStoryIndex,
+  StoryProps,
+} from "../atoms/stories";
 
 type StoryCardProps = {
-  story: Story;
+  story: StoryProps;
 };
 
 export const StoryCard: React.FC<StoryCardProps> = ({ story }) => {
-  const numWords = useRecoilValue(numWordsInStory);
+  const { numWords } = useRecoilValue(activeStoryStats);
+  const [, setCurrentStoryIndex] = useRecoilState(activeStoryIndex);
+
+  const handleNavigate = () => {
+    setCurrentStoryIndex(story.id);
+  };
 
   return (
-    <NavLink to={"/story:" + story.id + "/editor"} className="NavLink">
+    <NavLink
+      to={"/story:" + story.id + "/editor"}
+      className="NavLink"
+      onClick={handleNavigate}
+    >
       <Container>
         <Card
           sx={{

@@ -1,41 +1,34 @@
 import { Tooltip } from "@mui/material";
-import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { activePerson, addPerson, Person, persons } from "../atoms/persons";
-import { messageProps } from "../atoms/story";
-import { story as sp, updatePage } from "../atoms/story";
-import { activePage } from "../selectors/story";
-import { EditorNamesInput } from "./EditorNamesInput";
+import { addPerson, Person, persons } from "../atoms/persons";
+import { addMessage, MessageProps, storiesState } from "../atoms/stories";
 import { EditorNamesList } from "./EditorNamesList";
-import { SentenceCard } from "./SentenceCard";
 import * as S from "../styles/components/EditorNameInput";
-import * as S2 from "../styles/components/EditorTextInputStyles";
+import { activePage } from "../selectors/stories";
 import { EditorReadingTime } from "./EditorReadingTime";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { usernameState } from "../atoms/username";
 import { userIdRefState } from "../atoms/authentication";
+import { SentenceCard } from "./SentenceCard";
+import { useState } from "react";
 
 // Component wrapper function
 // type InputName = {
 //   personName : string;
 // }
 
-const initialInputs = [{ personName: "" }, { personName: "" }];
-
 export const EditorSplitscreen: React.FC = () => {
   const [personList, setPersonList] = useRecoilState(persons);
-  const [story, setStory] = useRecoilState(sp);
-  const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
   //const [selectedPersons, setSelectedPersons] = useRecoilState<Person[]>(selectedPersonsState);
 
   const [inputLeft, setInputLeft] = useState<string>("");
   const [inputRight, setInputRight] = useState<string>("");
   const [inputBottom, setInputBottom] = useState<string>("");
+  const stories = useRecoilValue(storiesState);
 
-  const activeScreen = useRecoilValue(activePage);
-  const pageNum: number = 0;
+  const currentPage = useRecoilValue(activePage)!;
 
   const [username] = useRecoilState(usernameState);
   const [userId] = useRecoilState(userIdRefState);
@@ -166,27 +159,19 @@ export const EditorSplitscreen: React.FC = () => {
     }
 
     const text = inputText;
-    const newMessage: messageProps = {
-      id: activeScreen[activeScreen.length - 1].id + 1,
+    const newMessage: MessageProps = {
+      id: currentPage.messages[currentPage.messages.length - 1].id + 1,
       person: correctPerson,
       content: text,
       align: correctAlign,
     };
-    const newMessageList = [...activeScreen, newMessage];
-    setStory(updatePage(story, newMessageList, pageNum));
-
+    addMessage(newMessage);
     setInputLeft("");
     setInputRight("");
     setInputBottom("");
   };
 
-  const handleSelectValue = (name: string) => {
-    const userExists = personList.findIndex((p) => p.name === name);
-    if (userExists === -1) {
-    }
-  };
-
-  const listsentences = activeScreen.map((card: messageProps) => {
+  const listSentences = currentPage.messages.map((card: MessageProps) => {
     return (
       <SentenceCard
         key={card.id}
@@ -197,14 +182,6 @@ export const EditorSplitscreen: React.FC = () => {
     );
   });
 
-  const listPersons = personList.map((person, index) => {
-    return (
-      <div key={index}>
-        <li key={person.id}>{person.name}</li>
-      </div>
-    );
-  });
-
   const saveStoryToDb = () => {
     const storiesColRef = collection(db, "stories");
     return addDoc(storiesColRef, {
@@ -212,34 +189,16 @@ export const EditorSplitscreen: React.FC = () => {
       author: username,
       stories: [
         {
-          id: story.id,
-          name: story.name,
+          id: stories.stories[0].id,
+          name: stories.stories[0].name,
           author: username,
-          pages: [
-            {
-              name: "Mats",
-              text: "Hva skjer i dag?",
-            },
-            {
-              name: "Therese",
-              text: "Ikke no",
-            },
-          ],
+          pages: stories.stories[0].pages,
         },
         {
-          id: story.id,
-          name: story.name,
+          id: stories.stories[1].id,
+          name: stories.stories[1].name,
           author: username,
-          pages: [
-            {
-              name: "Hanne",
-              text: "Hvordan går det?",
-            },
-            {
-              name: "Bob",
-              text: "Helt perf",
-            },
-          ],
+          pages: stories.stories[1].pages,
         },
       ],
     });
@@ -257,7 +216,7 @@ export const EditorSplitscreen: React.FC = () => {
             </div>
           </div>
           <div className="editor__output">
-            <div className="editor__output-content">{listsentences}</div>
+            <div className="editor__output-content">{listSentences}</div>
           </div>
           <div className="editor__main-container">
             <div className="editor__left-container">

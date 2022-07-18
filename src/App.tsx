@@ -4,7 +4,7 @@ import "./App.css";
 import { Editor } from "./screens/Editor";
 import { Preview } from "./screens/Preview";
 import { Navbar } from "./components/Navbar";
-import { TestComponent } from "./components/TestComponent";
+import { Test } from "./screens/Test";
 import { ThemeProvider } from "@mui/material/styles";
 import { Theme } from "./styles/Theme";
 import { EditorSplitscreen } from "./components/EditorSplitscreen";
@@ -22,7 +22,8 @@ const Router: React.FC = () => {
         <Route element={<Home />} path={"/"} />
         <Route element={<Editor />} path={"story:id/editor"} />
         <Route element={<Preview />} path={"story:id/preview"} />
-        <Route
+        <Route element={<Test />} path={"story:id/test"} />
+        {/* <Route
           element={
             <TestComponent
               name={"Cornelius"}
@@ -30,7 +31,7 @@ const Router: React.FC = () => {
             />
           }
           path={"story:id/test"}
-        />
+        /> */}
         <Route element={<EditorSplitscreen />} path={"story:id/testeditor"} />
       </Routes>
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { StoryPage } from "../components/StoryPage";
 import { EditorReadingTime } from "../components/EditorReadingTime";
@@ -11,16 +11,27 @@ import { CurrentPageDisplay } from "../components/CurrentPageDisplay";
 import { useRecoilState } from "recoil";
 import { usernameState } from "../atoms/username";
 import { EditorSplitscreen } from "../components/EditorSplitscreen";
-import { TestComponent } from "../components/TestComponent";
+import { useParams } from "react-router-dom";
+import { activeStoryIndex } from "../atoms/stories";
+import { Test } from "../screens/Test";
 
 export const Editor: React.FC = () => {
   const [username] = useRecoilState(usernameState);
+  const { id } = useParams();
+  const [, setStoryIndex] = useRecoilState(activeStoryIndex);
+
+  useEffect(() => {
+    let tempId: string | undefined = "";
+    tempId = id?.substring(1, id.length);
+    tempId ? setStoryIndex(parseInt(tempId)) : setStoryIndex(-1);
+  }, []);
   // Editor final return
   return (
     <div>
       {username ? (
         <S.ParentDiv>
-          <TestComponent name={"Cornelius"} text={"hei på deg"} />
+          {/* <TestComponent name={"Cornelius"} text={"hei på deg"} /> */}
+          <Test />
           <S.Editor>
             <EditorNames />
             <EditorReadingTime />

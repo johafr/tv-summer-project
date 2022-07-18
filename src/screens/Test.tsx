@@ -5,6 +5,13 @@ type LeftCardProps = {
   name: string;
   text: string;
 };
+export const Test: React.FC = () => {
+  return (
+    <>
+      <div>test</div>
+    </>
+  );
+};
 
 export const TestComponent: React.FC<LeftCardProps> = ({ name, text }) => {
   return (
