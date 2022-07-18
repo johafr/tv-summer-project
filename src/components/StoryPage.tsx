@@ -11,6 +11,7 @@ import { activePage, activeStoryStats } from "../selectors/stories";
 import { SentenceCard } from "./SentenceCard";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import "../styles/components/PreviewMobileFormat.css";
 
 export const StoryPage: React.FC = () => {
   //Recoil values
@@ -34,7 +35,7 @@ export const StoryPage: React.FC = () => {
 
   return (
     <>
-      <S.Screen measurements={measurements}>
+      <S.Screen className="screen" measurements={measurements}>
         <Fab
           id="fab"
           size="small"
@@ -50,8 +51,8 @@ export const StoryPage: React.FC = () => {
           <ArrowLeftIcon sx={{ color: "white" }} />
         </Fab>
         <S.OutputScreen measurements={measurements}>
-          <S.Bump Theme={Theme} />
-          <S.ContentDiv measurements={measurements}>
+          <S.Bump className="bump" Theme={Theme} />
+          <S.ContentDiv className="content-div" measurements={measurements}>
             {currentPage?.messages.map((card: MessageProps) => (
               <SentenceCard
                 key={card.id}

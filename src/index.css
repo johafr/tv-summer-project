@@ -100,7 +100,7 @@ body {
   border-bottom:1px solid lightgray;
   margin-left:10px;
   margin-top:2px;
-  width:90%;
+  width:19.5rem;
   border-radius: 0;
 }
 
@@ -131,12 +131,13 @@ body {
 }
 
 
-.editor__left-container > input {
+.editor__left-container input {
   position:relative;
   top:-50px;
 }
 
-.editor__right-container > input {
+.editor__right-container input {
+  border:1px solid black;
   position:relative;
   top:-50px;
 }
@@ -150,11 +151,14 @@ body {
 .editor__left-name input[type='text'] {
   text-align:left;
   padding-left:10px;
+  top:10px;
 }
 
 .editor__right-name input[type='text'] {
-  text-align:right;
+  
+  text-align:left;
   padding-right:10px;
+  top:10px;
 }
 
 

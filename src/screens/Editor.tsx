@@ -13,6 +13,7 @@ import { usernameState } from "../atoms/username";
 import { EditorSplitscreen } from "../components/EditorSplitscreen";
 import { useParams } from "react-router-dom";
 import { activeStoryIndex } from "../atoms/stories";
+import { Test } from "../screens/Test";
 
 export const Editor: React.FC = () => {
   const [username] = useRecoilState(usernameState);
@@ -29,6 +30,8 @@ export const Editor: React.FC = () => {
     <div>
       {username ? (
         <S.ParentDiv>
+          {/* <TestComponent name={"Cornelius"} text={"hei på deg"} /> */}
+          <Test />
           <S.Editor>
             <EditorNames />
             <EditorReadingTime />

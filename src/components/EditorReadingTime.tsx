@@ -12,7 +12,7 @@ export const EditorReadingTime: React.FC = () => {
   let readingTime: number | string = 0;
   // Calculate est. reading time based on 250 words per minute.
   if (numWords < 250) {
-    readingTime = "= 0";
+    readingTime = "0";
   } else {
     readingTime = Math.ceil(numWords / 250);
   }
@@ -21,8 +21,8 @@ export const EditorReadingTime: React.FC = () => {
   return (
     <CountDiv>
       <div className="wordcount">
-        <p>{numWords} words total</p>
-        <p>{readingTime} minutes estimated time </p>
+        <p>Total word count: {numWords}</p>
+        <p>Estimated reading time (in minutes): {readingTime} </p>
         <WordHighlight />
       </div>
     </CountDiv>
@@ -30,7 +30,7 @@ export const EditorReadingTime: React.FC = () => {
 };
 
 export const CountDiv = styled.div`
-  text-align: left;
+  /* text-align: left;
   padding-top: 1px;
   padding-bottom: 1px;
   height: 8.2rem;
@@ -43,6 +43,11 @@ export const CountDiv = styled.div`
   margin-bottom: 10px;
 
   & p {
-    margin-left: 15px;
+    margin-left: 15px; */
+  padding-left: 2rem;
+  & input {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
   }
 `;

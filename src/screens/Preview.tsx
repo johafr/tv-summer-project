@@ -6,6 +6,7 @@ import { useRecoilState } from "recoil";
 import { usernameState } from "../atoms/username";
 import { useParams } from "react-router-dom";
 import { activeStoryIndex } from "../atoms/stories";
+import "../styles/components/PreviewMobileFormat.css";
 
 export const Preview: React.FC = () => {
   const [username] = useRecoilState(usernameState);
@@ -20,7 +21,7 @@ export const Preview: React.FC = () => {
   return (
     <div>
       {username ? (
-        <S.ScreenDiv>
+        <S.ScreenDiv className="screen-div">
           <StoryPage />
           <ChangeScreenSizeMenu />
         </S.ScreenDiv>

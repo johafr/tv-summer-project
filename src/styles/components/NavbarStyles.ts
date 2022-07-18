@@ -23,8 +23,7 @@ export const NavbarButton = styled.div`
   justify-content: center;
   border-radius: 10px;
   height: 2rem;
-  width: 4rem;
-
+  width: 5rem;
   background-color: rgba(64, 113, 120, 0.8);
   color: white;
   &:hover {

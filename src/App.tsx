@@ -23,6 +23,15 @@ const Router: React.FC = () => {
         <Route element={<Editor />} path={"story:id/editor"} />
         <Route element={<Preview />} path={"story:id/preview"} />
         <Route element={<Test />} path={"story:id/test"} />
+        {/* <Route
+          element={
+            <TestComponent
+              name={"Cornelius"}
+              text={"Men jeg skal ikke reise!"}
+            />
+          }
+          path={"story:id/test"}
+        /> */}
         <Route element={<EditorSplitscreen />} path={"story:id/testeditor"} />
       </Routes>
     </div>

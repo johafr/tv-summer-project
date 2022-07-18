@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const NameList = styled.div`
   position: relative;
   width: 25.3rem;
-  min-height:5.9rem;
+  min-height: 5.9rem;
   max-height: 14.5rem;
   overflow: auto;
   margin-bottom: 10px;
@@ -12,17 +12,16 @@ export const NameList = styled.div`
     position: fixed;
     width: 20rem;
     height: 15rem;
-    top:6rem;
-    left:30rem;
-    bottom:0;
-    right:1;
-
+    top: 6rem;
+    left: 30rem;
+    bottom: 0;
+    right: 1;
   }
 `;
 
 export const ListParent = styled.ul`
   display: flex;
-  position:relative;
+  position: relative;
   flex-flow: row wrap;
 `;
 
@@ -51,11 +50,10 @@ export const List = styled.li`
   &:hover .editor__deletePerson {
     opacity: 100%;
   }
-
-
 `;
 
 export const NameForm = styled.div`
+  padding-left: 2.8rem;
 `;
 
 export const Input = styled.input`
@@ -65,5 +63,4 @@ export const Input = styled.input`
   border: none;
   box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.2);
   text-align: center;
-
 `;

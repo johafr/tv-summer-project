@@ -33,12 +33,8 @@ export const UpdatePageDisplay = () => {
 
   return (
     <>
-      <S.CreateNewPageButton onClick={handleAddPage}>
-        new page
-      </S.CreateNewPageButton>
-      <S.DeletePageButton onClick={handleDeleteCurrentPage}>
-        Delete Page
-      </S.DeletePageButton>
+      <S.Button onClick={handleAddPage}>new page</S.Button>
+      <S.Button onClick={handleDeleteCurrentPage}>Delete Page</S.Button>
     </>
   );
 };

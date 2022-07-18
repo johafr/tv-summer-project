@@ -1,6 +1,7 @@
 import React from "react";
 import { EditorNamesInput } from "./EditorNamesInput";
 import { EditorNamesList } from "./EditorNamesList";
+import styled from "styled-components";
 
 // Component wrapper function
 export const EditorNames: React.FC = () => {
