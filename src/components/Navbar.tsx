@@ -65,6 +65,15 @@ export const Navbar: React.FC = () => {
         >
           WIP Editor
         </NavLink>
+        <NavLink
+          to={"/story:" + insideStory + "/create-template"}
+          style={({ isActive }) => ({
+            borderBottom: isActive ? "6px double black" : "none",
+            color: isActive ? "#267659" : "black",
+          })}
+        >
+          Create Template
+        </NavLink>
       </S.NavbarDiv>
     );
   };

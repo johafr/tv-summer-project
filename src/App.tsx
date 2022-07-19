@@ -9,6 +9,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { Theme } from "./styles/Theme";
 import { EditorSplitscreen } from "./components/EditorSplitscreen";
 import { Home } from "./screens/Home";
+import { CreateCustomTemplate } from "./screens/CreateCustomTemplate";
 
 const Router: React.FC = () => {
   useEffect(() => {
@@ -23,6 +24,10 @@ const Router: React.FC = () => {
         <Route element={<Editor />} path={"story:id/editor"} />
         <Route element={<Preview />} path={"story:id/preview"} />
         <Route element={<Test />} path={"story:id/test"} />
+        <Route
+          element={<CreateCustomTemplate />}
+          path={"story:id/create-template"}
+        />
         {/* <Route
           element={
             <TestComponent
