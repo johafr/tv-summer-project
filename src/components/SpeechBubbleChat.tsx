@@ -3,8 +3,9 @@ import styled from "styled-components";
 
 // Component props
 type Props = {
-    name: string;
+    name?: string;
     text: string;
+    align? : string;
 };
 
 // Component wrapper function
@@ -25,7 +26,7 @@ export const SpeechBubbleChat: React.FC<Props> = ({ name, text }) => {
 }
 
 export const Wrapper = styled.div`
-    margin-top:100px;
+    margin-top:40px;
     margin-left:50px;
     padding: 2rem;
     background-color: white; 
@@ -33,6 +34,7 @@ export const Wrapper = styled.div`
     border-radius:20px;
     display: inline-flex;
     max-width:70%;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.05);
 `;
 
 export const Point = styled.div`
@@ -51,6 +53,9 @@ export const Name = styled.h3`
     margin-top:-1.2rem;
     font-size:0.7rem;
     margin-left:-10px; 
+    display: flex;
+    position:absolute;
+    width:90%;
 `;
 export const Text = styled.div`
     flex-direction: column;

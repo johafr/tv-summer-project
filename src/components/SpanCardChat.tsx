@@ -24,6 +24,8 @@ export const SpanCardChat: React.FC<Props> = ({name, text}) => {
 
 export const Wrapper = styled.div`
     text-align:center;
+    margin-top:40px;
+    box-shadow:0px 10px 10px 1px rgba(0,0,0,0.1);
 `;
 
 export const Name = styled.h3`
