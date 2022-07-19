@@ -8,11 +8,13 @@ import {
 } from "../atoms/stories";
 import styled from "styled-components";
 import { Grid } from "@mui/material";
+import { usernameState } from "../atoms/username";
 
 export const Home: React.FC = () => {
   const stories = useRecoilValue(storiesState);
   const [, setStoryIndex] = useRecoilState(activeStoryIndex);
   const [, setPageIndex] = useRecoilState(activePageIndex);
+  const [username] = useRecoilState(usernameState);
 
   useEffect(() => {
     setStoryIndex(-1);
@@ -21,20 +23,27 @@ export const Home: React.FC = () => {
 
   return (
     <ScreenDiv>
-      <Grid
-        container
-        sx={{
-          width: "88%",
-          marginLeft: "6vw",
-          justifyContent: "space-between",
-        }}
-      >
-        {stories.stories.map((story) => (
-          <Grid item xs={3.5} sx={{ marginTop: "1rem" }} key={story.id}>
-            <StoryCard story={story} />
-          </Grid>
-        ))}
-      </Grid>
+      {username ? (
+        <Grid
+          container
+          sx={{
+            width: "100%",
+          }}
+        >
+          {stories.stories.map((story) => (
+            <Grid
+              item
+              xs={3.5}
+              sx={{ marginTop: "2rem", marginLeft: "1rem" }}
+              key={story.id}
+            >
+              <StoryCard story={story} />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <div>Please log in to use the tool</div>
+      )}
     </ScreenDiv>
   );
 };
@@ -43,4 +52,5 @@ const ScreenDiv = styled.div`
   width: 100%;
   background-color: #d3d3d3;
   height: 100%;
+  min-height: 92.3vh;
 `;
