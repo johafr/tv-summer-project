@@ -34,7 +34,8 @@ export const Name = styled.h3`
 
 export const TextWrapper = styled.div`
     font-size: 0.8em;
-    padding: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     background-color:white;
     flex-direction: column;
     width:100%;
