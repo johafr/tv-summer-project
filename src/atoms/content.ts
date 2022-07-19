@@ -1,24 +1,44 @@
 import { atom } from "recoil";
+import { setRecoil } from "recoil-nexus";
 
-type DialogProps = {};
+export interface ComponentsProps {
+  id: number;
+  type: string;
+}
 
-type ThoughtProps = {};
+export interface DialogProps extends ComponentsProps {}
 
-type ShoutProps = {};
+export interface ThoughtProps extends ComponentsProps {}
 
-type DialogComponents = {
-  dialog: DialogProps;
-  thought: ThoughtProps;
-  shout: ShoutProps;
+export interface ShoutProps extends ComponentsProps {}
+
+export interface CustomComponentProps extends ComponentsProps {}
+
+const dialog: DialogProps = {
+  id: 0,
+  type: "dialog",
+};
+const thought: ThoughtProps = {
+  id: 1,
+  type: "thought",
+};
+const shout: ShoutProps = {
+  id: 2,
+  type: "shout",
 };
 
-const dummyData: DialogComponents = {
-  dialog: {},
-  thought: {},
-  shout: {},
-};
+const dummydata: ComponentsProps[] = [dialog, thought, shout];
 
-export const dialogComponents = atom<DialogComponents>({
+export const dialogComponentsState = atom<ComponentsProps[]>({
   key: "dialogComponents",
-  default: dummyData,
+  default: dummydata,
 });
+
+export const activeDialogComponentIndex = atom<number>({
+  key: "activeDialogComponent",
+  default: -1,
+});
+
+export const updateActiveComponent = (newIndex: number) => {
+  setRecoil(activeDialogComponentIndex, newIndex);
+};
