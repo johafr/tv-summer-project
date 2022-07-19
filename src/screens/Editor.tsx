@@ -31,7 +31,7 @@ export const Editor: React.FC = () => {
           {/* <TestComponent name={"Cornelius"} text={"hei på deg"} /> */}
           <S.Editor>
             <EditorNames />
-            <EditorReadingTime />
+            {/* <EditorReadingTime /> */}
             <S.TextForm>
               <EditorInputField />
             </S.TextForm>

@@ -3,6 +3,7 @@ body {
   padding: 0;
   /* font-family:Verdana, Geneva, Tahoma, sans-serif;
   color:rgb(84, 84, 84); */
+  /* background-color: rgb(228, 228, 228); */
 }
 
 .editor__name-section {
@@ -155,7 +156,6 @@ body {
 }
 
 .editor__right-name input[type='text'] {
-  
   text-align:left;
   padding-right:10px;
   top:10px;

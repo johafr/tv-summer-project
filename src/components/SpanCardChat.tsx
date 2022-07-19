@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 // Component props
 type Props = {
-    name : string;
+    name? : string;
     text : string;
 
 };
@@ -42,5 +42,6 @@ export const TextWrapper = styled.div`
 
     & p {
         text-align:center;
+        margin:0.425em;
     }
 `;

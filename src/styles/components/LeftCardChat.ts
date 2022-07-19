@@ -10,7 +10,7 @@ export const LeftCard = styled.div`
   background: white;
 `;
 
-export const LeftCardName = styled.h1`
+export const LeftCardName = styled.h3`
   font-size: 0.7em;
   margin-left:5px;
 `;

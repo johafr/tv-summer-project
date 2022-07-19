@@ -3,5 +3,9 @@
 3. text selection event
 4. https://recoiljs.org/docs/guides/asynchronous-data-queries - for firebase fetch
 5. https://recoiljs.org/docs/recoil-sync/introduction/ - URL syncs
+6. https://nekocalc.com/ pixels til rem/em etc
 
 https://www.youtube.com/watch?v=zgKH12s_95A - state-values in array, the dynamically assigned
+
+
+

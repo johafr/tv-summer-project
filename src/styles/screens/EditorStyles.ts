@@ -23,10 +23,11 @@ export const Editor = styled.div`
 `;
 
 export const TextForm = styled.div`
+  min-height:30vh;
   margin-top: 20px;
   padding: 15px;
   width: 40rem;
-  border-bottom: 2px solid black;
+  border: 1px solid lightgray;
 `;
 
 export const Button = styled.button`

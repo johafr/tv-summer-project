@@ -100,6 +100,7 @@ export const EditorInputField: React.FC = () => {
             style={{
               backgroundColor: selectedPerson?.color?.toString(),
               opacity: selectedPerson ? "1" : "0",
+              top:'28px'
             }}
           />
           <S.FormInput
@@ -108,7 +109,7 @@ export const EditorInputField: React.FC = () => {
             placeholder="Write a sentence..."
             value={inputText}
             onChange={(event) => setInputText(event.target.value)}
-            style={{ marginTop: "15px" }}
+            style={{ marginTop: "15px", borderBottom: "1px solid lightgray" }}
           />
         </form>
       </div>

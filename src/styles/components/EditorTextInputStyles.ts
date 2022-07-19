@@ -15,7 +15,7 @@ export const FormInput = styled.input`
 
 export const ColorCircle = styled.div`
   position:relative;
-  top:16.5px;
+  top:14.5px;
   width:10px;
   height:10px;
   border-radius:0%;
