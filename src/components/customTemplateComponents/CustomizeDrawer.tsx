@@ -1,10 +1,28 @@
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import {
+  dialogComponentState,
+  dialogComponentVersions,
+  DialogProps,
+} from "../../atoms/components";
 
 export const CustomizeDrawer = () => {
+  const [variations] = useRecoilState(dialogComponentVersions);
+  const [, setDialogState] = useRecoilState(dialogComponentState);
+
+  const handleUpdateVariation = (newState: DialogProps) => {
+    setDialogState(newState);
+  };
+
   return (
     <Drawer>
       <CustomizeHeader>Customize</CustomizeHeader>
       <ElementHeader>Premade</ElementHeader>
+      {variations.map((component: DialogProps) => (
+        <ComponentBody onClick={() => handleUpdateVariation(component)}>
+          <p>{component.name}</p>
+        </ComponentBody>
+      ))}
     </Drawer>
   );
 };
@@ -32,4 +50,16 @@ const CustomizeHeader = styled.h2`
   padding: 0.5rem;
   margin: 0;
   background-color: blueviolet;
+`;
+
+const ComponentBody = styled.div`
+  background-color: aliceblue;
+  &:hover {
+    background-color: blue;
+  }
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+  cursor: pointer;
 `;

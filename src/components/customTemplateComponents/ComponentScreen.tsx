@@ -1,12 +1,9 @@
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { activeComponent } from "../../selectors/content";
+import { DialogComponent } from "./componentTypes/DialogComponent";
 
 const ToolbarHeight: number = 46.5;
 
 export const ComponentScreen = () => {
-  const currentComponent = useRecoilValue(activeComponent);
-
   return (
     <Screen>
       <Toolbar>
@@ -14,7 +11,7 @@ export const ComponentScreen = () => {
         <ButtonSpan>Save</ButtonSpan>
       </Toolbar>
       <ComponentDisplay>
-        {currentComponent ? <p>{currentComponent.type}</p> : <></>}
+        <DialogComponent />
       </ComponentDisplay>
     </Screen>
   );
