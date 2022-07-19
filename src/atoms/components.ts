@@ -77,7 +77,7 @@ export const storyComponents = atom<string[]>({
   default: ["dialog", "thought"],
 });
 
-export const activeComponent = atom<string>({
+export const activeComponent = atom<any>({
   key: "activeComponent",
   default: "none",
 });

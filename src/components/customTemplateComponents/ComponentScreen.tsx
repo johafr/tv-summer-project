@@ -1,9 +1,22 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { activeComponent } from "../../atoms/components";
 import { DialogComponent } from "./componentTypes/DialogComponent";
 
 const ToolbarHeight: number = 46.5;
 
 export const ComponentScreen = () => {
+  const currentComponent = useRecoilValue(activeComponent);
+
+  const DisplayRightComponent = () => {
+    switch (currentComponent) {
+      case "dialog":
+        return <DialogComponent />;
+      default:
+        return <p>none selected</p>;
+    }
+  };
+
   return (
     <Screen>
       <Toolbar>
@@ -11,7 +24,7 @@ export const ComponentScreen = () => {
         <ButtonSpan>Save</ButtonSpan>
       </Toolbar>
       <ComponentDisplay>
-        <DialogComponent />
+        <DisplayRightComponent />
       </ComponentDisplay>
     </Screen>
   );

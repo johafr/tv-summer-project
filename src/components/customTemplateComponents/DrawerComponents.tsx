@@ -4,15 +4,21 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { useRecoilState } from "recoil";
+import { activeComponent as aC } from "../../atoms/components";
 
 export const DrawerComponents = () => {
+  const [, setActiveComponent] = useRecoilState(aC);
+  const handleSetActiveComponent = (clickedComponent: string) => {
+    setActiveComponent(clickedComponent);
+  };
   return (
     <>
-      <ComponentBody>
+      <ComponentBody onClick={() => handleSetActiveComponent("dialog")}>
         <ChatBubbleOutlineOutlinedIcon />
         <ComponentName>Dialog</ComponentName>
       </ComponentBody>
-      <ComponentBody>
+      <ComponentBody onClick={() => handleSetActiveComponent("thought")}>
         <PsychologyOutlinedIcon />
         <ComponentName>Thought</ComponentName>
       </ComponentBody>
