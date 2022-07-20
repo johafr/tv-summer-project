@@ -27,7 +27,7 @@ export const ThoughtBubbleChat: React.FC<Props> = ({name,text, variant}) => {
 
 
 export const Wrapper = styled.div<{ align?: string }>`
-    margin:40px 50px 10px 50px;
+    margin:2.5rem 3.125rem 10px 3.125rem;
     padding:1rem;
     background-color:white;
     border-radius:100px;

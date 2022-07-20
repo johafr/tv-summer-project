@@ -14,7 +14,7 @@ export const SpeechBubbleChat: React.FC<Props> = ({ name, text, variant }) => {
 
     // Component end-return
     return (
-        <div>
+        <div style={{minWidth:'51%'}}>
             <Wrapper align={variant !== undefined ? variant : 'left'}>
                 <Name align={variant !== undefined ? variant : 'left'}>{name}</Name>
                 <Text>
@@ -29,25 +29,27 @@ export const SpeechBubbleChat: React.FC<Props> = ({ name, text, variant }) => {
 }
 
 export const Wrapper = styled.div<{ align? : string }>`
-    margin-top:40px;
-    margin-left:50px;
-    margin-right:50px;
+    margin-top:2.5rem;
+    margin-left:3.125rem;
+    margin-right:3.125rem;
     padding: 0.5rem;
     background-color: white; 
     position:relative;
     border-radius:20px;
+    min-width:40%;
     max-width:70%;
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.05);
     z-index: 0;
     float: ${(props) => props.align};
+    // border:1px solid black;
 `;
 
 export const LeftPoint = styled.div`
     width:0;
     height:0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-top: 45px solid white;
+    border-left: 0.938rem solid transparent;
+    border-right: 0.938rem solid transparent;
+    border-top: 2.813rem solid white;
     position: absolute;
     left: -1rem;
     bottom:-1.2rem;
@@ -58,9 +60,9 @@ export const LeftPoint = styled.div`
 export const RightPoint = styled.div`
     width:0;
     height:0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-top: 45px solid white;
+    border-left: 0.938rem solid transparent;
+    border-right: 0.938rem solid transparent;
+    border-top: 2.813rem solid white;
     position: absolute;
     right: -1rem;
     bottom:-1.2rem;

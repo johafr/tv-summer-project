@@ -5,8 +5,9 @@ export const LeftCard = styled.div`
   // border: 1px solid red;
   border-radius: 0 20px 20px 0;
   display: inline-flex;
-  flex-direction: column;
-  max-width:45%;
+  position:relative;
+  margin-top:2.5rem;
+  max-width:50%;
   background: white;
 `;
 
@@ -17,4 +18,5 @@ export const LeftCardName = styled.h3`
 
 export const LeftCardText = styled.p`
   font-size: 0.8em;
+  flex-direction: column;
 `;

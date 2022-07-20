@@ -24,11 +24,12 @@ export const SpanCardChat: React.FC<Props> = ({name, text}) => {
 
 export const Wrapper = styled.div`
     text-align:center;
-    margin-top:40px;
-    box-shadow:0px 10px 10px 1px rgba(0,0,0,0.1);
+    margin-top:1.0rem;
+    //box-shadow:0px 10px 10px 1px rgba(0,0,0,0.1);
     position:relative;
     display: inline-block;
     width:100%;
+
 `;
 
 export const Name = styled.h3`
@@ -39,14 +40,18 @@ export const Name = styled.h3`
 
 export const TextWrapper = styled.div`
     font-size: 0.8em;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    background-color:white;
-    flex-direction: column;
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    background-color:none;
+    flex-direction: row;
     width:100%;
+    align-self:center;
 
     & p {
         text-align:center;
         margin:0.425em;
+        width:50%;
+        margin-left:auto;
+        margin-right:auto;
     }
 `;
