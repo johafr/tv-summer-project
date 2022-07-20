@@ -1,14 +1,28 @@
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { DialogProps } from "../../../atoms/components";
+import { ComponentProps, updateVersion } from "../../../atoms/components";
+import { activeComponent } from "../../../selectors/components";
 
 export const CustomizeDrawer = () => {
+  const { currentComponent, currentComponentVersions } =
+    useRecoilValue(activeComponent);
+
+  const checkActive = (id: number) => {
+    const active = id === currentComponent!.activeVersionIndex;
+    return active;
+  };
+
   return (
     <Drawer>
       <ElementHeader>Premade</ElementHeader>
-      {/* <ComponentBody>
-        <p>component name</p>
-      </ComponentBody> */}
+      {currentComponentVersions.map((version: ComponentProps) => (
+        <ComponentBody
+          active={checkActive(version.id)}
+          onClick={() => updateVersion(version.id)}
+        >
+          {version.name}
+        </ComponentBody>
+      ))}
     </Drawer>
   );
 };
@@ -29,14 +43,15 @@ const ElementHeader = styled.h3`
   margin: 0;
 `;
 
-const ComponentBody = styled.div`
-  background-color: aliceblue;
+const ComponentBody = styled.div<{ active: boolean }>`
+  background-color: ${(props) => (props.active ? "#a0a0a0" : "aliceblue")};
   &:hover {
-    background-color: blue;
+    background-color: #a0a0a0;
   }
   display: flex;
   justify-content: center;
   gap: 2rem;
   align-items: center;
   cursor: pointer;
+  height: 2.5rem;
 `;

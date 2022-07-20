@@ -1,23 +1,28 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { DialogComponent } from "../componentTypes/DialogComponent";
+import { activeComponent } from "../../../selectors/components";
+import { Component } from "../componentTypes/DialogComponent";
 
 const ToolbarHeight: number = 45.5;
 
 export const ComponentScreen = () => {
-  const DisplayRightComponent = (currentComponent: any) => {
-    switch (currentComponent) {
-      case "dialog":
-        return <DialogComponent />;
+  const { currentComponent } = useRecoilValue(activeComponent);
+
+  const DisplayComponent = () => {
+    switch (currentComponent !== null) {
+      case true:
+        return <Component />;
+      case false:
+        return <>Object not selected</>;
       default:
-        return <p>none selected</p>;
+        return <p>Object not in list</p>;
     }
   };
 
   return (
     <Screen>
       <ComponentDisplay>
-        <DisplayRightComponent />
+        <DisplayComponent />
       </ComponentDisplay>
     </Screen>
   );

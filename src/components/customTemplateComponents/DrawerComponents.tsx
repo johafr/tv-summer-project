@@ -11,12 +11,11 @@ import {
   storyComponentsState,
 } from "../../atoms/components";
 import { activeComponent } from "../../selectors/components";
-import { color } from "@mui/system";
 
 export const DrawerComponents = () => {
   const [componentTypes] = useRecoilState(storyComponentsState);
   const [, setActiveIndex] = useRecoilState(activeStoryComponentIndex);
-  const currentComponent = useRecoilValue(activeComponent);
+  const { currentComponent } = useRecoilValue(activeComponent);
 
   const checkActiveComponent = (componentType: Premade) => {
     const active =
@@ -68,9 +67,9 @@ export const DrawerComponents = () => {
 };
 
 const ComponentBody = styled.div<{ active: boolean }>`
-  background-color: ${(props) => (props.active ? "blue" : "aliceblue")};
+  background-color: ${(props) => (props.active ? "#a0a0a0" : "aliceblue")};
   &:hover {
-    background-color: blue;
+    background-color: #a0a0a0;
   }
   display: flex;
   justify-content: center;

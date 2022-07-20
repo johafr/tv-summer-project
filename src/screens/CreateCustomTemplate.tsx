@@ -44,7 +44,7 @@ const TopLine = styled.div`
 const ContentDiv = styled.div`
   display: inline-flex;
   width: 100%;
-  height: 90.3vh;
+  height: 84.5vh;
 `;
 
 const Toolbar = styled.div`

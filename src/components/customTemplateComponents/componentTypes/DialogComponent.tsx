@@ -1,20 +1,26 @@
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { DialogProps } from "../../../atoms/components";
+import { ComponentProps } from "../../../atoms/components";
+import { activeVersion } from "../../../selectors/components";
 
-export const DialogComponent = () => {
+export const Component = () => {
+  const currentVersion = useRecoilValue(activeVersion);
+
   return (
-    <DialogBody>
-      <DialogText>This is the version</DialogText>
-    </DialogBody>
+    <Body inputVariables={currentVersion}>
+      <Text>This is the {currentVersion.name} version</Text>
+    </Body>
   );
 };
 
-const DialogBody = styled.span<{}>`
+const Body = styled.span<{ inputVariables: ComponentProps }>`
   //not changeable variables
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   //changeable variables
+  width: ${(props) => props.inputVariables.width}rem;
+  border-radius: ${(props) => props.inputVariables.borderRadius}rem;
+  background-color: ${(props) => props.inputVariables.backgroundColor};
 `;
 
-const DialogText = styled.p``;
+const Text = styled.p``;
