@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import { DrawerComponents } from "./DrawerComponents";
+import { DrawerComponents } from "../DrawerComponents";
 
 const drawerWidth = 20;
 
 export const ElementsDrawer = () => {
   return (
     <Drawer>
-      <ElementHeader>Elements</ElementHeader>
       <ComponentsHeader>
         Components <MenuOpenIcon />
       </ComponentsHeader>
@@ -32,13 +31,4 @@ const ComponentsHeader = styled.h3`
   border-bottom: 1px solid black;
   background-color: antiquewhite;
   margin: 0;
-`;
-
-const ElementHeader = styled.h2`
-  justify-content: center;
-  display: flex;
-  border-bottom: 1px solid black;
-  padding: 0.5rem;
-  margin: 0;
-  background-color: blueviolet;
 `;

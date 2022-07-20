@@ -4,38 +4,71 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { useRecoilState } from "recoil";
-import { activeComponent as aC } from "../../atoms/components";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  activeStoryComponentIndex,
+  Premade,
+  storyComponentsState,
+} from "../../atoms/components";
+import { activeComponent } from "../../selectors/components";
+import { color } from "@mui/system";
 
 export const DrawerComponents = () => {
-  const [, setActiveComponent] = useRecoilState(aC);
-  const handleSetActiveComponent = (clickedComponent: string) => {
-    setActiveComponent(clickedComponent);
+  const [componentTypes] = useRecoilState(storyComponentsState);
+  const [, setActiveIndex] = useRecoilState(activeStoryComponentIndex);
+  const currentComponent = useRecoilValue(activeComponent);
+
+  const checkActiveComponent = (componentType: Premade) => {
+    const active =
+      currentComponent === null
+        ? false
+        : currentComponent === componentType
+        ? true
+        : false;
+    return active;
   };
+
+  const handleSetActiveComponent = (componentType: Premade) => {
+    const newIndex =
+      componentType === currentComponent
+        ? -1
+        : componentTypes.findIndex(
+            (componentInList) =>
+              componentType.componentName === componentInList.componentName
+          );
+    setActiveIndex(newIndex);
+  };
+
+  const GetIcon = (componentType: Premade) => {
+    switch (componentType.componentName) {
+      case "Dialog":
+        return <ChatBubbleOutlineOutlinedIcon />;
+      case "Thought":
+        return <PsychologyOutlinedIcon />;
+      case "Shout":
+        return <CampaignOutlinedIcon />;
+      default:
+        return <EditOutlinedIcon />;
+    }
+  };
+
   return (
     <>
-      <ComponentBody onClick={() => handleSetActiveComponent("dialog")}>
-        <ChatBubbleOutlineOutlinedIcon />
-        <ComponentName>Dialog</ComponentName>
-      </ComponentBody>
-      <ComponentBody onClick={() => handleSetActiveComponent("thought")}>
-        <PsychologyOutlinedIcon />
-        <ComponentName>Thought</ComponentName>
-      </ComponentBody>
-      <ComponentBody>
-        <CampaignOutlinedIcon />
-        <ComponentName>Shout</ComponentName>
-      </ComponentBody>
-      <ComponentBody>
-        <EditOutlinedIcon />
-        <ComponentName>Custom</ComponentName>
-      </ComponentBody>
+      {componentTypes.map((componentType: Premade) => (
+        <ComponentBody
+          active={checkActiveComponent(componentType)}
+          onClick={() => handleSetActiveComponent(componentType)}
+        >
+          {GetIcon(componentType)}
+          <ComponentName>{componentType.componentName}</ComponentName>
+        </ComponentBody>
+      ))}
     </>
   );
 };
 
-const ComponentBody = styled.div`
-  background-color: aliceblue;
+const ComponentBody = styled.div<{ active: boolean }>`
+  background-color: ${(props) => (props.active ? "blue" : "aliceblue")};
   &:hover {
     background-color: blue;
   }

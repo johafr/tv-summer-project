@@ -1,83 +1,84 @@
 import { atom } from "recoil";
 
+export interface Premade {
+  activeVersionIndex: number;
+  componentName: string;
+}
+
 //Dialog
-export type DialogProps = {
+export interface DialogProps {
   name: string;
-  type: string;
   width: number;
   borderRadius: number;
   backgroundColor: string;
+}
+
+interface PremadeDialogComponents extends Premade {
+  premadeComponents: DialogProps[];
+}
+
+const premadeDialogComponents: PremadeDialogComponents = {
+  activeVersionIndex: 0,
+  componentName: "Dialog",
+  premadeComponents: [
+    {
+      name: "default",
+      width: 10,
+      borderRadius: 0.2,
+      backgroundColor: "#d3d3d3",
+    },
+    {
+      name: "Alternate 1",
+      width: 10,
+      borderRadius: 0.2,
+      backgroundColor: "red",
+    },
+  ],
 };
-
-const premadeDialogComponents: DialogProps[] = [
-  {
-    name: "default",
-    type: "dialog",
-    width: 10,
-    borderRadius: 0.2,
-    backgroundColor: "#d3d3d3",
-  },
-  {
-    name: "Alternate 1",
-    type: "dialog",
-    width: 10,
-    borderRadius: 0.2,
-    backgroundColor: "red",
-  },
-];
-
-export const dialogComponentState = atom<DialogProps>({
-  key: "dialogComponentState",
-  default: premadeDialogComponents[0],
-});
-
-export const dialogComponentVersions = atom<DialogProps[]>({
-  key: "dialogComponentVersions",
-  default: premadeDialogComponents,
-});
 
 //Thought
-export type ThoughtProps = {
+export interface ThoughtProps {
   name: string;
-  type: string;
   width: number;
   borderRadius: number;
   backgroundColor: string;
+}
+
+interface PremadeThoughtComponents extends Premade {
+  premadeComponents: DialogProps[];
+}
+
+const premadeThoughtComponents: PremadeThoughtComponents = {
+  activeVersionIndex: 0,
+  componentName: "Thought",
+  premadeComponents: [
+    {
+      name: "default",
+      width: 10,
+      borderRadius: 0.2,
+      backgroundColor: "#d3d3d3",
+    },
+    {
+      name: "Alternate 1",
+      width: 10,
+      borderRadius: 0.2,
+      backgroundColor: "red",
+    },
+  ],
 };
 
-const premadeThoughtComponents: ThoughtProps[] = [
-  {
-    name: "default",
-    type: "thought",
-    width: 10,
-    borderRadius: 0.2,
-    backgroundColor: "#d3d3d3",
-  },
-  {
-    name: "Alternate 1",
-    type: "thought",
-    width: 10,
-    borderRadius: 0.2,
-    backgroundColor: "red",
-  },
+//State
+const premadeComponents: Premade[] = [
+  premadeDialogComponents,
+  premadeThoughtComponents,
 ];
 
-export const thoughtComponentState = atom<ThoughtProps>({
-  key: "thoughtComponentState",
-  default: premadeThoughtComponents[0],
-});
-
-export const thoughtComponentVersions = atom<ThoughtProps[]>({
-  key: "thoughtComponentVersions",
-  default: premadeThoughtComponents,
-});
-
-export const storyComponents = atom<string[]>({
+export const storyComponentsState = atom<Premade[]>({
   key: "storyComponents",
-  default: ["dialog", "thought"],
+  default: premadeComponents,
 });
 
-export const activeComponent = atom<any>({
-  key: "activeComponent",
-  default: "none",
+export const activeStoryComponentIndex = atom<number>({
+  key: "activeStoryComponentIndex",
+  default: -1,
 });

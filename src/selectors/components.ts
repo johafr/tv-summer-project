@@ -1,10 +1,16 @@
 import { selector } from "recoil";
-import { storyComponents } from "../atoms/components";
+import {
+  activeStoryComponentIndex,
+  storyComponentsState,
+} from "../atoms/components";
 
 export const activeComponent = selector({
   key: "activeComponent",
   get: ({ get }) => {
-    const selectedComponent = get(activeComponent);
-    const availableComponents = get(storyComponents);
+    const storyComponents = get(storyComponentsState);
+    const activeIndex = get(activeStoryComponentIndex);
+    const currentComponent =
+      activeIndex === -1 ? null : storyComponents[activeIndex];
+    return currentComponent;
   },
 });
