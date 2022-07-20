@@ -3,16 +3,10 @@ import { Person } from "./persons";
 import { getRecoil, setRecoil } from "recoil-nexus";
 import { activePage, activeStory } from "../selectors/stories";
 
-export type MessageProps = {
+export type StoriesProps = {
   id: number;
-  person?: Person;
-  content: string;
-  align: string;
-};
-
-export type PageProps = {
-  id: number;
-  messages: MessageProps[];
+  author: string;
+  stories: StoryProps[];
 };
 
 export type StoryProps = {
@@ -22,10 +16,16 @@ export type StoryProps = {
   pages: PageProps[];
 };
 
-type StoriesProps = {
+export type PageProps = {
   id: number;
-  author: string;
-  stories: StoryProps[];
+  messages: MessageProps[];
+};
+
+export type MessageProps = {
+  id: number;
+  person?: Person;
+  content: string;
+  align: string;
 };
 
 const dummyPage1 = {

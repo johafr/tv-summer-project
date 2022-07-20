@@ -5,6 +5,7 @@ import {
   StoryProps,
   activePageIndex,
   PageProps,
+  MessageProps,
 } from "../atoms/stories";
 
 export const activeStory = selector({
@@ -39,7 +40,11 @@ export const activeStoryStats = selector({
     const storyPages = get(activeStory).activeStoryPages;
     const numPages = storyPages?.length;
     let numWords = 0;
-    storyPages?.forEach((page) => page.messages.forEach(() => (numWords += 1)));
+    storyPages?.forEach((page: PageProps) =>
+      page.messages.forEach((message: MessageProps) => {
+        message.content.split(" ").forEach(() => (numWords += 1));
+      })
+    );
     return { numPages, numWords };
   },
 });
