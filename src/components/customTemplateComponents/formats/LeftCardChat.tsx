@@ -12,8 +12,9 @@ export const LeftCardChat: React.FC<LeftCardProps> = ({ name, text }) => {
 
   return (
     <>
-      <S.LeftCardName>{name}</S.LeftCardName>
+      
       <S.LeftCard>
+        {/* <S.LeftCardName>{name}</S.LeftCardName> */}
         <S.LeftCardText>{text}</S.LeftCardText>
       </S.LeftCard>
     </>

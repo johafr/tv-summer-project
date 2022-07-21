@@ -21,10 +21,12 @@ body {
 .editor__namelist {
   /* border:1px solid black; */
   height: 47.7rem!important;
-  width:15rem;
+  width:1em;
   display:flex;
   flex-wrap:column;
-  position: absolute;
+  position: relative;
+  float:left;
+  margin:auto;
   left:-10.5vw;
   
 
@@ -78,6 +80,7 @@ body {
 
 .editor__main-container {
   /* border:1px solid red; */
+  background-color: white;
   display:flex;
   height:8rem;
   width:52rem;
@@ -131,6 +134,10 @@ body {
   width:90%;
 }
 
+
+.editor__left-container {
+  border:1px solid black;
+}
 
 .editor__left-container input {
   position:relative;

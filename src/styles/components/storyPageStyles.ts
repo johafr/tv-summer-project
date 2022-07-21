@@ -41,6 +41,6 @@ export const ContentDiv = styled.div<{ measurements: DisplayMeasurements }>`
   height: ${(props) => props.measurements.height - 30}px;
   margin-top: 20px;
   margin-left: 10px;
-  //background-color: #d3d3d3;
+  background-color: #d3d3d3;
   color: black;
 `;

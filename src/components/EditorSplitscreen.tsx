@@ -184,7 +184,7 @@ export const EditorSplitscreen: React.FC = () => {
       return (
         <SpeechBubbleChat
           name={card.person?.name}
-          text={card.content}
+          content={card.content}
           variant={card.align}
           inputVariables={getSpeechBubbleChatProps[0].premadeFormats[0]}
         />
@@ -193,7 +193,7 @@ export const EditorSplitscreen: React.FC = () => {
       return (
         <ThoughtBubbleChat
           name={card.person?.name}
-          text={card.content}
+          content={card.content}
           variant={card.align}
         />
       );
