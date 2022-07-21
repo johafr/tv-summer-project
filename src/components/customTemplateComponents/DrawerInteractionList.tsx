@@ -9,8 +9,8 @@ import {
   activeInteractionIndex,
   InteractionProps,
   interactionListState,
-} from "../../atoms/components";
-import { activeInteraction } from "../../selectors/components";
+} from "../../atoms/interactionComponents";
+import { activeInteraction } from "../../selectors/interactionComponents";
 
 export const DrawerInteractionList = () => {
   const [interactionList] = useRecoilState(interactionListState);

@@ -16,7 +16,10 @@ import { useState } from "react";
 import { SpeechBubbleChat } from "./customTemplateComponents/formats/SpeechBubbleChat";
 import { SpanCardChat } from "./customTemplateComponents/formats/SpanCardChat";
 import { ThoughtBubbleChat } from "./customTemplateComponents/formats/ThoughtBubbleChat";
-import { activeFormat, getAllInteractions } from "../selectors/components";
+import {
+  activeFormat,
+  getAllInteractions,
+} from "../selectors/interactionComponents";
 
 // Component wrapper function
 // type InputName = {

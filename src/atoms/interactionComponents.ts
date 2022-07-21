@@ -4,7 +4,7 @@ import {
   activeFormat,
   activeInteraction,
   getAllInteractions,
-} from "../selectors/components";
+} from "../selectors/interactionComponents";
 
 export interface Template {
   background?: null;
@@ -22,6 +22,7 @@ export interface FormatProps {
   formatName: string;
   styles: {
     version: string;
+    id: number;
     width: number;
     borderRadius: number;
     backgroundColor: string;
@@ -37,19 +38,28 @@ const premadeDialogFormats: InteractionProps = {
       formatName: "SpeechBubbleChat",
       styles: [
         {
-          version: "DEAFULT",
+          version: "DEAFULT SpeechBubbleChat",
+          id: 0,
           width: 51,
           borderRadius: 1.25,
           backgroundColor: "white",
+        },
+        {
+          version: "CUSTOM SpeechBubbleChat 1",
+          id: 1,
+          width: 51,
+          borderRadius: 1.25,
+          backgroundColor: "red",
         },
       ],
     },
     {
       formatId: 1,
-      formatName: "Dialog 1",
+      formatName: "Dialog1",
       styles: [
         {
-          version: "DEFAULT",
+          version: "DEFAULT Dialog1",
+          id: 0,
           width: 10,
           borderRadius: 0.2,
           backgroundColor: "lightgreen",
@@ -69,6 +79,7 @@ const premadeThoughtFormats: InteractionProps = {
       styles: [
         {
           version: "DEFAULT",
+          id: 0,
           width: 10,
           borderRadius: 0.2,
           backgroundColor: "#d3d3d3",
@@ -81,6 +92,7 @@ const premadeThoughtFormats: InteractionProps = {
       styles: [
         {
           version: "DEFAULT",
+          id: 0,
           width: 10,
           borderRadius: 0.2,
           backgroundColor: "lightblue",
@@ -100,6 +112,7 @@ const premadeShoutFormats: InteractionProps = {
       styles: [
         {
           version: "DEFAULT",
+          id: 0,
           width: 10,
           borderRadius: 0.2,
           backgroundColor: "#d3d3d3",
@@ -107,11 +120,12 @@ const premadeShoutFormats: InteractionProps = {
       ],
     },
     {
-      formatId: 1,
+      formatId: 0,
       formatName: "Shout 1",
       styles: [
         {
           version: "DEFAULT",
+          id: 1,
           width: 10,
           borderRadius: 0.2,
           backgroundColor: "#f6cefc",

@@ -1,6 +1,6 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { activeInteraction } from "../../../selectors/components";
+import { activeInteraction } from "../../../selectors/interactionComponents";
 import { CustomComponent } from "../formats/CustomComponent";
 
 const ToolbarHeight: number = 45.5;

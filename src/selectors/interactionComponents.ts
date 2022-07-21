@@ -2,7 +2,7 @@ import { selector } from "recoil";
 import {
   activeInteractionIndex,
   interactionListState,
-} from "../atoms/components";
+} from "../atoms/interactionComponents";
 
 export const getAllInteractions = selector({
   key: "getAllInteractions",
