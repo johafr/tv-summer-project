@@ -1,9 +1,11 @@
 import React from "react";
-import { MessageProps } from "../atoms/stories";
-import * as S from "../styles/components/SentenceCardStyles";
-import { SpanCardChat } from "./customTemplateComponents/componentTypes/SpanCardChat";
-import { SpeechBubbleChat } from "./customTemplateComponents/componentTypes/SpeechBubbleChat";
-import { ThoughtBubbleChat } from "./customTemplateComponents/componentTypes/ThoughtBubbleChat";
+import { useRecoilValue } from "recoil";
+import { MessageProps } from "../../atoms/stories";
+import { getAllInteractions } from "../../selectors/interactionComponents";
+import * as S from "../../styles/components/SentenceCardStyles";
+import { SpanCardChat } from "../customTemplateComponents/formats/SpanCardChat";
+import { SpeechBubbleChat } from "../customTemplateComponents/formats/SpeechBubbleChat";
+import { ThoughtBubbleChat } from "../customTemplateComponents/formats/ThoughtBubbleChat";
 
 export const MessageCard: React.FC<MessageProps> = ({
   person,
@@ -11,6 +13,7 @@ export const MessageCard: React.FC<MessageProps> = ({
   content,
   interactionType,
 }) => {
+  const allInteractions = useRecoilValue(getAllInteractions);
   switch (interactionType) {
     case "DIALOG":
       return (
@@ -18,6 +21,7 @@ export const MessageCard: React.FC<MessageProps> = ({
           name={person?.name}
           content={content}
           variant={align}
+          inputVariables={allInteractions[0].premadeFormats[0]}
         />
       );
     case "THOUGHT":
@@ -31,20 +35,4 @@ export const MessageCard: React.FC<MessageProps> = ({
     default:
       return <SpanCardChat name={person?.name} text={content} />;
   }
-
-  // return (
-
-  //   <S.Wrapper align={align}>
-  //     {person ? (
-  //       <S.DialogContainer>
-  //         <S.Name align={align}>{person.name}</S.Name>
-  //         <S.Dialog>{content}</S.Dialog>
-  //       </S.DialogContainer>
-  //     ) : (
-  //       <S.TextContainer>
-  //         <S.Text>{content}</S.Text>
-  //       </S.TextContainer>
-  //     )}
-  //   </S.Wrapper>
-  // );
 };

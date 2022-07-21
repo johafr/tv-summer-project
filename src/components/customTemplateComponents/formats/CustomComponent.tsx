@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { FormatProps } from "../../../atoms/components";
-import { activeFormat } from "../../../selectors/components";
+import { FormatProps } from "../../../atoms/interactionComponents";
+import { activeFormat } from "../../../selectors/interactionComponents";
 
 export const CustomComponent = () => {
   const currentVersion = useRecoilValue(activeFormat);

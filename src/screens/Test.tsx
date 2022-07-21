@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { LeftCardChat } from "../components/customTemplateComponents/componentTypes/LeftCardChat";
-import { SpanCardChat } from "../components/customTemplateComponents/componentTypes/SpanCardChat";
-import { SpeechBubbleChat } from "../components/customTemplateComponents/componentTypes/SpeechBubbleChat";
-import { ThoughtBubbleChat } from "../components/customTemplateComponents/componentTypes/ThoughtBubbleChat";
+import { LeftCardChat } from "../components/customTemplateComponents/formats/LeftCardChat";
+import { SpanCardChat } from "../components/customTemplateComponents/formats/SpanCardChat";
+import { SpeechBubbleChat } from "../components/customTemplateComponents/formats/SpeechBubbleChat";
+import { ThoughtBubbleChat } from "../components/customTemplateComponents/formats/ThoughtBubbleChat";
 import { NamedTextInput } from "../components/Editor Components/NamedTextInput";
 
 type LeftCardProps = {
@@ -23,11 +23,10 @@ export const Test: React.FC = () => {
       <ThoughtBubbleChat name={"Sanna"} text={"I remember wondering what that meant. How it could be both to touch and feel a mood."} variant={"right"}/>
       </div> */}
 
-      <div style={{width:'100%', display:'flex',marginTop:'50px'}}>
-      <NamedTextInput name="Lars"/>
-      <NamedTextInput name="Terje"/>
+      <div style={{ width: "100%", display: "flex", marginTop: "50px" }}>
+        <NamedTextInput name="Lars" />
+        <NamedTextInput name="Terje" />
       </div>
-      
     </>
   );
 };

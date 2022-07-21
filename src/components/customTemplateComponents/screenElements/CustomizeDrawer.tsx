@@ -6,8 +6,11 @@ import {
   FormatProps,
   updateFormatStyles,
   updateSelectedFormat,
-} from "../../../atoms/components";
-import { activeFormat, activeInteraction } from "../../../selectors/components";
+} from "../../../atoms/interactionComponents";
+import {
+  activeFormat,
+  activeInteraction,
+} from "../../../selectors/interactionComponents";
 import { drawerWidth } from "./ElementsDrawer";
 
 export const CustomizeDrawer = () => {
@@ -34,7 +37,8 @@ export const CustomizeDrawer = () => {
     );
 
     const newEntry = {
-      version: "Custom 1",
+      version: "Custom 2",
+      id: 2,
       width: customizedFormat!.styles[0].width,
       borderRadius: customizedFormat!.styles[0].borderRadius,
       backgroundColor: color,

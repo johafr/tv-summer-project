@@ -1,90 +1,96 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { SpeechBubbleChat } from "../customTemplateComponents/componentTypes/SpeechBubbleChat";
+import { getAllInteractions } from "../../selectors/interactionComponents";
+import { SpeechBubbleChat } from "../customTemplateComponents/formats/SpeechBubbleChat";
 
 // Component props
 type Props = {
-    name : string;
-
+  name: string;
 };
 
 // Component wrapper function
 export const NamedTextInput: React.FC<Props> = ({ name }) => {
+  const allInteractions = useRecoilValue(getAllInteractions);
 
-    // Component end-return
-    return (
-        
-        <Wrapper>
-            <NameInput>
-                <input placeholder={name}/>
-            </NameInput>
-            <TextInput>
-                <input placeholder="text"/>
-            </TextInput>
-            <TextOutput>
-                <SpeechBubbleChat name="Terje" content="Hei"/>
-                <SpeechBubbleChat name="Lars" content="Hei" variant="right"/>
-            </TextOutput>
-        </Wrapper>
-    )
-}
+  // Component end-return
+  return (
+    <Wrapper>
+      <NameInput>
+        <input placeholder={name} />
+      </NameInput>
+      <TextInput>
+        <input placeholder="text" />
+      </TextInput>
+      <TextOutput>
+        <SpeechBubbleChat
+          name="Terje"
+          content="Hei"
+          inputVariables={allInteractions[0].premadeFormats[0]}
+        />
+        <SpeechBubbleChat
+          name="Lars"
+          content="Hei"
+          variant="right"
+          inputVariables={allInteractions[0].premadeFormats[0]}
+        />
+      </TextOutput>
+    </Wrapper>
+  );
+};
 
 export const Wrapper = styled.div`
-    display:flex;
-    flex-flow: column wrap;
-    width:50%;
-    margin:1px;
-    padding:10px;
-    border:3px solid lightgray;
-    background-color: rgba(250,250,250,250);
+  display: flex;
+  flex-flow: column wrap;
+  width: 50%;
+  margin: 1px;
+  padding: 10px;
+  border: 3px solid lightgray;
+  background-color: rgba(250, 250, 250, 250);
 `;
 
 export const TextOutput = styled.div`
-    height: 30rem;
-    margin-top:20px;
-    margin-bottom:20px;
-    
-    `;
+  height: 30rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
 
 export const NameInput = styled.div`
-    flex: 1 auto;    
-    margin-top:20px;
-    margin-bottom:20px;
-    width:90%;
-    align-self:center;
-    
-    & input {
-        text-align:center;
-        position:relative;
-        background-color: lightcyan;
-        width:100%;
-        height:3rem;
-        border:2px solid lightgray;;
-        border-radius:5px;
-        font-size:2rem;
+  flex: 1 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 90%;
+  align-self: center;
 
-    }
+  & input {
+    text-align: center;
+    position: relative;
+    background-color: lightcyan;
+    width: 100%;
+    height: 3rem;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    font-size: 2rem;
+  }
 `;
 
 export const TextInput = styled.div`
-    flex: 1 auto;
-    width:90%;
-    align-self:center;
-    & input {
-        text-align:center;
-        background-color:lightgray;
-        width:100%;
-        height:4rem;
-        border:2px  lightgray;
-        border-radius:5px;
-        font-size:0.9rem;
-        
-    }
+  flex: 1 auto;
+  width: 90%;
+  align-self: center;
+  & input {
+    text-align: center;
+    background-color: lightgray;
+    width: 100%;
+    height: 4rem;
+    border: 2px lightgray;
+    border-radius: 5px;
+    font-size: 0.9rem;
+  }
 `;
 
-
-
-{/* <div className="editor__left-container">
+{
+  /* <div className="editor__left-container">
     <div className="editor__left-name">
     <S.NameForm style={{ paddingLeft: "0rem" }}>
         <Tooltip title="Add name/remove name.">
@@ -126,4 +132,5 @@ export const TextInput = styled.div`
         placeholder="Write a sentence..."
     />
     </form>
-</div> */}
+</div> */
+}

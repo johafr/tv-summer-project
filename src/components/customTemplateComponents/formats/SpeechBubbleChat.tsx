@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FormatProps } from "../../../atoms/components";
+import { FormatProps } from "../../../atoms/interactionComponents";
 
 // Component props
 type Props = {
@@ -10,9 +10,7 @@ type Props = {
   inputVariables: FormatProps;
 };
 
-// Component wrapper function
 export const SpeechBubbleChat: React.FC<Props> = (props) => {
-  // Component end-return
   return (
     <div style={{ minWidth: props.inputVariables.styles[0].width }}>
       <Wrapper
@@ -24,9 +22,9 @@ export const SpeechBubbleChat: React.FC<Props> = (props) => {
         </Name>
         <Text>{props.content}</Text>
         {props.variant === undefined || props.variant === "left" ? (
-          <LeftPoint></LeftPoint>
+          <LeftPoint />
         ) : (
-          <RightPoint></RightPoint>
+          <RightPoint />
         )}
       </Wrapper>
     </div>
