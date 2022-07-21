@@ -4,21 +4,21 @@ import styled from "styled-components";
 // Component props
 type Props = {
     name?: string;
-    text: string;
+    content: string;
     variant? : string;
 };
 
 // Component wrapper function
-export const SpeechBubbleChat: React.FC<Props> = ({ name, text, variant }) => {
+export const SpeechBubbleChat: React.FC<Props> = ({ name, content, variant }) => {
 
 
     // Component end-return
     return (
-        <div style={{minWidth:'51%'}}>
+        <div style={{minWidth:'0%'}}>
             <Wrapper align={variant !== undefined ? variant : 'left'}>
                 <Name align={variant !== undefined ? variant : 'left'}>{name}</Name>
                 <Text>
-                    {text}
+                    {content}
                 </Text>
                 {variant === undefined || variant === 'left' ? 
                 (<LeftPoint></LeftPoint>):
@@ -29,15 +29,15 @@ export const SpeechBubbleChat: React.FC<Props> = ({ name, text, variant }) => {
 }
 
 export const Wrapper = styled.div<{ align? : string }>`
-    margin-top:2.5rem;
-    margin-left:3.125rem;
-    margin-right:3.125rem;
-    padding: 0.5rem;
+    margin-top:5%;
+    margin-left:6.5%;
+    margin-right:6.5%;
+    padding: 1.5%;
     background-color: white; 
     position:relative;
     border-radius:20px;
     min-width:40%;
-    max-width:70%;
+    max-width:80%;
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.05);
     z-index: 0;
     float: ${(props) => props.align};
@@ -54,7 +54,7 @@ export const LeftPoint = styled.div`
     left: -1rem;
     bottom:-1.2rem;
     transform: rotate(60deg);
-    z-index: -1;
+    z-index: -2;
 `;
 
 export const RightPoint = styled.div`
@@ -70,7 +70,7 @@ export const RightPoint = styled.div`
     z-index: -1;
 `;
 export const Name = styled.h3<{align? : string}>`
-    font-size:0.7rem;
+    font-size:0.5rem;
     margin-left:10px;
     margin-right:10px;
     text-align: ${(props) => props.align};
@@ -78,7 +78,7 @@ export const Name = styled.h3<{align? : string}>`
 
 export const Text = styled.div`
     flex-direction: column;
-    font-size:0.8rem;
-    padding: 0.2rem;
+    font-size:0.6rem;
+    padding:auto;
 `;
 
