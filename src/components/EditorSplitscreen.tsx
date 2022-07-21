@@ -3,19 +3,20 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { addPerson, Person, persons } from "../atoms/persons";
 import { addMessage, MessageProps, storiesState } from "../atoms/stories";
-import { EditorNamesList } from "./EditorNamesList";
+import { EditorNamesList } from "./splitEditorComponents/EditorNamesList";
 import * as S from "../styles/components/EditorNameInput";
 import { activePage } from "../selectors/stories";
-import { EditorReadingTime } from "./EditorReadingTime";
+import { EditorReadingTime } from "./splitEditorComponents/EditorReadingTime";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { usernameState } from "../atoms/username";
 import { userIdRefState } from "../atoms/authentication";
-import { MessageCard } from "./MessageCard";
+import { MessageCard } from "./editorComponents/MessageCard";
 import { useState } from "react";
-import { SpeechBubbleChat } from "./customTemplateComponents/componentTypes/SpeechBubbleChat";
-import { SpanCardChat } from "./customTemplateComponents/componentTypes/SpanCardChat";
-import { ThoughtBubbleChat } from "./customTemplateComponents/componentTypes/ThoughtBubbleChat";
+import { SpeechBubbleChat } from "./customTemplateComponents/formats/SpeechBubbleChat";
+import { SpanCardChat } from "./customTemplateComponents/formats/SpanCardChat";
+import { ThoughtBubbleChat } from "./customTemplateComponents/formats/ThoughtBubbleChat";
+import { activeFormat, getAllInteractions } from "../selectors/components";
 
 // Component wrapper function
 // type InputName = {
@@ -35,6 +36,8 @@ export const EditorSplitscreen: React.FC = () => {
 
   const [username] = useRecoilState(usernameState);
   const [userId] = useRecoilState(userIdRefState);
+
+  const getSpeechBubbleChatProps = useRecoilValue(getAllInteractions);
 
   const [inputNames, setInputNames] = useState([
     [{ personName: "" }],
@@ -183,6 +186,7 @@ export const EditorSplitscreen: React.FC = () => {
           name={card.person?.name}
           content={card.content}
           variant={card.align}
+          inputVariables={getSpeechBubbleChatProps[0].premadeFormats[0]}
         />
       );
     if (card.align === "right")

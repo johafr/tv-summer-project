@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { activeInteraction } from "../../../selectors/components";
-import { Component } from "../componentTypes/DialogComponent";
+import { CustomComponent } from "../formats/CustomComponent";
 
 const ToolbarHeight: number = 45.5;
 
@@ -11,9 +11,9 @@ export const ComponentScreen = () => {
   const DisplayComponent = () => {
     switch (currentInteraction !== null) {
       case true:
-        return <Component />;
+        return <CustomComponent />;
       case false:
-        return <>Object not selected</>;
+        return <p>Object not selected</p>;
       default:
         return <p>Object not in list</p>;
     }

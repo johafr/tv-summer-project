@@ -11,28 +11,29 @@ export const MessageCard: React.FC<MessageProps> = ({
   content,
   interactionType,
 }) => {
-
-
-  
-  switch(interactionType) {
+  switch (interactionType) {
     case "DIALOG":
       return (
-        <SpeechBubbleChat name={person?.name} content={content} variant={align}/>
-      )
+        <SpeechBubbleChat
+          name={person?.name}
+          content={content}
+          variant={align}
+        />
+      );
     case "THOUGHT":
       return (
-        <ThoughtBubbleChat name={person?.name} content={content} variant={align}/>
-      )
+        <ThoughtBubbleChat
+          name={person?.name}
+          content={content}
+          variant={align}
+        />
+      );
     default:
       return <SpanCardChat name={person?.name} text={content} />;
   }
-  
-
-
 
   // return (
 
-    
   //   <S.Wrapper align={align}>
   //     {person ? (
   //       <S.DialogContainer>

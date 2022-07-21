@@ -13,38 +13,38 @@ import {
 import { activeInteraction } from "../../selectors/components";
 
 export const DrawerInteractionList = () => {
-  const [componentTypes] = useRecoilState(interactionListState);
+  const [interactionList] = useRecoilState(interactionListState);
   const [, setActiveIndex] = useRecoilState(activeInteractionIndex);
   const { currentInteraction } = useRecoilValue(activeInteraction);
 
-  const checkActiveComponent = (componentType: InteractionProps) => {
+  const checkActiveComponent = (interaction: InteractionProps) => {
     const active =
       currentInteraction === null
         ? false
-        : currentInteraction === componentType
+        : currentInteraction === interaction
         ? true
         : false;
     return active;
   };
 
-  const handleSetActiveComponent = (componentType: InteractionProps) => {
+  const handleSetActiveInteraction = (interaction: InteractionProps) => {
     const newIndex =
-      componentType === currentInteraction
+      interaction === currentInteraction
         ? -1
-        : componentTypes.findIndex(
-            (componentInList) =>
-              componentType.InteractionName === componentInList.InteractionName
+        : interactionList.findIndex(
+            (interactionInList) =>
+              interaction.interactionName === interactionInList.interactionName
           );
     setActiveIndex(newIndex);
   };
 
-  const GetIcon = (componentType: InteractionProps) => {
-    switch (componentType.InteractionName) {
-      case "Dialog":
+  const GetIcon = (interaction: InteractionProps) => {
+    switch (interaction.interactionName) {
+      case "DIALOG":
         return <ChatBubbleOutlineOutlinedIcon />;
-      case "Thought":
+      case "THOUGHT":
         return <PsychologyOutlinedIcon />;
-      case "Shout":
+      case "SHOUT":
         return <CampaignOutlinedIcon />;
       default:
         return <EditOutlinedIcon />;
@@ -53,21 +53,21 @@ export const DrawerInteractionList = () => {
 
   return (
     <>
-      {componentTypes.map((componentType: InteractionProps) => (
-        <ComponentBody
-          key={componentType.InteractionName}
-          active={checkActiveComponent(componentType)}
-          onClick={() => handleSetActiveComponent(componentType)}
+      {interactionList.map((interaction: InteractionProps) => (
+        <InteractionBody
+          key={interaction.interactionName}
+          active={checkActiveComponent(interaction)}
+          onClick={() => handleSetActiveInteraction(interaction)}
         >
-          {GetIcon(componentType)}
-          <ComponentName>{componentType.InteractionName}</ComponentName>
-        </ComponentBody>
+          {GetIcon(interaction)}
+          <InteractionName>{interaction.interactionName}</InteractionName>
+        </InteractionBody>
       ))}
     </>
   );
 };
 
-const ComponentBody = styled.div<{ active: boolean }>`
+const InteractionBody = styled.div<{ active: boolean }>`
   background-color: ${(props) => (props.active ? "#a0a0a0" : "aliceblue")};
   &:hover {
     background-color: #a0a0a0;
@@ -79,4 +79,4 @@ const ComponentBody = styled.div<{ active: boolean }>`
   cursor: pointer;
 `;
 
-const ComponentName = styled.p``;
+const InteractionName = styled.p``;

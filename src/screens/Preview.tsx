@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { ChangeScreenSizeMenu } from "../components/ChangeScreenSizeMenu";
-import { StoryPage } from "../components/StoryPage";
+import { ChangeScreenSizeMenu } from "../components/editorComponents/ChangeScreenSizeMenu";
+import { StoryPage } from "../components/editorComponents/StoryPage";
 import * as S from "../styles/screens/PreviewStyles";
 import { useRecoilState } from "recoil";
 import { usernameState } from "../atoms/username";

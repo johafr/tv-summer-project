@@ -1,19 +1,19 @@
 import { Tooltip } from "@mui/material";
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { activePerson, addPerson, persons } from "../atoms/persons";
-import * as S from "../styles/components/EditorNameInput";
+import { activePerson, addPerson, persons } from "../../atoms/persons";
+import * as S from "../../styles/components/EditorNameInput";
 
 // Component props
 type Props = {
-  numSelections? : number
+  numSelections?: number;
 };
 
 // Component wrapper function
-export const EditorNamesInput: React.FC<Props> = ({ numSelections  }) => {
-    const [personList, setPersonList] = useRecoilState(persons);
-    const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
-    const [nameNewPerson, setNameNewPerson] = useState("");
+export const EditorNamesInput: React.FC<Props> = ({ numSelections }) => {
+  const [personList, setPersonList] = useRecoilState(persons);
+  const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
+  const [nameNewPerson, setNameNewPerson] = useState("");
 
   let colorList = [
     "#407178",
@@ -69,10 +69,10 @@ export const EditorNamesInput: React.FC<Props> = ({ numSelections  }) => {
   }; // End add person
 
   const handleNameClick = () => {
-    if(numSelections === 1) {
-      setSelectedPerson(undefined)
+    if (numSelections === 1) {
+      setSelectedPerson(undefined);
     }
-  }
+  };
 
   // Component end-return
   return (

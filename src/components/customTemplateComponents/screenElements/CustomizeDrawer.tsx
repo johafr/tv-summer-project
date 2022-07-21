@@ -33,54 +33,63 @@ export const CustomizeDrawer = () => {
       (format: FormatProps) => customizedFormat!.formatId === format.formatId
     );
 
+    const newEntry = {
+      version: "Custom 1",
+      width: customizedFormat!.styles[0].width,
+      borderRadius: customizedFormat!.styles[0].borderRadius,
+      backgroundColor: color,
+    };
+
     const newFormat: FormatProps = {
       ...customizedFormat!,
-      styles: { ...customizedFormat!.styles, backgroundColor: color },
+      styles: [...customizedFormat!.styles, newEntry],
     };
     isInList ? updateFormatStyles(newFormat) : addNewFormat(newFormat);
-  };
-
-  const assignCorrectCustomizedFormat = () => {
-    const newFormat: FormatProps = {
-      ...currentFormat!,
-      formatName: "Custom " + currentFormat!.formatName,
-      formatId:
-        currentInteractionFormats[currentInteractionFormats.length - 1]
-          .formatId + 1,
-    };
-    return newFormat;
   };
 
   useEffect(() => {
     currentFormat === null
       ? setCustomizedFormat(null)
       : setCustomizedFormat(
-          currentFormat.formatName.includes("Custom")
+          currentFormat?.formatName.includes("Custom")
             ? currentFormat
-            : assignCorrectCustomizedFormat()
+            : {
+                ...currentFormat,
+                formatName: "Custom " + currentFormat?.formatName,
+                formatId: currentInteractionFormats[
+                  currentInteractionFormats.length - 1
+                ]
+                  ? currentInteractionFormats[
+                      currentInteractionFormats.length - 1
+                    ].formatId + 1
+                  : 0,
+              }
         );
-    console.log(customizedFormat);
-  }, [currentFormat]);
+  }, [currentFormat, currentInteractionFormats]);
 
   return (
     <Drawer>
       {currentInteraction ? (
         <>
           <ElementHeader>Formats</ElementHeader>
-          {currentInteractionFormats.map((version: FormatProps) => (
-            <ComponentBody
-              key={version.formatId}
-              active={checkActive(version.formatId)}
-              onClick={() => updateSelectedFormat(version.formatId)}
-            >
-              {version.formatName}
-            </ComponentBody>
-          ))}
+          {currentInteractionFormats.length !== 0 ? (
+            <>
+              {currentInteractionFormats.map((format: FormatProps) => (
+                <ComponentBody
+                  key={format.formatId}
+                  active={checkActive(format.formatId)}
+                  onClick={() => updateSelectedFormat(format.formatId)}
+                >
+                  {format.formatName}
+                </ComponentBody>
+              ))}
+            </>
+          ) : (
+            <></>
+          )}
+
           <ElementHeader>Customize</ElementHeader>
           <CustomizeFieldBody>
-            <button onClick={() => updateFormatColor("lightyellow")}>
-              yellow
-            </button>
             <button onClick={() => updateFormatColor("lightblue")}>blue</button>
             <button onClick={() => updateFormatColor("lightgreen")}>
               green

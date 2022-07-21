@@ -27,6 +27,7 @@ export type MessageProps = {
   content: string;
   align: string;
   interactionType: string;
+  formatId?: number;
 };
 
 const dummyPage1: PageProps = {

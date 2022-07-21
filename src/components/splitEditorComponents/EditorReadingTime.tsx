@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { activeStoryStats } from "../selectors/stories";
+import { activeStoryStats } from "../../selectors/stories";
 import styled from "styled-components";
 
 import { WordHighlight } from "./WordHighlight";

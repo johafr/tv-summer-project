@@ -1,19 +1,25 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { activePerson,Person, persons, selectedPersonsState} from "../atoms/persons";
-import * as S from "../styles/components/EditorNameInput";
+import {
+  activePerson,
+  Person,
+  persons,
+  selectedPersonsState,
+} from "../../atoms/persons";
+import * as S from "../../styles/components/EditorNameInput";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ChromePicker from "react-color/lib/components/chrome/Chrome";
 
 type Props = {
-  numSelections : number;
-}
+  numSelections: number;
+};
 
 // Component wrapper function
-export const EditorNamesList: React.FC<Props> = ( {numSelections} ) => {
+export const EditorNamesList: React.FC<Props> = ({ numSelections }) => {
   const [personList, setPersonList] = useRecoilState(persons);
   const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
-  const [selectedPersons, setSelectedPersons] = useRecoilState<Person[]>(selectedPersonsState);
+  const [selectedPersons, setSelectedPersons] =
+    useRecoilState<Person[]>(selectedPersonsState);
 
   const [viewColorPicker, setViewColorPicker] = useState(false);
   const [selectedColor, setSelectedColor] = useState<any>(
@@ -31,10 +37,9 @@ export const EditorNamesList: React.FC<Props> = ( {numSelections} ) => {
     setSelectedColor(color);
   };
 
-  const handleToggleSelectPerson = (person: Person, index? : number) => {
-
+  const handleToggleSelectPerson = (person: Person, index?: number) => {
     // Uses selectionPerson state when only 1 nameInput exists
-    if(numSelections === 1) {
+    if (numSelections === 1) {
       selectedPerson === person
         ? setSelectedPerson(undefined)
         : setSelectedPerson(person);
@@ -42,27 +47,20 @@ export const EditorNamesList: React.FC<Props> = ( {numSelections} ) => {
 
     // Uses selectedPersons[] state when more than 1 nameInput exists
     else {
-
       // If the list has space it simply adds the name.
       if (selectedPersons.length === 0) {
-      const updatedList = [
-        person
-      ]
-      setSelectedPersons(updatedList);
-    }
-    // If the list is "full" it removes index furthest down the right and adds the new person
-    else {
-      if (selectedPersons.length !== 0) {
-         const updatedList = [
-          ...selectedPersons,
-          person
-        ]
+        const updatedList = [person];
         setSelectedPersons(updatedList);
+      }
+      // If the list is "full" it removes index furthest down the right and adds the new person
+      else {
+        if (selectedPersons.length !== 0) {
+          const updatedList = [...selectedPersons, person];
+          setSelectedPersons(updatedList);
+        }
+      }
     }
-  }
-
-  }
-};
+  };
   // Deletes a person when <user> clicks the delete trashcan icon.
   const handleDeletePerson = (person: Person) => {
     const selectedPersonIndex = personList.findIndex(
@@ -73,9 +71,9 @@ export const EditorNamesList: React.FC<Props> = ( {numSelections} ) => {
       ...personList.slice(selectedPersonIndex + 1),
     ];
     setPersonList(updatedPersons);
-    if(numSelections === 1) {
+    if (numSelections === 1) {
       setSelectedPerson(undefined);
-    };
+    }
   }; // End delete person
 
   const handleUpdateColor = (person: Person | undefined) => {
@@ -101,7 +99,7 @@ export const EditorNamesList: React.FC<Props> = ( {numSelections} ) => {
           color: selectedColor.hex,
         };
         setPersonList(updatedPersons);
-        if(numSelections === 1) {
+        if (numSelections === 1) {
           setSelectedPerson(undefined);
         }
       }

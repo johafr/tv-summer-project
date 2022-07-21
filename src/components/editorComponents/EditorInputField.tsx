@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import * as S from "../styles/components/EditorTextInputStyles";
-import { activePerson } from "../atoms/persons";
+import * as S from "../../styles/components/EditorTextInputStyles";
+import { activePerson } from "../../atoms/persons";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {
   addMessage,
@@ -9,8 +9,8 @@ import {
   MessageProps,
   PageProps,
   updateMessage,
-} from "../atoms/stories";
-import { activePage as ap } from "../selectors/stories";
+} from "../../atoms/stories";
+import { activePage as ap } from "../../selectors/stories";
 
 export const EditorInputField: React.FC = () => {
   const [selectedPerson] = useRecoilState(activePerson);

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { MessageProps, PageProps } from "../atoms/stories";
-import { activeStory } from "../selectors/stories";
+import { MessageProps, PageProps } from "../../atoms/stories";
+import { activeStory } from "../../selectors/stories";
 
 export const WordHighlight: React.FC = () => {
   const [searchFieldText, setSearchFieldText] = useState("");

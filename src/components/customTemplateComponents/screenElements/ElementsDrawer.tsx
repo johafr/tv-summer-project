@@ -7,9 +7,9 @@ export const drawerWidth = 20;
 export const ElementsDrawer = () => {
   return (
     <Drawer>
-      <ComponentsHeader>
+      <InteractionsHeader>
         Interaction <MenuOpenIcon />
-      </ComponentsHeader>
+      </InteractionsHeader>
       <DrawerInteractionList />
     </Drawer>
   );
@@ -22,7 +22,7 @@ const Drawer = styled.div`
   border-right: 1px solid black;
 `;
 
-const ComponentsHeader = styled.h3`
+const InteractionsHeader = styled.h3`
   justify-content: center;
   display: flex;
   gap: 5%;
