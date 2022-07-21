@@ -5,7 +5,7 @@ import { FormatProps } from "../../../atoms/components";
 // Component props
 type Props = {
   name?: string;
-  text: string;
+  content: string;
   variant?: string;
   inputVariables: FormatProps;
 };
@@ -22,7 +22,7 @@ export const SpeechBubbleChat: React.FC<Props> = (props) => {
         <Name align={props.variant !== undefined ? props.variant : "left"}>
           {props.name}
         </Name>
-        <Text>{props.text}</Text>
+        <Text>{props.content}</Text>
         {props.variant === undefined || props.variant === "left" ? (
           <LeftPoint></LeftPoint>
         ) : (
@@ -37,16 +37,16 @@ export const Wrapper = styled.div<{
   align?: string;
   inputVariables: FormatProps;
 }>`
-  margin-top: 2.5rem;
-  margin-left: 3.125rem;
-  margin-right: 3.125rem;
-  padding: 0.5rem;
+  margin-top: 5%;
+  margin-left: 6.5%;
+  margin-right: 6.5%;
+  padding: 1.5%;
   background-color: ${(props) =>
     props.inputVariables.styles[0].backgroundColor};
   position: relative;
   border-radius: ${(props) => props.inputVariables.styles[0].borderRadius}rem;
   min-width: 40%;
-  max-width: 70%;
+  max-width: 80%;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
   z-index: 0;
   float: ${(props) => props.align};
@@ -63,7 +63,7 @@ export const LeftPoint = styled.div`
   left: -1rem;
   bottom: -1.2rem;
   transform: rotate(60deg);
-  z-index: -1;
+  z-index: -2;
 `;
 
 export const RightPoint = styled.div`
@@ -79,7 +79,7 @@ export const RightPoint = styled.div`
   z-index: -1;
 `;
 export const Name = styled.h3<{ align?: string }>`
-  font-size: 0.7rem;
+  font-size: 0.5rem;
   margin-left: 10px;
   margin-right: 10px;
   text-align: ${(props) => props.align};
@@ -87,6 +87,6 @@ export const Name = styled.h3<{ align?: string }>`
 
 export const Text = styled.div`
   flex-direction: column;
-  font-size: 0.8rem;
-  padding: 0.2rem;
+  font-size: 0.6rem;
+  padding: auto;
 `;
