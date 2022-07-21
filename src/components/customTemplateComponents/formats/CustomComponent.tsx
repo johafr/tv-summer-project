@@ -4,13 +4,13 @@ import { FormatProps } from "../../../atoms/interactionComponents";
 import { activeFormat } from "../../../selectors/interactionComponents";
 
 export const CustomComponent = () => {
-  const currentVersion = useRecoilValue(activeFormat);
+  const { currentFormat } = useRecoilValue(activeFormat);
 
   return (
     <>
-      {currentVersion ? (
-        <Body inputVariables={currentVersion}>
-          <Text>This is the {currentVersion.formatName} version</Text>
+      {currentFormat ? (
+        <Body inputVariables={currentFormat}>
+          <Text>This is the {currentFormat.formatName} version</Text>
         </Body>
       ) : (
         <></>
