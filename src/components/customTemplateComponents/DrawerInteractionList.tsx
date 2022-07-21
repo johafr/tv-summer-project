@@ -6,40 +6,40 @@ import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
-  activeStoryComponentIndex,
-  Premade,
-  storyComponentsState,
+  activeInteractionIndex,
+  InteractionProps,
+  interactionListState,
 } from "../../atoms/components";
-import { activeComponent } from "../../selectors/components";
+import { activeInteraction } from "../../selectors/components";
 
-export const DrawerComponents = () => {
-  const [componentTypes] = useRecoilState(storyComponentsState);
-  const [, setActiveIndex] = useRecoilState(activeStoryComponentIndex);
-  const { currentComponent } = useRecoilValue(activeComponent);
+export const DrawerInteractionList = () => {
+  const [componentTypes] = useRecoilState(interactionListState);
+  const [, setActiveIndex] = useRecoilState(activeInteractionIndex);
+  const { currentInteraction } = useRecoilValue(activeInteraction);
 
-  const checkActiveComponent = (componentType: Premade) => {
+  const checkActiveComponent = (componentType: InteractionProps) => {
     const active =
-      currentComponent === null
+      currentInteraction === null
         ? false
-        : currentComponent === componentType
+        : currentInteraction === componentType
         ? true
         : false;
     return active;
   };
 
-  const handleSetActiveComponent = (componentType: Premade) => {
+  const handleSetActiveComponent = (componentType: InteractionProps) => {
     const newIndex =
-      componentType === currentComponent
+      componentType === currentInteraction
         ? -1
         : componentTypes.findIndex(
             (componentInList) =>
-              componentType.componentName === componentInList.componentName
+              componentType.InteractionName === componentInList.InteractionName
           );
     setActiveIndex(newIndex);
   };
 
-  const GetIcon = (componentType: Premade) => {
-    switch (componentType.componentName) {
+  const GetIcon = (componentType: InteractionProps) => {
+    switch (componentType.InteractionName) {
       case "Dialog":
         return <ChatBubbleOutlineOutlinedIcon />;
       case "Thought":
@@ -53,13 +53,14 @@ export const DrawerComponents = () => {
 
   return (
     <>
-      {componentTypes.map((componentType: Premade) => (
+      {componentTypes.map((componentType: InteractionProps) => (
         <ComponentBody
+          key={componentType.InteractionName}
           active={checkActiveComponent(componentType)}
           onClick={() => handleSetActiveComponent(componentType)}
         >
           {GetIcon(componentType)}
-          <ComponentName>{componentType.componentName}</ComponentName>
+          <ComponentName>{componentType.InteractionName}</ComponentName>
         </ComponentBody>
       ))}
     </>

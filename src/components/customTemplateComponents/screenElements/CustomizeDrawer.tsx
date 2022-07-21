@@ -1,34 +1,101 @@
+import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { ComponentProps, updateVersion } from "../../../atoms/components";
-import { activeComponent } from "../../../selectors/components";
+import {
+  addFormatStyle,
+  FormatProps,
+  updateFormatStyles,
+  updateSelectedFormat,
+} from "../../../atoms/components";
+import { activeFormat, activeInteraction } from "../../../selectors/components";
+import { drawerWidth } from "./ElementsDrawer";
 
 export const CustomizeDrawer = () => {
-  const { currentComponent, currentComponentVersions } =
-    useRecoilValue(activeComponent);
+  const [customizedFormat, setCustomizedFormat] = useState<FormatProps | null>(
+    null
+  );
+  const currentFormat = useRecoilValue(activeFormat);
+  const { currentInteraction, currentInteractionFormats } =
+    useRecoilValue(activeInteraction);
 
   const checkActive = (id: number) => {
-    const active = id === currentComponent!.activeVersionIndex;
+    const active = id === currentInteraction!.activeFormatIndex;
     return active;
   };
 
+  const addNewFormat = (newFormat: FormatProps) => {
+    addFormatStyle(newFormat);
+    updateSelectedFormat(newFormat.formatId);
+  };
+
+  const updateFormatColor = (color: string) => {
+    const isInList = currentInteractionFormats.find(
+      (format: FormatProps) => customizedFormat!.formatId === format.formatId
+    );
+
+    const newFormat: FormatProps = {
+      ...customizedFormat!,
+      styles: { ...customizedFormat!.styles, backgroundColor: color },
+    };
+    isInList ? updateFormatStyles(newFormat) : addNewFormat(newFormat);
+  };
+
+  const assignCorrectCustomizedFormat = () => {
+    const newFormat: FormatProps = {
+      ...currentFormat!,
+      formatName: "Custom " + currentFormat!.formatName,
+      formatId:
+        currentInteractionFormats[currentInteractionFormats.length - 1]
+          .formatId + 1,
+    };
+    return newFormat;
+  };
+
+  useEffect(() => {
+    currentFormat === null
+      ? setCustomizedFormat(null)
+      : setCustomizedFormat(
+          currentFormat.formatName.includes("Custom")
+            ? currentFormat
+            : assignCorrectCustomizedFormat()
+        );
+    console.log(customizedFormat);
+  }, [currentFormat]);
+
   return (
     <Drawer>
-      <ElementHeader>Premade</ElementHeader>
-      {currentComponentVersions.map((version: ComponentProps) => (
-        <ComponentBody
-          active={checkActive(version.id)}
-          onClick={() => updateVersion(version.id)}
-        >
-          {version.name}
-        </ComponentBody>
-      ))}
+      {currentInteraction ? (
+        <>
+          <ElementHeader>Formats</ElementHeader>
+          {currentInteractionFormats.map((version: FormatProps) => (
+            <ComponentBody
+              key={version.formatId}
+              active={checkActive(version.formatId)}
+              onClick={() => updateSelectedFormat(version.formatId)}
+            >
+              {version.formatName}
+            </ComponentBody>
+          ))}
+          <ElementHeader>Customize</ElementHeader>
+          <CustomizeFieldBody>
+            <button onClick={() => updateFormatColor("lightyellow")}>
+              yellow
+            </button>
+            <button onClick={() => updateFormatColor("lightblue")}>blue</button>
+            <button onClick={() => updateFormatColor("lightgreen")}>
+              green
+            </button>
+          </CustomizeFieldBody>
+        </>
+      ) : (
+        <></>
+      )}
     </Drawer>
   );
 };
 
 const Drawer = styled.div`
-  width: 20%;
+  min-width: ${drawerWidth}%;
   background-color: #d3d3d3;
   border-left: 1px solid black;
 `;
@@ -38,7 +105,6 @@ const ElementHeader = styled.h3`
   display: flex;
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
-  border-bottom: 1px solid black;
   background-color: antiquewhite;
   margin: 0;
 `;
@@ -54,4 +120,12 @@ const ComponentBody = styled.div<{ active: boolean }>`
   align-items: center;
   cursor: pointer;
   height: 2.5rem;
+`;
+
+const CustomizeFieldBody = styled.div`
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
 `;

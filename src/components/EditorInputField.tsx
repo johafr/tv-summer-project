@@ -39,6 +39,7 @@ export const EditorInputField: React.FC = () => {
       person: selectedPerson,
       content: inputText,
       align: selectedPerson === undefined ? "center" : "right",
+      interactionType: "NONE",
     };
     addMessage(newMessage);
     setInputText("");
@@ -100,7 +101,7 @@ export const EditorInputField: React.FC = () => {
             style={{
               backgroundColor: selectedPerson?.color?.toString(),
               opacity: selectedPerson ? "1" : "0",
-              top:'28px'
+              top: "28px",
             }}
           />
           <S.FormInput

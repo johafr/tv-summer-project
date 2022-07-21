@@ -1,15 +1,15 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { activeComponent } from "../../../selectors/components";
+import { activeInteraction } from "../../../selectors/components";
 import { Component } from "../componentTypes/DialogComponent";
 
 const ToolbarHeight: number = 45.5;
 
 export const ComponentScreen = () => {
-  const { currentComponent } = useRecoilValue(activeComponent);
+  const { currentInteraction } = useRecoilValue(activeInteraction);
 
   const DisplayComponent = () => {
-    switch (currentComponent !== null) {
+    switch (currentInteraction !== null) {
       case true:
         return <Component />;
       case false:

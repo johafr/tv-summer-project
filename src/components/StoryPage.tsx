@@ -8,7 +8,7 @@ import { screenMeasurements } from "../atoms/measurements";
 import * as S from "../styles/components/storyPageStyles";
 
 import { activePage, activeStoryStats } from "../selectors/stories";
-import { SentenceCard } from "./SentenceCard";
+import { MessageCard } from "./MessageCard";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import "../styles/components/PreviewMobileFormat.css";
@@ -54,11 +54,13 @@ export const StoryPage: React.FC = () => {
           <S.Bump className="bump" Theme={Theme} />
           <S.ContentDiv className="content-div" measurements={measurements}>
             {currentPage?.messages.map((card: MessageProps) => (
-              <SentenceCard
+              <MessageCard
                 key={card.id}
+                id={card.id}
                 person={card.person}
                 content={card.content}
                 align={card.align}
+                interactionType={card.interactionType}
               />
             ))}
           </S.ContentDiv>

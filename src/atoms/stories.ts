@@ -26,9 +26,10 @@ export type MessageProps = {
   person?: Person;
   content: string;
   align: string;
+  interactionType: string;
 };
 
-const dummyPage1 = {
+const dummyPage1: PageProps = {
   id: 0,
   messages: [
     {
@@ -40,6 +41,7 @@ const dummyPage1 = {
       },
       content: "This is dummy data",
       align: "right",
+      interactionType: "DIALOG",
     },
     {
       id: 1,
@@ -50,17 +52,19 @@ const dummyPage1 = {
       },
       content: "This is the second line",
       align: "left",
+      interactionType: "DIALOG",
     },
   ],
 };
 
-const dummyPage2 = {
+const dummyPage2: PageProps = {
   id: 1,
   messages: [
     {
       id: 0,
       content: "This is a message without an assigned person",
       align: "center",
+      interactionType: "NONE",
     },
   ],
 };
