@@ -15,7 +15,7 @@ export const CreateCustomTemplate = () => {
     let tempId: string | undefined = "";
     tempId = id?.substring(1, id.length);
     tempId ? setStoryIndex(parseInt(tempId)) : setStoryIndex(-1);
-  }, []);
+  }, [id, setStoryIndex]);
   return (
     <>
       <TopLine />

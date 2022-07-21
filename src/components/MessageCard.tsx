@@ -1,17 +1,12 @@
 import React from "react";
-import { Person } from "../atoms/persons";
+import { MessageProps } from "../atoms/stories";
 import * as S from "../styles/components/SentenceCardStyles";
 
-type sentenceCardProps = {
-  person?: Person;
-  align: string;
-  content: string;
-};
-
-export const SentenceCard: React.FC<sentenceCardProps> = ({
+export const MessageCard: React.FC<MessageProps> = ({
   person,
   align,
   content,
+  interactionType,
 }) => {
   return (
     <S.Wrapper align={align}>

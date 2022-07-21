@@ -11,7 +11,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../Firebase";
 import { usernameState } from "../atoms/username";
 import { userIdRefState } from "../atoms/authentication";
-import { SentenceCard } from "./SentenceCard";
+import { MessageCard } from "./MessageCard";
 import { useState } from "react";
 import { SpeechBubbleChat } from "./customTemplateComponents/componentTypes/SpeechBubbleChat";
 import { SpanCardChat } from "./customTemplateComponents/componentTypes/SpanCardChat";
@@ -167,6 +167,7 @@ export const EditorSplitscreen: React.FC = () => {
       person: correctPerson,
       content: text,
       align: correctAlign,
+      interactionType: "NONE",
     };
     addMessage(newMessage);
     setInputLeft("");
@@ -175,31 +176,44 @@ export const EditorSplitscreen: React.FC = () => {
   };
 
   const listSentences = currentPage.messages.map((card: MessageProps) => {
-    console.log(card.align)
-    if (card.align === 'left') return <SpeechBubbleChat name={card.person?.name} text={card.content} variant={card.align}/>
-    if (card.align === 'right') return <ThoughtBubbleChat name={card.person?.name} text={card.content} variant={card.align}/>
-    if (card.align === 'center') return <SpanCardChat name={card.person?.name} text={card.content}/>
-    else return <SpanCardChat name={card.person?.name} text={card.content}/>
+    console.log(card.align);
+    if (card.align === "left")
+      return (
+        <SpeechBubbleChat
+          name={card.person?.name}
+          text={card.content}
+          variant={card.align}
+        />
+      );
+    if (card.align === "right")
+      return (
+        <ThoughtBubbleChat
+          name={card.person?.name}
+          text={card.content}
+          variant={card.align}
+        />
+      );
+    if (card.align === "center")
+      return <SpanCardChat name={card.person?.name} text={card.content} />;
+    else return <SpanCardChat name={card.person?.name} text={card.content} />;
   });
-  
-      
-    // if(card.align? === "center" || card.align === undefined) return (
-    //   <SpanCardChat text={card.content}/>
-    // )
 
-    // else return (
-    //   <SpeechBubbleChat name={card.person?.name} text={card.content} variant={card.align}/>
-    // )
+  // if(card.align? === "center" || card.align === undefined) return (
+  //   <SpanCardChat text={card.content}/>
+  // )
 
-    // return (
-    //   <SentenceCard
-    //     key={card.id}
-    //     person={card.person?.name}
-    //     content={card.content}
-    //     align={card.align}
-    //   />
-    // );
-  
+  // else return (
+  //   <SpeechBubbleChat name={card.person?.name} text={card.content} variant={card.align}/>
+  // )
+
+  // return (
+  //   <SentenceCard
+  //     key={card.id}
+  //     person={card.person?.name}
+  //     content={card.content}
+  //     align={card.align}
+  //   />
+  // );
 
   const saveStoryToDb = () => {
     const storiesColRef = collection(db, "stories");
@@ -225,7 +239,7 @@ export const EditorSplitscreen: React.FC = () => {
 
   // Component end-return
   return (
-    <div style={{backgroundColor:"lightgray"}}>
+    <div style={{ backgroundColor: "lightgray" }}>
       <button onClick={() => saveStoryToDb()}>Save story to database</button>
       <div className="editor__v2">
         <div>

@@ -1,37 +1,46 @@
 import { selector } from "recoil";
 import {
-  activeStoryComponentIndex,
-  storyComponentsState,
+  activeInteractionIndex,
+  interactionListState,
 } from "../atoms/components";
 
-export const getAllPremadeComponents = selector({
-  key: "getAllPremadeComponents",
+export const getAllInteractions = selector({
+  key: "getAllInteractions",
   get: ({ get }) => {
-    const state = get(storyComponentsState);
-    return state;
+    const interactionList = get(interactionListState);
+    return interactionList;
   },
 });
 
-export const activeComponent = selector({
-  key: "activeComponent",
+export const activeInteraction = selector({
+  key: "activeInteraction",
   get: ({ get }) => {
-    const storyComponents = get(storyComponentsState);
-    const activeIndex = get(activeStoryComponentIndex);
-    const currentComponent =
-      activeIndex === -1 ? null : storyComponents[activeIndex];
-    const currentComponentVersions = currentComponent
-      ? currentComponent.premadeComponents
+    const interactionList = get(interactionListState);
+    const currentInteractionIndex = get(activeInteractionIndex);
+    const currentInteraction =
+      currentInteractionIndex === -1
+        ? null
+        : interactionList[currentInteractionIndex];
+    const currentInteractionFormats = currentInteraction
+      ? currentInteraction.premadeFormats
       : [];
-    return { currentComponent, currentComponentVersions };
+    return {
+      currentInteraction,
+      currentInteractionFormats,
+    };
   },
 });
 
-export const activeVersion = selector({
+export const activeFormat = selector({
   key: "activeVersion",
   get: ({ get }) => {
-    const { currentComponent } = get(activeComponent);
-    const currentVersion =
-      currentComponent!.premadeComponents[currentComponent!.activeVersionIndex];
-    return currentVersion;
+    const { currentInteraction } = get(activeInteraction);
+    const currentFormat =
+      currentInteraction !== null
+        ? currentInteraction.premadeFormats[
+            currentInteraction.activeFormatIndex
+          ]
+        : null;
+    return currentFormat;
   },
 });

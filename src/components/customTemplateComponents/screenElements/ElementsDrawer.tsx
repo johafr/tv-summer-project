@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import { DrawerComponents } from "../DrawerComponents";
+import { DrawerInteractionList } from "../DrawerInteractionList";
 
-const drawerWidth = 20;
+export const drawerWidth = 20;
 
 export const ElementsDrawer = () => {
   return (
     <Drawer>
       <ComponentsHeader>
-        Components <MenuOpenIcon />
+        Interaction <MenuOpenIcon />
       </ComponentsHeader>
-      <DrawerComponents />
+      <DrawerInteractionList />
     </Drawer>
   );
 };
