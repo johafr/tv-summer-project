@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import * as S from "../styles/components/ChangeScreenSizeMenuStyles";
+import * as S from "../../styles/components/ChangeScreenSizeMenuStyles";
 import {
   DisplayMeasurements,
   measurementsList,
   screenMeasurements,
-} from "../atoms/measurements";
+} from "../../atoms/measurements";
 import { useRecoilState } from "recoil";
 
 export const ChangeScreenSizeMenu: React.FC = () => {

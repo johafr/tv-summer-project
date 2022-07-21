@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StoryCard } from "../components/StoryCard";
+import { StoryCard } from "../components/homeComponents/StoryCard";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   activePageIndex,

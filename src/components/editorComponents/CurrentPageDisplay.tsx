@@ -1,9 +1,12 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { DisplayMeasurements, screenMeasurements } from "../atoms/measurements";
-import { activePageIndex } from "../atoms/stories";
-import { activeStoryStats } from "../selectors/stories";
+import {
+  DisplayMeasurements,
+  screenMeasurements,
+} from "../../atoms/measurements";
+import { activePageIndex } from "../../atoms/stories";
+import { activeStoryStats } from "../../selectors/stories";
 
 export const CurrentPageDisplay: React.FC = () => {
   const pageNum = useRecoilValue(activePageIndex)!;

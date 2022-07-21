@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 
-import { StoryPage } from "../components/StoryPage";
-import { EditorReadingTime } from "../components/EditorReadingTime";
-import { EditorNames } from "../components/EditorNames";
+import { StoryPage } from "../components/editorComponents/StoryPage";
+import { EditorReadingTime } from "../components/splitEditorComponents/EditorReadingTime";
+import { EditorNames } from "../components/editorComponents/EditorNames";
 import * as S from "../styles/screens/EditorStyles";
-import { EditorInputField } from "../components/EditorInputField";
-import { ChangeScreenSizeMenu } from "../components/ChangeScreenSizeMenu";
-import { UpdatePageDisplay } from "../components/UpdatePageDisplay";
-import { CurrentPageDisplay } from "../components/CurrentPageDisplay";
+import { EditorInputField } from "../components/editorComponents/EditorInputField";
+import { ChangeScreenSizeMenu } from "../components/editorComponents/ChangeScreenSizeMenu";
+import { UpdatePageDisplay } from "../components/editorComponents/UpdatePageDisplay";
+import { CurrentPageDisplay } from "../components/editorComponents/CurrentPageDisplay";
 import { useRecoilState } from "recoil";
 import { usernameState } from "../atoms/username";
 import { useParams } from "react-router-dom";

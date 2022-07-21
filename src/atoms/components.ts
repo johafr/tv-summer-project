@@ -6,9 +6,14 @@ import {
   getAllInteractions,
 } from "../selectors/components";
 
+export interface Template {
+  background?: null;
+  interactions: InteractionProps[];
+}
+
 export interface InteractionProps {
   activeFormatIndex: number;
-  InteractionName: string;
+  interactionName: string;
   premadeFormats: FormatProps[];
 }
 
@@ -16,81 +21,110 @@ export interface FormatProps {
   formatId: number;
   formatName: string;
   styles: {
+    version: string;
     width: number;
     borderRadius: number;
     backgroundColor: string;
-  };
+  }[];
 }
 
 const premadeDialogFormats: InteractionProps = {
   activeFormatIndex: 0,
-  InteractionName: "Dialog",
+  interactionName: "DIALOG",
   premadeFormats: [
     {
       formatId: 0,
-      formatName: "Default Dialog",
-      styles: { width: 10, borderRadius: 0.2, backgroundColor: "#d3d3d3" },
+      formatName: "SpeechBubbleChat",
+      styles: [
+        {
+          version: "DEAFULT",
+          width: 51,
+          borderRadius: 1.25,
+          backgroundColor: "white",
+        },
+      ],
     },
     {
       formatId: 1,
       formatName: "Dialog 1",
-      styles: {
-        width: 10,
-        borderRadius: 0.2,
-        backgroundColor: "lightgreen",
-      },
+      styles: [
+        {
+          version: "DEFAULT",
+          width: 10,
+          borderRadius: 0.2,
+          backgroundColor: "lightgreen",
+        },
+      ],
     },
   ],
 };
 
 const premadeThoughtFormats: InteractionProps = {
   activeFormatIndex: 0,
-  InteractionName: "Thought",
+  interactionName: "THOUGHT",
   premadeFormats: [
     {
       formatId: 0,
       formatName: "Default Thought",
-      styles: {
-        width: 10,
-        borderRadius: 0.2,
-        backgroundColor: "#d3d3d3",
-      },
+      styles: [
+        {
+          version: "DEFAULT",
+          width: 10,
+          borderRadius: 0.2,
+          backgroundColor: "#d3d3d3",
+        },
+      ],
     },
     {
       formatId: 1,
       formatName: "Thought 1",
-      styles: {
-        width: 10,
-        borderRadius: 0.2,
-        backgroundColor: "lightblue",
-      },
+      styles: [
+        {
+          version: "DEFAULT",
+          width: 10,
+          borderRadius: 0.2,
+          backgroundColor: "lightblue",
+        },
+      ],
     },
   ],
 };
 
 const premadeShoutFormats: InteractionProps = {
   activeFormatIndex: 0,
-  InteractionName: "Shout",
+  interactionName: "SHOUT",
   premadeFormats: [
     {
       formatId: 0,
       formatName: "Default Shout",
-      styles: {
-        width: 10,
-        borderRadius: 0.2,
-        backgroundColor: "#d3d3d3",
-      },
+      styles: [
+        {
+          version: "DEFAULT",
+          width: 10,
+          borderRadius: 0.2,
+          backgroundColor: "#d3d3d3",
+        },
+      ],
     },
     {
       formatId: 1,
       formatName: "Shout 1",
-      styles: {
-        width: 10,
-        borderRadius: 0.2,
-        backgroundColor: "#f6cefc",
-      },
+      styles: [
+        {
+          version: "DEFAULT",
+          width: 10,
+          borderRadius: 0.2,
+          backgroundColor: "#f6cefc",
+        },
+      ],
     },
   ],
+};
+
+const premadeCustomFormats: InteractionProps = {
+  activeFormatIndex: 0,
+  interactionName: "CUSTOM",
+  premadeFormats: [],
 };
 
 //State
@@ -98,6 +132,7 @@ const premadeComponents: InteractionProps[] = [
   premadeDialogFormats,
   premadeThoughtFormats,
   premadeShoutFormats,
+  premadeCustomFormats,
 ];
 
 export const interactionListState = atom<InteractionProps[]>({

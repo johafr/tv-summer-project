@@ -1,17 +1,17 @@
 import { Fab } from "@mui/material";
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { activePageIndex, MessageProps } from "../atoms/stories";
+import { activePageIndex, MessageProps } from "../../atoms/stories";
 
-import { Theme } from "../styles/Theme";
-import { screenMeasurements } from "../atoms/measurements";
-import * as S from "../styles/components/storyPageStyles";
+import { Theme } from "../../styles/Theme";
+import { screenMeasurements } from "../../atoms/measurements";
+import * as S from "../../styles/components/storyPageStyles";
 
-import { activePage, activeStoryStats } from "../selectors/stories";
+import { activePage, activeStoryStats } from "../../selectors/stories";
 import { MessageCard } from "./MessageCard";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import "../styles/components/PreviewMobileFormat.css";
+import "../../styles/components/PreviewMobileFormat.css";
 
 export const StoryPage: React.FC = () => {
   //Recoil values

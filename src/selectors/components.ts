@@ -37,10 +37,13 @@ export const activeFormat = selector({
     const { currentInteraction } = get(activeInteraction);
     const currentFormat =
       currentInteraction !== null
-        ? currentInteraction.premadeFormats[
-            currentInteraction.activeFormatIndex
-          ]
+        ? currentInteraction.premadeFormats.length !== null
+          ? currentInteraction.premadeFormats[
+              currentInteraction.activeFormatIndex
+            ]
+          : null
         : null;
+    console.log("cF" + currentFormat?.formatName);
     return currentFormat;
   },
 });

@@ -4,9 +4,9 @@ import {
   addPage,
   deletePage,
   PageProps,
-} from "../atoms/stories";
-import { activeStoryStats, activeStory } from "../selectors/stories";
-import * as S from "../styles/screens/EditorStyles";
+} from "../../atoms/stories";
+import { activeStoryStats, activeStory } from "../../selectors/stories";
+import * as S from "../../styles/screens/EditorStyles";
 
 export const UpdatePageDisplay = () => {
   const pages = useRecoilValue(activeStory).activeStoryPages;

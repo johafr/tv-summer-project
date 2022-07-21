@@ -8,10 +8,10 @@ import {
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { activeStoryStats } from "../selectors/stories";
-import Placeholder from "../images/placeholder.png";
-import "../styles/components/StoryCard.css";
-import { activeStoryIndex, StoryProps } from "../atoms/stories";
+import { activeStoryStats } from "../../selectors/stories";
+import Placeholder from "../../images/placeholder.png";
+import "../../styles/components/StoryCard.css";
+import { activeStoryIndex, StoryProps } from "../../atoms/stories";
 
 type StoryCardProps = {
   story: StoryProps;

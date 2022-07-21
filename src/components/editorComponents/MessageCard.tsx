@@ -1,6 +1,6 @@
 import React from "react";
-import { MessageProps } from "../atoms/stories";
-import * as S from "../styles/components/SentenceCardStyles";
+import { MessageProps } from "../../atoms/stories";
+import * as S from "../../styles/components/SentenceCardStyles";
 
 export const MessageCard: React.FC<MessageProps> = ({
   person,
