@@ -23,7 +23,7 @@ export const activeInteraction = selector({
       currentInteractionIndex === -1
         ? null
         : interactionList[currentInteractionIndex];
-    const currentInteractionFormats = currentInteraction
+    const currentInteractionFormats: FormatProps[] = currentInteraction
       ? currentInteraction.premadeFormats
       : [];
     return {
@@ -48,7 +48,9 @@ export const activeFormat = selector({
     const currentFormatStyles: StyleProps[] = currentFormat
       ? currentFormat.styles
       : [];
-    const selectedStyle: StyleProps | null = null;
+    const selectedStyle: StyleProps | null = currentFormat
+      ? currentFormat.styles[currentFormat.styleIndex]
+      : null;
     return { currentFormat, currentFormatStyles, selectedStyle };
   },
 });

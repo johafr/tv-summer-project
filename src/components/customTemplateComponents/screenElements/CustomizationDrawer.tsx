@@ -1,63 +1,73 @@
-import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { StyleProps } from "../../../atoms/interactionComponents";
-import { activeFormat } from "../../../selectors/interactionComponents";
+import {
+  FormatProps,
+  StyleProps,
+  updateActiveStyle,
+  updateCurrentActiveFormat,
+} from "../../../atoms/interactionComponents";
+import {
+  activeFormat,
+  activeInteraction,
+} from "../../../selectors/interactionComponents";
 import { drawerWidth } from "./ElementsDrawer";
 
 export const CustomizationDrawer = () => {
-  const [activeStyle, setActiveStyle] = useState<StyleProps | null>(null);
-  const { currentFormat } = useRecoilValue(activeFormat);
+  const { currentInteraction, currentInteractionFormats } =
+    useRecoilValue(activeInteraction);
+  const { currentFormat, selectedStyle } = useRecoilValue(activeFormat);
 
-  const handleUpdateActiveStyle = () => {
-    console.log("activeStyle set");
-    setActiveStyle(null);
+  const handleCheckIfFormatIsSelected = (format: FormatProps) => {
+    return currentFormat ? currentFormat === format : false;
   };
 
-  const handleUpdateActiveFormat = () => {
-    console.log("Format updated");
+  const handleUpdateActiveStyle = (newStyleIndex: number) => {
+    updateActiveStyle(newStyleIndex);
+  };
+
+  const handleUpdateActiveFormat = (format: FormatProps) => {
+    updateCurrentActiveFormat(
+      currentInteraction!.premadeFormats.findIndex(
+        (currentFormat: FormatProps) => currentFormat === format
+      )
+    );
+    updateActiveStyle(0);
   };
 
   return (
     <Drawer>
       <ElementHeader>Formats</ElementHeader>
-      <Format>
-        <FormatHeader active={true} onClick={handleUpdateActiveFormat}>
-          First
-        </FormatHeader>
-        {true ? (
-          <>
-            <StyleBody active={false} onClick={handleUpdateActiveStyle}>
-              DEFAULT "First"
-            </StyleBody>
-            <StyleBody active={true} onClick={handleUpdateActiveStyle}>
-              CUSTOM "First" 1
-            </StyleBody>
-            <StyleBody active={false} onClick={handleUpdateActiveStyle}>
-              CUSTOM "First" 2
-            </StyleBody>
-          </>
-        ) : (
-          <></>
-        )}
-      </Format>
-      <Format>
-        <FormatHeader active={false} onClick={handleUpdateActiveFormat}>
-          Second
-        </FormatHeader>
-        {false ? (
-          <>
-            <StyleBody active={true} onClick={handleUpdateActiveStyle}>
-              DEFAULT "Second"
-            </StyleBody>
-            <StyleBody active={false} onClick={handleUpdateActiveStyle}>
-              Custom "Second" 1
-            </StyleBody>
-          </>
-        ) : (
-          <></>
-        )}
-      </Format>
+      <>
+        {currentInteractionFormats.map((format: FormatProps) => (
+          <Format key={format.formatName}>
+            <FormatHeader
+              active={handleCheckIfFormatIsSelected(format)}
+              onClick={() => handleUpdateActiveFormat(format)}
+            >
+              {format.formatName}
+            </FormatHeader>
+            {handleCheckIfFormatIsSelected(format) ? (
+              format.styles.map((style: StyleProps) => (
+                <StyleBody
+                  key={style.id}
+                  active={selectedStyle ? selectedStyle === style : false}
+                  onClick={() =>
+                    handleUpdateActiveStyle(
+                      format.styles.findIndex(
+                        (formatStyle) => style === formatStyle
+                      )
+                    )
+                  }
+                >
+                  {style.version}
+                </StyleBody>
+              ))
+            ) : (
+              <></>
+            )}
+          </Format>
+        ))}
+      </>
       <ElementHeader>Customize</ElementHeader>
       <CustomizeFieldBody>
         <p>This is to customize</p>
@@ -112,12 +122,15 @@ const StyleBody = styled.div<{ active: boolean }>`
   &:hover {
     background-color: lightblue;
   }
-  margin: 0.3rem;
+  margin: 0.6rem;
   justify-content: center;
   display: flex;
   align-items: center;
-  padding: 0.3rem;
+  padding: 0.4rem;
   border-radius: 2rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  font-size: small;
+  cursor: pointer;
+  height: 1.5rem;
 `;

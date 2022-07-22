@@ -18,7 +18,7 @@ export interface InteractionProps {
 }
 
 export interface FormatProps {
-  formatId: number;
+  styleIndex: number;
   formatName: string;
   styles: StyleProps[];
 }
@@ -36,7 +36,7 @@ const premadeDialogFormats: InteractionProps = {
   interactionName: "DIALOG",
   premadeFormats: [
     {
-      formatId: 0,
+      styleIndex: 0,
       formatName: "SpeechBubbleChat",
       styles: [
         {
@@ -56,7 +56,7 @@ const premadeDialogFormats: InteractionProps = {
       ],
     },
     {
-      formatId: 1,
+      styleIndex: 1,
       formatName: "Dialog1",
       styles: [
         {
@@ -76,7 +76,7 @@ const premadeThoughtFormats: InteractionProps = {
   interactionName: "THOUGHT",
   premadeFormats: [
     {
-      formatId: 0,
+      styleIndex: 0,
       formatName: "Default Thought",
       styles: [
         {
@@ -89,7 +89,7 @@ const premadeThoughtFormats: InteractionProps = {
       ],
     },
     {
-      formatId: 1,
+      styleIndex: 1,
       formatName: "Thought 1",
       styles: [
         {
@@ -109,7 +109,7 @@ const premadeShoutFormats: InteractionProps = {
   interactionName: "SHOUT",
   premadeFormats: [
     {
-      formatId: 0,
+      styleIndex: 0,
       formatName: "Default Shout",
       styles: [
         {
@@ -122,7 +122,7 @@ const premadeShoutFormats: InteractionProps = {
       ],
     },
     {
-      formatId: 0,
+      styleIndex: 0,
       formatName: "Shout 1",
       styles: [
         {
@@ -178,7 +178,7 @@ export const updateInteractionList = (newInteraction: InteractionProps) => {
 
 //interaction:
 //updates the format list in the Interaction
-export const updateInteraction = (newFormats: FormatProps[]) => {
+export const updateInteractionFormats = (newFormats: FormatProps[]) => {
   const { currentInteraction } = getRecoil(activeInteraction);
   const updatedInteraction: InteractionProps = {
     ...currentInteraction!,
@@ -187,30 +187,37 @@ export const updateInteraction = (newFormats: FormatProps[]) => {
   updateInteractionList(updatedInteraction);
 };
 
-//updates the selected format for the active interaction
-export const updateSelectedFormat = (newActiveFormatIndex: number) => {
-  const { currentInteraction } = getRecoil(activeInteraction);
-  const updatedComponent: InteractionProps = {
-    ...currentInteraction!,
-    activeFormatIndex: newActiveFormatIndex,
-  };
-  updateInteractionList(updatedComponent);
-};
-
 //Format:
 //Updates the selected format
-export const updateFormat = (updatedStyles: StyleProps[]) => {
+export const updateFormat = (updatedFormat: FormatProps) => {
   const { currentInteraction, currentInteractionFormats } =
     getRecoil(activeInteraction);
   const activeFormatIndex = currentInteraction!.activeFormatIndex;
-  const { currentFormat } = getRecoil(activeFormat)!;
 
   const newInteractionFormats: FormatProps[] = [
     ...currentInteractionFormats.slice(0, activeFormatIndex),
-    { ...currentFormat!, styles: updatedStyles },
+    updatedFormat,
     ...currentInteractionFormats.slice(activeFormatIndex + 1),
   ];
-  updateInteraction(newInteractionFormats);
+  updateInteractionFormats(newInteractionFormats);
+};
+
+export const updateCurrentActiveFormat = (index: number) => {
+  const { currentInteraction } = getRecoil(activeInteraction);
+  updateInteractionList({ ...currentInteraction!, activeFormatIndex: index });
+};
+
+export const updateCurrentActiveStyle = (newFormat: FormatProps) => {
+  const { currentInteraction, currentInteractionFormats } =
+    getRecoil(activeInteraction);
+  const activeFormatIndex = currentInteraction!.activeFormatIndex;
+
+  const newInteractionFormats: FormatProps[] = [
+    ...currentInteractionFormats.slice(0, activeFormatIndex),
+    newFormat,
+    ...currentInteractionFormats.slice(activeFormatIndex + 1),
+  ];
+  updateInteractionFormats(newInteractionFormats);
 };
 
 //adds a new format to the list
@@ -220,29 +227,39 @@ export const addFormat = (newFormat: FormatProps) => {
     ...currentInteractionFormats,
     newFormat,
   ];
-  updateInteraction(newInteractionFormats);
+  updateInteractionFormats(newInteractionFormats);
 };
 
 //Styles
 //Add new Style to list
 export const addFormatStyle = (newStyle: StyleProps) => {
-  const { currentFormatStyles } = getRecoil(activeFormat);
-  updateFormat([...currentFormatStyles, newStyle]);
+  const { currentFormat } = getRecoil(activeFormat);
+  updateFormat({
+    ...currentFormat!,
+    styles: [...currentFormat!.styles, newStyle],
+  });
 };
 
 //update existing style
-export const updateFormatStyles = (updatedStyle: StyleProps) => {
-  const { currentFormatStyles } = getRecoil(activeFormat);
+export const updateFormatStyle = (updatedStyle: StyleProps) => {
+  const { currentFormat, currentFormatStyles } = getRecoil(activeFormat);
   const formatIndex = currentFormatStyles.findIndex(
     (styles: StyleProps) => styles.version === updatedStyle.version
   );
   updatedStyle.version.split("").includes("DEFAULT")
     ? addFormatStyle(updatedStyle)
-    : updateFormat([
-        ...currentFormatStyles.slice(0, formatIndex),
-        updatedStyle,
-        ...currentFormatStyles.slice(formatIndex),
-      ]);
+    : updateFormat({
+        ...currentFormat!,
+        styles: [
+          ...currentFormatStyles.slice(0, formatIndex),
+          updatedStyle,
+          ...currentFormatStyles.slice(formatIndex),
+        ],
+      });
 };
 
 //Set active Style
+export const updateActiveStyle = (newStyleIndex: number) => {
+  const { currentFormat } = getRecoil(activeFormat);
+  updateCurrentActiveStyle({ ...currentFormat!, styleIndex: newStyleIndex });
+};
