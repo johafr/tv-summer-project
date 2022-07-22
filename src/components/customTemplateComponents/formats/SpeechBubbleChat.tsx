@@ -48,7 +48,10 @@ export const Wrapper = styled.div<{
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
   z-index: 0;
   float: ${(props) => props.align};
-  // border:1px solid black;
+
+  &:hover {
+    border: 1px solid black;
+  }
 `;
 
 export const LeftPoint = styled.div`

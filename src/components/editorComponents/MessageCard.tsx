@@ -14,6 +14,7 @@ export const MessageCard: React.FC<MessageProps> = ({
   interactionType,
 }) => {
   const allInteractions = useRecoilValue(getAllInteractions);
+  
   switch (interactionType) {
     case "DIALOG":
       return (

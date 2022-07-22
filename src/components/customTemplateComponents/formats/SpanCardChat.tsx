@@ -25,10 +25,12 @@ export const SpanCardChat: React.FC<Props> = ({name, text}) => {
 export const Wrapper = styled.div`
     text-align:center;
     margin-top:1.0rem;
-    //box-shadow:0px 10px 10px 1px rgba(0,0,0,0.1);
+    
     position:relative;
     display: inline-block;
     width:100%;
+    // box-shadow:0px 10px 10px 1px rgba(0,0,0,0.1);
+    // background-color:white;
 
 `;
 

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
-export const NameList = styled.div`
+export const NameList = styled.div<{width? : number}>`
   position: relative;
-  width: 25.3rem;
+  min-width: 25.3rem;
+  width: ${(props) => props.width}%
   min-height: 5.9rem;
   max-height: 14.5rem;
   overflow: auto;
@@ -10,7 +11,7 @@ export const NameList = styled.div`
 
   & .s_listParent__chromepicker {
     position: fixed;
-    width: 20rem;
+    width: 20em;
     height: 15rem;
     top: 6rem;
     left: 30rem;

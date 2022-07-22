@@ -12,10 +12,11 @@ import ChromePicker from "react-color/lib/components/chrome/Chrome";
 
 type Props = {
   numSelections: number;
+  width? : number;
 };
 
 // Component wrapper function
-export const EditorNamesList: React.FC<Props> = ({ numSelections }) => {
+export const EditorNamesList: React.FC<Props> = ({ numSelections, width }) => {
   const [personList, setPersonList] = useRecoilState(persons);
   const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
   const [selectedPersons, setSelectedPersons] =
@@ -145,7 +146,7 @@ export const EditorNamesList: React.FC<Props> = ({ numSelections }) => {
 
   // Component end-return
   return (
-    <S.NameList>
+    <S.NameList width={width}>
       <S.ListParent>{listNames}</S.ListParent>
       {viewColorPicker ? (
         <div style={{ position: "absolute", zIndex: "2" }}>

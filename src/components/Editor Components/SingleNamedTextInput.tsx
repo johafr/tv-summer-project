@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { getAllInteractions } from "../../selectors/interactionComponents";
@@ -6,21 +6,35 @@ import { SpeechBubbleChat } from "../customTemplateComponents/formats/SpeechBubb
 
 // Component props
 type Props = {
-  name: string;
+  name: string; // Ta inn navn fra liste som prop
+
 };
 
 // Component wrapper function
-export const NamedTextInput: React.FC<Props> = ({ name }) => {
+export const SingleNamedTextInput: React.FC<Props> = ({ name }) => {
   const allInteractions = useRecoilValue(getAllInteractions);
+  const [inputNames, setInputNames] = useState([
+    [{ personName: "Lisa"}],
+    [{ personName: "" }],
+  ])
+
+  const handleSubmitName = (e: React.FormEvent) => {
+    e.preventDefault();
+  }
+
 
   // Component end-return
   return (
     <Wrapper>
       <NameInput>
-        <input placeholder={name} />
+        <form onSubmit={(event) => handleSubmitName(event)}>
+          <input value={name} />
+        </form>
       </NameInput>
       <TextInput>
-        <input placeholder="text" />
+        <form>
+          <input placeholder={"Write something..."} />
+        </form>
       </TextInput>
       <TextOutput>
         <SpeechBubbleChat
@@ -42,17 +56,11 @@ export const NamedTextInput: React.FC<Props> = ({ name }) => {
 export const Wrapper = styled.div`
   display: flex;
   flex-flow: column wrap;
-  width: 50%;
+  width: 28%;
   margin: 1px;
   padding: 10px;
   border: 3px solid lightgray;
   background-color: rgba(250, 250, 250, 250);
-`;
-
-export const TextOutput = styled.div`
-  height: 30rem;
-  margin-top: 20px;
-  margin-bottom: 20px;
 `;
 
 export const NameInput = styled.div`
@@ -87,6 +95,12 @@ export const TextInput = styled.div`
     border-radius: 5px;
     font-size: 0.9rem;
   }
+`;
+
+export const TextOutput = styled.div`
+  height: 30rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 {

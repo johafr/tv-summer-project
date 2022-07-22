@@ -194,10 +194,11 @@ export const EditorSplitscreen: React.FC = () => {
       );
     if (card.align === "right")
       return (
-        <ThoughtBubbleChat
+        <SpeechBubbleChat
           name={card.person?.name}
           content={card.content}
           variant={card.align}
+          inputVariables={getSpeechBubbleChatProps[0].premadeFormats[0]}
         />
       );
     if (card.align === "center")
