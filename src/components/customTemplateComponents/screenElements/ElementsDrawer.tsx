@@ -17,7 +17,6 @@ export const ElementsDrawer = () => {
 
 const Drawer = styled.div`
   min-width: ${drawerWidth}%;
-  background-color: #d3d3d3;
   overflow: auto;
   border-right: 1px solid black;
 `;
@@ -28,7 +27,7 @@ const InteractionsHeader = styled.h3`
   gap: 5%;
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
-  border-bottom: 1px solid black;
-  background-color: antiquewhite;
-  margin: 0;
+  margin: auto;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 `;

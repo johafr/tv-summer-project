@@ -20,7 +20,7 @@ export const RenderScreen = () => {
   };
 
   return (
-    <Screen>
+    <Screen interactionIsActive={currentInteraction !== null}>
       <ComponentDisplay>
         <DisplayComponent />
       </ComponentDisplay>
@@ -28,9 +28,8 @@ export const RenderScreen = () => {
   );
 };
 
-const Screen = styled.div`
-  background-color: aliceblue;
-  width: 60%;
+const Screen = styled.div<{ interactionIsActive: boolean }>`
+  width: ${(props) => (props.interactionIsActive ? 60 : 80)}%;
 `;
 
 const ComponentDisplay = styled.div`
@@ -38,4 +37,8 @@ const ComponentDisplay = styled.div`
   justify-content: center;
   align-items: center;
   height: calc(100% - ${ToolbarHeight}px);
+  border-radius: 1rem;
+  margin: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 `;
