@@ -33,7 +33,19 @@ export const MessageCard: React.FC<MessageProps> = ({
           variant={align}
         />
       );
+    case "NARRATIVE": // Er bare spancard, evt replace med noe annen styling senere
+      return (
+        <SpanCardChat 
+          name={person?.name} 
+          text={content} 
+        />
+      );
     default:
-      return <SpanCardChat name={person?.name} text={content} />;
+      return (
+        <SpanCardChat 
+          name={person?.name} 
+          text={content} 
+        />
+      );
   }
 };
