@@ -78,7 +78,6 @@ export const CustomizationDrawer = () => {
 
 const Drawer = styled.div`
   min-width: ${drawerWidth}%;
-  background-color: #d3d3d3;
   border-left: 1px solid black;
 `;
 const ElementHeader = styled.h3`
@@ -86,19 +85,17 @@ const ElementHeader = styled.h3`
   display: flex;
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
-  background-color: antiquewhite;
   margin: 0;
 `;
 
 const Format = styled.div`
   border-bottom: 1px solid grey;
-  background-color: aliceblue;
 `;
 
 const FormatHeader = styled.div<{ active: boolean }>`
-  background-color: ${(props) => (props.active ? "#a0a0a0" : "aliceblue")};
+  background-color: ${(props) => (props.active ? "#d3d3d3" : "white")};
   &:hover {
-    background-color: #a0a0a0;
+    background-color: #d3d3d3;
   }
   display: flex;
   justify-content: center;
@@ -113,14 +110,12 @@ const CustomizeFieldBody = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: aliceblue;
 `;
 
 const StyleBody = styled.div<{ active: boolean }>`
-  background-color: aliceblue;
-  background-color: ${(props) => (props.active ? "lightgreen" : "aliceblue")};
+  background-color: ${(props) => (props.active ? "aliceblue" : "white")};
   &:hover {
-    background-color: lightblue;
+    background-color: #d3d3d3;
   }
   margin: 0.6rem;
   justify-content: center;
