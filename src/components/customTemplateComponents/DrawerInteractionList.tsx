@@ -68,15 +68,16 @@ export const DrawerInteractionList = () => {
 };
 
 const InteractionBody = styled.div<{ active: boolean }>`
-  background-color: ${(props) => (props.active ? "#a0a0a0" : "aliceblue")};
+  background-color: ${(props) => (props.active ? "aliceblue" : "white")};
   &:hover {
-    background-color: #a0a0a0;
+    background-color: #d3d3d3;
   }
   display: flex;
   justify-content: center;
   gap: 2rem;
   align-items: center;
   cursor: pointer;
+  margin: 0 auto;
 `;
 
 const InteractionName = styled.p``;

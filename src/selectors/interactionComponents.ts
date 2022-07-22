@@ -1,7 +1,9 @@
 import { selector } from "recoil";
 import {
   activeInteractionIndex,
+  FormatProps,
   interactionListState,
+  StyleProps,
 } from "../atoms/interactionComponents";
 
 export const getAllInteractions = selector({
@@ -21,7 +23,7 @@ export const activeInteraction = selector({
       currentInteractionIndex === -1
         ? null
         : interactionList[currentInteractionIndex];
-    const currentInteractionFormats = currentInteraction
+    const currentInteractionFormats: FormatProps[] = currentInteraction
       ? currentInteraction.premadeFormats
       : [];
     return {
@@ -35,7 +37,7 @@ export const activeFormat = selector({
   key: "activeVersion",
   get: ({ get }) => {
     const { currentInteraction } = get(activeInteraction);
-    const currentFormat =
+    const currentFormat: FormatProps | null =
       currentInteraction !== null
         ? currentInteraction.premadeFormats.length !== null
           ? currentInteraction.premadeFormats[
@@ -43,7 +45,12 @@ export const activeFormat = selector({
             ]
           : null
         : null;
-    console.log("cF" + currentFormat?.formatName);
-    return currentFormat;
+    const currentFormatStyles: StyleProps[] = currentFormat
+      ? currentFormat.styles
+      : [];
+    const selectedStyle: StyleProps | null = currentFormat
+      ? currentFormat.styles[currentFormat.styleIndex]
+      : null;
+    return { currentFormat, currentFormatStyles, selectedStyle };
   },
 });

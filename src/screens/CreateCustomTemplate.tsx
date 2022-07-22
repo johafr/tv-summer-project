@@ -1,15 +1,17 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { activeStoryIndex } from "../atoms/stories";
-import { ComponentScreen } from "../components/customTemplateComponents/screenElements/ComponentScreen";
+import { RenderScreen } from "../components/customTemplateComponents/screenElements/RenderScreen";
 import { ElementsDrawer } from "../components/customTemplateComponents/screenElements/ElementsDrawer";
-import { CustomizeDrawer } from "../components/customTemplateComponents/screenElements/CustomizeDrawer";
+import { CustomizationDrawer } from "../components/customTemplateComponents/screenElements/CustomizationDrawer";
+import { activeInteraction } from "../selectors/interactionComponents";
 
 export const CreateCustomTemplate = () => {
   const { id } = useParams();
   const [, setStoryIndex] = useRecoilState(activeStoryIndex);
+  const { currentInteraction } = useRecoilValue(activeInteraction);
 
   useEffect(() => {
     let tempId: string | undefined = "";
@@ -21,16 +23,20 @@ export const CreateCustomTemplate = () => {
       <TopLine />
       <Toolbar>
         <ElementHeader>Elements</ElementHeader>
-        <Screen>
+        <Screen interactionIsActive={currentInteraction !== null}>
           <ButtonSpan>Preview</ButtonSpan>
           <ButtonSpan>Save</ButtonSpan>
         </Screen>
-        <CustomizeHeader>Customize</CustomizeHeader>
+        {currentInteraction ? (
+          <CustomizeHeader>Customize</CustomizeHeader>
+        ) : (
+          <></>
+        )}
       </Toolbar>
       <ContentDiv>
         <ElementsDrawer />
-        <ComponentScreen />
-        <CustomizeDrawer />
+        <RenderScreen />
+        {currentInteraction ? <CustomizationDrawer /> : <></>}
       </ContentDiv>
     </>
   );
@@ -65,14 +71,12 @@ const ElementHeader = styled.h2`
   border-bottom: 1px solid black;
   border-right: 1px solid black;
   margin: 0;
-  background-color: blueviolet;
   min-width: 20%;
   height: 100%;
 `;
 
-const Screen = styled.div`
-  background-color: aliceblue;
-  width: 60%;
+const Screen = styled.div<{ interactionIsActive: boolean }>`
+  width: ${(props) => (props.interactionIsActive ? 60 : 80)}%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -85,7 +89,6 @@ const CustomizeHeader = styled.h2`
   border-bottom: 1px solid black;
   border-left: 1px solid black;
   margin: 0;
-  background-color: blueviolet;
   min-width: 20%;
   height: 100%;
 `;
