@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { activeStoryIndex } from "../atoms/stories";
-import { ComponentScreen } from "../components/customTemplateComponents/screenElements/ComponentScreen";
+import { RenderScreen } from "../components/customTemplateComponents/screenElements/RenderScreen";
 import { ElementsDrawer } from "../components/customTemplateComponents/screenElements/ElementsDrawer";
-import { CustomizeDrawer } from "../components/customTemplateComponents/screenElements/CustomizeDrawer";
+import { CustomizationDrawer } from "../components/customTemplateComponents/screenElements/CustomizationDrawer";
 
 export const CreateCustomTemplate = () => {
   const { id } = useParams();
@@ -29,8 +29,8 @@ export const CreateCustomTemplate = () => {
       </Toolbar>
       <ContentDiv>
         <ElementsDrawer />
-        <ComponentScreen />
-        <CustomizeDrawer />
+        <RenderScreen />
+        <CustomizationDrawer />
       </ContentDiv>
     </>
   );

@@ -5,7 +5,7 @@ import { CustomComponent } from "../formats/CustomComponent";
 
 const ToolbarHeight: number = 45.5;
 
-export const ComponentScreen = () => {
+export const RenderScreen = () => {
   const { currentInteraction } = useRecoilValue(activeInteraction);
 
   const DisplayComponent = () => {
