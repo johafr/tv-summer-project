@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { activeInteraction } from "../../../selectors/interactionComponents";
-import { CustomComponent } from "../formats/CustomComponent";
+import { RenderedInteraction } from "../RenderedInteraction";
 
 const ToolbarHeight: number = 45.5;
 
@@ -11,7 +11,7 @@ export const RenderScreen = () => {
   const DisplayComponent = () => {
     switch (currentInteraction !== null) {
       case true:
-        return <CustomComponent />;
+        return <RenderedInteraction />;
       case false:
         return <p>Object not selected</p>;
       default:
@@ -21,6 +21,10 @@ export const RenderScreen = () => {
 
   return (
     <Screen interactionIsActive={currentInteraction !== null}>
+      <Toolbar interactionIsActive={currentInteraction !== null}>
+        <ButtonSpan>Preview</ButtonSpan>
+        <ButtonSpan>Save</ButtonSpan>
+      </Toolbar>
       <ComponentDisplay>
         <DisplayComponent />
       </ComponentDisplay>
@@ -33,6 +37,7 @@ const Screen = styled.div<{ interactionIsActive: boolean }>`
 `;
 
 const ComponentDisplay = styled.div`
+  background-color: #d4dfe3;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,4 +46,15 @@ const ComponentDisplay = styled.div`
   margin: 1rem;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+`;
+
+const Toolbar = styled.div<{ interactionIsActive: boolean }>`
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  box-shadow: var(--middle-shadow-elevation-low);
+`;
+
+const ButtonSpan = styled.span`
+  margin-left: 1rem;
 `;

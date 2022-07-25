@@ -7,19 +7,20 @@ export const drawerWidth = 20;
 export const ElementsDrawer = () => {
   return (
     <Drawer>
-      <InteractionsHeader>
-        Interaction <MenuOpenIcon />
-      </InteractionsHeader>
-      <DrawerInteractionList />
+      <ElementHeader>Elements</ElementHeader>
+      <DrawerElements>
+        <InteractionsHeader>
+          Interaction <MenuOpenIcon />
+        </InteractionsHeader>
+        <DrawerInteractionList />
+      </DrawerElements>
     </Drawer>
   );
 };
 
-const Drawer = styled.div`
+const DrawerElements = styled.div`
   min-width: ${drawerWidth}%;
   overflow: auto;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 `;
 
 const InteractionsHeader = styled.h3`
@@ -29,6 +30,18 @@ const InteractionsHeader = styled.h3`
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
   margin: auto;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+`;
+
+const ElementHeader = styled.h2`
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: 0;
+  min-width: 20%;
+  height: 3rem;
+`;
+
+const Drawer = styled.div`
+  min-width: ${drawerWidth}%;
+  box-shadow: var(--left-shadow-elevation-low);
 `;
