@@ -11,11 +11,11 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { activeStoryStats } from "../../selectors/stories";
 import Placeholder from "../../images/placeholder.png";
 import "../../styles/components/StoryCard.css";
-import { activeStoryIndex, StoryProps } from "../../atoms/stories";
+import { activeStoryIndex, Story } from "../../atoms/stories";
 import { screenDimensions } from "../../atoms/screenDimensions";
 
 type StoryCardProps = {
-  story: StoryProps;
+  story: Story;
 };
 
 export const StoryCard: React.FC<StoryCardProps> = ({ story }) => {

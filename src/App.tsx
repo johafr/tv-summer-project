@@ -4,10 +4,8 @@ import "./App.css";
 import { Editor } from "./screens/Editor";
 import { Preview } from "./screens/Preview";
 import { Navbar } from "./components/Navbar";
-import { Test } from "./screens/Test";
 import { ThemeProvider } from "@mui/material/styles";
 import { Theme } from "./styles/Theme";
-import { EditorSplitscreen } from "./components/EditorSplitscreen";
 import { Home } from "./screens/Home";
 import { CreateCustomTemplate } from "./screens/CreateCustomTemplate";
 import { renderScreen, screenDimensions } from "./atoms/screenDimensions";
@@ -21,21 +19,10 @@ const Router: React.FC = () => {
         <Route element={<Home />} path={"/"} />
         <Route element={<Editor />} path={"story:id/editor"} />
         <Route element={<Preview />} path={"story:id/preview"} />
-        <Route element={<Test />} path={"story:id/test"} />
         <Route
           element={<CreateCustomTemplate />}
           path={"story:id/create-template"}
         />
-        {/* <Route
-          element={
-            <TestComponent
-              name={"Cornelius"}
-              text={"Men jeg skal ikke reise!"}
-            />
-          }
-          path={"story:id/test"}
-        /> */}
-        <Route element={<EditorSplitscreen />} path={"story:id/testeditor"} />
       </Routes>
     </div>
   );

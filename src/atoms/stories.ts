@@ -3,34 +3,33 @@ import { Person } from "./persons";
 import { getRecoil, setRecoil } from "recoil-nexus";
 import { activePage, activeStory } from "../selectors/stories";
 
-export type StoriesProps = {
+export type StoryCollection = {
   id: number;
   author: string;
-  stories: StoryProps[];
+  stories: Story[];
 };
 
-export type StoryProps = {
+export type Story = {
   id: number;
   name: string;
   author: string;
-  pages: PageProps[];
+  pages: Page[];
 };
 
-export type PageProps = {
+export type Page = {
   id: number;
-  messages: MessageProps[];
+  messages: Message[];
 };
 
-export type MessageProps = {
+export type Message = {
   id: number;
   person?: Person;
   content: string;
   align: string;
-  interactionType: string;
-  formatId?: number;
+  format: string[]; //[communicationCategory, Componentformat]
 };
 
-const dummyPage1: PageProps = {
+const dummyPage1: Page = {
   id: 0,
   messages: [
     {
@@ -42,7 +41,7 @@ const dummyPage1: PageProps = {
       },
       content: "This is dummy data",
       align: "right",
-      interactionType: "DIALOG",
+      format: [],
     },
     {
       id: 1,
@@ -53,19 +52,19 @@ const dummyPage1: PageProps = {
       },
       content: "This is the second line",
       align: "left",
-      interactionType: "DIALOG",
+      format: [],
     },
   ],
 };
 
-const dummyPage2: PageProps = {
+const dummyPage2: Page = {
   id: 1,
   messages: [
     {
       id: 0,
       content: "This is a message without an assigned person",
       align: "center",
-      interactionType: "NONE",
+      format: [],
     },
   ],
 };
@@ -93,7 +92,7 @@ const dummyData = {
   ],
 };
 
-export const storiesState = atom<StoriesProps>({
+export const storiesState = atom<StoryCollection>({
   key: "storiesState",
   default: dummyData,
 });
@@ -109,22 +108,22 @@ export const activePageIndex = atom<number>({
   default: 0,
 });
 
-export const updateStory = (updatedStory: StoryProps) => {
+export const updateStory = (updatedStory: Story) => {
   const currentStoriesState = getRecoil(storiesState);
   const currentStoryIndex = getRecoil(activeStoryIndex);
-  const newStoriesList: StoryProps[] = [
+  const newStoriesList: Story[] = [
     ...currentStoriesState.stories.slice(0, currentStoryIndex!),
     updatedStory,
     ...currentStoriesState.stories.slice(currentStoryIndex! + 1),
   ];
-  const updatedStoriesState: StoriesProps = {
+  const updatedStoriesState: StoryCollection = {
     ...currentStoriesState,
     stories: newStoriesList,
   };
   setRecoil(storiesState, updatedStoriesState);
 };
 
-export const addStory = (newStory: StoryProps) => {
+export const addStory = (newStory: Story) => {
   const currentStoriesState = getRecoil(storiesState);
   const newStories = {
     ...currentStoriesState,
@@ -133,33 +132,33 @@ export const addStory = (newStory: StoryProps) => {
   setRecoil(storiesState, newStories);
 };
 
-export const updatePage = (updatedPage: PageProps) => {
+export const updatePage = (updatedPage: Page) => {
   const currentStory = getRecoil(activeStory).selectedStory!;
   const currentPageIndex = getRecoil(activePageIndex)!;
-  const newPageList: PageProps[] = [
+  const newPageList: Page[] = [
     ...currentStory.pages.slice(0, currentPageIndex),
     updatedPage,
     ...currentStory.pages.slice(currentPageIndex + 1),
   ];
-  const newStory: StoryProps = {
+  const newStory: Story = {
     ...currentStory,
     pages: newPageList,
   };
   updateStory(newStory);
 };
 
-export const addPage = (newPage: PageProps) => {
+export const addPage = (newPage: Page) => {
   const currentStory = getRecoil(activeStory).selectedStory!;
-  const newStory: StoryProps = {
+  const newStory: Story = {
     ...currentStory,
     pages: [...currentStory.pages, newPage],
   };
   updateStory(newStory);
 };
 
-export const deletePage = (currentPage: PageProps) => {
+export const deletePage = (currentPage: Page) => {
   const currentStory = getRecoil(activeStory).selectedStory!;
-  const newStory: StoryProps = {
+  const newStory: Story = {
     ...currentStory,
     pages: currentStory.pages.filter(
       (listElement) => listElement !== currentPage
@@ -168,32 +167,32 @@ export const deletePage = (currentPage: PageProps) => {
   updateStory(newStory);
 };
 
-export const updateMessage = (updatedMessage: MessageProps) => {
+export const updateMessage = (updatedMessage: Message) => {
   const currentPage = getRecoil(activePage)!;
   const messageIndex = currentPage.messages.findIndex(
-    (listElement: MessageProps) => listElement.id === updatedMessage.id
+    (listElement: Message) => listElement.id === updatedMessage.id
   );
-  const newMessageList: MessageProps[] = [
+  const newMessageList: Message[] = [
     ...currentPage.messages.slice(0, messageIndex),
     updatedMessage,
     ...currentPage.messages.slice(messageIndex + 1),
   ];
-  const newPage: PageProps = { ...currentPage, messages: newMessageList };
+  const newPage: Page = { ...currentPage, messages: newMessageList };
   updatePage(newPage);
 };
 
-export const addMessage = (newMessage: MessageProps) => {
+export const addMessage = (newMessage: Message) => {
   const currentPage = getRecoil(activePage)!;
-  const newPage: PageProps = {
+  const newPage: Page = {
     ...currentPage,
     messages: [...currentPage.messages, newMessage],
   };
   updatePage(newPage);
 };
 
-export const deleteMessage = (currentMessage: MessageProps) => {
+export const deleteMessage = (currentMessage: Message) => {
   const currentPage = getRecoil(activePage)!;
-  const newPage: PageProps = {
+  const newPage: Page = {
     ...currentPage,
     messages: currentPage.messages.filter(
       (listElement) => listElement !== currentMessage

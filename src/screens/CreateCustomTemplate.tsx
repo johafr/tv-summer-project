@@ -6,12 +6,12 @@ import { activeStoryIndex } from "../atoms/stories";
 import { RenderScreen } from "../components/customTemplateComponents/screenElements/RenderScreen";
 import { ElementsDrawer } from "../components/customTemplateComponents/screenElements/ElementsDrawer";
 import { CustomizationDrawer } from "../components/customTemplateComponents/screenElements/CustomizationDrawer";
-import { activeInteraction } from "../selectors/interactionComponents";
+import { activeCommunicationCategory } from "../selectors/template";
 
 export const CreateCustomTemplate = () => {
   const { id } = useParams();
   const [, setStoryIndex] = useRecoilState(activeStoryIndex);
-  const { currentInteraction } = useRecoilValue(activeInteraction);
+  const { currentInteraction } = useRecoilValue(activeCommunicationCategory);
 
   useEffect(() => {
     let tempId: string | undefined = "";

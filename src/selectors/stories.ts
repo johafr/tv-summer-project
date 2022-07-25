@@ -2,10 +2,10 @@ import { selector } from "recoil";
 import {
   storiesState,
   activeStoryIndex,
-  StoryProps,
+  Story,
   activePageIndex,
-  PageProps,
-  MessageProps,
+  Page,
+  Message,
 } from "../atoms/stories";
 
 export const activeStory = selector({
@@ -13,13 +13,11 @@ export const activeStory = selector({
   get: ({ get }) => {
     const stories = get(storiesState);
     const index = get(activeStoryIndex);
-    const selectedStory: StoryProps =
+    const selectedStory: Story =
       index === null
         ? { id: -1, name: "none", author: "none", pages: [] }
         : stories.stories[index];
-    const activeStoryPages: PageProps[] = selectedStory
-      ? selectedStory.pages
-      : [];
+    const activeStoryPages: Page[] = selectedStory ? selectedStory.pages : [];
     return { selectedStory, activeStoryPages };
   },
 });
@@ -29,7 +27,7 @@ export const activePage = selector({
   get: ({ get }) => {
     const { activeStoryPages } = get(activeStory);
     const currentPageIndex = get(activePageIndex);
-    const returnedPage: PageProps = activeStoryPages[currentPageIndex];
+    const returnedPage: Page = activeStoryPages[currentPageIndex];
     return returnedPage;
   },
 });
@@ -40,8 +38,8 @@ export const activeStoryStats = selector({
     const storyPages = get(activeStory).activeStoryPages;
     const numPages = storyPages?.length;
     let numWords = 0;
-    storyPages?.forEach((page: PageProps) =>
-      page.messages.forEach((message: MessageProps) => {
+    storyPages?.forEach((page: Page) =>
+      page.messages.forEach((message: Message) => {
         message.content.split(" ").forEach(() => (numWords += 1));
       })
     );

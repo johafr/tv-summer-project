@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
-import { ChangeScreenSizeMenu } from "../components/editorComponents/ChangeScreenSizeMenu";
-import { StoryPage } from "../components/editorComponents/StoryPage";
+import { MobileView } from "../components/editorComponents/MobileView";
 import * as S from "../styles/screens/PreviewStyles";
 import { useRecoilState } from "recoil";
-import { usernameState } from "../atoms/username";
 import { useParams } from "react-router-dom";
 import { activeStoryIndex } from "../atoms/stories";
 
@@ -19,7 +17,7 @@ export const Preview: React.FC = () => {
   return (
     <div>
       <S.ScreenDiv className="screen-div">
-        <StoryPage />
+        <MobileView />
       </S.ScreenDiv>
     </div>
   );

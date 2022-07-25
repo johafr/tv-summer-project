@@ -1,7 +1,8 @@
 import { Tooltip } from "@mui/material";
 import React, { useState } from "react";
-import { useRecoilState } from "recoil";
-import { activePerson, addPerson, persons } from "../../atoms/persons";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { addPerson, charactersState, Person } from "../../atoms/persons";
+import { activePerson } from "../../selectors/persons";
 import * as S from "../../styles/components/EditorNameInput";
 
 // Component props
@@ -10,9 +11,9 @@ type Props = {
 };
 
 // Component wrapper function
-export const EditorNamesInput: React.FC<Props> = ({ numSelections }) => {
-  const [personList, setPersonList] = useRecoilState(persons);
-  const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
+export const AddNewPersonInputField: React.FC<Props> = ({ numSelections }) => {
+  const [personList, setPersonList] = useRecoilState(charactersState);
+  const selectedPerson = useRecoilValue(activePerson);
   const [nameNewPerson, setNameNewPerson] = useState("");
 
   let colorList = [
@@ -43,8 +44,9 @@ export const EditorNamesInput: React.FC<Props> = ({ numSelections }) => {
   const handleAddName = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const nameExists = personList.findIndex(
-      (person) => person.name.toUpperCase() === nameNewPerson.toUpperCase()
+    const nameExists = personList.persons.findIndex(
+      (person: Person) =>
+        person.name.toUpperCase() === nameNewPerson.toUpperCase()
     );
     if (nameExists === -1) {
       const randomColor = () => {
@@ -53,7 +55,7 @@ export const EditorNamesInput: React.FC<Props> = ({ numSelections }) => {
       };
       const newPerson = {
         id:
-          personList.length !== 0
+          personList.persons.length !== 0
             ? personList[personList.length - 1].id + 1
             : 0,
         name: nameNewPerson,

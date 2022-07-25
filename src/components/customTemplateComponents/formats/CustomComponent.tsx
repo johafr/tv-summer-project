@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { FormatProps } from "../../../atoms/interactionComponents";
-import { activeFormat } from "../../../selectors/interactionComponents";
+import { ComponentFormat } from "../../../atoms/template";
+import { activeFormat } from "../../../selectors/template";
 
 export const CustomComponent = () => {
   const { currentFormat } = useRecoilValue(activeFormat);
@@ -19,15 +19,14 @@ export const CustomComponent = () => {
   );
 };
 
-const Body = styled.span<{ inputVariables: FormatProps }>`
+const Body = styled.span<{ inputVariables: ComponentFormat }>`
   //not changeable variables
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   //changeable variables
-  width: ${(props) => props.inputVariables.styles[0].width}%;
-  border-radius: ${(props) => props.inputVariables.styles[0].borderRadius}rem;
-  background-color: ${(props) =>
-    props.inputVariables.styles[0].backgroundColor};
+  width: 51%;
+  border-radius: 5rem;
+  background-color: white;
 `;
 
 const Text = styled.p``;

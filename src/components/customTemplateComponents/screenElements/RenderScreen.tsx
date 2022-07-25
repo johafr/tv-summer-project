@@ -1,32 +1,33 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { activeInteraction } from "../../../selectors/interactionComponents";
-import { RenderedInteraction } from "../RenderedInteraction";
+import { activeCommunicationCategory } from "../../../selectors/template";
+import { InteractionSwitch } from "../../editorComponents/InteractionSwitch";
 
 const ToolbarHeight: number = 45.5;
 
 export const RenderScreen = () => {
-  const { currentInteraction } = useRecoilValue(activeInteraction);
-
-  const DisplayComponent = () => {
-    switch (currentInteraction !== null) {
-      case true:
-        return <RenderedInteraction />;
-      case false:
-        return <p>Object not selected</p>;
-      default:
-        return <p>Object not in list</p>;
-    }
-  };
+  const { currentInteraction } = useRecoilValue(activeCommunicationCategory);
 
   return (
     <Screen interactionIsActive={currentInteraction !== null}>
       <Toolbar interactionIsActive={currentInteraction !== null}>
         <ButtonSpan>Preview</ButtonSpan>
         <ButtonSpan>Save</ButtonSpan>
-      </Toolbar>
+      </Toolbar>{" "}
       <ComponentDisplay>
-        <DisplayComponent />
+        {currentInteraction && (
+          <InteractionSwitch
+            id={0}
+            content="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+            align="left"
+            format={[
+              currentInteraction!.interactionName,
+              currentInteraction!.premadeFormats[
+                currentInteraction!.activeFormatIndex
+              ].toString(),
+            ]}
+          />
+        )}
       </ComponentDisplay>
     </Screen>
   );

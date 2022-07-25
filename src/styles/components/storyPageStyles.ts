@@ -65,7 +65,6 @@ export const Screen = styled.div<{ measurements: DisplayMeasurements }>`
   display: flex;
   align-items: center;
   overflow: hidden;
-  //background-color: aqua;
 `;
 
 export const ContentDivMobile = styled.div`

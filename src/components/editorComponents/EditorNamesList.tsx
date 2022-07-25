@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import {
   activePerson,
   Person,
-  persons,
+  charactersState,
   selectedPersonsState,
 } from "../../atoms/persons";
 import * as S from "../../styles/components/EditorNameInput";
@@ -12,12 +12,12 @@ import ChromePicker from "react-color/lib/components/chrome/Chrome";
 
 type Props = {
   numSelections: number;
-  width? : number;
+  width?: number;
 };
 
 // Component wrapper function
 export const EditorNamesList: React.FC<Props> = ({ numSelections, width }) => {
-  const [personList, setPersonList] = useRecoilState(persons);
+  const [personList, setPersonList] = useRecoilState(charactersState);
   const [selectedPerson, setSelectedPerson] = useRecoilState(activePerson);
   const [selectedPersons, setSelectedPersons] =
     useRecoilState<Person[]>(selectedPersonsState);

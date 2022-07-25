@@ -1,22 +1,28 @@
 import { Fab } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { activePageIndex, MessageProps } from "../../atoms/stories";
+import { activePageIndex, Message } from "../../atoms/stories";
 
 import { Theme } from "../../styles/Theme";
-import { screenMeasurements } from "../../atoms/measurements";
+import {
+  DisplayMeasurements,
+  screenMeasurements,
+} from "../../atoms/measurements";
 import * as S from "../../styles/components/storyPageStyles";
 
 import { activePage, activeStoryStats } from "../../selectors/stories";
-import { MessageCard } from "./MessageCard";
+import { InteractionSwitch } from "./InteractionSwitch";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import { screenDimensions } from "../../atoms/screenDimensions";
+import styled from "styled-components";
 
-export const StoryPage: React.FC = () => {
+export const MobileView: React.FC = () => {
   //Recoil values
   const [measurements] = useRecoilState(screenMeasurements);
   const [pageNum, setPageNum] = useRecoilState(activePageIndex);
+  const { numPages } = useRecoilValue(activeStoryStats);
+
   const screen = useRecoilValue(screenDimensions);
   //Recoil selectors
   const currentPage = useRecoilValue(activePage);
@@ -56,14 +62,14 @@ export const StoryPage: React.FC = () => {
           <S.OutputScreen className="output-screen" measurements={measurements}>
             <S.Bump className="bump" Theme={Theme} />
             <S.ContentDiv className="content-div" measurements={measurements}>
-              {currentPage?.messages.map((card: MessageProps) => (
-                <MessageCard
+              {currentPage?.messages.map((card: Message) => (
+                <InteractionSwitch
                   key={card.id}
                   id={card.id}
                   person={card.person}
                   content={card.content}
                   align={card.align}
-                  interactionType={card.interactionType}
+                  format={card.format}
                 />
               ))}
             </S.ContentDiv>
@@ -88,14 +94,14 @@ export const StoryPage: React.FC = () => {
           <S.GoLeftTouchDiv onClick={handleGoLeft} />
           <S.OutputScreenMobile className="output-screen">
             <S.ContentDivMobile className="content-div">
-              {currentPage?.messages.map((card: MessageProps) => (
-                <MessageCard
+              {currentPage?.messages.map((card: Message) => (
+                <InteractionSwitch
                   key={card.id}
                   id={card.id}
                   person={card.person}
                   content={card.content}
                   align={card.align}
-                  interactionType={card.interactionType}
+                  format={card.format}
                 />
               ))}
             </S.ContentDivMobile>
@@ -103,6 +109,17 @@ export const StoryPage: React.FC = () => {
           <S.GoRightTouchDiv onClick={handleGoRight} />
         </S.ScreenMobile>
       )}
+      <StyledDiv measurements={measurements}>
+        Page {pageNum + 1} of {numPages}
+      </StyledDiv>
     </>
   );
 };
+
+const StyledDiv = styled.span<{ measurements: DisplayMeasurements }>`
+  position: absolute;
+  top: ${(props) => 570 - (570 - props.measurements.height) / 2 + 6}px;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+`;

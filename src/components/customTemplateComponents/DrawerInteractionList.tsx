@@ -7,17 +7,17 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   activeInteractionIndex,
-  InteractionProps,
+  CommunicationCateogry,
   activeTemplateState,
-} from "../../atoms/interactionComponents";
-import { activeInteraction } from "../../selectors/interactionComponents";
+} from "../../atoms/template";
+import { activeCommunicationCategory } from "../../selectors/template";
 
 export const DrawerInteractionList = () => {
   const [interactionList] = useRecoilState(activeTemplateState);
   const [, setActiveIndex] = useRecoilState(activeInteractionIndex);
-  const { currentInteraction } = useRecoilValue(activeInteraction);
+  const { currentInteraction } = useRecoilValue(activeCommunicationCategory);
 
-  const checkActiveComponent = (interaction: InteractionProps) => {
+  const checkActiveComponent = (interaction: CommunicationCateogry) => {
     const active =
       currentInteraction === null
         ? false
@@ -27,18 +27,18 @@ export const DrawerInteractionList = () => {
     return active;
   };
 
-  const handleSetActiveInteraction = (interaction: InteractionProps) => {
+  const handleSetActiveInteraction = (interaction: CommunicationCateogry) => {
     const newIndex =
       interaction === currentInteraction
         ? -1
-        : interactionList.interactions.findIndex(
+        : interactionList.communicationCategories.findIndex(
             (interactionInList) =>
               interaction.interactionName === interactionInList.interactionName
           );
     setActiveIndex(newIndex);
   };
 
-  const GetIcon = (interaction: InteractionProps) => {
+  const GetIcon = (interaction: CommunicationCateogry) => {
     switch (interaction.interactionName) {
       case "DIALOG":
         return <ChatBubbleOutlineOutlinedIcon />;
@@ -53,16 +53,18 @@ export const DrawerInteractionList = () => {
 
   return (
     <>
-      {interactionList.interactions.map((interaction: InteractionProps) => (
-        <InteractionBody
-          key={interaction.interactionName}
-          active={checkActiveComponent(interaction)}
-          onClick={() => handleSetActiveInteraction(interaction)}
-        >
-          {GetIcon(interaction)}
-          <InteractionName>{interaction.interactionName}</InteractionName>
-        </InteractionBody>
-      ))}
+      {interactionList.communicationCategories.map(
+        (interaction: CommunicationCateogry) => (
+          <InteractionBody
+            key={interaction.interactionName}
+            active={checkActiveComponent(interaction)}
+            onClick={() => handleSetActiveInteraction(interaction)}
+          >
+            {GetIcon(interaction)}
+            <InteractionName>{interaction.interactionName}</InteractionName>
+          </InteractionBody>
+        )
+      )}
     </>
   );
 };

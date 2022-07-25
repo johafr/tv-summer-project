@@ -3,18 +3,18 @@ import {
   activePageIndex,
   addPage,
   deletePage,
-  PageProps,
+  Page,
 } from "../../atoms/stories";
 import { activeStoryStats, activeStory } from "../../selectors/stories";
 import * as S from "../../styles/screens/EditorStyles";
 
-export const UpdatePageDisplay = () => {
+export const AddAndDeletePage = () => {
   const pages = useRecoilValue(activeStory).activeStoryPages;
   const [pageNum, setPageNum] = useRecoilState(activePageIndex);
   const { numPages } = useRecoilValue(activeStoryStats);
 
   const handleAddPage = () => {
-    const newPage: PageProps = {
+    const newPage: Page = {
       id: pages.length + 1,
       messages: [],
     };

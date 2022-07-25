@@ -38,33 +38,7 @@ export const Navbar: React.FC = () => {
         >
           Editor
         </NavLink>
-        <NavLink
-          to={"/story:" + insideStory + "/preview"}
-          style={({ isActive }) => ({
-            borderBottom: isActive ? "6px double black" : "none",
-            color: isActive ? "#407178" : "black",
-          })}
-        >
-          Preview
-        </NavLink>
-        <NavLink
-          to={"/story:" + insideStory + "/test"}
-          style={({ isActive }) => ({
-            borderBottom: isActive ? "6px double black" : "none",
-            color: isActive ? "#267659" : "black",
-          })}
-        >
-          Test
-        </NavLink>
-        <NavLink
-          to={"/story:" + insideStory + "/testeditor"}
-          style={({ isActive }) => ({
-            borderBottom: isActive ? "6px double black" : "none",
-            color: isActive ? "#267659" : "black",
-          })}
-        >
-          WIP Editor
-        </NavLink>
+
         <NavLink
           to={"/story:" + insideStory + "/create-template"}
           style={({ isActive }) => ({
@@ -73,6 +47,15 @@ export const Navbar: React.FC = () => {
           })}
         >
           Create Template
+        </NavLink>
+        <NavLink
+          to={"/story:" + insideStory + "/preview"}
+          style={({ isActive }) => ({
+            borderBottom: isActive ? "6px double black" : "none",
+            color: isActive ? "#407178" : "black",
+          })}
+        >
+          Preview
         </NavLink>
       </S.NavbarDiv>
     );
