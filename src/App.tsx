@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Editor } from "./screens/Editor";
 import { Preview } from "./screens/Preview";
@@ -10,13 +10,11 @@ import { Theme } from "./styles/Theme";
 import { EditorSplitscreen } from "./components/EditorSplitscreen";
 import { Home } from "./screens/Home";
 import { CreateCustomTemplate } from "./screens/CreateCustomTemplate";
+import { renderScreen, screenDimensions } from "./atoms/screenDimensions";
+import { useRecoilValue } from "recoil";
+import { AiFillHome } from "react-icons/ai";
 
 const Router: React.FC = () => {
-  useEffect(() => {
-    // window.location.href.indexOf("story") > -1
-    //   ? setInstory(true)
-    //   : setInstory(false);
-  });
   return (
     <div>
       <Routes>
@@ -44,10 +42,38 @@ const Router: React.FC = () => {
 };
 
 const App: React.FC = () => {
+  const screen = useRecoilValue(screenDimensions);
+  useEffect(() => {
+    window.addEventListener("resize", renderScreen);
+
+    return () => {
+      window.removeEventListener("resize", renderScreen);
+    };
+  }, [window.innerWidth]);
+  console.log("screen width in app:", screen.winWidth);
   return (
     <ThemeProvider theme={Theme}>
-      <Navbar />
-      <Router />
+      {screen.winWidth > 650 ? (
+        <div>
+          <Navbar />
+          <Router />
+        </div>
+      ) : (
+        <div>
+          <NavLink
+            to={"/"}
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            <AiFillHome
+              style={{
+                padding: "5px",
+                color: "#262626",
+              }}
+            />
+          </NavLink>
+          <Router />
+        </div>
+      )}
     </ThemeProvider>
   );
 };

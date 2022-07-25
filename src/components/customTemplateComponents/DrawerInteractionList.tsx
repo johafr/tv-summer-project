@@ -8,12 +8,12 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   activeInteractionIndex,
   InteractionProps,
-  interactionListState,
+  activeTemplateState,
 } from "../../atoms/interactionComponents";
 import { activeInteraction } from "../../selectors/interactionComponents";
 
 export const DrawerInteractionList = () => {
-  const [interactionList] = useRecoilState(interactionListState);
+  const [interactionList] = useRecoilState(activeTemplateState);
   const [, setActiveIndex] = useRecoilState(activeInteractionIndex);
   const { currentInteraction } = useRecoilValue(activeInteraction);
 
@@ -31,7 +31,7 @@ export const DrawerInteractionList = () => {
     const newIndex =
       interaction === currentInteraction
         ? -1
-        : interactionList.findIndex(
+        : interactionList.interactions.findIndex(
             (interactionInList) =>
               interaction.interactionName === interactionInList.interactionName
           );
@@ -53,7 +53,7 @@ export const DrawerInteractionList = () => {
 
   return (
     <>
-      {interactionList.map((interaction: InteractionProps) => (
+      {interactionList.interactions.map((interaction: InteractionProps) => (
         <InteractionBody
           key={interaction.interactionName}
           active={checkActiveComponent(interaction)}

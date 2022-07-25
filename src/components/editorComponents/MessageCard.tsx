@@ -1,10 +1,10 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { MessageProps } from "../../atoms/stories";
-import { getAllInteractions } from "../../selectors/interactionComponents";
+import { getAllStyles } from "../../selectors/interactionComponents";
 import * as S from "../../styles/components/SentenceCardStyles";
 import { SpanCardChat } from "../customTemplateComponents/formats/SpanCardChat";
-import { SpeechBubbleChat } from "../customTemplateComponents/formats/SpeechBubbleChat";
+import { SpeechBubbleChat } from "../customTemplateComponents/formats/dialogFormats/SpeechBubbleChat";
 import { ThoughtBubbleChat } from "../customTemplateComponents/formats/ThoughtBubbleChat";
 
 export const MessageCard: React.FC<MessageProps> = ({
@@ -13,8 +13,8 @@ export const MessageCard: React.FC<MessageProps> = ({
   content,
   interactionType,
 }) => {
-  const allInteractions = useRecoilValue(getAllInteractions);
-  
+  const activeStyles = useRecoilValue(getAllStyles);
+
   switch (interactionType) {
     case "DIALOG":
       return (
@@ -22,7 +22,7 @@ export const MessageCard: React.FC<MessageProps> = ({
           name={person?.name}
           content={content}
           variant={align}
-          inputVariables={allInteractions[0].premadeFormats[0]}
+          inputVariables={activeStyles.currentDialogStyle}
         />
       );
     case "THOUGHT":
@@ -31,6 +31,7 @@ export const MessageCard: React.FC<MessageProps> = ({
           name={person?.name}
           content={content}
           variant={align}
+          inputVariables={activeStyles.currentThoughtStyle}
         />
       );
     case "NARRATIVE": // Er bare spancard, evt replace med noe annen styling senere

@@ -14,7 +14,6 @@ import { useParams } from "react-router-dom";
 import { activeStoryIndex } from "../atoms/stories";
 
 export const Editor: React.FC = () => {
-  const [username] = useRecoilState(usernameState);
   const { id } = useParams();
   const [, setStoryIndex] = useRecoilState(activeStoryIndex);
 
@@ -26,26 +25,22 @@ export const Editor: React.FC = () => {
   // Editor final return
   return (
     <div>
-      {username ? (
-        <S.ParentDiv>
-          {/* <TestComponent name={"Cornelius"} text={"hei på deg"} /> */}
-          <S.Editor>
-            <EditorNames />
-            {/* <EditorReadingTime /> */}
-            <S.TextForm>
-              <EditorInputField />
-            </S.TextForm>
-            <UpdatePageDisplay />
-          </S.Editor>
-          <S.DisplayScreenContainer>
-            <StoryPage />
-            <CurrentPageDisplay />
-          </S.DisplayScreenContainer>
-          <ChangeScreenSizeMenu />
-        </S.ParentDiv>
-      ) : (
-        <div>Please log in to use the tool</div>
-      )}
+      <S.ParentDiv>
+        {/* <TestComponent name={"Cornelius"} text={"hei på deg"} /> */}
+        <S.Editor>
+          <EditorNames />
+          {/* <EditorReadingTime /> */}
+          <S.TextForm>
+            <EditorInputField />
+          </S.TextForm>
+          <UpdatePageDisplay />
+        </S.Editor>
+        <S.DisplayScreenContainer>
+          <StoryPage />
+          <CurrentPageDisplay />
+        </S.DisplayScreenContainer>
+        <ChangeScreenSizeMenu />
+      </S.ParentDiv>
     </div>
   );
 };

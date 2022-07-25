@@ -3,15 +3,15 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { LeftCardChat } from "../components/customTemplateComponents/formats/LeftCardChat";
 import { SpanCardChat } from "../components/customTemplateComponents/formats/SpanCardChat";
-import { SpeechBubbleChat } from "../components/customTemplateComponents/formats/SpeechBubbleChat";
+import { SpeechBubbleChat } from "../components/customTemplateComponents/formats/dialogFormats/SpeechBubbleChat";
 import { ThoughtBubbleChat } from "../components/customTemplateComponents/formats/ThoughtBubbleChat";
 import { SingleNamedTextInput } from "../components/Editor Components/SingleNamedTextInput";
 import { getAllInteractions } from "../selectors/interactionComponents";
 
-import ArticleIcon from '@mui/icons-material/Article';
-import ForumIcon from '@mui/icons-material/Forum';
-import MessageIcon from '@mui/icons-material/Message';
-import BubbleChartIcon from '@mui/icons-material/BubbleChart';
+import ArticleIcon from "@mui/icons-material/Article";
+import ForumIcon from "@mui/icons-material/Forum";
+import MessageIcon from "@mui/icons-material/Message";
+import BubbleChartIcon from "@mui/icons-material/BubbleChart";
 import { activePageIndex, MessageProps } from "../atoms/stories";
 import { MessageCard } from "../components/editorComponents/MessageCard";
 import { activePage, activeStoryStats } from "../selectors/stories";
@@ -28,10 +28,9 @@ export const Test: React.FC = () => {
   const currentPage = useRecoilValue(activePage);
   const numberOfPages = useRecoilValue(activeStoryStats).numPages!;
 
-
   return (
     <>
-      <EditorFourBox/>
+      <EditorFourBox />
     </>
   );
 };
@@ -43,7 +42,6 @@ export const Test: React.FC = () => {
 //     </>
 //   );
 // };
-
 
 // export const Wrapper = styled.div`
 //   display: flex;
@@ -68,10 +66,8 @@ export const Test: React.FC = () => {
 //   text-align:center;
 // `;
 
-
-
-
-{/* <SpeechBubbleChat 
+{
+  /* <SpeechBubbleChat 
 name={"Mamma"} content={"We can probably tell you more tomorrow, Mikkel"} 
 variant={"left"} inputVariables={allInteractions[0].premadeFormats[0]} 
 />
@@ -97,11 +93,11 @@ inputVariables={allInteractions[0].premadeFormats[0]}
 name={"Sanna"} 
 content={"I remember wondering what that meant. How it could be both to touch and feel a mood."} 
 variant={"right"}
-/> */}
+/> */
+}
 
-
-
- {/* <div style={{display:'flex',border:'1px solid red'}}>
+{
+  /* <div style={{display:'flex',border:'1px solid red'}}>
         <div style={{flexDirection:'row'}}>
           <div style={{width:'160px',height:'80px',border:'1px solid black',margin:'20px'}}></div>
           <div style={{width:'160px',height:'80px',border:'1px solid black',margin:'20px'}}></div>
@@ -115,10 +111,11 @@ variant={"right"}
           <div style={{width:'160px',height:'80px',border:'1px solid black',margin:'20px'}}></div>
         </div>
         <div style={{width:'160px',height:'390px',border:'1px solid black',margin:'20px'}}></div>
-      </div> */}
+      </div> */
+}
 
-
-      {/* <div style={{paddingTop:'5vh'}}></div>
+{
+  /* <div style={{paddingTop:'5vh'}}></div>
       
      
 
@@ -193,4 +190,5 @@ variant={"right"}
               ))}
           </div>
         </Output>
-        </div> */}
+        </div> */
+}

@@ -6,7 +6,7 @@ import {
   getAllInteractions,
 } from "../selectors/interactionComponents";
 
-export interface Template {
+export interface TemplateProps {
   background?: null;
   interactions: InteractionProps[];
 }
@@ -40,7 +40,7 @@ const premadeDialogFormats: InteractionProps = {
       formatName: "SpeechBubbleChat",
       styles: [
         {
-          version: "DEAFULT SpeechBubbleChat",
+          version: "DEFAULT SpeechBubbleChat",
           id: 0,
           width: 51,
           borderRadius: 1.25,
@@ -77,7 +77,7 @@ const premadeThoughtFormats: InteractionProps = {
   premadeFormats: [
     {
       styleIndex: 0,
-      formatName: "Default Thought",
+      formatName: "ThoughtBubbleChat",
       styles: [
         {
           version: "DEFAULT",
@@ -110,7 +110,7 @@ const premadeShoutFormats: InteractionProps = {
   premadeFormats: [
     {
       styleIndex: 0,
-      formatName: "Default Shout",
+      formatName: "ShoutBubbleChat",
       styles: [
         {
           version: "DEFAULT",
@@ -144,14 +144,16 @@ const premadeCustomFormats: InteractionProps = {
 };
 
 //State
-const premadeComponents: InteractionProps[] = [
-  premadeDialogFormats,
-  premadeThoughtFormats,
-  premadeShoutFormats,
-  premadeCustomFormats,
-];
+const premadeComponents: TemplateProps = {
+  interactions: [
+    premadeDialogFormats,
+    premadeThoughtFormats,
+    premadeShoutFormats,
+    premadeCustomFormats,
+  ],
+};
 
-export const interactionListState = atom<InteractionProps[]>({
+export const activeTemplateState = atom<TemplateProps>({
   key: "interactionListState",
   default: premadeComponents,
 });
@@ -173,7 +175,10 @@ export const updateInteractionList = (newInteraction: InteractionProps) => {
     newInteraction,
     ...currentInteractionList.slice(currentInteractionIndex + 1),
   ];
-  setRecoil(interactionListState, updatedInteractionListState);
+  setRecoil(activeTemplateState, {
+    ...activeTemplateState,
+    interactions: updatedInteractionListState,
+  });
 };
 
 //interaction:
