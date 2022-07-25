@@ -21,18 +21,7 @@ export const CreateCustomTemplate = () => {
   return (
     <>
       <TopLine />
-      <Toolbar>
-        <ElementHeader>Elements</ElementHeader>
-        <Screen interactionIsActive={currentInteraction !== null}>
-          <ButtonSpan>Preview</ButtonSpan>
-          <ButtonSpan>Save</ButtonSpan>
-        </Screen>
-        {currentInteraction ? (
-          <CustomizeHeader>Customize</CustomizeHeader>
-        ) : (
-          <></>
-        )}
-      </Toolbar>
+
       <ContentDiv>
         <ElementsDrawer />
         <RenderScreen />
@@ -51,44 +40,4 @@ const ContentDiv = styled.div`
   display: inline-flex;
   width: 100%;
   height: 84.5vh;
-`;
-
-const Toolbar = styled.div`
-  height: 3rem;
-  border-bottom: 1px solid black;
-  display: flex;
-  align-items: center;
-`;
-
-const ButtonSpan = styled.span`
-  margin-left: 1rem;
-`;
-
-const ElementHeader = styled.h2`
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
-  margin: 0;
-  min-width: 20%;
-  height: 100%;
-`;
-
-const Screen = styled.div<{ interactionIsActive: boolean }>`
-  width: ${(props) => (props.interactionIsActive ? 60 : 80)}%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-`;
-
-const CustomizeHeader = styled.h2`
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
-  margin: 0;
-  min-width: 20%;
-  height: 100%;
 `;

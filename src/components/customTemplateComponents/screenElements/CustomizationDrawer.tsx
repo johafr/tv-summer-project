@@ -36,6 +36,7 @@ export const CustomizationDrawer = () => {
 
   return (
     <Drawer>
+      <CustomizeHeader>Customize</CustomizeHeader>
       <ElementHeader>Formats</ElementHeader>
       <>
         {currentInteractionFormats.map((format: FormatProps) => (
@@ -78,7 +79,7 @@ export const CustomizationDrawer = () => {
 
 const Drawer = styled.div`
   min-width: ${drawerWidth}%;
-  border-left: 1px solid black;
+  box-shadow: var(--right-shadow-elevation-low);
 `;
 const ElementHeader = styled.h3`
   justify-content: center;
@@ -88,9 +89,7 @@ const ElementHeader = styled.h3`
   margin: 0;
 `;
 
-const Format = styled.div`
-  border-bottom: 1px solid grey;
-`;
+const Format = styled.div``;
 
 const FormatHeader = styled.div<{ active: boolean }>`
   background-color: ${(props) => (props.active ? "#d3d3d3" : "white")};
@@ -128,4 +127,13 @@ const StyleBody = styled.div<{ active: boolean }>`
   font-size: small;
   cursor: pointer;
   height: 1.5rem;
+`;
+
+const CustomizeHeader = styled.h2`
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: 0;
+  min-width: 20%;
+  height: 3rem;
 `;

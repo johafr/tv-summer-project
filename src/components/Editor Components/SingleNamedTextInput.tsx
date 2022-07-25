@@ -1,27 +1,25 @@
 import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { getAllInteractions } from "../../selectors/interactionComponents";
+import { getAllStyles } from "../../selectors/interactionComponents";
 import { SpeechBubbleChat } from "../customTemplateComponents/formats/SpeechBubbleChat";
 
 // Component props
 type Props = {
   name: string; // Ta inn navn fra liste som prop
-
 };
 
 // Component wrapper function
 export const SingleNamedTextInput: React.FC<Props> = ({ name }) => {
-  const allInteractions = useRecoilValue(getAllInteractions);
+  const activeStyles = useRecoilValue(getAllStyles);
   const [inputNames, setInputNames] = useState([
-    [{ personName: "Lisa"}],
+    [{ personName: "Lisa" }],
     [{ personName: "" }],
-  ])
+  ]);
 
   const handleSubmitName = (e: React.FormEvent) => {
     e.preventDefault();
-  }
-
+  };
 
   // Component end-return
   return (
@@ -40,13 +38,13 @@ export const SingleNamedTextInput: React.FC<Props> = ({ name }) => {
         <SpeechBubbleChat
           name="Terje"
           content="Hei"
-          inputVariables={allInteractions[0].premadeFormats[0]}
+          inputVariables={activeStyles.currentDialogStyle}
         />
         <SpeechBubbleChat
           name="Lars"
           content="Hei"
           variant="right"
-          inputVariables={allInteractions[0].premadeFormats[0]}
+          inputVariables={activeStyles.currentDialogStyle}
         />
       </TextOutput>
     </Wrapper>

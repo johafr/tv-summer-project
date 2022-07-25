@@ -19,6 +19,7 @@ import { ThoughtBubbleChat } from "./customTemplateComponents/formats/ThoughtBub
 import {
   activeFormat,
   getAllInteractions,
+  getAllStyles,
 } from "../selectors/interactionComponents";
 
 // Component wrapper function
@@ -28,6 +29,7 @@ import {
 
 export const EditorSplitscreen: React.FC = () => {
   const [personList, setPersonList] = useRecoilState(persons);
+  const activeStyles = useRecoilValue(getAllStyles);
   //const [selectedPersons, setSelectedPersons] = useRecoilState<Person[]>(selectedPersonsState);
 
   const [inputLeft, setInputLeft] = useState<string>("");
@@ -189,7 +191,7 @@ export const EditorSplitscreen: React.FC = () => {
           name={card.person?.name}
           content={card.content}
           variant={card.align}
-          inputVariables={getSpeechBubbleChatProps[0].premadeFormats[0]}
+          inputVariables={activeStyles.currentDialogStyle}
         />
       );
     if (card.align === "right")
@@ -198,7 +200,7 @@ export const EditorSplitscreen: React.FC = () => {
           name={card.person?.name}
           content={card.content}
           variant={card.align}
-          inputVariables={getSpeechBubbleChatProps[0].premadeFormats[0]}
+          inputVariables={activeStyles.currentDialogStyle}
         />
       );
     if (card.align === "center")
