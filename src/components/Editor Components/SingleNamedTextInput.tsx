@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { getAllStyles } from "../../selectors/interactionComponents";
-import { SpeechBubbleChat } from "../customTemplateComponents/formats/SpeechBubbleChat";
+import { SpeechBubbleChat } from "../customTemplateComponents/formats/dialogFormats/SpeechBubbleChat";
 
 // Component props
 type Props = {
@@ -19,6 +19,15 @@ export const SingleNamedTextInput: React.FC<Props> = ({ name }) => {
 
   const handleSubmitName = (e: React.FormEvent) => {
     e.preventDefault();
+  };
+
+  const assignCorrectVariables = (type: string) => {
+    switch (type) {
+      case "DIALOG":
+        return activeStyles.currentDialogStyle;
+      default:
+        return activeStyles.currentThoughtStyle;
+    }
   };
 
   // Component end-return
@@ -38,13 +47,13 @@ export const SingleNamedTextInput: React.FC<Props> = ({ name }) => {
         <SpeechBubbleChat
           name="Terje"
           content="Hei"
-          inputVariables={activeStyles.currentDialogStyle}
+          inputVariables={assignCorrectVariables("DIALOG")}
         />
         <SpeechBubbleChat
           name="Lars"
           content="Hei"
           variant="right"
-          inputVariables={activeStyles.currentDialogStyle}
+          inputVariables={assignCorrectVariables("DIALOG")}
         />
       </TextOutput>
     </Wrapper>

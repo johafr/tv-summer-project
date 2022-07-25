@@ -4,7 +4,8 @@ import {
   activeFormat,
   activeInteraction,
 } from "../../selectors/interactionComponents";
-import { SpeechBubbleChat } from "./formats/SpeechBubbleChat";
+import { SpeechBubbleChat } from "./formats/dialogFormats/SpeechBubbleChat";
+import { ThoughtBubbleChat } from "./formats/ThoughtBubbleChat";
 
 export const RenderedInteraction = () => {
   const { selectedStyle, currentFormat } = useRecoilValue(activeFormat);
@@ -20,12 +21,21 @@ export const RenderedInteraction = () => {
           <SpeechBubbleChat
             content="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
             inputVariables={selectedStyle!}
-          ></SpeechBubbleChat>
+          />
+        );
+      case "ThoughtBubbleChat":
+        return (
+          <ThoughtBubbleChat
+            inputVariables={selectedStyle!}
+            content="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+          />
         );
       default:
         return <p>DefaultCase</p>;
     }
   };
+
+  const DisplayInteraction = (interaction: InteractionProps) => {};
 
   return <>{DisplayInteractionType(currentInteraction)}</>;
 };

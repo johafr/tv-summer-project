@@ -47,22 +47,25 @@ export const CustomizationDrawer = () => {
             >
               {format.formatName}
             </FormatHeader>
+
             {handleCheckIfFormatIsSelected(format) ? (
-              format.styles.map((style: StyleProps) => (
-                <StyleBody
-                  key={style.id}
-                  active={selectedStyle ? selectedStyle === style : false}
-                  onClick={() =>
-                    handleUpdateActiveStyle(
-                      format.styles.findIndex(
-                        (formatStyle) => style === formatStyle
+              <StylesContainer>
+                {format.styles.map((style: StyleProps) => (
+                  <StyleBody
+                    key={style.id}
+                    active={selectedStyle ? selectedStyle === style : false}
+                    onClick={() =>
+                      handleUpdateActiveStyle(
+                        format.styles.findIndex(
+                          (formatStyle) => style === formatStyle
+                        )
                       )
-                    )
-                  }
-                >
-                  {style.version}
-                </StyleBody>
-              ))
+                    }
+                  >
+                    {style.version}
+                  </StyleBody>
+                ))}
+              </StylesContainer>
             ) : (
               <></>
             )}
@@ -136,4 +139,11 @@ const CustomizeHeader = styled.h2`
   margin: 0;
   min-width: 20%;
   height: 3rem;
+`;
+
+const StylesContainer = styled.div`
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+  margin-left: 1px;
+  margin-right: 1px;
+  padding: 5px;
 `;
