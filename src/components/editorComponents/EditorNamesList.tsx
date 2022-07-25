@@ -64,12 +64,12 @@ export const EditorNamesList: React.FC<Props> = ({ numSelections, width }) => {
   };
   // Deletes a person when <user> clicks the delete trashcan icon.
   const handleDeletePerson = (person: Person) => {
-    const selectedPersonIndex = personList.findIndex(
+    const selectedPersonIndex = personList.persons.findIndex(
       (currentperson) => currentperson.id === person.id
     );
     const updatedPersons = [
-      ...personList.slice(0, selectedPersonIndex),
-      ...personList.slice(selectedPersonIndex + 1),
+      ...personList.persons.slice(0, selectedPersonIndex),
+      ...personList.persons.slice(selectedPersonIndex + 1),
     ];
     setPersonList(updatedPersons);
     if (numSelections === 1) {
@@ -83,16 +83,16 @@ export const EditorNamesList: React.FC<Props> = ({ numSelections, width }) => {
 
       // Prevents settings the color to null
       if (newColor !== undefined) {
-        const selectedPersonIndex = personList.findIndex(
+        const selectedPersonIndex = personList.persons.findIndex(
           (currentperson) => currentperson === person
         );
-        const selectedPerson = personList[selectedPersonIndex];
+        const selectedPerson = personList.persons[selectedPersonIndex];
 
         // Makes an updated personList (and updated person-object for instant color change across app).
         const updatedPersons = [
-          ...personList.slice(0, selectedPersonIndex),
+          ...personList.persons.slice(0, selectedPersonIndex),
           { ...selectedPerson, color: newColor },
-          ...personList.slice(selectedPersonIndex + 1),
+          ...personList.persons.slice(selectedPersonIndex + 1),
         ];
         const updatedPerson = {
           id: selectedPerson.id,
@@ -108,7 +108,7 @@ export const EditorNamesList: React.FC<Props> = ({ numSelections, width }) => {
     setViewColorPicker(false);
   }; // End update person color
 
-  const listNames = personList.map((person, index) => {
+  const listNames = personList.persons.map((person, index) => {
     return (
       <div key={index}>
         <S.List
