@@ -14,7 +14,8 @@ import { activePage, activeStoryStats } from "../selectors/stories";
 import { EditorNames } from "./editorComponents/EditorNames";
 import { EditorNamesInput } from "./editorComponents/EditorNamesInput";
 import { EditorNamesList } from "./splitEditorComponents/EditorNamesList";
-import { Person, persons } from "../atoms/persons";
+import { fourBoxSelectedPersonsState, Person, persons } from "../atoms/persons";
+import { PersonSelectModal } from "./editorComponents/PersonSelectModal";
 
 // Component props
 type Props = {
@@ -29,12 +30,30 @@ export const EditorFourBox: React.FC<Props> = ({  }) => {
     //Recoil selectors
     const currentPage = useRecoilValue(activePage);
     const numberOfPages = useRecoilValue(activeStoryStats).numPages!;
+
+
+    // Local States
     const [textInputs,setTextInputs] = useState([
         [{ inputField: ""}],
         [{ inputField: ""}],
         [{ inputField: ""}],
         [{ inputField: ""}],
     ]);
+
+    const [selectedPerson, setSelectedPerson] = useState<Person|undefined>(undefined)
+    const [viewPersonSelector, setViewPersonSelector] = useState<boolean[]>([
+      false,
+      false
+    ]);
+
+    // const [selectPersons, setSelectedPersons] = useState<Person[][]>([
+    //   [{ id: -1, name: "Person 1", color: "" }],
+    //   [{ id: -2, name: "Person 2", color: "" }],
+    // ]);
+
+    const [selectPersons,setSelectedPersons] = useRecoilState(fourBoxSelectedPersonsState)
+
+  
 
     
 
@@ -69,6 +88,24 @@ export const EditorFourBox: React.FC<Props> = ({  }) => {
     }
 
 
+    const handleSelectPerson = (person : Person) => {
+      selectedPerson === person ?
+        setSelectedPerson(undefined):
+        setSelectedPerson(person);
+      console.log(person)
+      console.log(selectedPerson)
+    }
+
+    const handleViewModal = (side : number) => {
+      const values = [...viewPersonSelector]
+      if (values[side] === true) {values[side] = false;}
+      else values[side] = true;
+      
+      if (side === 0) {values[1] = false}
+      if (side === 1) { values[0] = false}
+      setViewPersonSelector(values);
+      console.log(viewPersonSelector);
+    }
 
 
     // Component end-return
@@ -77,33 +114,36 @@ export const EditorFourBox: React.FC<Props> = ({  }) => {
         
         <EditorNamesList numSelections={1} width={50}/>
         <EditorNamesInput numSelections={1} />
-        
         <MainContainer>
             <Wrapper>
-              <Expandable>
+              <Expandable style={{width: '100%'}}>
                 <div style={{marginTop:'6%',border:'1px solid lightgray',paddingTop:'1rem',borderRadius:'100px'}}>
-                  <ArticleIcon/><p>Narrative</p>
+                  <ArticleIcon/>
+                  <p>Narrative</p>
                 </div>
               </Expandable>
-              <Expandable>
+              <Expandable style={{width: '100%'}}>
                 <div style={{marginTop:'9%',border:'1px solid lightgray',paddingTop:'1rem',borderRadius:'100px'}}>
-                  <ForumIcon/><p>Conversation</p>
+                  <ForumIcon/>
+                  <p>Conversation</p>
                 </div>
               </Expandable>
-              <Expandable>
+              <Expandable style={{width: '100%'}}>
                 <div style={{marginTop:'12%',border:'1px solid lightgray',paddingTop:'1rem',borderRadius:'100px'}}>
-                  <MessageIcon/><p>Text Message</p>
+                  <MessageIcon/>
+                  <p>Text Message</p>
                 </div>
               </Expandable>
-              <Expandable>
+              <Expandable style={{width: '100%'}}>
                 <div style={{marginTop:'9%', border:'1px solid lightgray',paddingTop:'1rem',borderRadius:'100px'}}>
-                  <BubbleChartIcon/><p>Thought</p>
+                  <BubbleChartIcon/>
+                  <p>Thought</p>
                 </div>
               </Expandable>
             </Wrapper>
             <Wrapper>
               <Expandable>
-                <div style={{width:'20rem',height:'8rem',border:'2px solid lightgray',borderRadius:'0px'}}>
+                <div style={{width:'30rem',height:'8rem',border:'2px solid lightgray',borderRadius:'0px'}}>
                   <h4 style={{color:'gray'}}>NARRATIVE</h4>
                   <form onSubmit={(event) => handleAddMessage(0,event, "NARRATIVE")}>
                     <TextInput  value={textInputs[0][0].inputField}placeholder="...." onChange={(event) => handleChangeTextInput(0, event)}/>
@@ -111,28 +151,56 @@ export const EditorFourBox: React.FC<Props> = ({  }) => {
                 </div>
               </Expandable>
               <Expandable>
-                <div style={{width:'20rem',height:'8rem',border:'1px solid lightgray',borderRadius:'0px'}}>
+                <div style={{width:'30rem',height:'8rem',border:'1px solid lightgray',borderRadius:'0px'}}>
                   <div style={{display:'inline-flex', width:'100%',position:'relative',top:'-24px'}}>
-                    <ConvoName style={{textAlign:'left'}}>
-                        <div style={{width:'20px',height:'20px',backgroundColor:personList[0].color,float:'left',position:'relative',top:'7px',marginRight:'5px',borderRadius:'100px'}}/>
-                        <div style={{position:'relative',left:'4px',top:'9px'}}>{personList[0].name}</div>
+                    <ConvoName style={{
+                      textAlign:'left', 
+                      backgroundColor: selectPersons[0][0].color}}
+                      onClick={() => handleViewModal(0)}
+                      >
+                        <div style={{
+                          width:'20px',
+                          height:'20px',
+                          backgroundColor:selectPersons[0][0].color,
+                          float:'left',
+                          position:'relative',
+                          top:'7px',
+                          marginRight:'5px',
+                          borderRadius:'100px'}}
+                        />
+                        <div style={{position:'relative',left:'4px',top:'9px'}}>{selectPersons[0][0].name}</div>
+                        <PersonSelectModal viewModal={viewPersonSelector} side={0}/>
                     </ConvoName>
-                    <ConvoName style={{textAlign:'right'}}>
-                        <div style={{position:'relative',right:'30px',top:'9px'}}>{personList[1].name}</div> 
-                        <div style={{width:'20px',height:'20px',backgroundColor:personList[1].color,float:'right',position:'relative',top:'-10px',marginLeft:'5px',borderRadius:'100px'}}/>
+                    <ConvoName style={{
+                      textAlign:'right',
+                      backgroundColor: selectPersons[1][0].color}}
+                      onClick={() => handleViewModal(1)}
+                    >
+                        <div style={{position:'relative',right:'30px',top:'9px'}}>{selectPersons[1][0].name}</div> 
+                        <div style={{
+                          width:'20px',
+                          height:'20px',
+                          backgroundColor:selectPersons[1][0].color,
+                          float:'right',
+                          position:'relative',
+                          top:'-10px',
+                          marginLeft:'5px',
+                          borderRadius:'100px'}}
+                        />
+                        <PersonSelectModal viewModal={viewPersonSelector} side={1}/>
                     </ConvoName>
                   </div>
                   <TextInput placeholder="...." style={{position:'relative',top:'-24px'}}/>
                 </div>
               </Expandable>
               <Expandable>
-                <div style={{width:'20rem',height:'8rem',border:'2px solid lightgray',borderRadius:'0px'}}>
+                <div style={{width:'30rem',height:'8rem',border:'2px solid lightgray',borderRadius:'0px'}}>
                   <h4 style={{color:'gray'}}>TEXT MESSAGE</h4>
                   <input placeholder="Write something..." style={{width:'19.6rem',height:'4rem',border:'none'}}/>
                 </div>
               </Expandable>
               <Expandable>
-                <div style={{width:'20rem',height:'8rem',border:'2px solid lightgray',borderRadius:'0px'}}>
+                <div style={{width:'30rem',height:'8rem',border:'2px solid lightgray',borderRadius:'0px'}}>
                   <h4 style={{color:'gray'}}>THOUGHT</h4>
                   <TextInput placeholder="...."/>
                 </div>
@@ -172,7 +240,7 @@ export const MainContainer = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width:25%;
+  width:;
   margin:1rem;
 `;
 

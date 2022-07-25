@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export type Person = {
+export type Person  = {
   id: number;
   name: string;
   color: string;
@@ -27,6 +27,14 @@ export const activePerson = atom<Person | undefined>({
 export const selectedPersonsState = atom<Person[]>({
   key: "selectedPersonsState",
   default: [],
+})
+
+export const fourBoxSelectedPersonsState = atom<Person[][]>({
+  key: "fourBoxSelectedPersons",
+  default: [
+    [{ id: -1, name: "Person 1", color: "" }],
+    [{ id: -2, name: "Person 2", color: "" }],
+  ],
 })
 
 // Modifer (ie adding items to a list state)
