@@ -1,17 +1,24 @@
 @media only screen and (max-width: 480px) {
 
     .screen-div {
-        /*min-height: 90vh;
-        width: 90vw;
-        color: white;*/
-        display: flex;
-        justify-content: center;
+        width: 100vw;
+        height: 100vh;
     }
 
     .content-div {
         display: flex;
         flex-direction: column;
         margin: 1rem;
+        border: 2px solid red;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .output-screen {
+        border: 10px solid blue;
+        width: 100vw;
+        height: 100vh;
+        background-color: red;
     }
 
     .bump {
@@ -19,10 +26,11 @@
     }
 
     .navbar-container {
+        display: none;
         opacity: 0;
     }
 
     .menu-container {
-        opacity: 0;
+        display: none;
     }
 }

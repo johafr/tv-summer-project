@@ -50,7 +50,7 @@ export const StoryPage: React.FC = () => {
         >
           <ArrowLeftIcon sx={{ color: "white" }} />
         </Fab>
-        <S.OutputScreen measurements={measurements}>
+        <S.OutputScreen className="output-screen" measurements={measurements}>
           <S.Bump className="bump" Theme={Theme} />
           <S.ContentDiv className="content-div" measurements={measurements}>
             {currentPage?.messages.map((card: MessageProps) => (
