@@ -12,6 +12,7 @@ import { activeStoryStats } from "../../selectors/stories";
 import Placeholder from "../../images/placeholder.png";
 import "../../styles/components/StoryCard.css";
 import { activeStoryIndex, StoryProps } from "../../atoms/stories";
+import { screenDimensions } from "../../atoms/screenDimensions";
 
 type StoryCardProps = {
   story: StoryProps;
@@ -20,6 +21,7 @@ type StoryCardProps = {
 export const StoryCard: React.FC<StoryCardProps> = ({ story }) => {
   const { numWords } = useRecoilValue(activeStoryStats);
   const [, setCurrentStoryIndex] = useRecoilState(activeStoryIndex);
+  const screen = useRecoilValue(screenDimensions);
 
   const handleNavigate = () => {
     setCurrentStoryIndex(story.id);
@@ -27,7 +29,11 @@ export const StoryCard: React.FC<StoryCardProps> = ({ story }) => {
 
   return (
     <NavLink
-      to={"/story:" + story.id + "/editor"}
+      to={
+        screen.winWidth > 650
+          ? "/story:" + story.id + "/editor"
+          : "/story:" + story.id + "/preview"
+      }
       className="NavLink"
       onClick={handleNavigate}
     >

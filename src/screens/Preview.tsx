@@ -6,10 +6,8 @@ import { useRecoilState } from "recoil";
 import { usernameState } from "../atoms/username";
 import { useParams } from "react-router-dom";
 import { activeStoryIndex } from "../atoms/stories";
-import "../styles/components/PreviewMobileFormat.css";
 
 export const Preview: React.FC = () => {
-  const [username] = useRecoilState(usernameState);
   const { id } = useParams();
   const [, setStoryIndex] = useRecoilState(activeStoryIndex);
 
@@ -20,14 +18,9 @@ export const Preview: React.FC = () => {
   }, []);
   return (
     <div>
-      {username ? (
-        <S.ScreenDiv className="screen-div">
-          <StoryPage />
-          <ChangeScreenSizeMenu />
-        </S.ScreenDiv>
-      ) : (
-        <div>Please log in to use the tool</div>
-      )}
+      <S.ScreenDiv className="screen-div">
+        <StoryPage />
+      </S.ScreenDiv>
     </div>
   );
 };

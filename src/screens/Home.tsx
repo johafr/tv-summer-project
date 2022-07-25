@@ -14,7 +14,6 @@ export const Home: React.FC = () => {
   const stories = useRecoilValue(storiesState);
   const [, setStoryIndex] = useRecoilState(activeStoryIndex);
   const [, setPageIndex] = useRecoilState(activePageIndex);
-  const [username] = useRecoilState(usernameState);
 
   useEffect(() => {
     setStoryIndex(-1);
@@ -23,27 +22,23 @@ export const Home: React.FC = () => {
 
   return (
     <ScreenDiv>
-      {username ? (
-        <Grid
-          container
-          sx={{
-            width: "100%",
-          }}
-        >
-          {stories.stories.map((story) => (
-            <Grid
-              item
-              xs={3.5}
-              sx={{ marginTop: "2rem", marginLeft: "1rem" }}
-              key={story.id}
-            >
-              <StoryCard story={story} />
-            </Grid>
-          ))}
-        </Grid>
-      ) : (
-        <div>Please log in to use the tool</div>
-      )}
+      <Grid
+        container
+        sx={{
+          width: "100%",
+        }}
+      >
+        {stories.stories.map((story) => (
+          <Grid
+            item
+            xs={3.5}
+            sx={{ marginTop: "2rem", marginLeft: "1rem" }}
+            key={story.id}
+          >
+            <StoryCard story={story} />
+          </Grid>
+        ))}
+      </Grid>
     </ScreenDiv>
   );
 };

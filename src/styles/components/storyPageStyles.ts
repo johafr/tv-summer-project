@@ -2,6 +2,34 @@ import styled from "styled-components";
 import { DisplayMeasurements } from "../../atoms/measurements";
 import { Theme as MuiTheme } from "@mui/material";
 
+export const GoLeftTouchDiv = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  width: 50vw;
+  height: 100vh;
+  background-color: transparent;
+`;
+
+export const GoRightTouchDiv = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  width: 50vw;
+  height: 100vh;
+  background-color: transparent;
+`;
+
+export const OutputScreenMobile = styled.div`
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+`;
+
 export const OutputScreen = styled.div<{ measurements: DisplayMeasurements }>`
   width: ${(props) => props.measurements.width}px;
   height: ${(props) => props.measurements.height}px;
@@ -23,6 +51,10 @@ export const Bump = styled.span<{ Theme: MuiTheme }>`
   background-color: ${(props) => props.Theme.palette.black.main};
 `;
 
+export const ScreenMobile = styled.div`
+  overflow: hidden;
+`;
+
 export const Screen = styled.div<{ measurements: DisplayMeasurements }>`
   position: relative;
   width: ${(props) => props.measurements.width + 100}px;
@@ -34,6 +66,11 @@ export const Screen = styled.div<{ measurements: DisplayMeasurements }>`
   align-items: center;
   overflow: hidden;
   //background-color: aqua;
+`;
+
+export const ContentDivMobile = styled.div`
+  background-color: #d3d3d3;
+  color: black;
 `;
 
 export const ContentDiv = styled.div<{ measurements: DisplayMeasurements }>`
