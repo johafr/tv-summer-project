@@ -1,7 +1,11 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { MessageProps } from "../../atoms/stories";
-import { getAllInteractions } from "../../selectors/interactionComponents";
+import {
+  activeFormat,
+  getAllInteractions,
+  getAllStyles,
+} from "../../selectors/interactionComponents";
 import * as S from "../../styles/components/SentenceCardStyles";
 import { SpanCardChat } from "../customTemplateComponents/formats/SpanCardChat";
 import { SpeechBubbleChat } from "../customTemplateComponents/formats/SpeechBubbleChat";
@@ -13,8 +17,9 @@ export const MessageCard: React.FC<MessageProps> = ({
   content,
   interactionType,
 }) => {
-  const allInteractions = useRecoilValue(getAllInteractions);
-  
+  const activeStyles = useRecoilValue(getAllStyles);
+  const { selectedStyle } = useRecoilValue(activeFormat);
+
   switch (interactionType) {
     case "DIALOG":
       return (
@@ -22,7 +27,7 @@ export const MessageCard: React.FC<MessageProps> = ({
           name={person?.name}
           content={content}
           variant={align}
-          inputVariables={allInteractions[0].premadeFormats[0]}
+          inputVariables={activeStyles.currentDialogStyle}
         />
       );
     case "THOUGHT":

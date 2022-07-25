@@ -1,18 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { FormatProps } from "../../../atoms/interactionComponents";
+import { StyleProps } from "../../../atoms/interactionComponents";
 
 // Component props
 type Props = {
   name?: string;
   content: string;
   variant?: string;
-  inputVariables: FormatProps;
+  inputVariables: StyleProps;
 };
 
 export const SpeechBubbleChat: React.FC<Props> = (props) => {
   return (
-    <div style={{ minWidth: props.inputVariables.styles[0].width }}>
+    <div style={{ minWidth: props.inputVariables.width }}>
       <Wrapper
         align={props.variant !== undefined ? props.variant : "left"}
         inputVariables={props.inputVariables}
@@ -33,16 +33,15 @@ export const SpeechBubbleChat: React.FC<Props> = (props) => {
 
 export const Wrapper = styled.div<{
   align?: string;
-  inputVariables: FormatProps;
+  inputVariables: StyleProps;
 }>`
   margin-top: 5%;
   margin-left: 6.5%;
   margin-right: 6.5%;
   padding: 1.5%;
-  background-color: ${(props) =>
-    props.inputVariables.styles[0].backgroundColor};
+  background-color: ${(props) => props.inputVariables.backgroundColor};
   position: relative;
-  border-radius: ${(props) => props.inputVariables.styles[0].borderRadius}rem;
+  border-radius: ${(props) => props.inputVariables.borderRadius}rem;
   min-width: 40%;
   max-width: 80%;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
