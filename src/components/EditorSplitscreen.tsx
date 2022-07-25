@@ -13,7 +13,7 @@ import { usernameState } from "../atoms/username";
 import { userIdRefState } from "../atoms/authentication";
 import { MessageCard } from "./editorComponents/MessageCard";
 import { useState } from "react";
-import { SpeechBubbleChat } from "./customTemplateComponents/formats/SpeechBubbleChat";
+import { SpeechBubbleChat } from "./customTemplateComponents/formats/dialogFormats/SpeechBubbleChat";
 import { SpanCardChat } from "./customTemplateComponents/formats/SpanCardChat";
 import { ThoughtBubbleChat } from "./customTemplateComponents/formats/ThoughtBubbleChat";
 import {

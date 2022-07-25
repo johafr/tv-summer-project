@@ -77,7 +77,7 @@ const premadeThoughtFormats: InteractionProps = {
   premadeFormats: [
     {
       styleIndex: 0,
-      formatName: "Default Thought",
+      formatName: "ThoughtBubbleChat",
       styles: [
         {
           version: "DEFAULT",
@@ -110,7 +110,7 @@ const premadeShoutFormats: InteractionProps = {
   premadeFormats: [
     {
       styleIndex: 0,
-      formatName: "Default Shout",
+      formatName: "ShoutBubbleChat",
       styles: [
         {
           version: "DEFAULT",

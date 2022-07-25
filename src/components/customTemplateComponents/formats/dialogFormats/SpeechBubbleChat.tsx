@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { StyleProps } from "../../../atoms/interactionComponents";
+import { StyleProps } from "../../../../atoms/interactionComponents";
 
 // Component props
 type Props = {
   name?: string;
   content: string;
   variant?: string;
+  //variables connected to template.
+  styleIndex?: number;
   inputVariables: StyleProps;
 };
 
 export const SpeechBubbleChat: React.FC<Props> = (props) => {
+  const [currentStyleIndex, setCurrentStyleIndex] = useState<number>(-1);
   return (
     <div style={{ minWidth: props.inputVariables.width }}>
       <Wrapper

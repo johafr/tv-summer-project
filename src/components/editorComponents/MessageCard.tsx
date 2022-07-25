@@ -1,14 +1,10 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { MessageProps } from "../../atoms/stories";
-import {
-  activeFormat,
-  getAllInteractions,
-  getAllStyles,
-} from "../../selectors/interactionComponents";
+import { getAllStyles } from "../../selectors/interactionComponents";
 import * as S from "../../styles/components/SentenceCardStyles";
 import { SpanCardChat } from "../customTemplateComponents/formats/SpanCardChat";
-import { SpeechBubbleChat } from "../customTemplateComponents/formats/SpeechBubbleChat";
+import { SpeechBubbleChat } from "../customTemplateComponents/formats/dialogFormats/SpeechBubbleChat";
 import { ThoughtBubbleChat } from "../customTemplateComponents/formats/ThoughtBubbleChat";
 
 export const MessageCard: React.FC<MessageProps> = ({
@@ -18,7 +14,6 @@ export const MessageCard: React.FC<MessageProps> = ({
   interactionType,
 }) => {
   const activeStyles = useRecoilValue(getAllStyles);
-  const { selectedStyle } = useRecoilValue(activeFormat);
 
   switch (interactionType) {
     case "DIALOG":
@@ -36,6 +31,7 @@ export const MessageCard: React.FC<MessageProps> = ({
           name={person?.name}
           content={content}
           variant={align}
+          inputVariables={activeStyles.currentThoughtStyle}
         />
       );
     default:
