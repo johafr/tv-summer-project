@@ -1,26 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { StyleProps } from "../../../atoms/interactionComponents";
-
-// Component props
-type Props = {
-  name?: string;
-  content: string;
-  variant?: string;
-  inputVariables: StyleProps;
-};
+import { Message } from "../../../atoms/stories";
 
 // Component wrapper function
-export const ThoughtBubbleChat: React.FC<Props> = (props) => {
+export const ThoughtBubbleChat: React.FC<Message> = (props) => {
   // Component end-return
   return (
     <div style={{ width: "100%", backgroundColor: "transparent" }}>
-      <Wrapper align={props.variant !== undefined ? props.variant : "left"}>
-        <Name align={props.variant !== undefined ? props.variant : "left"}>
-          {props.name}
+      <Wrapper align={props.person !== undefined ? props.person.align : "left"}>
+        <Name align={props.person !== undefined ? props.person.align : "left"}>
+          {props.person?.name}
         </Name>
         <Content>{props.content}</Content>
-        {props.variant === undefined || props.variant === "left" ? (
+        {props.person === undefined || props.person.align === "left" ? (
           <LeftDot></LeftDot>
         ) : (
           <RightDot></RightDot>

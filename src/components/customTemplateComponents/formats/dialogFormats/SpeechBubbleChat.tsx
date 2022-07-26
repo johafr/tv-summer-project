@@ -1,30 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { StyleProps } from "../../../../atoms/interactionComponents";
+import { Message } from "../../../../atoms/stories";
 
-// Component props
-type Props = {
-  name?: string;
-  content: string;
-  variant?: string;
-  //variables connected to template.
-  styleIndex?: number;
-  inputVariables: StyleProps;
-};
-
-export const SpeechBubbleChat: React.FC<Props> = (props) => {
-  const [currentStyleIndex, setCurrentStyleIndex] = useState<number>(-1);
+export const SpeechBubbleChat: React.FC<Message> = (props) => {
   return (
-    <div style={{ minWidth: props.inputVariables.width }}>
-      <Wrapper
-        align={props.variant !== undefined ? props.variant : "left"}
-        inputVariables={props.inputVariables}
-      >
-        <Name align={props.variant !== undefined ? props.variant : "left"}>
-          {props.name}
+    <div>
+      <Wrapper align={props.person !== undefined ? props.person.align : "left"}>
+        <Name align={props.person !== undefined ? props.person.align : "left"}>
+          {props.person?.name}
         </Name>
         <Text>{props.content}</Text>
-        {props.variant === undefined || props.variant === "left" ? (
+        {props.person === undefined || props.person.align === "left" ? (
           <LeftPoint />
         ) : (
           <RightPoint />
@@ -36,15 +22,14 @@ export const SpeechBubbleChat: React.FC<Props> = (props) => {
 
 export const Wrapper = styled.div<{
   align?: string;
-  inputVariables: StyleProps;
 }>`
   margin-top: 5%;
   margin-left: 6.5%;
   margin-right: 6.5%;
   padding: 1.5%;
-  background-color: ${(props) => props.inputVariables.backgroundColor};
+  background-color: white;
   position: relative;
-  border-radius: ${(props) => props.inputVariables.borderRadius}rem;
+  border-radius: 5rem;
   min-width: 40%;
   max-width: 80%;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);

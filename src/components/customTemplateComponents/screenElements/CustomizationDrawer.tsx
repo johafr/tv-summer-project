@@ -1,37 +1,31 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
-  FormatProps,
-  StyleProps,
-  updateActiveStyle,
+  ComponentFormat,
   updateCurrentActiveFormat,
-} from "../../../atoms/interactionComponents";
+} from "../../../atoms/template";
 import {
   activeFormat,
-  activeInteraction,
-} from "../../../selectors/interactionComponents";
+  activeCommunicationCategory,
+} from "../../../selectors/template";
 import { drawerWidth } from "./ElementsDrawer";
 
 export const CustomizationDrawer = () => {
-  const { currentInteraction, currentInteractionFormats } =
-    useRecoilValue(activeInteraction);
-  const { currentFormat, selectedStyle } = useRecoilValue(activeFormat);
+  const { currentInteraction, currentInteractionFormats } = useRecoilValue(
+    activeCommunicationCategory
+  );
+  const { currentFormat } = useRecoilValue(activeFormat);
 
-  const handleCheckIfFormatIsSelected = (format: FormatProps) => {
+  const handleCheckIfFormatIsSelected = (format: ComponentFormat) => {
     return currentFormat ? currentFormat === format : false;
   };
 
-  const handleUpdateActiveStyle = (newStyleIndex: number) => {
-    updateActiveStyle(newStyleIndex);
-  };
-
-  const handleUpdateActiveFormat = (format: FormatProps) => {
+  const handleUpdateActiveFormat = (format: ComponentFormat) => {
     updateCurrentActiveFormat(
       currentInteraction!.premadeFormats.findIndex(
-        (currentFormat: FormatProps) => currentFormat === format
+        (currentFormat: ComponentFormat) => currentFormat === format
       )
     );
-    updateActiveStyle(0);
   };
 
   return (
@@ -39,7 +33,7 @@ export const CustomizationDrawer = () => {
       <CustomizeHeader>Customize</CustomizeHeader>
       <ElementHeader>Formats</ElementHeader>
       <>
-        {currentInteractionFormats.map((format: FormatProps) => (
+        {currentInteractionFormats.map((format: ComponentFormat) => (
           <Format key={format.formatName}>
             <FormatHeader
               active={handleCheckIfFormatIsSelected(format)}
@@ -47,28 +41,6 @@ export const CustomizationDrawer = () => {
             >
               {format.formatName}
             </FormatHeader>
-
-            {handleCheckIfFormatIsSelected(format) ? (
-              <StylesContainer>
-                {format.styles.map((style: StyleProps) => (
-                  <StyleBody
-                    key={style.id}
-                    active={selectedStyle ? selectedStyle === style : false}
-                    onClick={() =>
-                      handleUpdateActiveStyle(
-                        format.styles.findIndex(
-                          (formatStyle) => style === formatStyle
-                        )
-                      )
-                    }
-                  >
-                    {style.version}
-                  </StyleBody>
-                ))}
-              </StylesContainer>
-            ) : (
-              <></>
-            )}
           </Format>
         ))}
       </>
@@ -114,24 +86,6 @@ const CustomizeFieldBody = styled.div`
   align-items: center;
 `;
 
-const StyleBody = styled.div<{ active: boolean }>`
-  background-color: ${(props) => (props.active ? "aliceblue" : "white")};
-  &:hover {
-    background-color: #d3d3d3;
-  }
-  margin: 0.6rem;
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  padding: 0.4rem;
-  border-radius: 2rem;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-  font-size: small;
-  cursor: pointer;
-  height: 1.5rem;
-`;
-
 const CustomizeHeader = styled.h2`
   justify-content: center;
   align-items: center;
@@ -139,11 +93,4 @@ const CustomizeHeader = styled.h2`
   margin: 0;
   min-width: 20%;
   height: 3rem;
-`;
-
-const StylesContainer = styled.div`
-  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
-  margin-left: 1px;
-  margin-right: 1px;
-  padding: 5px;
 `;
