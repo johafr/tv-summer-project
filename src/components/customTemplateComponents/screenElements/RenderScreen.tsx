@@ -1,31 +1,50 @@
+import { Grid } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { ComponentFormat } from "../../../atoms/template";
 import { activeCommunicationCategory } from "../../../selectors/template";
 import { InteractionSwitch } from "../../editorComponents/InteractionSwitch";
 
 const ToolbarHeight: number = 45.5;
 
 export const RenderScreen = () => {
-  const { currentInteraction } = useRecoilValue(activeCommunicationCategory);
+  const { currentCommunicationCategory, currentCommunicationFormats } =
+    useRecoilValue(activeCommunicationCategory);
 
   return (
-    <Screen interactionIsActive={currentInteraction !== null}>
-      <Toolbar interactionIsActive={currentInteraction !== null}>
+    <Screen interactionIsActive={currentCommunicationCategory !== null}>
+      <Toolbar interactionIsActive={currentCommunicationCategory !== null}>
         <ButtonSpan>Preview</ButtonSpan>
         <ButtonSpan>Save</ButtonSpan>
-      </Toolbar>{" "}
+      </Toolbar>
       <ComponentDisplay>
-        {currentInteraction && (
-          <InteractionSwitch
-            id={0}
-            content="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
-            format={[
-              currentInteraction!.interactionName,
-              currentInteraction!.premadeFormats[
-                currentInteraction!.activeFormatIndex
-              ].toString(),
-            ]}
-          />
+        {currentCommunicationCategory && (
+          <Grid container>
+            {currentCommunicationFormats.map((format: ComponentFormat) => (
+              <Grid
+                item
+                xs={3.4}
+                sx={{
+                  height: 100,
+                  margin: 2.3,
+                  justifyContent: "center",
+                  display: "flex",
+                  "&:hover": {
+                    backgroundColor: "#a4afb3",
+                  },
+                }}
+              >
+                <InteractionSwitch
+                  id={0}
+                  content="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+                  format={[
+                    currentCommunicationCategory.interactionName,
+                    format.formatName,
+                  ]}
+                />
+              </Grid>
+            ))}
+          </Grid>
         )}
       </ComponentDisplay>
     </Screen>
@@ -38,9 +57,6 @@ const Screen = styled.div<{ interactionIsActive: boolean }>`
 
 const ComponentDisplay = styled.div`
   background-color: #d4dfe3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: calc(100% - ${ToolbarHeight}px);
   border-radius: 1rem;
   margin: 1rem;
