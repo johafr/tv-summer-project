@@ -1,6 +1,6 @@
 import { selector } from "recoil";
 import {
-  activeInteractionIndex,
+  activeCommunicationCategoryIndex,
   ComponentFormat,
   activeTemplateState,
 } from "../atoms/template";
@@ -17,7 +17,7 @@ export const activeCommunicationCategory = selector({
   key: "activeCommunicationCategory",
   get: ({ get }) => {
     const interactionList = get(activeTemplateState);
-    const currentInteractionIndex = get(activeInteractionIndex);
+    const currentInteractionIndex = get(activeCommunicationCategoryIndex);
     const currentInteraction =
       currentInteractionIndex === -1
         ? null

@@ -7,10 +7,10 @@ import {
 
 export interface Template {
   background?: null;
-  communicationCategories: CommunicationCateogry[];
+  communicationCategories: CommunicationCategory[];
 }
 
-export interface CommunicationCateogry {
+export interface CommunicationCategory {
   activeFormatIndex: number;
   interactionName: string;
   premadeFormats: ComponentFormat[];
@@ -20,7 +20,7 @@ export interface ComponentFormat {
   formatName: string;
 }
 
-const premadeDialogFormats: CommunicationCateogry = {
+const premadeDialogFormats: CommunicationCategory = {
   activeFormatIndex: 0,
   interactionName: "DIALOG",
   premadeFormats: [
@@ -33,7 +33,7 @@ const premadeDialogFormats: CommunicationCateogry = {
   ],
 };
 
-const premadeThoughtFormats: CommunicationCateogry = {
+const premadeThoughtFormats: CommunicationCategory = {
   activeFormatIndex: 0,
   interactionName: "THOUGHT",
   premadeFormats: [
@@ -46,7 +46,7 @@ const premadeThoughtFormats: CommunicationCateogry = {
   ],
 };
 
-const premadeShoutFormats: CommunicationCateogry = {
+const premadeShoutFormats: CommunicationCategory = {
   activeFormatIndex: 0,
   interactionName: "SHOUT",
   premadeFormats: [
@@ -69,12 +69,12 @@ const premadeComponents: Template = {
 };
 
 export const activeTemplateState = atom<Template>({
-  key: "interactionListState",
+  key: "activeTemplateState",
   default: premadeComponents,
 });
 
-export const activeInteractionIndex = atom<number>({
-  key: "activeInteractionIndex",
+export const activeCommunicationCategoryIndex = atom<number>({
+  key: "activeCommunicationCateogryIndex",
   default: -1,
 });
 
@@ -82,14 +82,14 @@ export const activeInteractionIndex = atom<number>({
 
 //state:
 //updates the state where the data is stored
-export const updateInteractionList = (
-  newInteraction: CommunicationCateogry
+export const updateCommunicationCategoryList = (
+  communicationCategory: CommunicationCategory
 ) => {
   const currentInteractionList = getRecoil(getAllCommunicationCategories);
-  const currentInteractionIndex = getRecoil(activeInteractionIndex);
-  const updatedInteractionListState: CommunicationCateogry[] = [
+  const currentInteractionIndex = getRecoil(activeCommunicationCategoryIndex);
+  const updatedInteractionListState: CommunicationCategory[] = [
     ...currentInteractionList.slice(0, currentInteractionIndex),
-    newInteraction,
+    communicationCategory,
     ...currentInteractionList.slice(currentInteractionIndex + 1),
   ];
   setRecoil(activeTemplateState, {
@@ -102,17 +102,20 @@ export const updateInteractionList = (
 //updates the format list in the Interaction
 export const updateInteractionFormats = (newFormats: ComponentFormat[]) => {
   const { currentInteraction } = getRecoil(activeCommunicationCategory);
-  const updatedInteraction: CommunicationCateogry = {
+  const updatedInteraction: CommunicationCategory = {
     ...currentInteraction!,
     premadeFormats: newFormats,
   };
-  updateInteractionList(updatedInteraction);
+  updateCommunicationCategoryList(updatedInteraction);
 };
 
 //Format:
 export const updateCurrentActiveFormat = (index: number) => {
   const { currentInteraction } = getRecoil(activeCommunicationCategory);
-  updateInteractionList({ ...currentInteraction!, activeFormatIndex: index });
+  updateCommunicationCategoryList({
+    ...currentInteraction!,
+    activeFormatIndex: index,
+  });
 };
 
 //adds a new format to the list

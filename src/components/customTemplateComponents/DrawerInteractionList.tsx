@@ -6,18 +6,18 @@ import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
-  activeInteractionIndex,
-  CommunicationCateogry,
+  activeCommunicationCategoryIndex,
+  CommunicationCategory,
   activeTemplateState,
 } from "../../atoms/template";
 import { activeCommunicationCategory } from "../../selectors/template";
 
 export const DrawerInteractionList = () => {
   const [interactionList] = useRecoilState(activeTemplateState);
-  const [, setActiveIndex] = useRecoilState(activeInteractionIndex);
+  const [, setActiveIndex] = useRecoilState(activeCommunicationCategoryIndex);
   const { currentInteraction } = useRecoilValue(activeCommunicationCategory);
 
-  const checkActiveComponent = (interaction: CommunicationCateogry) => {
+  const checkActiveComponent = (interaction: CommunicationCategory) => {
     const active =
       currentInteraction === null
         ? false
@@ -27,7 +27,7 @@ export const DrawerInteractionList = () => {
     return active;
   };
 
-  const handleSetActiveInteraction = (interaction: CommunicationCateogry) => {
+  const handleSetActiveInteraction = (interaction: CommunicationCategory) => {
     const newIndex =
       interaction === currentInteraction
         ? -1
@@ -38,7 +38,7 @@ export const DrawerInteractionList = () => {
     setActiveIndex(newIndex);
   };
 
-  const GetIcon = (interaction: CommunicationCateogry) => {
+  const GetIcon = (interaction: CommunicationCategory) => {
     switch (interaction.interactionName) {
       case "DIALOG":
         return <ChatBubbleOutlineOutlinedIcon />;
@@ -54,7 +54,7 @@ export const DrawerInteractionList = () => {
   return (
     <>
       {interactionList.communicationCategories.map(
-        (interaction: CommunicationCateogry) => (
+        (interaction: CommunicationCategory) => (
           <InteractionBody
             key={interaction.interactionName}
             active={checkActiveComponent(interaction)}

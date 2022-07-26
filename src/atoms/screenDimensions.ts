@@ -1,12 +1,12 @@
 import { atom } from "recoil";
 import { setRecoil } from "recoil-nexus";
 
-interface screenDimensions {
+interface ScreenDimensions {
   winWidth: number;
   winHeight: number;
 }
 
-export const screenDimensions = atom<screenDimensions>({
+export const screenDimensions = atom<ScreenDimensions>({
   key: "screenDimensions",
   default: { winWidth: window.innerWidth, winHeight: window.innerHeight },
 });
