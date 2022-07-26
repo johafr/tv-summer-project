@@ -1,40 +1,26 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { activePageIndex, addMessage, Message } from "../../atoms/stories";
+import { addMessage, Message } from "../../atoms/stories";
 import { InteractionSwitch } from "./InteractionSwitch";
 
 import ArticleIcon from "@mui/icons-material/Article";
 import ForumIcon from "@mui/icons-material/Forum";
 import MessageIcon from "@mui/icons-material/Message";
 import BubbleChartIcon from "@mui/icons-material/BubbleChart";
-import { useRecoilValue, useRecoilState } from "recoil";
-import {
-  activeCommunicationCategory,
-  getAllCommunicationCategories,
-} from "../../selectors/template";
-import { activePage, activeStoryStats } from "../../selectors/stories";
+import { useRecoilValue } from "recoil";
+import { activeCommunicationCategory } from "../../selectors/template";
+import { activePage } from "../../selectors/stories";
 import { AddNewPersonInputField } from "./AddNewPersonInputField";
 import { EditorNamesList } from "./EditorNamesList";
-import {
-  fourBoxSelectedPersonsState,
-  Person,
-  allCharactersState,
-} from "../../atoms/Characters";
+import { Person, setSelectedPerson } from "../../atoms/Characters";
 import { PersonSelectModal } from "./PersonSelectModal";
-
-// Component props
-type Props = {};
+import { activePerson } from "../../selectors/Characters";
 
 // Component wrapper function
-export const EditorComponent: React.FC<Props> = ({}) => {
-  const [personList, setPersonList] = useRecoilState(allCharactersState);
-  const allInteractions = useRecoilValue(getAllCommunicationCategories);
-  const [pageNum, setPageNum] = useRecoilState(activePageIndex);
+export const EditorComponent: React.FC = () => {
   //Recoil selectors
   const currentPage = useRecoilValue(activePage);
   const { currentInteraction } = useRecoilValue(activeCommunicationCategory);
-
-  const numberOfPages = useRecoilValue(activeStoryStats).numPages!;
 
   // Local States
   const [textInputs, setTextInputs] = useState([
@@ -44,22 +30,11 @@ export const EditorComponent: React.FC<Props> = ({}) => {
     [{ inputField: "" }],
   ]);
 
-  const [selectedPerson, setSelectedPerson] = useState<Person | undefined>(
-    undefined
-  );
+  const selectedPerson = useRecoilValue(activePerson);
   const [viewPersonSelector, setViewPersonSelector] = useState<boolean[]>([
     false,
     false,
   ]);
-
-  // const [selectPersons, setSelectedPersons] = useState<Person[][]>([
-  //   [{ id: -1, name: "Person 1", color: "" }],
-  //   [{ id: -2, name: "Person 2", color: "" }],
-  // ]);
-
-  const [selectPersons, setSelectedPersons] = useRecoilState(
-    fourBoxSelectedPersonsState
-  );
 
   const handleAddMessage = (
     index: number,
@@ -69,14 +44,11 @@ export const EditorComponent: React.FC<Props> = ({}) => {
   ) => {
     e.preventDefault();
 
-    let messageType = "NONE";
-
     const correctInput: string = textInputs[0][0].inputField;
     const newMessage: Message = {
       id: currentPage.messages[currentPage.messages.length - 1].id + 1,
       person: selectedperson,
       content: correctInput,
-      align: "center",
       format: [
         currentInteraction!.interactionName,
         currentInteraction!.premadeFormats[
@@ -228,7 +200,9 @@ export const EditorComponent: React.FC<Props> = ({}) => {
                 <ConvoName
                   style={{
                     textAlign: "left",
-                    backgroundColor: selectPersons[0][0].color,
+                    backgroundColor: selectedPerson
+                      ? selectedPerson.color
+                      : "white",
                   }}
                   onClick={() => handleViewModal(0)}
                 >
@@ -236,7 +210,7 @@ export const EditorComponent: React.FC<Props> = ({}) => {
                     style={{
                       width: "20px",
                       height: "20px",
-                      backgroundColor: selectPersons[0][0].color,
+                      backgroundColor: "grey",
                       float: "left",
                       position: "relative",
                       top: "7px",
@@ -247,27 +221,27 @@ export const EditorComponent: React.FC<Props> = ({}) => {
                   <div
                     style={{ position: "relative", left: "4px", top: "9px" }}
                   >
-                    {selectPersons[0][0].name}
+                    {selectedPerson?.name}
                   </div>
                   <PersonSelectModal viewModal={viewPersonSelector} side={0} />
                 </ConvoName>
                 <ConvoName
                   style={{
                     textAlign: "right",
-                    backgroundColor: selectPersons[1][0].color,
+                    backgroundColor: "grey",
                   }}
                   onClick={() => handleViewModal(1)}
                 >
                   <div
                     style={{ position: "relative", right: "30px", top: "9px" }}
                   >
-                    {selectPersons[1][0].name}
+                    {selectedPerson?.name}
                   </div>
                   <div
                     style={{
                       width: "20px",
                       height: "20px",
-                      backgroundColor: selectPersons[1][0].color,
+                      backgroundColor: "grey",
                       float: "right",
                       position: "relative",
                       top: "-10px",
@@ -324,7 +298,6 @@ export const EditorComponent: React.FC<Props> = ({}) => {
                 id={card.id}
                 person={card.person}
                 content={card.content}
-                align={card.align}
                 format={card.format}
               />
             ))}

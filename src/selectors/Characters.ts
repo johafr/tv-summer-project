@@ -6,6 +6,8 @@ export const activePerson = selector({
   get: ({ get }) => {
     const characters = get(allCharactersState);
     const currentSelectedPersonIndex = get(selectedPersonIndex);
-    return characters[currentSelectedPersonIndex];
+    return currentSelectedPersonIndex < 0
+      ? undefined
+      : characters[currentSelectedPersonIndex];
   },
 });

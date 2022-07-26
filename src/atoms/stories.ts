@@ -25,7 +25,6 @@ export type Message = {
   id: number;
   person?: Person;
   content: string;
-  align: string;
   format: string[]; //[communicationCategory, Componentformat]
 };
 
@@ -38,9 +37,9 @@ const dummyPage1: Page = {
         id: 0,
         name: "Markus",
         color: "rgb(132, 176, 214",
+        align: "left",
       },
       content: "This is dummy data",
-      align: "right",
       format: [],
     },
     {
@@ -49,9 +48,9 @@ const dummyPage1: Page = {
         id: 1,
         name: "Lisa",
         color: "rgb(10, 214, 214",
+        align: "right",
       },
       content: "This is the second line",
-      align: "left",
       format: [],
     },
   ],
@@ -63,7 +62,6 @@ const dummyPage2: Page = {
     {
       id: 0,
       content: "This is a message without an assigned person",
-      align: "center",
       format: [],
     },
   ],

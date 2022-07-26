@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { MobileView } from "../components/editorComponents/MobileView";
 import * as S from "../styles/screens/PreviewStyles";
 import { useRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
@@ -17,7 +16,7 @@ export const Preview: React.FC = () => {
   return (
     <div>
       <S.ScreenDiv className="screen-div">
-        <MobileView />
+        <p>preview</p>
       </S.ScreenDiv>
     </div>
   );

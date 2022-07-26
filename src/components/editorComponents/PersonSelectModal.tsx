@@ -1,11 +1,12 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
-  fourBoxSelectedPersonsState,
   Person,
   allCharactersState,
+  setSelectedPerson,
 } from "../../atoms/Characters";
+import { activePerson } from "../../selectors/Characters";
 
 // Component props
 type Props = {
@@ -15,15 +16,13 @@ type Props = {
 
 // Component wrapper function
 export const PersonSelectModal: React.FC<Props> = ({ viewModal, side }) => {
-  const [selectPersons, setSelectedPersons] = useRecoilState(
-    fourBoxSelectedPersonsState
-  );
   const [personList] = useRecoilState(allCharactersState);
+  const selectedPerson = useRecoilValue(activePerson);
 
-  const handleModalSelection = (person: Person, side: number) => {
-    const values = [...selectPersons];
-    values[side] = [person];
-    setSelectedPersons(values);
+  const handleModalSelection = (person: Person) => {
+    selectedPerson === person
+      ? setSelectedPerson(undefined)
+      : setSelectedPerson(person);
   };
 
   const personsList = personList.map((person, index) => {
@@ -31,7 +30,7 @@ export const PersonSelectModal: React.FC<Props> = ({ viewModal, side }) => {
       <p
         key={index}
         style={{ textAlign: "left", marginLeft: "5px", padding: "0.2rem" }}
-        onClick={() => handleModalSelection(person, side)}
+        onClick={() => handleModalSelection(person)}
       >
         {person.name}
       </p>

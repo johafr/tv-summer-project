@@ -5,12 +5,12 @@ import { Message } from "../../../../atoms/stories";
 export const SpeechBubbleChat: React.FC<Message> = (props) => {
   return (
     <div>
-      <Wrapper align={props.align !== undefined ? props.align : "left"}>
-        <Name align={props.align !== undefined ? props.align : "left"}>
+      <Wrapper align={props.person !== undefined ? props.person.align : "left"}>
+        <Name align={props.person !== undefined ? props.person.align : "left"}>
           {props.person?.name}
         </Name>
         <Text>{props.content}</Text>
-        {props.align === undefined || props.align === "left" ? (
+        {props.person === undefined || props.person.align === "left" ? (
           <LeftPoint />
         ) : (
           <RightPoint />

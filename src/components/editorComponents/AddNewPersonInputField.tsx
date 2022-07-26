@@ -65,6 +65,7 @@ export const AddNewPersonInputField: React.FC<Props> = ({ numSelections }) => {
             : 0,
         name: nameNewPerson,
         color: randomColor(),
+        align: "",
       };
       addNewPerson(newPerson);
       setSelectedPerson(newPerson);

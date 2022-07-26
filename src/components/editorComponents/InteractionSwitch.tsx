@@ -15,7 +15,6 @@ export const InteractionSwitch: React.FC<Message> = (props) => {
           return (
             <SpeechBubbleChat
               id={props.id}
-              align={props.align}
               format={props.format}
               content={props.content}
               person={props.person}
@@ -28,7 +27,6 @@ export const InteractionSwitch: React.FC<Message> = (props) => {
       return (
         <ThoughtBubbleChat
           id={props.id}
-          align={props.align}
           format={props.format}
           content={props.content}
           person={props.person}
