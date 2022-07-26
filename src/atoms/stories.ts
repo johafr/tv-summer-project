@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { Person } from "./persons";
+import { Person } from "./Characters";
 import { getRecoil, setRecoil } from "recoil-nexus";
 import { activePage, activeStory } from "../selectors/stories";
 

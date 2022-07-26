@@ -1,8 +1,13 @@
 import { Tooltip } from "@mui/material";
 import React, { useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { addPerson, charactersState, Person } from "../../atoms/persons";
-import { activePerson } from "../../selectors/persons";
+import { useRecoilValue } from "recoil";
+import {
+  addNewPerson,
+  allCharactersState,
+  Person,
+  setSelectedPerson,
+} from "../../atoms/Characters";
+import { activePerson } from "../../selectors/Characters";
 import * as S from "../../styles/components/EditorNameInput";
 
 // Component props
@@ -12,7 +17,7 @@ type Props = {
 
 // Component wrapper function
 export const AddNewPersonInputField: React.FC<Props> = ({ numSelections }) => {
-  const [personList, setPersonList] = useRecoilState(charactersState);
+  const personList = useRecoilValue(allCharactersState);
   const selectedPerson = useRecoilValue(activePerson);
   const [nameNewPerson, setNameNewPerson] = useState("");
 
@@ -44,7 +49,7 @@ export const AddNewPersonInputField: React.FC<Props> = ({ numSelections }) => {
   const handleAddName = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const nameExists = personList.persons.findIndex(
+    const nameExists = personList.findIndex(
       (person: Person) =>
         person.name.toUpperCase() === nameNewPerson.toUpperCase()
     );
@@ -55,13 +60,13 @@ export const AddNewPersonInputField: React.FC<Props> = ({ numSelections }) => {
       };
       const newPerson = {
         id:
-          personList.persons.length !== 0
+          personList.length !== 0
             ? personList[personList.length - 1].id + 1
             : 0,
         name: nameNewPerson,
         color: randomColor(),
       };
-      setPersonList((currentPersons) => addPerson(currentPersons, newPerson));
+      addNewPerson(newPerson);
       setSelectedPerson(newPerson);
       setNameNewPerson("");
     } else {

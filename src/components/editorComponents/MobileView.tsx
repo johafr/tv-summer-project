@@ -4,10 +4,6 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { activePageIndex, Message } from "../../atoms/stories";
 
 import { Theme } from "../../styles/Theme";
-import {
-  DisplayMeasurements,
-  screenMeasurements,
-} from "../../atoms/measurements";
 import * as S from "../../styles/components/storyPageStyles";
 
 import { activePage, activeStoryStats } from "../../selectors/stories";
@@ -19,7 +15,6 @@ import styled from "styled-components";
 
 export const MobileView: React.FC = () => {
   //Recoil values
-  const [measurements] = useRecoilState(screenMeasurements);
   const [pageNum, setPageNum] = useRecoilState(activePageIndex);
   const { numPages } = useRecoilValue(activeStoryStats);
 
@@ -43,7 +38,7 @@ export const MobileView: React.FC = () => {
   return (
     <>
       {screen.winWidth > 650 ? (
-        <S.Screen className="screen" measurements={measurements}>
+        <S.Screen className="screen">
           <Fab
             id="fab"
             size="small"
@@ -59,9 +54,9 @@ export const MobileView: React.FC = () => {
             <ArrowLeftIcon sx={{ color: "white" }} />
           </Fab>
 
-          <S.OutputScreen className="output-screen" measurements={measurements}>
+          <S.OutputScreen className="output-screen">
             <S.Bump className="bump" Theme={Theme} />
-            <S.ContentDiv className="content-div" measurements={measurements}>
+            <S.ContentDiv className="content-div">
               {currentPage?.messages.map((card: Message) => (
                 <InteractionSwitch
                   key={card.id}
@@ -109,16 +104,16 @@ export const MobileView: React.FC = () => {
           <S.GoRightTouchDiv onClick={handleGoRight} />
         </S.ScreenMobile>
       )}
-      <StyledDiv measurements={measurements}>
+      <StyledDiv>
         Page {pageNum + 1} of {numPages}
       </StyledDiv>
     </>
   );
 };
 
-const StyledDiv = styled.span<{ measurements: DisplayMeasurements }>`
+const StyledDiv = styled.span`
   position: absolute;
-  top: ${(props) => 570 - (570 - props.measurements.height) / 2 + 6}px;
+  top: 5px;
   width: 100%;
   justify-content: center;
   display: flex;

@@ -18,8 +18,8 @@ import { EditorNamesList } from "./EditorNamesList";
 import {
   fourBoxSelectedPersonsState,
   Person,
-  charactersState,
-} from "../../atoms/persons";
+  allCharactersState,
+} from "../../atoms/Characters";
 import { PersonSelectModal } from "./PersonSelectModal";
 
 // Component props
@@ -27,7 +27,7 @@ type Props = {};
 
 // Component wrapper function
 export const EditorComponent: React.FC<Props> = ({}) => {
-  const [personList, setPersonList] = useRecoilState(charactersState);
+  const [personList, setPersonList] = useRecoilState(allCharactersState);
   const allInteractions = useRecoilValue(getAllCommunicationCategories);
   const [pageNum, setPageNum] = useRecoilState(activePageIndex);
   //Recoil selectors

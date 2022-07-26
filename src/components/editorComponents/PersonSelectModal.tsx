@@ -4,8 +4,8 @@ import styled from "styled-components";
 import {
   fourBoxSelectedPersonsState,
   Person,
-  charactersState,
-} from "../../atoms/persons";
+  allCharactersState,
+} from "../../atoms/Characters";
 
 // Component props
 type Props = {
@@ -18,7 +18,7 @@ export const PersonSelectModal: React.FC<Props> = ({ viewModal, side }) => {
   const [selectPersons, setSelectedPersons] = useRecoilState(
     fourBoxSelectedPersonsState
   );
-  const [personList] = useRecoilState(charactersState);
+  const [personList] = useRecoilState(allCharactersState);
 
   const handleModalSelection = (person: Person, side: number) => {
     const values = [...selectPersons];
