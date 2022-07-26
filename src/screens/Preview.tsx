@@ -3,6 +3,7 @@ import * as S from "../styles/screens/PreviewStyles";
 import { useRecoilState } from "recoil";
 import { useParams } from "react-router-dom";
 import { activeStoryIndex } from "../atoms/stories";
+import { MobileView } from "../components/editorComponents/MobileView";
 
 export const Preview: React.FC = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ export const Preview: React.FC = () => {
   return (
     <div>
       <S.ScreenDiv className="screen-div">
-        <p>preview</p>
+        <MobileView />
       </S.ScreenDiv>
     </div>
   );
