@@ -88,19 +88,11 @@ export const AddNewPersonInputField: React.FC<Props> = ({ numSelections }) => {
       <Tooltip title="Add name/remove name.">
         <form onSubmit={(event) => handleAddName(event)}>
           <S.Input
-            style={{
-              cursor: selectedPerson ? "pointer" : "text",
-              backgroundColor:
-                personList.length > 0 ? selectedPerson?.color : "white",
-            }}
+            style={{cursor: selectedPerson ? "pointer" : "text"}}
             type="text"
             onClick={handleNameClick}
             placeholder="Write a name..."
-            value={
-              selectedPerson && personList.length > 0
-                ? selectedPerson?.name
-                : nameNewPerson
-            }
+            value={nameNewPerson}
             onChange={(event) => setNameNewPerson(event.target.value)}
           />
         </form>

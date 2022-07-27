@@ -18,6 +18,7 @@ export const Wrapper = styled.div`
 export const Expandable = styled.div`
   text-align: center;
   width: 100%;
+  height:50%;
   display: flex;
   flex-direction: row;
   flex-wrap: no-wrap;
@@ -46,15 +47,18 @@ export const IconContainer = styled.div`
 export const InputContainer = styled.div`
   border: 1px solid lightgray;
   border-radius: 0;
-  width:80%;
+  width:60%;
 `;
 
 export const TextInput = styled.input`
   width: 99%;
-  height: 4rem;
+  height: 7.7rem;
+  position:relative;
   border: none;
-  margin:0;
-  margin-top:1rem;
+  borde
+  margin-bottom:0;
+  margin-top:0rem;
+
 `;
 
 export const ConvoName = styled.h5`

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { activePageIndex, addMessage, Message } from "../../atoms/stories";
 import { InteractionSwitch } from "./InteractionSwitch";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { activeCommunicationCategory, getAllCommunicationCategories } from "../../selectors/template";
+import { activeCommunicationCategory, communicationCategoriesList } from "../../selectors/template";
 import { activePage, activeStoryStats } from "../../selectors/stories";
 import { AddNewPersonInputField } from "./AddNewPersonInputField";
 import { EditorNamesList } from "./EditorNamesList";
@@ -16,6 +16,17 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import { Theme } from "../../styles/Theme";
 import * as S from "../../styles/components/MobileView";
+import { CommunicationCategory } from "../../atoms/template";
+import { Visibility } from "@mui/icons-material";
+import { visibileBoxesState } from "../../atoms/editor";
+
+export type VisibilityBoxes = {
+  narrative : boolean;
+  dialog : boolean;
+  textmessage : boolean
+  thought : boolean
+  shout : boolean
+}
 
 // Component wrapper function
 export const EditorComponent: React.FC = () => {
@@ -26,8 +37,13 @@ export const EditorComponent: React.FC = () => {
   const { numPages } = useRecoilValue(activeStoryStats);
   const numberOfPages = useRecoilValue(activeStoryStats).numPages!;
   const { currentCommunicationCategory } = useRecoilValue(activeCommunicationCategory);
-  const categoriesList = useRecoilValue(getAllCommunicationCategories)
+  const categoriesList = useRecoilValue(communicationCategoriesList)
   const selectedPerson = useRecoilValue(activePerson);
+
+  const [visibleBoxes,setVisibileBoxes] = useRecoilState(visibileBoxesState)
+
+  // Local States
+  
 
 
   const handleGoLeft = () => {
@@ -42,10 +58,44 @@ export const EditorComponent: React.FC = () => {
     }
   };
 
-  const listInputs = categoriesList.map((category,index) => {
-    return (
-      <ComInputBox category={category}/>
-    )
+  const toggleBoxesHandler = (category : string, value : boolean) => {
+
+  }
+
+  const listInputs = categoriesList.map((category: CommunicationCategory,index: number) => {
+    switch(category.interactionName) {
+      case "NARRATIVE":
+        if (visibleBoxes.narrative === true) {
+          return (
+            <ComInputBox category={category}/>
+          )} else break;
+      case "DIALOG":
+        if (visibleBoxes.dialog === true) {
+        return (
+          <ComInputBox category={category}/>
+        )} else break;
+      case "TEXTMESSAGE":
+        if (visibleBoxes.textmessage === true) {
+        return (
+          <ComInputBox category={category}/>
+        )} else break;
+      case "THOUGHT":
+        if (visibleBoxes.thought === true) {
+        return (
+          <ComInputBox category={category}/>
+        )} else break;
+      case "SHOUT":
+        if (visibleBoxes.shout === true) {
+        return (
+          <ComInputBox category={category}/>
+        )} else break;
+
+      default:
+        return (
+          <ComInputBox category={category}/>
+        )
+    }
+
   })
 
   // Component end-return
@@ -79,7 +129,7 @@ export const EditorComponent: React.FC = () => {
             <ArrowLeftIcon sx={{ color: "white", fontSize: "3rem" }} />
           </Fab>
           <S.LoudSpeaker />
-          <S.Screen>
+          <S.Screen >
             {currentPage?.messages.map((card: Message) => (
               <InteractionSwitch
                 key={card.id}
