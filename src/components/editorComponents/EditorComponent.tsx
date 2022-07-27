@@ -8,13 +8,14 @@ import ForumIcon from "@mui/icons-material/Forum";
 import MessageIcon from "@mui/icons-material/Message";
 import BubbleChartIcon from "@mui/icons-material/BubbleChart";
 import { useRecoilValue } from "recoil";
-import { activeCommunicationCategory } from "../../selectors/template";
+import { activeCommunicationCategory, getAllCommunicationCategories } from "../../selectors/template";
 import { activePage } from "../../selectors/stories";
 import { AddNewPersonInputField } from "./AddNewPersonInputField";
 import { EditorNamesList } from "./EditorNamesList";
 import { Person, setSelectedPerson } from "../../atoms/Characters";
 import { PersonSelectModal } from "./PersonSelectModal";
 import { activePerson } from "../../selectors/Characters";
+import { ComInputBox } from "./ComInputBox";
 
 // Component wrapper function
 export const EditorComponent: React.FC = () => {
@@ -23,6 +24,8 @@ export const EditorComponent: React.FC = () => {
   const { currentCommunicationCategory } = useRecoilValue(
     activeCommunicationCategory
   );
+
+  const catergoriesList = useRecoilValue(getAllCommunicationCategories)
 
   // Local States
   const [textInputs, setTextInputs] = useState([
@@ -54,6 +57,7 @@ export const EditorComponent: React.FC = () => {
       content: correctInput,
       format: [
         currentCommunicationCategory!.interactionName,
+
         currentCommunicationCategory!.premadeFormats[
           currentCommunicationCategory!.activeFormatIndex
         ].toString(),
@@ -100,6 +104,12 @@ export const EditorComponent: React.FC = () => {
     console.log(viewPersonSelector);
   };
 
+  const listInputs = catergoriesList.map((category,index) => {
+    return (
+      <ComInputBox category={category}/>
+    )
+  })
+
   // Component end-return
   return (
     <>
@@ -111,8 +121,32 @@ export const EditorComponent: React.FC = () => {
 
         {/* Wrapper for only the editor boxes */}
         <Wrapper style={{ }} >
+          {listInputs}
 
           {/* Wrappers for individual components */}
+
+        {/* {catergoriesList.map((category) => (
+          <Expandable style={{}}>
+          <IconContainer style={{ }}>
+            <div>
+              <ArticleIcon />
+              <p>{category.interactionName}</p>
+          </div>
+          </IconContainer>
+
+          <InputContainer style={{}}>
+            <ConvoName style={{border: 'none', textAlign: 'center'}}>NARRATIVE</ConvoName>
+            <form onSubmit={(event) => handleAddMessage(0, event, "NARRATIVE")}>
+              <TextInput
+                value={textInputs[0][0].inputField}
+                placeholder="Write a narrative..."
+                onChange={(event) => handleChangeTextInput(0, event)}
+              />
+            </form>
+          </InputContainer>
+
+        </Expandable>
+        ))}
 
           <Expandable style={{}}>
             <IconContainer style={{ }}>
@@ -221,7 +255,7 @@ export const EditorComponent: React.FC = () => {
               </form>
             </InputContainer>
 
-          </Expandable> 
+          </Expandable>  */}
 
 
         </Wrapper>
