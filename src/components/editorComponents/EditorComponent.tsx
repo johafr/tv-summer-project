@@ -1,31 +1,34 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { addMessage, Message } from "../../atoms/stories";
+import { activePageIndex, addMessage, Message } from "../../atoms/stories";
 import { InteractionSwitch } from "./InteractionSwitch";
-
-import ArticleIcon from "@mui/icons-material/Article";
-import ForumIcon from "@mui/icons-material/Forum";
-import MessageIcon from "@mui/icons-material/Message";
-import BubbleChartIcon from "@mui/icons-material/BubbleChart";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { activeCommunicationCategory, getAllCommunicationCategories } from "../../selectors/template";
-import { activePage } from "../../selectors/stories";
+import { activePage, activeStoryStats } from "../../selectors/stories";
 import { AddNewPersonInputField } from "./AddNewPersonInputField";
 import { EditorNamesList } from "./EditorNamesList";
 import { Person, setSelectedPerson } from "../../atoms/Characters";
 import { PersonSelectModal } from "./PersonSelectModal";
 import { activePerson } from "../../selectors/Characters";
 import { ComInputBox } from "./ComInputBox";
+import { Fab } from "@mui/material";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import { Theme } from "../../styles/Theme";
+import * as S from "../../styles/components/MobileView";
 
 // Component wrapper function
 export const EditorComponent: React.FC = () => {
   //Recoil selectors
   const currentPage = useRecoilValue(activePage);
+  const [pageNum, setPageNum] = useRecoilState(activePageIndex);
+  const { numPages } = useRecoilValue(activeStoryStats);
+  const numberOfPages = useRecoilValue(activeStoryStats).numPages!;
   const { currentCommunicationCategory } = useRecoilValue(
     activeCommunicationCategory
   );
 
-  const catergoriesList = useRecoilValue(getAllCommunicationCategories)
+  const categoriesList = useRecoilValue(getAllCommunicationCategories)
 
   // Local States
   const [textInputs, setTextInputs] = useState([
@@ -41,6 +44,18 @@ export const EditorComponent: React.FC = () => {
     false,
     false,
   ]);
+
+  const handleGoLeft = () => {
+    if (pageNum !== 0) {
+      setPageNum(pageNum! - 1);
+    }
+  };
+
+  const handleGoRight = () => {
+    if (pageNum! < numberOfPages - 1) {
+      setPageNum(pageNum! + 1);
+    }
+  };
 
   const handleAddMessage = (
     index: number,
@@ -104,7 +119,7 @@ export const EditorComponent: React.FC = () => {
     console.log(viewPersonSelector);
   };
 
-  const listInputs = catergoriesList.map((category,index) => {
+  const listInputs = categoriesList.map((category,index) => {
     return (
       <ComInputBox category={category}/>
     )
@@ -118,7 +133,6 @@ export const EditorComponent: React.FC = () => {
 
       {/* Wrapper for Editor Boxes + Output Screen */}
       <MainContainer>
-
         {/* Wrapper for only the editor boxes */}
         <Wrapper style={{ }} >
           {listInputs}
@@ -149,16 +163,20 @@ export const EditorComponent: React.FC = () => {
         ))}
 
           <Expandable style={{}}>
-            <IconContainer style={{ }}>
+            <IconContainer style={{}}>
               <div>
                 <ArticleIcon />
                 <p>Narrative</p>
-            </div>
+              </div>
             </IconContainer>
 
             <InputContainer style={{}}>
-              <ConvoName style={{border: 'none', textAlign: 'center'}}>NARRATIVE</ConvoName>
-              <form onSubmit={(event) => handleAddMessage(0, event, "NARRATIVE")}>
+              <ConvoName style={{ border: "none", textAlign: "center" }}>
+                NARRATIVE
+              </ConvoName>
+              <form
+                onSubmit={(event) => handleAddMessage(0, event, "NARRATIVE")}
+              >
                 <TextInput
                   value={textInputs[0][0].inputField}
                   placeholder="Write a narrative..."
@@ -166,11 +184,9 @@ export const EditorComponent: React.FC = () => {
                 />
               </form>
             </InputContainer>
-
           </Expandable>
 
-
-           <Expandable style={{ }}>
+          <Expandable style={{}}>
             <IconContainer style={{}}>
               <div>
                 <ForumIcon />
@@ -179,16 +195,22 @@ export const EditorComponent: React.FC = () => {
             </IconContainer>
 
             <InputContainer>
-              <div style={{display:'flex',flexDirection: 'row'}}>
-                <ConvoName onClick={() => handleViewModal(0)} style={{width: '85%', backgroundColor:selectedPerson?.color}}>
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <ConvoName
+                  onClick={() => handleViewModal(0)}
+                  style={{
+                    width: "85%",
+                    backgroundColor: selectedPerson?.color,
+                  }}
+                >
                   {selectedPerson?.name.toString()}
                   <PersonSelectModal viewModal={viewPersonSelector} side={0} />
                 </ConvoName>
-                <ConvoName style={{width:'15%', backgroundColor:'lightgray'}}></ConvoName>
+                <ConvoName
+                  style={{ width: "15%", backgroundColor: "lightgray" }}
+                ></ConvoName>
               </div>
-              <form
-                onSubmit={(event) => handleAddMessage(1, event, "DIALOG")}
-              >
+              <form onSubmit={(event) => handleAddMessage(1, event, "DIALOG")}>
                 <TextInput
                   value={textInputs[1][0].inputField}
                   placeholder="Write a dialogue..."
@@ -196,11 +218,9 @@ export const EditorComponent: React.FC = () => {
                 />
               </form>
             </InputContainer>
-          
           </Expandable>
 
-
-          <Expandable style={{ }}>
+          <Expandable style={{}}>
             <IconContainer style={{}}>
               <div>
                 <MessageIcon />
@@ -209,14 +229,22 @@ export const EditorComponent: React.FC = () => {
             </IconContainer>
 
             <InputContainer>
-              <div style={{display:'flex',flexDirection: 'row'}}>
-                <ConvoName onClick={() => handleViewModal(1)} style={{width: '85%', backgroundColor:selectedPerson?.color}}>
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <ConvoName
+                  onClick={() => handleViewModal(1)}
+                  style={{
+                    width: "85%",
+                    backgroundColor: selectedPerson?.color,
+                  }}
+                >
                   {selectedPerson?.name.toString()}
                   <PersonSelectModal viewModal={viewPersonSelector} side={1} />
                 </ConvoName>
-                <ConvoName style={{width:'15%', backgroundColor:'lightgray'}}></ConvoName>
+                <ConvoName
+                  style={{ width: "15%", backgroundColor: "lightgray" }}
+                ></ConvoName>
               </div>
-              
+
               <form onSubmit={(event) => handleAddMessage(2, event, "TEXT")}>
                 <TextInput
                   value={textInputs[2][0].inputField}
@@ -225,12 +253,8 @@ export const EditorComponent: React.FC = () => {
                 />
               </form>
             </InputContainer>
-            
-
-
-
           </Expandable>
-          <Expandable style={{ }}>
+          <Expandable style={{}}>
             <IconContainer style={{}}>
               <div>
                 <BubbleChartIcon />
@@ -239,12 +263,20 @@ export const EditorComponent: React.FC = () => {
             </IconContainer>
 
             <InputContainer>
-              <div style={{display:'flex',flexDirection: 'row'}}>
-                <ConvoName onClick={() => handleViewModal(2)} style={{width: '85%', backgroundColor:selectedPerson?.color}}>
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <ConvoName
+                  onClick={() => handleViewModal(2)}
+                  style={{
+                    width: "85%",
+                    backgroundColor: selectedPerson?.color,
+                  }}
+                >
                   Replace with name
                   <PersonSelectModal viewModal={viewPersonSelector} side={2} />
                 </ConvoName>
-                <ConvoName style={{width:'15%', backgroundColor:'lightgray'}}></ConvoName>
+                <ConvoName
+                  style={{ width: "15%", backgroundColor: "lightgray" }}
+                ></ConvoName>
               </div>
               <form onSubmit={(event) => handleAddMessage(3, event, "THOUGHT")}>
                 <TextInput
@@ -255,15 +287,34 @@ export const EditorComponent: React.FC = () => {
               </form>
             </InputContainer>
 
-          </Expandable>  */}
 
+          </Expandable>  
+
+
+
+          </Expandable>*/}
 
         </Wrapper>
-
-
-        <Output>
-          <h2 style={{ textAlign: "center", color: "gray" }}>OUTPUT</h2>
-          <div>
+        <S.Wrapper>
+          <Fab
+            onClick={handleGoLeft}
+            sx={{
+              position: "absolute",
+              left: "-6rem",
+              boxShadow: "none",
+              top: "15rem",
+              backgroundColor: Theme.palette.mainGreen.main,
+              "&:hover": {
+                backgroundColor: Theme.palette.mainGreen.dark,
+              },
+            }}
+            id={"fab"}
+            size={"large"}
+          >
+            <ArrowLeftIcon sx={{ color: "white", fontSize: "3rem" }} />
+          </Fab>
+          <S.LoudSpeaker />
+          <S.Screen>
             {currentPage?.messages.map((card: Message) => (
               <InteractionSwitch
                 key={card.id}
@@ -273,8 +324,28 @@ export const EditorComponent: React.FC = () => {
                 format={card.format}
               />
             ))}
-          </div>
-        </Output>
+          </S.Screen>
+          <Fab
+            onClick={handleGoRight}
+            sx={{
+              position: "absolute",
+              left: "23rem",
+              boxShadow: "none",
+              top: "15rem",
+              backgroundColor: Theme.palette.mainGreen.main,
+              "&:hover": {
+                backgroundColor: Theme.palette.mainGreen.dark,
+              },
+            }}
+            id={"fab"}
+            size={"large"}
+          >
+            <ArrowRightIcon sx={{ color: "white", fontSize: "3rem" }} />
+          </Fab>
+          <S.PageNumber>
+            {pageNum + 1} / {numPages}
+          </S.PageNumber>
+        </S.Wrapper>
       </MainContainer>
     </>
   );
@@ -282,16 +353,15 @@ export const EditorComponent: React.FC = () => {
 
 export const MainContainer = styled.div`
   padding-top: 5vh;
-  margin-top:20px;
-  width: 100%;
+  margin-top: 20px;
+  width: 100rem;
   align-self: stretch;
-  display:flex;
-  flex-direction; column;
-  border: 1px dashed gray;
+  display: flex;
 `;
 
 export const Wrapper = styled.div`
   width: 75%;
+  margin-right: 10rem;
 `;
 
 export const Expandable = styled.div`
@@ -315,7 +385,7 @@ export const IconContainer = styled.div`
     margin-top: 25%;
   }
   & div:hover {
-    color:blue;
+    color: blue;
     cursor: pointer;
   }
 `;
@@ -323,7 +393,7 @@ export const IconContainer = styled.div`
 export const InputContainer = styled.div`
   border: 1px solid gray;
   border-radius: 5px;
-  width:80%
+  width: 80%;
 `;
 
 export const TextInput = styled.input`
@@ -331,7 +401,6 @@ export const TextInput = styled.input`
   height: 4rem;
   border: none;
   margin-bottom: 0.1rem;
-
 `;
 
 export const ConvoName = styled.h5`
@@ -339,7 +408,6 @@ export const ConvoName = styled.h5`
   height: 2rem;
   border-bottom: 1px solid gray;
   text-align: left;
-  
 `;
 
 export const Output = styled.div`
@@ -350,15 +418,12 @@ export const Output = styled.div`
   margin-left: 1%;
 `;
 
+{
+  /* Temp gravyard */
+}
 
-
-
-
-
-
-{/* Temp gravyard */}
-
-       {/*  <Wrapper>
+{
+  /*  <Wrapper>
           <Expandable>
             <div
               style={{
@@ -379,8 +444,10 @@ export const Output = styled.div`
                 />
               </form>
             </div>
-          </Expandable> */}
-          {/* <Expandable>
+          </Expandable> */
+}
+{
+  /* <Expandable>
             <div
               style={{
                 width: "30rem",
@@ -486,5 +553,8 @@ export const Output = styled.div`
               <h4 style={{ color: "gray" }}>THOUGHT</h4>
               <TextInput placeholder="...." />
             </div>
-          </Expandable> */}
-        {/* </Wrapper>  */}
+          </Expandable> */
+}
+{
+  /* </Wrapper>  */
+}
