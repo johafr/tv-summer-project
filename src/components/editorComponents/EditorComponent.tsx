@@ -25,8 +25,9 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 export const EditorComponent: React.FC = () => {
   //Recoil selectors
   const currentPage = useRecoilValue(activePage);
-  const [pageNum] = useRecoilState(activePageIndex);
+  const [pageNum, setPageNum] = useRecoilState(activePageIndex);
   const { numPages } = useRecoilValue(activeStoryStats);
+  const numberOfPages = useRecoilValue(activeStoryStats).numPages!;
   const { currentCommunicationCategory } = useRecoilValue(
     activeCommunicationCategory
   );
@@ -45,6 +46,18 @@ export const EditorComponent: React.FC = () => {
     false,
     false,
   ]);
+
+  const handleGoLeft = () => {
+    if (pageNum !== 0) {
+      setPageNum(pageNum! - 1);
+    }
+  };
+
+  const handleGoRight = () => {
+    if (pageNum! < numberOfPages - 1) {
+      setPageNum(pageNum! + 1);
+    }
+  };
 
   const handleAddMessage = (
     index: number,
@@ -247,6 +260,7 @@ export const EditorComponent: React.FC = () => {
         </Wrapper>
         <S.Wrapper>
           <Fab
+            onClick={handleGoLeft}
             sx={{
               position: "absolute",
               left: "-6rem",
@@ -275,6 +289,7 @@ export const EditorComponent: React.FC = () => {
             ))}
           </S.Screen>
           <Fab
+            onClick={handleGoRight}
             sx={{
               position: "absolute",
               left: "23rem",
