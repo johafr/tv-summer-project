@@ -2,6 +2,8 @@ import React from "react";
 import { Message } from "../../atoms/stories";
 import { SpeechBubbleChat } from "../customTemplateComponents/formats/dialogFormats/SpeechBubbleChat";
 import { ThoughtBubbleChat } from "../customTemplateComponents/formats/thoughtFormats/ThoughtBubbleChat";
+import { TextMessageFormatRegular } from "../customTemplateComponents/formats/textMessageFormats/TextMessageFormatRegular";
+import { ThoughtBubbleFormatRegular } from "../customTemplateComponents/formats/thoughtFormats/ThoughtBubbleFormatRegular";
 
 export const InteractionSwitch: React.FC<Message> = (props) => {
   //This can maybe be done in a reducer
@@ -18,7 +20,14 @@ export const InteractionSwitch: React.FC<Message> = (props) => {
     case "TEXTMESSAGE":
       switch (props.format[1]) {
         case "Default Textmessage":
-          return <p>{props.content}</p>;
+          return (
+            <TextMessageFormatRegular
+              id={props.id}
+              content={props.content}
+              format={props.format}
+              person={props.person}
+            />
+          );
         case "Textmessage 1":
           return <p>{props.content}</p>;
         default:
@@ -44,7 +53,7 @@ export const InteractionSwitch: React.FC<Message> = (props) => {
       switch (props.format[1]) {
         case "ThoughtBubbleChat":
           return (
-            <ThoughtBubbleChat
+            <ThoughtBubbleFormatRegular
               id={props.id}
               format={props.format}
               content={props.content}

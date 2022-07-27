@@ -11,6 +11,17 @@ import { CreateCustomTemplate } from "./screens/CreateCustomTemplate";
 import { renderScreen, screenDimensions } from "./atoms/screenDimensions";
 import { useRecoilValue } from "recoil";
 import { AiFillHome } from "react-icons/ai";
+import { ThoughtBubbleChat } from "./components/customTemplateComponents/formats/thoughtFormats/ThoughtBubbleChat";
+import { ThoughtBubbleFormatRegular } from "./components/customTemplateComponents/formats/thoughtFormats/ThoughtBubbleFormatRegular";
+import { Message } from "./atoms/stories";
+import { Person } from "./atoms/Characters";
+
+const TestPerson: Person = {
+  id: -5,
+  name: "TESTY",
+  color: "#000000",
+  align: "right",
+};
 
 const Router: React.FC = () => {
   return (
@@ -19,6 +30,17 @@ const Router: React.FC = () => {
         <Route element={<Home />} path={"/"} />
         <Route element={<Editor />} path={"story:id/editor"} />
         <Route element={<Preview />} path={"story:id/preview"} />
+        <Route
+          element={
+            <ThoughtBubbleFormatRegular
+              format={["test, test"]}
+              id={-5}
+              person={TestPerson}
+              content={"Test tekasdasdasdasdasdasda"}
+            />
+          }
+          path={"/dontosh"}
+        />
         <Route
           element={<CreateCustomTemplate />}
           path={"story:id/create-template"}
