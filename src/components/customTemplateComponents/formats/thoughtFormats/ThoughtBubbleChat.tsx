@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Message } from "../../../atoms/stories";
+import { Message } from "../../../../atoms/stories";
 
 // Component wrapper function
 export const ThoughtBubbleChat: React.FC<Message> = (props) => {

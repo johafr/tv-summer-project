@@ -28,7 +28,13 @@ const premadeDialogFormats: CommunicationCategory = {
       formatName: "SpeechBubbleChat",
     },
     {
+      formatName: "Dialog Option 1",
+    },
+    {
       formatName: "Dialog Option 2",
+    },
+    {
+      formatName: "Dialog Option 3",
     },
   ],
 };
@@ -59,9 +65,37 @@ const premadeShoutFormats: CommunicationCategory = {
   ],
 };
 
+const premadeTextMessageFormats: CommunicationCategory = {
+  activeFormatIndex: 0,
+  interactionName: "TEXTMESSAGE",
+  premadeFormats: [
+    {
+      formatName: "Default Textmessage",
+    },
+    {
+      formatName: "Textmessage 1",
+    },
+  ],
+};
+
+const premadeNarrativeFormats: CommunicationCategory = {
+  activeFormatIndex: 0,
+  interactionName: "NARRATIVE",
+  premadeFormats: [
+    {
+      formatName: "Default Narrative",
+    },
+    {
+      formatName: "Narrative 1",
+    },
+  ],
+};
+
 //State
 const premadeComponents: Template = {
   communicationCategories: [
+    premadeNarrativeFormats,
+    premadeTextMessageFormats,
     premadeDialogFormats,
     premadeThoughtFormats,
     premadeShoutFormats,
@@ -101,9 +135,11 @@ export const updateCommunicationCategoryList = (
 //interaction:
 //updates the format list in the Interaction
 export const updateInteractionFormats = (newFormats: ComponentFormat[]) => {
-  const { currentInteraction } = getRecoil(activeCommunicationCategory);
+  const { currentCommunicationCategory } = getRecoil(
+    activeCommunicationCategory
+  );
   const updatedInteraction: CommunicationCategory = {
-    ...currentInteraction!,
+    ...currentCommunicationCategory!,
     premadeFormats: newFormats,
   };
   updateCommunicationCategoryList(updatedInteraction);
@@ -111,31 +147,23 @@ export const updateInteractionFormats = (newFormats: ComponentFormat[]) => {
 
 //Format:
 export const updateCurrentActiveFormat = (index: number) => {
-  const { currentInteraction } = getRecoil(activeCommunicationCategory);
+  const { currentCommunicationCategory } = getRecoil(
+    activeCommunicationCategory
+  );
   updateCommunicationCategoryList({
-    ...currentInteraction!,
+    ...currentCommunicationCategory!,
     activeFormatIndex: index,
   });
 };
 
 //adds a new format to the list
 export const addFormat = (newFormat: ComponentFormat) => {
-  const { currentInteractionFormats } = getRecoil(activeCommunicationCategory);
+  const { currentCommunicationFormats } = getRecoil(
+    activeCommunicationCategory
+  );
   const newInteractionFormats: ComponentFormat[] = [
-    ...currentInteractionFormats,
+    ...currentCommunicationFormats,
     newFormat,
   ];
   updateInteractionFormats(newInteractionFormats);
-};
-
-export const getAllFormats = (CommunicationCateogry: string) => {
-  const template = getRecoil(activeTemplateState);
-  switch (CommunicationCateogry) {
-    case "DIALOG":
-      return template.communicationCategories[0].premadeFormats;
-    case "THOUGHT":
-      return template.communicationCategories[1].premadeFormats;
-    case "SHOUT":
-      return template.communicationCategories[2].premadeFormats;
-  }
 };

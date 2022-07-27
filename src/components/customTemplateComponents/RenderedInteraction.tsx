@@ -3,9 +3,11 @@ import { CommunicationCategory } from "../../atoms/template";
 import { activeCommunicationCategory } from "../../selectors/template";
 
 export const RenderedInteraction = (interactionType: string) => {
-  const { currentInteraction } = useRecoilValue(activeCommunicationCategory);
+  const { currentCommunicationCategory } = useRecoilValue(
+    activeCommunicationCategory
+  );
 
   const DisplayInteraction = (interaction: CommunicationCategory) => {};
 
-  return <>{DisplayInteraction(currentInteraction!)}</>;
+  return <>{DisplayInteraction(currentCommunicationCategory!)}</>;
 };

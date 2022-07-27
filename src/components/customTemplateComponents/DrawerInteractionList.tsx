@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
+import FormatAlignCenterOutlinedIcon from "@mui/icons-material/FormatAlignCenterOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import CampaignOutlinedIcon from "@mui/icons-material/CampaignOutlined";
+import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
@@ -15,13 +17,15 @@ import { activeCommunicationCategory } from "../../selectors/template";
 export const DrawerInteractionList = () => {
   const [interactionList] = useRecoilState(activeTemplateState);
   const [, setActiveIndex] = useRecoilState(activeCommunicationCategoryIndex);
-  const { currentInteraction } = useRecoilValue(activeCommunicationCategory);
+  const { currentCommunicationCategory } = useRecoilValue(
+    activeCommunicationCategory
+  );
 
   const checkActiveComponent = (interaction: CommunicationCategory) => {
     const active =
-      currentInteraction === null
+      currentCommunicationCategory === null
         ? false
-        : currentInteraction === interaction
+        : currentCommunicationCategory === interaction
         ? true
         : false;
     return active;
@@ -29,7 +33,7 @@ export const DrawerInteractionList = () => {
 
   const handleSetActiveInteraction = (interaction: CommunicationCategory) => {
     const newIndex =
-      interaction === currentInteraction
+      interaction === currentCommunicationCategory
         ? -1
         : interactionList.communicationCategories.findIndex(
             (interactionInList) =>
@@ -40,6 +44,10 @@ export const DrawerInteractionList = () => {
 
   const GetIcon = (interaction: CommunicationCategory) => {
     switch (interaction.interactionName) {
+      case "NARRATIVE":
+        return <FormatAlignCenterOutlinedIcon></FormatAlignCenterOutlinedIcon>;
+      case "TEXTMESSAGE":
+        return <MessageOutlinedIcon></MessageOutlinedIcon>;
       case "DIALOG":
         return <ChatBubbleOutlineOutlinedIcon />;
       case "THOUGHT":
