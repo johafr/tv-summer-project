@@ -8,8 +8,8 @@ import {
 export const getAllCommunicationCategories = selector({
   key: "getAllInteractions",
   get: ({ get }) => {
-    const interactionList = get(activeTemplateState);
-    return interactionList.communicationCategories;
+    const communicationCategories = get(activeTemplateState);
+    return communicationCategories.communicationCategories;
   },
 });
 
@@ -18,16 +18,17 @@ export const activeCommunicationCategory = selector({
   get: ({ get }) => {
     const interactionList = get(activeTemplateState);
     const currentInteractionIndex = get(activeCommunicationCategoryIndex);
-    const currentInteraction =
+    const currentCommunicationCategory =
       currentInteractionIndex === -1
         ? null
         : interactionList.communicationCategories[currentInteractionIndex];
-    const currentInteractionFormats: ComponentFormat[] = currentInteraction
-      ? currentInteraction.premadeFormats
-      : [];
+    const currentCommunicationFormats: ComponentFormat[] =
+      currentCommunicationCategory
+        ? currentCommunicationCategory.premadeFormats
+        : [];
     return {
-      currentInteraction,
-      currentInteractionFormats,
+      currentCommunicationCategory,
+      currentCommunicationFormats,
     };
   },
 });
@@ -35,12 +36,12 @@ export const activeCommunicationCategory = selector({
 export const activeFormat = selector({
   key: "activeVersion",
   get: ({ get }) => {
-    const { currentInteraction } = get(activeCommunicationCategory);
+    const { currentCommunicationCategory } = get(activeCommunicationCategory);
     const currentFormat: ComponentFormat | null =
-      currentInteraction !== null
-        ? currentInteraction.premadeFormats.length !== null
-          ? currentInteraction.premadeFormats[
-              currentInteraction.activeFormatIndex
+      currentCommunicationCategory !== null
+        ? currentCommunicationCategory.premadeFormats.length !== null
+          ? currentCommunicationCategory.premadeFormats[
+              currentCommunicationCategory.activeFormatIndex
             ]
           : null
         : null;

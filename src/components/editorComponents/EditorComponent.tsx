@@ -20,7 +20,9 @@ import { activePerson } from "../../selectors/Characters";
 export const EditorComponent: React.FC = () => {
   //Recoil selectors
   const currentPage = useRecoilValue(activePage);
-  const { currentInteraction } = useRecoilValue(activeCommunicationCategory);
+  const { currentCommunicationCategory } = useRecoilValue(
+    activeCommunicationCategory
+  );
 
   // Local States
   const [textInputs, setTextInputs] = useState([
@@ -51,9 +53,9 @@ export const EditorComponent: React.FC = () => {
       person: selectedperson,
       content: correctInput,
       format: [
-        currentInteraction!.interactionName,
-        currentInteraction!.premadeFormats[
-          currentInteraction!.activeFormatIndex
+        currentCommunicationCategory!.interactionName,
+        currentCommunicationCategory!.premadeFormats[
+          currentCommunicationCategory!.activeFormatIndex
         ].toString(),
       ],
     };

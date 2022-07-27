@@ -11,7 +11,9 @@ import { activeCommunicationCategory } from "../selectors/template";
 export const CreateCustomTemplate = () => {
   const { id } = useParams();
   const [, setStoryIndex] = useRecoilState(activeStoryIndex);
-  const { currentInteraction } = useRecoilValue(activeCommunicationCategory);
+  const { currentCommunicationCategory } = useRecoilValue(
+    activeCommunicationCategory
+  );
 
   useEffect(() => {
     let tempId: string | undefined = "";
@@ -25,7 +27,7 @@ export const CreateCustomTemplate = () => {
       <ContentDiv>
         <ElementsDrawer />
         <RenderScreen />
-        {currentInteraction ? <CustomizationDrawer /> : <></>}
+        {currentCommunicationCategory ? <CustomizationDrawer /> : <></>}
       </ContentDiv>
     </>
   );

@@ -11,9 +11,8 @@ import {
 import { drawerWidth } from "./ElementsDrawer";
 
 export const CustomizationDrawer = () => {
-  const { currentInteraction, currentInteractionFormats } = useRecoilValue(
-    activeCommunicationCategory
-  );
+  const { currentCommunicationCategory, currentCommunicationFormats } =
+    useRecoilValue(activeCommunicationCategory);
   const { currentFormat } = useRecoilValue(activeFormat);
 
   const handleCheckIfFormatIsSelected = (format: ComponentFormat) => {
@@ -22,7 +21,7 @@ export const CustomizationDrawer = () => {
 
   const handleUpdateActiveFormat = (format: ComponentFormat) => {
     updateCurrentActiveFormat(
-      currentInteraction!.premadeFormats.findIndex(
+      currentCommunicationCategory!.premadeFormats.findIndex(
         (currentFormat: ComponentFormat) => currentFormat === format
       )
     );
@@ -30,10 +29,14 @@ export const CustomizationDrawer = () => {
 
   return (
     <Drawer>
-      <CustomizeHeader>Customize</CustomizeHeader>
-      <ElementHeader>Formats</ElementHeader>
+      <CustomizeHeader>Formats</CustomizeHeader>
+      {currentCommunicationCategory && (
+        <ElementHeader>
+          {currentCommunicationCategory.interactionName}
+        </ElementHeader>
+      )}
       <>
-        {currentInteractionFormats.map((format: ComponentFormat) => (
+        {currentCommunicationFormats.map((format: ComponentFormat) => (
           <Format key={format.formatName}>
             <FormatHeader
               active={handleCheckIfFormatIsSelected(format)}
@@ -44,10 +47,6 @@ export const CustomizationDrawer = () => {
           </Format>
         ))}
       </>
-      <ElementHeader>Customize</ElementHeader>
-      <CustomizeFieldBody>
-        <p>This is to customize</p>
-      </CustomizeFieldBody>
     </Drawer>
   );
 };
@@ -77,13 +76,6 @@ const FormatHeader = styled.div<{ active: boolean }>`
   align-items: center;
   cursor: pointer;
   height: 2.5rem;
-`;
-
-const CustomizeFieldBody = styled.div`
-  height: 2.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const CustomizeHeader = styled.h2`
