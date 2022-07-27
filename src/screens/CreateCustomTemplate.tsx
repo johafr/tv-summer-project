@@ -1,19 +1,15 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { activeStoryIndex } from "../atoms/stories";
 import { RenderScreen } from "../components/customTemplateComponents/screenElements/RenderScreen";
-import { ElementsDrawer } from "../components/customTemplateComponents/screenElements/ElementsDrawer";
-import { CustomizationDrawer } from "../components/customTemplateComponents/screenElements/CustomizationDrawer";
-import { activeCommunicationCategory } from "../selectors/template";
+import { StylesDrawer } from "../components/customTemplateComponents/screenElements/StylesDrawer";
+import { TemplateDrawer } from "../components/customTemplateComponents/screenElements/TemplateDrawer";
 
 export const CreateCustomTemplate = () => {
   const { id } = useParams();
   const [, setStoryIndex] = useRecoilState(activeStoryIndex);
-  const { currentCommunicationCategory } = useRecoilValue(
-    activeCommunicationCategory
-  );
 
   useEffect(() => {
     let tempId: string | undefined = "";
@@ -25,9 +21,9 @@ export const CreateCustomTemplate = () => {
       <TopLine />
 
       <ContentDiv>
-        <ElementsDrawer />
+        <StylesDrawer />
         <RenderScreen />
-        {currentCommunicationCategory ? <CustomizationDrawer /> : <></>}
+        <TemplateDrawer />
       </ContentDiv>
     </>
   );

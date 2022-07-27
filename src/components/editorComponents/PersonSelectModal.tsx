@@ -10,7 +10,7 @@ import { activePerson } from "../../selectors/Characters";
 
 // Component props
 type Props = {
-  viewModal: boolean[];
+  viewModal: boolean;
   side: number;
 };
 
@@ -40,7 +40,7 @@ export const PersonSelectModal: React.FC<Props> = ({ viewModal, side }) => {
   // End return
   return (
     <div>
-      {viewModal[side] ? (
+      {viewModal ? (
         <PersonModalWrapper>{personsList}</PersonModalWrapper>
       ) : null}
     </div>
