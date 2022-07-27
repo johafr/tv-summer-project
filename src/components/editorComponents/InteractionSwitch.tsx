@@ -1,8 +1,8 @@
 import React from "react";
 import { Message } from "../../atoms/stories";
 import { SpeechBubbleChat } from "../customTemplateComponents/formats/dialogFormats/SpeechBubbleChat";
+import { TextMessageFormatRegular } from "../customTemplateComponents/formats/textmessageFormats/TextMessageFormatRegular";
 import { ThoughtBubbleChat } from "../customTemplateComponents/formats/thoughtFormats/ThoughtBubbleChat";
-import { TextMessageFormatRegular } from "../customTemplateComponents/formats/textMessageFormats/TextMessageFormatRegular";
 import { ThoughtBubbleFormatRegular } from "../customTemplateComponents/formats/thoughtFormats/ThoughtBubbleFormatRegular";
 
 export const InteractionSwitch: React.FC<Message> = (props) => {
