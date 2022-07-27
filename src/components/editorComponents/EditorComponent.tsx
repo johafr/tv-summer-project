@@ -58,7 +58,6 @@ export const EditorComponent: React.FC = () => {
       ],
     };
     addMessage(newMessage);
-    console.log(type);
 
     // Set inputfield to empty
     const values = [...textInputs];
@@ -144,10 +143,13 @@ export const EditorComponent: React.FC = () => {
             </IconContainer>
 
             <InputContainer>
-              <ConvoName onClick={() => handleViewModal(0)}>
-                Replace with name
-                <PersonSelectModal viewModal={viewPersonSelector} side={0} />
-              </ConvoName>
+              <div style={{display:'flex',flexDirection: 'row'}}>
+                <ConvoName onClick={() => handleViewModal(0)} style={{width: '85%', backgroundColor:selectedPerson?.color}}>
+                  {selectedPerson?.name.toString()}
+                  <PersonSelectModal viewModal={viewPersonSelector} side={0} />
+                </ConvoName>
+                <ConvoName style={{width:'15%', backgroundColor:'lightgray'}}></ConvoName>
+              </div>
               <form
                 onSubmit={(event) => handleAddMessage(1, event, "DIALOG")}
               >
@@ -171,10 +173,14 @@ export const EditorComponent: React.FC = () => {
             </IconContainer>
 
             <InputContainer>
-              <ConvoName onClick={() => handleViewModal(1)}>
-                Replace with name
-                <PersonSelectModal viewModal={viewPersonSelector} side={1} />
-              </ConvoName>
+              <div style={{display:'flex',flexDirection: 'row'}}>
+                <ConvoName onClick={() => handleViewModal(1)} style={{width: '85%', backgroundColor:selectedPerson?.color}}>
+                  {selectedPerson?.name.toString()}
+                  <PersonSelectModal viewModal={viewPersonSelector} side={1} />
+                </ConvoName>
+                <ConvoName style={{width:'15%', backgroundColor:'lightgray'}}></ConvoName>
+              </div>
+              
               <form onSubmit={(event) => handleAddMessage(2, event, "TEXT")}>
                 <TextInput
                   value={textInputs[2][0].inputField}
@@ -197,10 +203,13 @@ export const EditorComponent: React.FC = () => {
             </IconContainer>
 
             <InputContainer>
-              <ConvoName onClick={() => handleViewModal(2)}>
-                Replace with name
-                <PersonSelectModal viewModal={viewPersonSelector} side={2} />
-              </ConvoName>
+              <div style={{display:'flex',flexDirection: 'row'}}>
+                <ConvoName onClick={() => handleViewModal(2)} style={{width: '85%', backgroundColor:selectedPerson?.color}}>
+                  Replace with name
+                  <PersonSelectModal viewModal={viewPersonSelector} side={2} />
+                </ConvoName>
+                <ConvoName style={{width:'15%', backgroundColor:'lightgray'}}></ConvoName>
+              </div>
               <form onSubmit={(event) => handleAddMessage(3, event, "THOUGHT")}>
                 <TextInput
                   value={textInputs[3][0].inputField}
@@ -291,7 +300,7 @@ export const TextInput = styled.input`
 
 export const ConvoName = styled.h5`
   width: 100%;
-  height: 1rem;
+  height: 2rem;
   border-bottom: 1px solid gray;
   text-align: left;
   
