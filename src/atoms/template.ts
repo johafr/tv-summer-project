@@ -2,10 +2,10 @@ import { atom } from "recoil";
 import { getRecoil, setRecoil } from "recoil-nexus";
 import {
   activeCommunicationCategory,
-  getAllCommunicationCategories,
+  communicationCategoriesList,
 } from "../selectors/template";
 
-export interface Template {
+export interface Components {
   background?: null;
   communicationCategories: CommunicationCategory[];
 }
@@ -20,91 +20,88 @@ export interface ComponentFormat {
   formatName: string;
 }
 
-const premadeDialogFormats: CommunicationCategory = {
-  activeFormatIndex: 0,
-  interactionName: "DIALOG",
-  premadeFormats: [
-    {
-      formatName: "SpeechBubbleChat",
-    },
-    {
-      formatName: "Dialog Option 1",
-    },
-    {
-      formatName: "Dialog Option 2",
-    },
-    {
-      formatName: "Dialog Option 3",
-    },
-  ],
-};
+export interface Template {
+  templateName: string;
+  indexes: {
+    communicationName: string;
+    index: number;
+  }[];
+}
 
-const premadeThoughtFormats: CommunicationCategory = {
-  activeFormatIndex: 0,
-  interactionName: "THOUGHT",
-  premadeFormats: [
-    {
-      formatName: "ThoughtBubbleChat",
-    },
-    {
-      formatName: "Thought 1",
-    },
-  ],
-};
+//dummyData
+const dummyData: CommunicationCategory[] = [
+  {
+    activeFormatIndex: 0,
+    interactionName: "NARRATIVE",
+    premadeFormats: [
+      {
+        formatName: "Default Narrative",
+      },
+      {
+        formatName: "Narrative 1",
+      },
+    ],
+  },
+  {
+    activeFormatIndex: 0,
+    interactionName: "TEXTMESSAGE",
+    premadeFormats: [
+      {
+        formatName: "Default Textmessage",
+      },
+      {
+        formatName: "Textmessage 1",
+      },
+    ],
+  },
+  {
+    activeFormatIndex: 0,
+    interactionName: "DIALOG",
+    premadeFormats: [
+      {
+        formatName: "SpeechBubbleChat",
+      },
+      {
+        formatName: "Dialog Option 1",
+      },
+      {
+        formatName: "Dialog Option 2",
+      },
+      {
+        formatName: "Dialog Option 3",
+      },
+    ],
+  },
+  {
+    activeFormatIndex: 0,
+    interactionName: "THOUGHT",
+    premadeFormats: [
+      {
+        formatName: "ThoughtBubbleChat",
+      },
+      {
+        formatName: "Thought 1",
+      },
+    ],
+  },
+  {
+    activeFormatIndex: 0,
+    interactionName: "SHOUT",
+    premadeFormats: [
+      {
+        formatName: "ShoutBubbleChat",
+      },
+      {
+        formatName: "Shout 1",
+      },
+    ],
+  },
+];
 
-const premadeShoutFormats: CommunicationCategory = {
-  activeFormatIndex: 0,
-  interactionName: "SHOUT",
-  premadeFormats: [
-    {
-      formatName: "ShoutBubbleChat",
-    },
-    {
-      formatName: "Shout 1",
-    },
-  ],
-};
-
-const premadeTextMessageFormats: CommunicationCategory = {
-  activeFormatIndex: 0,
-  interactionName: "TEXTMESSAGE",
-  premadeFormats: [
-    {
-      formatName: "Default Textmessage",
-    },
-    {
-      formatName: "Textmessage 1",
-    },
-  ],
-};
-
-const premadeNarrativeFormats: CommunicationCategory = {
-  activeFormatIndex: 0,
-  interactionName: "NARRATIVE",
-  premadeFormats: [
-    {
-      formatName: "Default Narrative",
-    },
-    {
-      formatName: "Narrative 1",
-    },
-  ],
-};
-
-//State
-const premadeComponents: Template = {
-  communicationCategories: [
-    premadeNarrativeFormats,
-    premadeTextMessageFormats,
-    premadeDialogFormats,
-    premadeThoughtFormats,
-    premadeShoutFormats,
-  ],
-};
-
-export const activeTemplateState = atom<Template>({
+//States
+export const componentsState = atom<Components>({
   key: "activeTemplateState",
-  default: premadeComponents,
+  default: { communicationCategories: dummyData },
 });
 
 export const activeCommunicationCategoryIndex = atom<number>({
@@ -112,58 +109,55 @@ export const activeCommunicationCategoryIndex = atom<number>({
   default: -1,
 });
 
-//methods
+export const templates = atom<Template[]>({
+  key: "templates",
+  default: [
+    {
+      templateName: "default template 1",
+      indexes: [
+        { communicationName: "NARRATIVE", index: 0 },
+        { communicationName: "TEXTMESSAGE", index: 0 },
+        { communicationName: "DIALOG", index: 0 },
+        { communicationName: "THOUGHT", index: 0 },
+        { communicationName: "SHOUT", index: 0 },
+      ],
+    },
+    {
+      templateName: "default template 2",
+      indexes: [
+        { communicationName: "NARRATIVE", index: 1 },
+        { communicationName: "TEXTMESSAGE", index: 1 },
+        { communicationName: "DIALOG", index: 1 },
+        { communicationName: "THOUGHT", index: 1 },
+        { communicationName: "SHOUT", index: 1 },
+      ],
+    },
+  ],
+});
 
-//state:
-//updates the state where the data is stored
-export const updateCommunicationCategoryList = (
-  communicationCategory: CommunicationCategory
-) => {
-  const currentInteractionList = getRecoil(getAllCommunicationCategories);
-  const currentInteractionIndex = getRecoil(activeCommunicationCategoryIndex);
-  const updatedInteractionListState: CommunicationCategory[] = [
-    ...currentInteractionList.slice(0, currentInteractionIndex),
-    communicationCategory,
-    ...currentInteractionList.slice(currentInteractionIndex + 1),
-  ];
-  setRecoil(activeTemplateState, {
-    ...activeTemplateState,
-    communicationCategories: updatedInteractionListState,
-  });
-};
+export const activeTemplateIndex = atom<number>({
+  key: "activeTemplateIndex",
+  default: 0,
+});
 
-//interaction:
-//updates the format list in the Interaction
-export const updateInteractionFormats = (newFormats: ComponentFormat[]) => {
-  const { currentCommunicationCategory } = getRecoil(
-    activeCommunicationCategory
-  );
-  const updatedInteraction: CommunicationCategory = {
-    ...currentCommunicationCategory!,
-    premadeFormats: newFormats,
-  };
-  updateCommunicationCategoryList(updatedInteraction);
-};
-
-//Format:
+//Methods
 export const updateCurrentActiveFormat = (index: number) => {
   const { currentCommunicationCategory } = getRecoil(
     activeCommunicationCategory
   );
-  updateCommunicationCategoryList({
+  const communicationCategories = getRecoil(communicationCategoriesList);
+  const CCIndex = getRecoil(activeCommunicationCategoryIndex);
+
+  const newCommunicationCategory = {
     ...currentCommunicationCategory!,
     activeFormatIndex: index,
+  };
+  setRecoil(componentsState, {
+    ...componentsState,
+    communicationCategories: [
+      ...communicationCategories.slice(0, CCIndex),
+      newCommunicationCategory,
+      ...communicationCategories.slice(CCIndex + 1),
+    ],
   });
-};
-
-//adds a new format to the list
-export const addFormat = (newFormat: ComponentFormat) => {
-  const { currentCommunicationFormats } = getRecoil(
-    activeCommunicationCategory
-  );
-  const newInteractionFormats: ComponentFormat[] = [
-    ...currentCommunicationFormats,
-    newFormat,
-  ];
-  updateInteractionFormats(newInteractionFormats);
 };

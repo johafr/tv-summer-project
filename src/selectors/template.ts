@@ -1,27 +1,29 @@
 import { selector } from "recoil";
 import {
   activeCommunicationCategoryIndex,
+  activeTemplateIndex,
   ComponentFormat,
-  activeTemplateState,
+  componentsState,
+  templates,
 } from "../atoms/template";
 
-export const getAllCommunicationCategories = selector({
+export const communicationCategoriesList = selector({
   key: "getAllInteractions",
   get: ({ get }) => {
-    const communicationCategories = get(activeTemplateState);
-    return communicationCategories.communicationCategories;
+    const components = get(componentsState);
+    return components.communicationCategories;
   },
 });
 
 export const activeCommunicationCategory = selector({
   key: "activeCommunicationCategory",
   get: ({ get }) => {
-    const interactionList = get(activeTemplateState);
-    const currentInteractionIndex = get(activeCommunicationCategoryIndex);
+    const components = get(componentsState);
+    const currentIndex = get(activeCommunicationCategoryIndex);
     const currentCommunicationCategory =
-      currentInteractionIndex === -1
-        ? null
-        : interactionList.communicationCategories[currentInteractionIndex];
+      currentIndex === -1
+        ? undefined
+        : components.communicationCategories[currentIndex];
     const currentCommunicationFormats: ComponentFormat[] =
       currentCommunicationCategory
         ? currentCommunicationCategory.premadeFormats
@@ -34,40 +36,22 @@ export const activeCommunicationCategory = selector({
 });
 
 export const activeFormat = selector({
-  key: "activeVersion",
+  key: "activeFormat",
   get: ({ get }) => {
     const { currentCommunicationCategory } = get(activeCommunicationCategory);
-    const currentFormat: ComponentFormat | null =
-      currentCommunicationCategory !== null
-        ? currentCommunicationCategory.premadeFormats.length !== null
-          ? currentCommunicationCategory.premadeFormats[
-              currentCommunicationCategory.activeFormatIndex
-            ]
-          : null
-        : null;
+    const currentFormat =
+      currentCommunicationCategory?.premadeFormats[
+        currentCommunicationCategory.activeFormatIndex
+      ];
     return { currentFormat };
   },
 });
 
-export const getActiveFormats = selector({
+export const getActiveTemplate = selector({
   key: "getAllStyles",
   get: ({ get }) => {
-    const currentTemplate = get(activeTemplateState);
-    const currentDialogStyle =
-      currentTemplate.communicationCategories[0].premadeFormats[
-        currentTemplate.communicationCategories[0].activeFormatIndex
-      ];
-
-    const currentThoughtStyle =
-      currentTemplate.communicationCategories[1].premadeFormats[
-        currentTemplate.communicationCategories[1].activeFormatIndex
-      ];
-
-    const currentShoutStyle =
-      currentTemplate.communicationCategories[2].premadeFormats[
-        currentTemplate.communicationCategories[2].activeFormatIndex
-      ];
-
-    return { currentDialogStyle, currentThoughtStyle, currentShoutStyle };
+    const currentTemplates = get(templates);
+    const index = get(activeTemplateIndex);
+    return currentTemplates[index];
   },
 });

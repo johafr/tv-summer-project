@@ -1,8 +1,16 @@
 import { Grid } from "@mui/material";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { ComponentFormat } from "../../../atoms/template";
-import { activeCommunicationCategory } from "../../../selectors/template";
+import {
+  activeCommunicationCategoryIndex,
+  CommunicationCategory,
+  ComponentFormat,
+} from "../../../atoms/template";
+import {
+  activeCommunicationCategory,
+  communicationCategoriesList,
+  getActiveTemplate,
+} from "../../../selectors/template";
 import { InteractionSwitch } from "../../editorComponents/InteractionSwitch";
 
 const ToolbarHeight: number = 45.5;
@@ -10,36 +18,84 @@ const ToolbarHeight: number = 45.5;
 export const RenderScreen = () => {
   const { currentCommunicationCategory, currentCommunicationFormats } =
     useRecoilValue(activeCommunicationCategory);
+  const [, setCCIndex] = useRecoilState(activeCommunicationCategoryIndex);
+  const currentTemplate = useRecoilValue(getActiveTemplate);
+  const components = useRecoilValue(communicationCategoriesList);
+
+  //might be possible to shorten this
+  const getFormatName = (communicationName: string) => {
+    const communicationIndex = components.findIndex(
+      (c: CommunicationCategory) => c.interactionName === communicationName
+    );
+    const formatName =
+      components[communicationIndex].premadeFormats[
+        currentTemplate.indexes[communicationIndex].index
+      ].formatName;
+    return formatName;
+  };
 
   return (
-    <Screen interactionIsActive={currentCommunicationCategory !== null}>
+    <Screen>
       <Toolbar interactionIsActive={currentCommunicationCategory !== null}>
         <ButtonSpan>Preview</ButtonSpan>
         <ButtonSpan>Save</ButtonSpan>
       </Toolbar>
       <ComponentDisplay>
-        {currentCommunicationCategory && (
+        {currentCommunicationCategory ? (
           <Grid container>
             {currentCommunicationFormats.map((format: ComponentFormat) => (
               <Grid
                 item
                 xs={3.4}
                 sx={{
-                  height: 100,
                   margin: 2.3,
-                  justifyContent: "center",
-                  display: "flex",
+                  textAlign: "center",
                   "&:hover": {
                     backgroundColor: "#a4afb3",
                   },
                 }}
               >
+                <p>{format.formatName}</p>
                 <InteractionSwitch
                   id={0}
-                  content="Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+                  content="Lorem Ipsum has been the industry's standard dummy text "
                   format={[
                     currentCommunicationCategory.interactionName,
                     format.formatName,
+                  ]}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <Grid container>
+            {components.map((communication: CommunicationCategory) => (
+              <Grid
+                item
+                xs={3.4}
+                sx={{
+                  margin: 2.3,
+                  textAlign: "center",
+                  "&:hover": {
+                    backgroundColor: "#a4afb3",
+                  },
+                }}
+                onClick={() =>
+                  setCCIndex(
+                    components.findIndex(
+                      (CC: CommunicationCategory) =>
+                        CC.interactionName === communication.interactionName
+                    )
+                  )
+                }
+              >
+                <p>{communication.interactionName}</p>
+                <InteractionSwitch
+                  id={0}
+                  content="Lorem Ipsum has been the industry's standard dummy text "
+                  format={[
+                    communication.interactionName,
+                    getFormatName(communication.interactionName),
                   ]}
                 />
               </Grid>
@@ -51,8 +107,8 @@ export const RenderScreen = () => {
   );
 };
 
-const Screen = styled.div<{ interactionIsActive: boolean }>`
-  width: ${(props) => (props.interactionIsActive ? 60 : 80)}%;
+const Screen = styled.div`
+  width: 60%;
 `;
 
 const ComponentDisplay = styled.div`
