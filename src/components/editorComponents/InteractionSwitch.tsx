@@ -1,7 +1,7 @@
 import React from "react";
 import { Message } from "../../atoms/stories";
 import { SpeechBubbleChat } from "../customTemplateComponents/formats/dialogFormats/SpeechBubbleChat";
-import { TextMessageFormatRegular } from "../customTemplateComponents/formats/textmessageFormats/TextMessageFormatRegular";
+import { TextMessageFormatRegular } from "../customTemplateComponents/formats/textMessageFormats/TextMessageFormatRegular";
 import { ThoughtBubbleChat } from "../customTemplateComponents/formats/thoughtFormats/ThoughtBubbleChat";
 import { ThoughtBubbleFormatRegular } from "../customTemplateComponents/formats/thoughtFormats/ThoughtBubbleFormatRegular";
 
