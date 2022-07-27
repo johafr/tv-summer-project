@@ -1,18 +1,23 @@
 import styled from "styled-components";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import { DrawerInteractionList } from "../DrawerInteractionList";
+import { DrawerCommunicationCustomizationList } from "../DrawerCommunicationCustomizationList";
 
 export const drawerWidth = 20;
 
-export const ElementsDrawer = () => {
+export const StylesDrawer = () => {
   return (
     <Drawer>
-      <ElementHeader>Elements</ElementHeader>
+      <ElementHeader>Styles</ElementHeader>
       <DrawerElements>
         <InteractionsHeader>
-          Interaction <MenuOpenIcon />
+          Interactions
+          <MenuOpenIcon />
         </InteractionsHeader>
-        <DrawerInteractionList />
+        <DrawerCommunicationCustomizationList />
+        <InteractionsHeader>
+          Background
+          <MenuOpenIcon />
+        </InteractionsHeader>
       </DrawerElements>
     </Drawer>
   );

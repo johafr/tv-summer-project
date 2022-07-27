@@ -9,18 +9,18 @@ export const InteractionSwitch: React.FC<Message> = (props) => {
     case "NARRATIVE":
       switch (props.format[1]) {
         case "Default Narrative":
-          return <p>this is the default narrative</p>;
+          return <p>{props.content}</p>;
         case "Narrative 1":
-          return <p>this is the Narrative 1 option</p>;
+          return <p>{props.content}</p>;
         default:
           return <p>default narrative</p>;
       }
     case "TEXTMESSAGE":
       switch (props.format[1]) {
         case "Default Textmessage":
-          return <p>this is the default textmessage</p>;
+          return <p>{props.content}</p>;
         case "Textmessage 1":
-          return <p>this is the textmessage 1</p>;
+          return <p>{props.content}</p>;
         default:
           return <p>default textmessage</p>;
       }
@@ -36,7 +36,7 @@ export const InteractionSwitch: React.FC<Message> = (props) => {
             />
           );
         case "Dialog Option 2":
-          return <p>this is the dialog option 2</p>;
+          return <p>{props.content}</p>;
         default:
           return <p>default dialog</p>;
       }
@@ -52,16 +52,16 @@ export const InteractionSwitch: React.FC<Message> = (props) => {
             />
           );
         case "Thought 1":
-          return <p>this is the Thought 1 option</p>;
+          return <p>{props.content}</p>;
         default:
           return <p>default thought</p>;
       }
     case "SHOUT":
       switch (props.format[1]) {
         case "ShoutBubbleChat":
-          return <p>this is the shoutBubbleCHat</p>;
+          return <p>{props.content}</p>;
         case "Shout 1":
-          return <p>this is the shout 1</p>;
+          return <p>{props.content}</p>;
         default:
           return <p>default shout</p>;
       }

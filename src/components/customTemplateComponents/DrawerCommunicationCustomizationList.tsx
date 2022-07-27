@@ -10,12 +10,12 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   activeCommunicationCategoryIndex,
   CommunicationCategory,
-  activeTemplateState,
+  componentsState,
 } from "../../atoms/template";
 import { activeCommunicationCategory } from "../../selectors/template";
 
-export const DrawerInteractionList = () => {
-  const [interactionList] = useRecoilState(activeTemplateState);
+export const DrawerCommunicationCustomizationList = () => {
+  const [interactionList] = useRecoilState(componentsState);
   const [, setActiveIndex] = useRecoilState(activeCommunicationCategoryIndex);
   const { currentCommunicationCategory } = useRecoilValue(
     activeCommunicationCategory
