@@ -3,7 +3,10 @@ import styled from "styled-components";
 import { activePageIndex, addMessage, Message } from "../../atoms/stories";
 import { InteractionSwitch } from "./InteractionSwitch";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { activeCommunicationCategory, getAllCommunicationCategories } from "../../selectors/template";
+import {
+  activeCommunicationCategory,
+  communicationCategoriesList,
+} from "../../selectors/template";
 import { activePage, activeStoryStats } from "../../selectors/stories";
 import { AddNewPersonInputField } from "./AddNewPersonInputField";
 import { EditorNamesList } from "./EditorNamesList";
@@ -19,16 +22,16 @@ import * as S from "../../styles/components/MobileView";
 
 // Component wrapper function
 export const EditorComponent: React.FC = () => {
-
   //Recoil selectors
   const currentPage = useRecoilValue(activePage);
   const [pageNum, setPageNum] = useRecoilState(activePageIndex);
   const { numPages } = useRecoilValue(activeStoryStats);
   const numberOfPages = useRecoilValue(activeStoryStats).numPages!;
-  const { currentCommunicationCategory } = useRecoilValue(activeCommunicationCategory);
-  const categoriesList = useRecoilValue(getAllCommunicationCategories)
+  const { currentCommunicationCategory } = useRecoilValue(
+    activeCommunicationCategory
+  );
+  const categoriesList = useRecoilValue(communicationCategoriesList);
   const selectedPerson = useRecoilValue(activePerson);
-
 
   const handleGoLeft = () => {
     if (pageNum !== 0) {
@@ -42,11 +45,9 @@ export const EditorComponent: React.FC = () => {
     }
   };
 
-  const listInputs = categoriesList.map((category,index) => {
-    return (
-      <ComInputBox category={category}/>
-    )
-  })
+  const listInputs = categoriesList.map((category, index) => {
+    return <ComInputBox category={category} />;
+  });
 
   // Component end-return
   return (
@@ -57,9 +58,7 @@ export const EditorComponent: React.FC = () => {
       {/* Wrapper for Editor Boxes + Output Screen */}
       <MainContainer>
         {/* Wrapper for only the editor boxes */}
-        <Wrapper style={{ }} >
-          {listInputs}
-        </Wrapper>
+        <Wrapper style={{}}>{listInputs}</Wrapper>
         <S.Wrapper>
           <Fab
             onClick={handleGoLeft}
@@ -321,7 +320,3 @@ export const Output = styled.div`
 {
   /* </Wrapper>  */
 }
-
-
-
-

@@ -8,7 +8,7 @@ import {
 } from "../atoms/template";
 
 export const communicationCategoriesList = selector({
-  key: "getAllInteractions",
+  key: "communicationCategoriesList",
   get: ({ get }) => {
     const components = get(componentsState);
     return components.communicationCategories;
