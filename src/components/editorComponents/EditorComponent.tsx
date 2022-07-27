@@ -19,31 +19,16 @@ import * as S from "../../styles/components/MobileView";
 
 // Component wrapper function
 export const EditorComponent: React.FC = () => {
+
   //Recoil selectors
   const currentPage = useRecoilValue(activePage);
   const [pageNum, setPageNum] = useRecoilState(activePageIndex);
   const { numPages } = useRecoilValue(activeStoryStats);
   const numberOfPages = useRecoilValue(activeStoryStats).numPages!;
-  const { currentCommunicationCategory } = useRecoilValue(
-    activeCommunicationCategory
-  );
-
+  const { currentCommunicationCategory } = useRecoilValue(activeCommunicationCategory);
   const categoriesList = useRecoilValue(getAllCommunicationCategories)
-
-  // Local States
-  const [textInputs, setTextInputs] = useState([
-    [{ inputField: "" }],
-    [{ inputField: "" }],
-    [{ inputField: "" }],
-    [{ inputField: "" }],
-  ]);
-
   const selectedPerson = useRecoilValue(activePerson);
-  const [viewPersonSelector, setViewPersonSelector] = useState<boolean[]>([
-    false,
-    false,
-    false,
-  ]);
+
 
   const handleGoLeft = () => {
     if (pageNum !== 0) {
@@ -55,68 +40,6 @@ export const EditorComponent: React.FC = () => {
     if (pageNum! < numberOfPages - 1) {
       setPageNum(pageNum! + 1);
     }
-  };
-
-  const handleAddMessage = (
-    index: number,
-    e: React.FormEvent,
-    type: string,
-    selectedperson?: Person | undefined
-  ) => {
-    e.preventDefault();
-
-    const correctInput: string = textInputs[0][0].inputField;
-    const newMessage: Message = {
-      id: currentPage.messages[currentPage.messages.length - 1].id + 1,
-      person: selectedperson,
-      content: correctInput,
-      format: [
-        currentCommunicationCategory!.interactionName,
-
-        currentCommunicationCategory!.premadeFormats[
-          currentCommunicationCategory!.activeFormatIndex
-        ].toString(),
-      ],
-    };
-    addMessage(newMessage);
-
-    // Set inputfield to empty
-    const values = [...textInputs];
-    values[index][0] = { inputField: "" };
-    setTextInputs(values);
-  };
-
-  const handleChangeTextInput = (
-    index: number,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const values = [...textInputs];
-    values[index][0] = { inputField: e.target.value };
-    setTextInputs(values);
-  };
-
-  const handleSelectPerson = (person: Person) => {
-    selectedPerson === person
-      ? setSelectedPerson(undefined)
-      : setSelectedPerson(person);
-    console.log(person);
-    console.log(selectedPerson);
-  };
-
-  const handleViewModal = (side: number) => {
-    const values = [...viewPersonSelector];
-    if (values[side] === true) {
-      values[side] = false;
-    } else values[side] = true;
-
-    if (side === 0) {
-      values[1] = false;
-    }
-    if (side === 1) {
-      values[0] = false;
-    }
-    setViewPersonSelector(values);
-    console.log(viewPersonSelector);
   };
 
   const listInputs = categoriesList.map((category,index) => {
@@ -136,164 +59,6 @@ export const EditorComponent: React.FC = () => {
         {/* Wrapper for only the editor boxes */}
         <Wrapper style={{ }} >
           {listInputs}
-
-          {/* Wrappers for individual components */}
-
-        {/* {catergoriesList.map((category) => (
-          <Expandable style={{}}>
-          <IconContainer style={{ }}>
-            <div>
-              <ArticleIcon />
-              <p>{category.interactionName}</p>
-          </div>
-          </IconContainer>
-
-          <InputContainer style={{}}>
-            <ConvoName style={{border: 'none', textAlign: 'center'}}>NARRATIVE</ConvoName>
-            <form onSubmit={(event) => handleAddMessage(0, event, "NARRATIVE")}>
-              <TextInput
-                value={textInputs[0][0].inputField}
-                placeholder="Write a narrative..."
-                onChange={(event) => handleChangeTextInput(0, event)}
-              />
-            </form>
-          </InputContainer>
-
-        </Expandable>
-        ))}
-
-          <Expandable style={{}}>
-            <IconContainer style={{}}>
-              <div>
-                <ArticleIcon />
-                <p>Narrative</p>
-              </div>
-            </IconContainer>
-
-            <InputContainer style={{}}>
-              <ConvoName style={{ border: "none", textAlign: "center" }}>
-                NARRATIVE
-              </ConvoName>
-              <form
-                onSubmit={(event) => handleAddMessage(0, event, "NARRATIVE")}
-              >
-                <TextInput
-                  value={textInputs[0][0].inputField}
-                  placeholder="Write a narrative..."
-                  onChange={(event) => handleChangeTextInput(0, event)}
-                />
-              </form>
-            </InputContainer>
-          </Expandable>
-
-          <Expandable style={{}}>
-            <IconContainer style={{}}>
-              <div>
-                <ForumIcon />
-                <p>Conversation</p>
-              </div>
-            </IconContainer>
-
-            <InputContainer>
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <ConvoName
-                  onClick={() => handleViewModal(0)}
-                  style={{
-                    width: "85%",
-                    backgroundColor: selectedPerson?.color,
-                  }}
-                >
-                  {selectedPerson?.name.toString()}
-                  <PersonSelectModal viewModal={viewPersonSelector} side={0} />
-                </ConvoName>
-                <ConvoName
-                  style={{ width: "15%", backgroundColor: "lightgray" }}
-                ></ConvoName>
-              </div>
-              <form onSubmit={(event) => handleAddMessage(1, event, "DIALOG")}>
-                <TextInput
-                  value={textInputs[1][0].inputField}
-                  placeholder="Write a dialogue..."
-                  onChange={(event) => handleChangeTextInput(1, event)}
-                />
-              </form>
-            </InputContainer>
-          </Expandable>
-
-          <Expandable style={{}}>
-            <IconContainer style={{}}>
-              <div>
-                <MessageIcon />
-                <p>Text Message</p>
-              </div>
-            </IconContainer>
-
-            <InputContainer>
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <ConvoName
-                  onClick={() => handleViewModal(1)}
-                  style={{
-                    width: "85%",
-                    backgroundColor: selectedPerson?.color,
-                  }}
-                >
-                  {selectedPerson?.name.toString()}
-                  <PersonSelectModal viewModal={viewPersonSelector} side={1} />
-                </ConvoName>
-                <ConvoName
-                  style={{ width: "15%", backgroundColor: "lightgray" }}
-                ></ConvoName>
-              </div>
-
-              <form onSubmit={(event) => handleAddMessage(2, event, "TEXT")}>
-                <TextInput
-                  value={textInputs[2][0].inputField}
-                  placeholder="Write a text message..."
-                  onChange={(event) => handleChangeTextInput(2, event)}
-                />
-              </form>
-            </InputContainer>
-          </Expandable>
-          <Expandable style={{}}>
-            <IconContainer style={{}}>
-              <div>
-                <BubbleChartIcon />
-                <p>Thought</p>
-              </div>
-            </IconContainer>
-
-            <InputContainer>
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <ConvoName
-                  onClick={() => handleViewModal(2)}
-                  style={{
-                    width: "85%",
-                    backgroundColor: selectedPerson?.color,
-                  }}
-                >
-                  Replace with name
-                  <PersonSelectModal viewModal={viewPersonSelector} side={2} />
-                </ConvoName>
-                <ConvoName
-                  style={{ width: "15%", backgroundColor: "lightgray" }}
-                ></ConvoName>
-              </div>
-              <form onSubmit={(event) => handleAddMessage(3, event, "THOUGHT")}>
-                <TextInput
-                  value={textInputs[3][0].inputField}
-                  placeholder="Write a thought...."
-                  onChange={(event) => handleChangeTextInput(3, event)}
-                />
-              </form>
-            </InputContainer>
-
-
-          </Expandable>  
-
-
-
-          </Expandable>*/}
-
         </Wrapper>
         <S.Wrapper>
           <Fab
@@ -360,7 +125,7 @@ export const MainContainer = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  width: 75%;
+  width: 50%;
   margin-right: 10rem;
 `;
 
@@ -373,7 +138,6 @@ export const Expandable = styled.div`
   flex-grow: 1;
 
   & div {
-    margin: 2%;
   }
 `;
 
@@ -382,7 +146,6 @@ export const IconContainer = styled.div`
   border-radius: 20px;
 
   & div {
-    margin-top: 25%;
   }
   & div:hover {
     color: blue;
@@ -558,3 +321,7 @@ export const Output = styled.div`
 {
   /* </Wrapper>  */
 }
+
+
+
+

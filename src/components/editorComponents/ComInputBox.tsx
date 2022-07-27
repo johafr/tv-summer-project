@@ -8,22 +8,38 @@ import { activePage } from "../../selectors/stories";
 import { activeCommunicationCategory, getAllCommunicationCategories } from "../../selectors/template";
 import { CommunicationCategory } from "../../atoms/template";
 import { ComIconSwitch } from "./ComIconSwitch";
+import { PersonSelectModal } from "./PersonSelectModal";
+import { activePerson } from "../../selectors/Characters";
 
 // Component props
 type Props = {
     category : CommunicationCategory
 };
 
+ const testperson : Person = {
+    id: -1,
+    name: 'Dummy',
+    color: 'red',
+    align: 'left',
+}
+
 // Component wrapper function
 export const ComInputBox: React.FC<Props> = ({ category }) => {
 
+
+    
     // Recoil States
     const currentPage = useRecoilValue(activePage);
     const { currentCommunicationCategory } = useRecoilValue(activeCommunicationCategory);
     const catergoriesList = useRecoilValue(getAllCommunicationCategories)
+    const selectedPerson = useRecoilValue(activePerson);
 
+    
     // Component Local States
+    // const selectedPerson = useState<Person>(testperson)
     const [textField,setTextField] = useState("");
+    const [viewPersonModal, setViewPersonModal] = useState<boolean>(false);
+    const [expandedSide, setExpandedSide] = useState<String>("LEFT")
 
     const handleAddMessage = (
         e: React.FormEvent,
@@ -35,14 +51,11 @@ export const ComInputBox: React.FC<Props> = ({ category }) => {
         const correctInput: string = textField;
         const newMessage: Message = {
           id: currentPage.messages[currentPage.messages.length - 1].id + 1,
-          person: selectedperson,
-          content: correctInput,
+          person: category.interactionName !== "NARRATIVE" ? selectedPerson : undefined,
+          content: textField,
           format: [
-            currentCommunicationCategory!.interactionName,
-    
-            currentCommunicationCategory!.premadeFormats[
-              currentCommunicationCategory!.activeFormatIndex
-            ].toString(),
+            category.interactionName,
+            category.premadeFormats[0].toString()
           ],
         };
         addMessage(newMessage);
@@ -51,11 +64,79 @@ export const ComInputBox: React.FC<Props> = ({ category }) => {
         setTextField("");
       };
 
-    const iconHandler = () => {
-        switch(category) {
-            default: return null;
-        } 
-    }
+    const handleViewModal = (side: number) => {
+        if (viewPersonModal) {
+            setViewPersonModal(false)
+        }
+        else {setViewPersonModal(true);}
+    };
+
+    const headerHandler = () => {
+        switch(category.interactionName) {
+        case "NARRATIVE":
+            return (
+                <div style={{ display: "flex", flexDirection: "row", width:'100.0%'}}>
+                    <S.ConvoName 
+                        style={{
+                            border: 'none',
+                            textAlign: 'center',
+                            backgroundColor: 'lightgray'
+                            }}>
+                        <p>
+                            {category.interactionName}
+                        </p>
+                    </S.ConvoName>
+                </div>
+            )
+        case "DIALOG":
+        case"THOUGHT":
+        case "TEXTMESSAGE":
+        case "SHOUT":
+            switch(expandedSide) {
+                case "RIGHT":
+                    return  (
+                        <div style={{ display: "flex", flexDirection: "row", width:'100.0%'}}>
+                            <S.ConvoName onClick={() => setExpandedSide("LEFT")} style={{ width: "20%", backgroundColor: "lightgray",textAlign:'center' }}>
+                            </S.ConvoName>
+                            <S.ConvoName
+                                onClick={() => handleViewModal(0)}
+                                style={{
+                                    width: "80%",
+                                    backgroundColor: selectedPerson?.color,
+                                    textAlign:'left'
+                                }}
+                            >
+                                <p>
+                                    {selectedPerson?.name}
+                                </p>
+                                <PersonSelectModal viewModal={viewPersonModal} side={0} />
+                            </S.ConvoName>
+                        </div>
+                    )
+                default:
+                    return (
+                        <div style={{ display: "flex", flexDirection: "row", width:'100.0%'}}>
+                            <S.ConvoName
+                                onClick={() => handleViewModal(0)}
+                                style={{
+                                    width: "80%",
+                                    backgroundColor: selectedPerson?.color,
+                                    textAlign:'left'
+                                }}
+                            >
+                                <p>
+                                    {selectedPerson?.name}
+                                </p>
+                                <PersonSelectModal viewModal={viewPersonModal} side={0} />
+                            </S.ConvoName>
+                            <S.ConvoName onClick={() => setExpandedSide("RIGHT")} style={{ width: "20%", backgroundColor: "lightgray",textAlign:'center' }}></S.ConvoName>
+                        </div>
+                    )
+                }
+
+        default:
+            return <S.ConvoName style={{border: 'none', textAlign: 'center'}}>Something went wrong...</S.ConvoName>
+    }}
 
     // Component end-return
     return (
@@ -68,8 +149,9 @@ export const ComInputBox: React.FC<Props> = ({ category }) => {
         </S.IconContainer>
 
         <S.InputContainer style={{}}>
-          <S.ConvoName style={{border: 'none', textAlign: 'center'}}>{category.interactionName}</S.ConvoName>
-          <form onSubmit={(event) => handleAddMessage(event, category)}>
+            {headerHandler()}
+          
+          <form onSubmit={(event) => handleAddMessage(event, category,selectedPerson)}>
             <S.TextInput
               value={textField}
               placeholder="Write something.."
@@ -81,3 +163,8 @@ export const ComInputBox: React.FC<Props> = ({ category }) => {
       </S.Expandable>
     )
 }
+
+
+
+
+{/* <S.ConvoName style={{border: 'none', textAlign: 'center'}}>{category.interactionName}</S.ConvoName> */}

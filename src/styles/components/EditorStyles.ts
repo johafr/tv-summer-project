@@ -22,9 +22,11 @@ export const Expandable = styled.div`
   flex-direction: row;
   flex-wrap: no-wrap;
   flex-grow: 1;
+  margin-bottom:4%;
+  
 
   & div {
-    margin: 2%;
+    
   }
 `;
 
@@ -42,24 +44,32 @@ export const IconContainer = styled.div`
 `;
 
 export const InputContainer = styled.div`
-  border: 1px solid gray;
-  border-radius: 5px;
-  width:80%
+  border: 1px solid lightgray;
+  border-radius: 0;
+  width:80%;
 `;
 
 export const TextInput = styled.input`
-  width: 98%;
+  width: 99%;
   height: 4rem;
   border: none;
-  margin-bottom: 0.1rem;
-
+  margin:0;
+  margin-top:1rem;
 `;
 
 export const ConvoName = styled.h5`
   width: 100%;
   height: 2rem;
-  border-bottom: 1px solid gray;
+  margin:0;
+  border-bottom: 1px solid lightgray;
+  border-radius-top:30px;
   text-align: left;
+
+  & p {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top:0.4rem;
+  }
   
 `;
 
