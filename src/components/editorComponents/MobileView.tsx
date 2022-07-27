@@ -84,9 +84,9 @@ export const MobileView: React.FC = () => {
             >
               <ArrowRightIcon sx={{ color: "white", fontSize: "3rem" }} />
             </Fab>
-            <PageNumber>
+            <S.PageNumber>
               {pageNum + 1} / {numPages}
-            </PageNumber>
+            </S.PageNumber>
           </S.Wrapper>
         </div>
       ) : (
@@ -111,11 +111,3 @@ export const MobileView: React.FC = () => {
     </>
   );
 };
-
-const PageNumber = styled.div`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 2rem;
-  font-size: 1.5em;
-`;

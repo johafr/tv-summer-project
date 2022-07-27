@@ -66,3 +66,11 @@ export const ContentDivMobile = styled.div`
   background-color: #d3d3d3;
   color: black;
 `;
+
+export const PageNumber = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 2rem;
+  font-size: 1.5em;
+`;
