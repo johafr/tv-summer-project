@@ -30,7 +30,6 @@ export type VisibilityBoxes = {
 
 // Component wrapper function
 export const EditorComponent: React.FC = () => {
-
   //Recoil selectors
   const currentPage = useRecoilValue(activePage);
   const [pageNum, setPageNum] = useRecoilState(activePageIndex);
@@ -107,9 +106,7 @@ export const EditorComponent: React.FC = () => {
       {/* Wrapper for Editor Boxes + Output Screen */}
       <MainContainer>
         {/* Wrapper for only the editor boxes */}
-        <Wrapper style={{ }} >
-          {listInputs}
-        </Wrapper>
+        <Wrapper style={{}}>{listInputs}</Wrapper>
         <S.Wrapper>
           <Fab
             onClick={handleGoLeft}
@@ -371,7 +368,3 @@ export const Output = styled.div`
 {
   /* </Wrapper>  */
 }
-
-
-
-

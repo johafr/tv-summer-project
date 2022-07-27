@@ -4,7 +4,10 @@ import { addMessage, Message } from "../../atoms/stories";
 import { allCharactersState, Person } from "../../atoms/Characters";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { activePage } from "../../selectors/stories";
-import { activeCommunicationCategory, activeFormat, communicationCategoriesList } from "../../selectors/template";
+import {
+  activeCommunicationCategory,
+  communicationCategoriesList,
+} from "../../selectors/template";
 import { CommunicationCategory } from "../../atoms/template";
 import { ComIconSwitch } from "./ComIconSwitch";
 import { PersonSelectModal } from "./PersonSelectModal";
@@ -13,12 +16,24 @@ import { visibileBoxesState } from "../../atoms/editor";
 
 // Component props
 type Props = {
-    category : CommunicationCategory
+  category: CommunicationCategory;
 };
 
 // Component wrapper function
 export const ComInputBox: React.FC<Props> = ({ category }) => {
+  // Recoil States
 
+//   const currentPage = useRecoilValue(activePage);
+//   const { currentCommunicationCategory } = useRecoilValue(
+//     activeCommunicationCategory
+//   );
+//   const catergoriesList = useRecoilValue(communicationCategoriesList);
+//   const selectedPerson = useRecoilValue(activePerson);
+
+//   // Component Local States
+//   const [textField, setTextField] = useState("");
+//   const [viewPersonModal, setViewPersonModal] = useState<boolean>(false);
+//   const [expandedSide, setExpandedSide] = useState<string>("LEFT");
 
     
     // Recoil States
