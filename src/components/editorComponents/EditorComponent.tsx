@@ -17,16 +17,8 @@ import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import { Theme } from "../../styles/Theme";
 import * as S from "../../styles/components/MobileView";
 import { CommunicationCategory } from "../../atoms/template";
-import { Visibility } from "@mui/icons-material";
 import { visibileBoxesState } from "../../atoms/editor";
 
-export type VisibilityBoxes = {
-  narrative : boolean;
-  dialog : boolean;
-  textmessage : boolean
-  thought : boolean
-  shout : boolean
-}
 
 // Component wrapper function
 export const EditorComponent: React.FC = () => {
@@ -38,10 +30,8 @@ export const EditorComponent: React.FC = () => {
   const { currentCommunicationCategory } = useRecoilValue(activeCommunicationCategory);
   const categoriesList = useRecoilValue(communicationCategoriesList)
   const selectedPerson = useRecoilValue(activePerson);
+  const [visibleBoxes,setVisibleBoxes] = useRecoilState(visibileBoxesState)
 
-  const [visibleBoxes,setVisibileBoxes] = useRecoilState(visibileBoxesState)
-
-  // Local States
   
 
 
@@ -57,57 +47,27 @@ export const EditorComponent: React.FC = () => {
     }
   };
 
-  const toggleBoxesHandler = (category : string, value : boolean) => {
-
-  }
-
   const listInputs = categoriesList.map((category: CommunicationCategory,index: number) => {
-    switch(category.interactionName) {
-      case "NARRATIVE":
-        if (visibleBoxes.narrative === true) {
-          return (
-            <ComInputBox category={category}/>
-          )} else break;
-      case "DIALOG":
-        if (visibleBoxes.dialog === true) {
-        return (
-          <ComInputBox category={category}/>
-        )} else break;
-      case "TEXTMESSAGE":
-        if (visibleBoxes.textmessage === true) {
-        return (
-          <ComInputBox category={category}/>
-        )} else break;
-      case "THOUGHT":
-        if (visibleBoxes.thought === true) {
-        return (
-          <ComInputBox category={category}/>
-        )} else break;
-      case "SHOUT":
-        if (visibleBoxes.shout === true) {
-        return (
-          <ComInputBox category={category}/>
-        )} else break;
+      let height : string;
+      if (category.interactionName === "NARRATIVE") {height = "50"}
+      else {height = "25"};
 
-      default:
-        return (
-          <ComInputBox category={category}/>
-        )
-    }
-
+      return <ComInputBox category={category} boxheight={height}/>
   })
 
   // Component end-return
   return (
     <>
       <EditorNamesList numSelections={1} width={50} />
-      <AddNewPersonInputField numSelections={1} />
+      {/* <AddNewPersonInputField numSelections={1} /> */}
 
       {/* Wrapper for Editor Boxes + Output Screen */}
-      <MainContainer>
+      <MainContainer style={{border: '5px solid black'}}>
         {/* Wrapper for only the editor boxes */}
-        <Wrapper style={{}}>{listInputs}</Wrapper>
-        <S.Wrapper>
+        <Wrapper style={{}}>
+          {listInputs}
+        </Wrapper>
+        <S.Wrapper style={{}}>
           <Fab
             onClick={handleGoLeft}
             sx={{
@@ -128,6 +88,7 @@ export const EditorComponent: React.FC = () => {
           <S.LoudSpeaker />
           <S.Screen >
             {currentPage?.messages.map((card: Message) => (
+              
               <InteractionSwitch
                 key={card.id}
                 id={card.id}
@@ -166,7 +127,8 @@ export const EditorComponent: React.FC = () => {
 export const MainContainer = styled.div`
   padding-top: 5vh;
   margin-top: 20px;
-  width: 100rem;
+  width: 100%;
+  min-height: 75vh;
   align-self: stretch;
   display: flex;
 `;
@@ -174,6 +136,7 @@ export const MainContainer = styled.div`
 export const Wrapper = styled.div`
   width: 50%;
   margin-right: 10rem;
+  border: 2px solid red;
 `;
 
 export const Expandable = styled.div`
@@ -227,144 +190,3 @@ export const Output = styled.div`
   box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.1);
   margin-left: 1%;
 `;
-
-{
-  /* Temp gravyard */
-}
-
-{
-  /*  <Wrapper>
-          <Expandable>
-            <div
-              style={{
-                width: "30rem",
-                height: "8rem",
-                border: "2px solid lightgray",
-                borderRadius: "0px",
-              }}
-            >
-              <h4 style={{ color: "gray" }}>NARRATIVE</h4>
-              <form
-                onSubmit={(event) => handleAddMessage(0, event, "NARRATIVE")}
-              >
-                <TextInput
-                  value={textInputs[0][0].inputField}
-                  placeholder="...."
-                  onChange={(event) => handleChangeTextInput(0, event)}
-                />
-              </form>
-            </div>
-          </Expandable> */
-}
-{
-  /* <Expandable>
-            <div
-              style={{
-                width: "30rem",
-                height: "8rem",
-                border: "1px solid lightgray",
-                borderRadius: "0px",
-              }}
-            >
-              <div
-                style={{
-                  display: "inline-flex",
-                  width: "100%",
-                  position: "relative",
-                  top: "-24px",
-                }}
-              >
-                <ConvoName
-                  style={{
-                    textAlign: "left",
-                    backgroundColor: selectedPerson
-                      ? selectedPerson.color
-                      : "white",
-                  }}
-                  onClick={() => handleViewModal(0)}
-                >
-                  <div
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      backgroundColor: "grey",
-                      float: "left",
-                      position: "relative",
-                      top: "7px",
-                      marginRight: "5px",
-                      borderRadius: "100px",
-                    }}
-                  />
-                  <div
-                    style={{ position: "relative", left: "4px", top: "9px" }}
-                  >
-                    {selectedPerson?.name}
-                  </div>
-                  <PersonSelectModal viewModal={viewPersonSelector} side={0} />
-                </ConvoName>
-                <ConvoName
-                  style={{
-                    textAlign: "right",
-                    backgroundColor: "grey",
-                  }}
-                  onClick={() => handleViewModal(1)}
-                >
-                  <div
-                    style={{ position: "relative", right: "30px", top: "9px" }}
-                  >
-                    {selectedPerson?.name}
-                  </div>
-                  <div
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      backgroundColor: "grey",
-                      float: "right",
-                      position: "relative",
-                      top: "-10px",
-                      marginLeft: "5px",
-                      borderRadius: "100px",
-                    }}
-                  />
-                  <PersonSelectModal viewModal={viewPersonSelector} side={1} />
-                </ConvoName>
-              </div>
-              <TextInput
-                placeholder="...."
-                style={{ position: "relative", top: "-24px" }}
-              />
-            </div>
-          </Expandable>
-          <Expandable>
-            <div
-              style={{
-                width: "30rem",
-                height: "8rem",
-                border: "2px solid lightgray",
-                borderRadius: "0px",
-              }}
-            >
-              <h4 style={{ color: "gray" }}>TEXT MESSAGE</h4>
-              <input
-                placeholder="Write something..."
-                style={{ width: "19.6rem", height: "4rem", border: "none" }}
-              />
-            </div>
-          </Expandable>
-          <Expandable>
-            <div
-              style={{
-                width: "30rem",
-                height: "8rem",
-                border: "2px solid lightgray",
-                borderRadius: "0px",
-              }}
-            >
-              <h4 style={{ color: "gray" }}>THOUGHT</h4>
-              <TextInput placeholder="...." />
-            </div>
-          </Expandable> */
-}
-{
-  /* </Wrapper>  */
-}

@@ -15,10 +15,10 @@ export const Wrapper = styled.div`
   width: 75%;
 `;
 
-export const Expandable = styled.div`
+export const Expandable = styled.div<{height: string;}>`
   text-align: center;
   width: 100%;
-  height:50%;
+  height:${(props) => props.height}%;
   display: flex;
   flex-direction: row;
   flex-wrap: no-wrap;

@@ -12,29 +12,16 @@ import { CommunicationCategory } from "../../atoms/template";
 import { ComIconSwitch } from "./ComIconSwitch";
 import { PersonSelectModal } from "./PersonSelectModal";
 import { activePerson } from "../../selectors/Characters";
-import { visibileBoxesState } from "../../atoms/editor";
+import { updateVisibility, visibileBoxesState } from "../../atoms/editor";
 
 // Component props
 type Props = {
   category: CommunicationCategory;
+  boxheight: string;
 };
 
 // Component wrapper function
-export const ComInputBox: React.FC<Props> = ({ category }) => {
-  // Recoil States
-
-//   const currentPage = useRecoilValue(activePage);
-//   const { currentCommunicationCategory } = useRecoilValue(
-//     activeCommunicationCategory
-//   );
-//   const catergoriesList = useRecoilValue(communicationCategoriesList);
-//   const selectedPerson = useRecoilValue(activePerson);
-
-//   // Component Local States
-//   const [textField, setTextField] = useState("");
-//   const [viewPersonModal, setViewPersonModal] = useState<boolean>(false);
-//   const [expandedSide, setExpandedSide] = useState<string>("LEFT");
-
+export const ComInputBox: React.FC<Props> = ({ category, boxheight }) => {
     
     // Recoil States
     const currentPage = useRecoilValue(activePage);
@@ -42,17 +29,13 @@ export const ComInputBox: React.FC<Props> = ({ category }) => {
     const catergoriesList = useRecoilValue(communicationCategoriesList)
     const selectedPerson = useRecoilValue(activePerson);
     const [personList] = useRecoilState(allCharactersState);
-    const [visibleBoxes,setVisibileBoxes] = useRecoilState(visibileBoxesState)
+    const [visibleBoxes,setVisibleBoxes] = useRecoilState(visibileBoxesState)
     
     // Component Local States
     const [textField,setTextField] = useState("");
     const [viewPersonModal, setViewPersonModal] = useState<boolean>(false);
     const [expandedSide, setExpandedSide] = useState<string>("LEFT")
 
-    let width : string =""
-    if (category.interactionName === "NARRATIVE") {
-
-    }
     const handleAddMessage = (
         e: React.FormEvent,
         category : CommunicationCategory,
@@ -60,11 +43,6 @@ export const ComInputBox: React.FC<Props> = ({ category }) => {
       ) => {
         e.preventDefault();
         const correctInput: string = textField;
-        if (selectedperson !== undefined) {
-            const persons = [...personList]
-            persons[personList.findIndex(p => p === selectedperson)].align = expandedSide;
-            selectedperson = persons[personList.findIndex(p => p === selectedperson)];
-        }
         const newMessage: Message = {
           id: currentPage.messages[currentPage.messages.length - 1].id + 1,
           person: category.interactionName !== "NARRATIVE" ? selectedperson : undefined,
@@ -91,6 +69,17 @@ export const ComInputBox: React.FC<Props> = ({ category }) => {
     // Handler for toggling between left/right alignment
     const handleAlignmentSwitch = (person : Person, newAlignment : string) => {
         setExpandedSide(newAlignment);
+    }
+
+    const handleToggleVisibility = (interactionName : string) => {
+        const selectedBoxIndex = visibleBoxes.findIndex((box) => box.interactionName === interactionName)
+        const selectedBox = visibleBoxes[selectedBoxIndex];
+        const updatedVisibility = [
+            ...visibleBoxes.slice(0, selectedBoxIndex),
+            {...selectedBox, visible : !selectedBox.visible},
+            ...visibleBoxes.slice(selectedBoxIndex + 1)
+        ]
+        setVisibleBoxes(updatedVisibility);
     }
 
     // Handler for displaying different types of headers in the inputbox
@@ -163,14 +152,15 @@ export const ComInputBox: React.FC<Props> = ({ category }) => {
 
     // Component end-return
     return (
-        <S.Expandable style={{}}>
-        <S.IconContainer style={{ }}>
+        <S.Expandable height={boxheight}>
+        <S.IconContainer style={{ }} onClick={() => handleToggleVisibility(category.interactionName)}>
             <div>
                 <ComIconSwitch category={category}/>
                 <p>{category.interactionName}</p>
             </div>
         </S.IconContainer>
 
+        { visibleBoxes[visibleBoxes.findIndex(v => v.interactionName === category.interactionName)].visible === true ?
         <S.InputContainer style={{}}>
             {headerHandler()}
             <form onSubmit={(event) => handleAddMessage(event, category,selectedPerson)}>
@@ -181,6 +171,8 @@ export const ComInputBox: React.FC<Props> = ({ category }) => {
                 />
             </form>
         </S.InputContainer>
+        : null
+        }
 
       </S.Expandable>
     )
