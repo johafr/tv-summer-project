@@ -57,14 +57,7 @@ export const InteractionSwitch: React.FC<Message> = (props) => {
             />
           );
         case "Speech Bubble (outlined)":
-          return (
-            <DialogFormatOutlined
-              id={props.id}
-              content={props.content}
-              format={props.format}
-              person={props.person}
-            />
-          );
+          return <div>Outlined</div>;
         case "Text Heavy (large)":
           return (
             <DialogFormatTextHeavyLarge

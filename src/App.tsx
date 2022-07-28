@@ -13,6 +13,7 @@ import { useRecoilValue } from "recoil";
 import { AiFillHome } from "react-icons/ai";
 import { Person } from "./atoms/Characters";
 import { DialogFormatTextHeavyLarge } from "./components/customTemplateComponents/formats/dialogFormats/DialogFormatTextHeavyLarge";
+import { DialogFormatRegular } from "./components/customTemplateComponents/formats/dialogFormats/DialogFormatRegular";
 
 const TestPerson: Person = {
   id: -5,
@@ -30,7 +31,7 @@ const Router: React.FC = () => {
         <Route element={<Preview />} path={"story:id/preview"} />
         <Route
           element={
-            <DialogFormatTextHeavyLarge
+            <DialogFormatRegular
               format={["test", "test"]}
               content={"Men jeg skal ikke reise!"}
               id={-5}
