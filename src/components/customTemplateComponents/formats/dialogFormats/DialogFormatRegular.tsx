@@ -5,13 +5,13 @@ import { Message } from "../../../../atoms/stories";
 export const DialogFormatRegular: React.FC<Message> = ({ person, content }) => {
   return (
     <Wrapper>
-      <CharacterName align={person !== undefined ? person.align : "right"}>
+      <CharacterName align={person !== undefined ? person.align : "left"}>
         {person?.name}
       </CharacterName>
-      <CharacterText align={person !== undefined ? person.align : "right"}>
+      <CharacterText align={person !== undefined ? person.align : "left"}>
         {content}
       </CharacterText>
-      <Arrow align={person !== undefined ? person.align : "right"} />
+      <Arrow align={person !== undefined ? person.align : "left"} />
     </Wrapper>
   );
 };
@@ -33,11 +33,12 @@ const CharacterName = styled.h3<{ align?: string }>`
   font-size: 0.5em;
   text-transform: uppercase;
   color: #d6bf5a;
+  position: relative;
 
   ${(props) =>
-    props.align === "left" &&
+    props.align === "right" &&
     `
-        left: -38%;
+        left: 90%;
       `}
   \`;
 `;
@@ -51,9 +52,9 @@ const CharacterText = styled.p<{ align?: string }>`
   text-align: right;
 
   ${(props) =>
-    props.align === "left" &&
+    props.align === "right" &&
     `
-        text-align: left;
+        text-align: right;
       `}
   \`;
 `;
@@ -63,7 +64,7 @@ const Arrow = styled.div<{ align?: string }>`
   width: 20px;
   height: 10px;
   position: absolute;
-  right: -18px;
+  left: -18px;
   bottom: 10px;
   border: 0px solid;
   display: block;
@@ -71,13 +72,13 @@ const Arrow = styled.div<{ align?: string }>`
   border-bottom-left-radius: 20%;
   border-bottom-right-radius: 90%;
   box-shadow: -11px 5px 0px 5px #fffef9;
-  transform: scaleX(1);
+  transform: scaleX(-1);
 
   ${(props) =>
-    props.align === "left" &&
+    props.align === "right" &&
     `
         right: 100%;
-        transform: scaleX(-1);
+        transform: scaleX(1);
       `}
   \`;
 `;
