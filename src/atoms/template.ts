@@ -35,7 +35,7 @@ const dummyData: CommunicationCategory[] = [
     interactionName: "NARRATIVE",
     premadeFormats: [
       {
-        formatName: "Default Narrative",
+        formatName: "Narrative (regular)",
       },
       {
         formatName: "Narrative 1",
@@ -47,7 +47,7 @@ const dummyData: CommunicationCategory[] = [
     interactionName: "TEXTMESSAGE",
     premadeFormats: [
       {
-        formatName: "Default Textmessage",
+        formatName: "Text Message (regular)",
       },
       {
         formatName: "Textmessage 1",
@@ -59,16 +59,16 @@ const dummyData: CommunicationCategory[] = [
     interactionName: "DIALOG",
     premadeFormats: [
       {
-        formatName: "SpeechBubbleChat",
+        formatName: "Speech Bubble (regular)",
       },
       {
-        formatName: "Dialog Option 1",
+        formatName: "Speech Bubble (outlined)",
       },
       {
-        formatName: "Dialog Option 2",
+        formatName: "Text Heavy (large)",
       },
       {
-        formatName: "Dialog Option 3",
+        formatName: "Text Heavy (small)",
       },
     ],
   },
@@ -77,7 +77,7 @@ const dummyData: CommunicationCategory[] = [
     interactionName: "THOUGHT",
     premadeFormats: [
       {
-        formatName: "ThoughtBubbleChat",
+        formatName: "Thought Bubble (regular)",
       },
       {
         formatName: "Thought 1",

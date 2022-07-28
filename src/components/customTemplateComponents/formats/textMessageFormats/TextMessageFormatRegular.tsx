@@ -22,9 +22,13 @@ const Container = styled.div`
   position: relative;
   width: inherit;
   height: inherit;
+  max-width: 20rem;
+  word-wrap: break-word;
   padding: 1.2rem;
   background: #fcf9f6;
   border-radius: 10px;
+  font-size: 0.6em;
+  text-align: left;
 `;
 
 const CharacterName = styled.h3`

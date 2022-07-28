@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Message } from "../../../../atoms/stories";
 
-export const ThoughtBubbleFormatRegular: React.FC<Message> = ({
+export const ThoughtBubbleFormatAbstract: React.FC<Message> = ({
   person,
   content,
 }) => {
@@ -10,14 +10,20 @@ export const ThoughtBubbleFormatRegular: React.FC<Message> = ({
 
   // The div with green background is just to see the bubble
   return (
-    <div>
+    <div
+      style={{
+        background: "#C9E4D4",
+        padding: "10rem",
+        display: "inline-block",
+      }}
+    >
       <Wrapper>
         <LargeBubble>
           <CharacterName align={person !== undefined ? person.align : "right"}>
             {person?.name}
           </CharacterName>
           <CharacterText align={person !== undefined ? person.align : "right"}>
-            {content}
+            This was what he wanted to do, all along
           </CharacterText>
           <MediumBubble align={person !== undefined ? person.align : "right"} />
           <SmallBubble align={person !== undefined ? person.align : "right"} />
