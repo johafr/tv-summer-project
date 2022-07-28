@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Person } from "../../atoms/Characters";
 import { selectedPersonSide, visibileBoxesState } from "../../atoms/editor";
-import { addMessage, Message } from "../../atoms/stories";
+import { addMessage} from "../../atoms/stories";
 import { CommunicationCategory } from "../../atoms/template";
 import { activePerson } from "../../selectors/Characters";
-import { activePage } from "../../selectors/stories";
 import { communicationCategoriesList } from "../../selectors/template";
 import * as S from "../../styles/components/EditorStyles";
-import { ComIconSwitch } from "./ComIconSwitch";
+import { IconSwitch } from "./EditorIconSwitch";
 import { PersonSelectModal } from "./PersonSelectModal";
 
 // Component props
@@ -22,22 +21,21 @@ export const DialogBoxes: React.FC<Props> = ({  }) => {
     const [activeSide,setActiveSide] = useRecoilState(selectedPersonSide);
     const categoriesList = useRecoilValue(communicationCategoriesList)
     const selectedPerson = useRecoilValue(activePerson);
-    const currentPage = useRecoilValue(activePage);
     const [activeBox,setActiveBox] = useState("");
     const [textField,setTextField] = useState("");
     const [viewPersonModal, setViewPersonModal] = useState<boolean>(false);
-    const [expandedSide, setExpandedSide] = useState<string>("LEFT")
     
 
 
     const boxheight = "50"
 
 
+
     const mapIcons = categoriesList.map((category) => {
         if (category.interactionName !== "NARRATIVE" && category.interactionName !== "SHOUT")
         return (
             <S.IconElements onClick={() => handleToggleVisibility(category.interactionName)} style={{color: category.interactionName === activeBox ? 'blue':''}}>
-                <ComIconSwitch category={category}/>
+                <IconSwitch category={category}/>
                 <p>{category.interactionName}</p>
             </S.IconElements>
         )
@@ -59,21 +57,11 @@ export const DialogBoxes: React.FC<Props> = ({  }) => {
     const handleAddMessage = (
         e: React.FormEvent,
         category : CommunicationCategory,
-        selectedperson?: Person | undefined
       ) => {
         e.preventDefault();
-        const correctInput: string = textField;
-        const newMessage: Message = {
-          id: currentPage.messages[currentPage.messages.length - 1].id + 1,
-          person: category.interactionName !== "NARRATIVE" ? selectedperson : undefined,
-          content: textField,
-          format:  [
-            category.interactionName,
-            category.premadeFormats[category.activeFormatIndex].formatName
-          ]
-        };
+        
         // Push message to list
-        addMessage(newMessage);
+        addMessage(textField,category);
         // Set inputfield to empty
         setTextField("");
       };
@@ -103,7 +91,7 @@ export const DialogBoxes: React.FC<Props> = ({  }) => {
                             <p style={{color: selectedPerson ? 'black' : 'gray',fontStyle: selectedPerson ? 'normal' : 'italic'}}>
                                 {selectedPerson ? selectedPerson.name : "Choose a person.."}
                             </p>
-                            <PersonSelectModal viewModal={viewPersonModal} side={expandedSide} />
+                            <PersonSelectModal viewModal={viewPersonModal} side={activeSide} />
                         </S.ConvoName>
                     </div>
                 )
@@ -124,7 +112,7 @@ export const DialogBoxes: React.FC<Props> = ({  }) => {
                             >
                                 {selectedPerson ? selectedPerson.name : "Choose a person.."}
                             </p>
-                            <PersonSelectModal viewModal={viewPersonModal} side={expandedSide} />
+                            <PersonSelectModal viewModal={viewPersonModal} side={activeSide} />
                         </S.ConvoName>
                         <S.ConvoName 
                             onClick={() => handleAlignmentSwitch(selectedPerson!,"RIGHT")} 
@@ -145,7 +133,7 @@ export const DialogBoxes: React.FC<Props> = ({  }) => {
         return ( 
             <S.InputContainer>
             {headerHandler()}
-            <form onSubmit={(event) => handleAddMessage(event, category,selectedPerson)}>
+            <form onSubmit={(event) => handleAddMessage(event, category)}>
                 <S.TextInput
                     value={textField}
                     placeholder="Write something.."

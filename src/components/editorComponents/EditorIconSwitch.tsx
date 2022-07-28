@@ -14,7 +14,7 @@ type Props = {
 };
 
 // Component wrapper function
-export const ComIconSwitch: React.FC<Props> = ({ category  }) => {
+export const IconSwitch: React.FC<Props> = ({ category  }) => {
 
     // Component end-return
     switch(category.interactionName) {
