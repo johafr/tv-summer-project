@@ -9,7 +9,8 @@ import React from "react";
 export function MobileViewComponent(props: {
   handleGoLeft: () => void;
   currentPage: Page;
-  mapStoriesFunction: (card: Message) => JSX.Element;
+  messagesMapFunction: (card: Message) => JSX.Element;
+
   handleGoRight: () => void;
   pageNum: number;
   numPages: number;
@@ -35,7 +36,8 @@ export function MobileViewComponent(props: {
       </Fab>
       <S.LoudSpeaker />
       <S.Screen>
-        {props.currentPage?.messages.map(props.mapStoriesFunction)}
+        {props.currentPage?.messages.map(props.messagesMapFunction)}
+
       </S.Screen>
       <Fab
         onClick={props.handleGoRight}
