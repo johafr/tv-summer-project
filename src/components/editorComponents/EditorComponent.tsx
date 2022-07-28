@@ -37,9 +37,8 @@ export const EditorComponent: React.FC = () => {
   const categoriesList = useRecoilValue(communicationCategoriesList);
   const selectedPerson = useRecoilValue(activePerson);
 
-  const [visibleBoxes,setVisibleBoxes] = useRecoilState(visibileBoxesState)
-  const amountVisible = useRecoilValue(visibleNumber)
-  
+  const [visibleBoxes, setVisibleBoxes] = useRecoilState(visibileBoxesState);
+  const amountVisible = useRecoilValue(visibleNumber);
 
   const dummycategory = {
     activeFormatIndex: 0,
@@ -58,7 +57,7 @@ export const EditorComponent: React.FC = () => {
         formatName: "Text Heavy (small)",
       },
     ],
-  }
+  };
 
   const handleGoLeft = () => {
     if (pageNum !== 0) {
@@ -71,28 +70,36 @@ export const EditorComponent: React.FC = () => {
       setPageNum(pageNum! + 1);
     }
   };
-  const listNarrative = categoriesList.map((category: CommunicationCategory,index: number) => {
-    const currentIndex = visibleBoxes.findIndex((box) => box.interactionName === category.interactionName);
-    let height : string = "10";
-    if (visibleBoxes[currentIndex].visible === true) {height = "50"}
+  const listNarrative = categoriesList.map(
+    (category: CommunicationCategory, index: number) => {
+      const currentIndex = visibleBoxes.findIndex(
+        (box) => box.interactionName === category.interactionName
+      );
+      let height: string = "10";
+      if (visibleBoxes[currentIndex].visible === true) {
+        height = "50";
+      }
 
-    if (category.interactionName === 'NARRATIVE') return (
-      <ComInputBox category={category} boxheight={height}/>
-    )
-  })
+      if (category.interactionName === "NARRATIVE")
+        return <ComInputBox category={category} boxheight={height} />;
+    }
+  );
 
-  const listInputs = categoriesList.map((category: CommunicationCategory,index: number) => {
-    if (category.interactionName !== 'NARRATIVE') {
+  const listInputs = categoriesList.map(
+    (category: CommunicationCategory, index: number) => {
+      if (category.interactionName !== "NARRATIVE") {
+        const currentIndex = visibleBoxes.findIndex(
+          (box) => box.interactionName === category.interactionName
+        );
+        let height: string = "10";
+        if (visibleBoxes[currentIndex].visible === false) {
+          height = "10";
+        } else height = "50";
 
-    const currentIndex = visibleBoxes.findIndex((box) => box.interactionName === category.interactionName);
-    let height: string = "10";
-    if (visibleBoxes[currentIndex].visible === false) {
-      height = "10";
-    } else height = "50";
-
-      return <ComInputBox category={category} boxheight={height}/>
-  }
-  })
+        return <ComInputBox category={category} boxheight={height} />;
+      }
+    }
+  );
 
   // Component end-return
   return (
@@ -104,13 +111,13 @@ export const EditorComponent: React.FC = () => {
       <MainContainer>
         {/* Wrapper for only the editor boxes */}
         <Wrapper style={{}}>
-           {listNarrative}
-          <DialogBoxes/>
+          {listNarrative}
+          <DialogBoxes />
         </Wrapper>
         <MobileViewComponent
           handleGoLeft={handleGoLeft}
           currentPage={currentPage}
-          callbackFunction={(card: Message) => (
+          messagesMapFunction={(card: Message) => (
             <InteractionSwitch
               key={card.id}
               id={card.id}
