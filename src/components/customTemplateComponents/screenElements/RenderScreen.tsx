@@ -12,8 +12,16 @@ import {
   getActiveTemplate,
 } from "../../../selectors/template";
 import { InteractionSwitch } from "../../editorComponents/InteractionSwitch";
+import { Person } from "../../../atoms/Characters";
 
 const ToolbarHeight: number = 45.5;
+
+const DummyPerson: Person = {
+  id: -5,
+  name: "TESTY",
+  color: "#000000",
+  align: "left",
+};
 
 export const RenderScreen = () => {
   const { currentCommunicationCategory, currentCommunicationFormats } =
@@ -57,6 +65,7 @@ export const RenderScreen = () => {
               >
                 <p>{format.formatName}</p>
                 <InteractionSwitch
+                  person={DummyPerson}
                   id={0}
                   content="Lorem Ipsum has been the industry's standard dummy text "
                   format={[
@@ -92,6 +101,7 @@ export const RenderScreen = () => {
                 <p>{communication.interactionName}</p>
                 <InteractionSwitch
                   id={0}
+                  person={DummyPerson}
                   content="Lorem Ipsum has been the industry's standard dummy text "
                   format={[
                     communication.interactionName,
