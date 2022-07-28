@@ -7,29 +7,25 @@ export const NarrativeFormatRegular: React.FC<Message> = ({
   content,
 }) => {
   return (
-    <>
-      <Container>
-        <NarrativeText align={person !== undefined ? person.align : "right"}>
-          {content}
-        </NarrativeText>
-      </Container>
-    </>
+    <Container>
+      <NarrativeText align={person !== undefined ? person.align : "right"}>
+        {content}
+      </NarrativeText>
+    </Container>
   );
 };
 
 const Container = styled.div`
-  width: inherit;
-  height: inherit;
-  max-width: 20rem;
+  width: 60%;
+  position: relative;
+  max-width: 60%
   word-wrap: break-word;
-  background: white;
-  padding: 0.5rem;
-  border-radius: 10px;
+  left: 40%;
+  transform: translateX(-40%);
 `;
 
 const NarrativeText = styled.p<{ align?: string }>`
   font-size: 0.7em;
-  text-align: center;
 
   ${(props) =>
     props.align === "left"

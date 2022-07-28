@@ -18,17 +18,16 @@ export const TextMessageFormatRegular: React.FC<Message> = ({
 };
 
 const Container = styled.div`
-  margin: 0;
   position: relative;
-  width: inherit;
-  height: inherit;
-  max-width: 20rem;
+  width: 60%;
+  max-width: 60%;
   word-wrap: break-word;
-  padding: 1.2rem;
   background: #fcf9f6;
   border-radius: 10px;
   font-size: 0.6em;
   text-align: left;
+  margin: 1rem;
+  padding: 1rem;
 `;
 
 const CharacterName = styled.h3`
@@ -36,6 +35,7 @@ const CharacterName = styled.h3`
   margin: 0;
   text-transform: uppercase;
   margin-bottom: 2px;
+  font-size: 0.8em;
 `;
 
 const TextMessageIndicator = styled.p`
@@ -44,6 +44,8 @@ const TextMessageIndicator = styled.p`
   color: rgba(52, 52, 52, 0.5);
   padding: 2px;
   font-size: 0.8em;
+  position: relative;
+  top: -5px;
 `;
 
 const CharacterText = styled.p`

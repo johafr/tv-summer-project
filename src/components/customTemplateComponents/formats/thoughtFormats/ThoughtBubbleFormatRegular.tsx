@@ -30,17 +30,15 @@ export const ThoughtBubbleFormatRegular: React.FC<Message> = ({
 const Wrapper = styled.div``;
 
 const LargeBubble = styled.div`
-  margin: 0;
+  width: 60%;
+  max-width: 60%;
+  text-wrap: break-word;
+  background: #fffef9;
   position: relative;
-  width: inherit;
-  height: inherit;
-  max-width: 20rem;
-  word-wrap: break-word;
-  padding: 0.2rem;
-  background: white;
-  border-radius: 50px;
-  text-align: left;
-  box-shadow: 0 0 8px 8px white;
+  border-radius: 10px;
+  margin: 1rem;
+  padding: 1rem;
+  box-shadow: 0 0 2px 2px white;
 `;
 
 const MediumBubble = styled.div<{ align?: string }>`
@@ -48,7 +46,7 @@ const MediumBubble = styled.div<{ align?: string }>`
   height: 20px;
   border-radius: 50%;
   background: white;
-  box-shadow: 0 0 8px 8px white;
+  box-shadow: 0 0 2px 2px white;
   position: absolute;
   right: -10px;
   bottom: -10px;
@@ -66,7 +64,7 @@ const SmallBubble = styled.div<{ align?: string }>`
   height: 10px;
   border-radius: 50%;
   background: white;
-  box-shadow: 0 0 8px 8px white;
+  box-shadow: 0 0 2px 2px white;
   position: absolute;
   right: -20px;
   bottom: -20px;
@@ -83,20 +81,21 @@ const SmallBubble = styled.div<{ align?: string }>`
 // The condition in this styled component sets the character name to the left
 // if the alignment is left. It is right by default
 const CharacterName = styled.h3<{ align?: string }>`
-  position: relative;
-  left: 80%;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
   font-size: 0.6em;
 
   ${(props) =>
     props.align === "left" &&
     `
-        left: 0;
-        padding-left: 1rem;
         text-align: left;
       `}
 `;
 
 const CharacterText = styled.p<{ align?: string }>`
+  margin: 0;
+  padding: 0;
   font-size: 0.7em;
   text-align: right;
 
@@ -104,7 +103,6 @@ const CharacterText = styled.p<{ align?: string }>`
     props.align === "left" &&
     `
         text-align: left;  
-        padding-left: 1rem;
       `}
   \`;
 `;

@@ -17,20 +17,20 @@ export const DialogFormatRegular: React.FC<Message> = ({ person, content }) => {
 };
 
 const Wrapper = styled.div`
-  width: inherit;
-  height: inherit;
-  max-width: 20rem;
+  width: 60%;
+  max-width: 60%;
   text-wrap: break-word;
   background: #fffef9;
   position: relative;
-  border-radius: 20px;
+  border-radius: 10px;
+  margin: 1rem;
+  padding: 1rem;
 `;
 
 const CharacterName = styled.h3<{ align?: string }>`
-  position: relative;
-  left: 38%;
-  font-size: 0.6em;
-  top: 15px;
+  padding: 0;
+  margin: 0;
+  font-size: 0.5em;
   text-transform: uppercase;
   color: #d6bf5a;
 
@@ -43,9 +43,9 @@ const CharacterName = styled.h3<{ align?: string }>`
 `;
 
 const CharacterText = styled.p<{ align?: string }>`
+  padding: 0;
+  margin: 0;
   position: relative;
-  margin-left: 5px;
-  padding: 5px;
   font-size: 0.7em;
   z-index: 1000;
   text-align: right;
