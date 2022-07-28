@@ -13,14 +13,14 @@ export const ThoughtBubbleFormatRegular: React.FC<Message> = ({
     <div>
       <Wrapper>
         <LargeBubble>
-          <CharacterName align={person !== undefined ? person.align : "right"}>
+          <CharacterName align={person !== undefined ? person.align : "left"}>
             {person?.name}
           </CharacterName>
-          <CharacterText align={person !== undefined ? person.align : "right"}>
+          <CharacterText align={person !== undefined ? person.align : "left"}>
             {content}
           </CharacterText>
-          <MediumBubble align={person !== undefined ? person.align : "right"} />
-          <SmallBubble align={person !== undefined ? person.align : "right"} />
+          <MediumBubble align={person !== undefined ? person.align : "left"} />
+          <SmallBubble align={person !== undefined ? person.align : "left"} />
         </LargeBubble>
       </Wrapper>
     </div>
@@ -37,8 +37,9 @@ const LargeBubble = styled.div`
   position: relative;
   border-radius: 10px;
   margin: 1rem;
+  margin-bottom: 2rem;
   padding: 1rem;
-  box-shadow: 0 0 2px 2px white;
+  box-shadow: 0 0 4px 4px white;
 `;
 
 const MediumBubble = styled.div<{ align?: string }>`
@@ -48,13 +49,13 @@ const MediumBubble = styled.div<{ align?: string }>`
   background: white;
   box-shadow: 0 0 2px 2px white;
   position: absolute;
-  right: -10px;
+  left: 2%;
   bottom: -10px;
 
   ${(props) =>
-    props.align === "left" &&
+    props.align === "right" &&
     `
-        left: 0;
+        left: 90%;
       `}
   \`;
 `;
@@ -66,14 +67,14 @@ const SmallBubble = styled.div<{ align?: string }>`
   background: white;
   box-shadow: 0 0 2px 2px white;
   position: absolute;
-  right: -20px;
+  left: -10px;
   bottom: -20px;
   text-align: right;
 
   ${(props) =>
-    props.align === "left" &&
+    props.align === "right" &&
     `
-        left: -10px;  
+        left: 100%;  
       `}
   \`;
 `;
@@ -85,10 +86,12 @@ const CharacterName = styled.h3<{ align?: string }>`
   margin: 0;
   padding: 0;
   font-size: 0.6em;
+  position: relative;
 
   ${(props) =>
-    props.align === "left" &&
+    props.align === "right" &&
     `
+    left: 90%;
         text-align: left;
       `}
 `;
