@@ -62,7 +62,7 @@ export const EditorComponent: React.FC = () => {
       {/* <AddNewPersonInputField numSelections={1} /> */}
 
       {/* Wrapper for Editor Boxes + Output Screen */}
-      <MainContainer style={{border: '5px solid black'}}>
+      <MainContainer>
         {/* Wrapper for only the editor boxes */}
         <Wrapper style={{}}>
           {listInputs}
@@ -136,7 +136,6 @@ export const MainContainer = styled.div`
 export const Wrapper = styled.div`
   width: 50%;
   margin-right: 10rem;
-  border: 2px solid red;
 `;
 
 export const Expandable = styled.div`
