@@ -37,6 +37,7 @@ export const MobileView: React.FC = () => {
             handleGoLeft={handleGoLeft}
             currentPage={currentPage}
             messagesMapFunction={(card: Message) => (
+
               <InteractionSwitch
                 key={card.id}
                 id={card.id}
