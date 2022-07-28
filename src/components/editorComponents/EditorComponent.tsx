@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { activePageIndex, addMessage, Message } from "../../atoms/stories";
+import {
+  activePageIndex,
+  addMessage,
+  Message,
+  Page,
+} from "../../atoms/stories";
 import { InteractionSwitch } from "./InteractionSwitch";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { activeCommunicationCategory, communicationCategoriesList } from "../../selectors/template";
+import {
+  activeCommunicationCategory,
+  communicationCategoriesList,
+} from "../../selectors/template";
 import { activePage, activeStoryStats } from "../../selectors/stories";
 import { AddNewPersonInputField } from "./AddNewPersonInputField";
 import { EditorNamesList } from "./EditorNamesList";
@@ -11,14 +19,9 @@ import { Person, setSelectedPerson } from "../../atoms/Characters";
 import { PersonSelectModal } from "./PersonSelectModal";
 import { activePerson } from "../../selectors/Characters";
 import { ComInputBox } from "./ComInputBox";
-import { Fab } from "@mui/material";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import { Theme } from "../../styles/Theme";
-import * as S from "../../styles/components/MobileView";
 import { CommunicationCategory } from "../../atoms/template";
 import { visibileBoxesState } from "../../atoms/editor";
-
+import { MobileViewComponent } from "./MobileViewComponent";
 
 // Component wrapper function
 export const EditorComponent: React.FC = () => {
@@ -27,13 +30,12 @@ export const EditorComponent: React.FC = () => {
   const [pageNum, setPageNum] = useRecoilState(activePageIndex);
   const { numPages } = useRecoilValue(activeStoryStats);
   const numberOfPages = useRecoilValue(activeStoryStats).numPages!;
-  const { currentCommunicationCategory } = useRecoilValue(activeCommunicationCategory);
-  const categoriesList = useRecoilValue(communicationCategoriesList)
+  const { currentCommunicationCategory } = useRecoilValue(
+    activeCommunicationCategory
+  );
+  const categoriesList = useRecoilValue(communicationCategoriesList);
   const selectedPerson = useRecoilValue(activePerson);
-  const [visibleBoxes,setVisibleBoxes] = useRecoilState(visibileBoxesState)
-
-  
-
+  const [visibleBoxes, setVisibleBoxes] = useRecoilState(visibileBoxesState);
 
   const handleGoLeft = () => {
     if (pageNum !== 0) {
@@ -47,13 +49,17 @@ export const EditorComponent: React.FC = () => {
     }
   };
 
-  const listInputs = categoriesList.map((category: CommunicationCategory,index: number) => {
-      let height : string;
-      if (category.interactionName === "NARRATIVE") {height = "50"}
-      else {height = "25"};
-
-      return <ComInputBox category={category} boxheight={height}/>
-  })
+  const listInputs = categoriesList.map(
+    (category: CommunicationCategory, index: number) => {
+      let height: string;
+      if (category.interactionName === "NARRATIVE") {
+        height = "50";
+      } else {
+        height = "25";
+      }
+      return <ComInputBox category={category} boxheight={height} />;
+    }
+  );
 
   // Component end-return
   return (
@@ -64,61 +70,23 @@ export const EditorComponent: React.FC = () => {
       {/* Wrapper for Editor Boxes + Output Screen */}
       <MainContainer>
         {/* Wrapper for only the editor boxes */}
-        <Wrapper style={{}}>
-          {listInputs}
-        </Wrapper>
-        <S.Wrapper style={{}}>
-          <Fab
-            onClick={handleGoLeft}
-            sx={{
-              position: "absolute",
-              left: "-6rem",
-              boxShadow: "none",
-              top: "15rem",
-              backgroundColor: Theme.palette.mainGreen.main,
-              "&:hover": {
-                backgroundColor: Theme.palette.mainGreen.dark,
-              },
-            }}
-            id={"fab"}
-            size={"large"}
-          >
-            <ArrowLeftIcon sx={{ color: "white", fontSize: "3rem" }} />
-          </Fab>
-          <S.LoudSpeaker />
-          <S.Screen >
-            {currentPage?.messages.map((card: Message) => (
-              
-              <InteractionSwitch
-                key={card.id}
-                id={card.id}
-                person={card.person}
-                content={card.content}
-                format={card.format}
-              />
-            ))}
-          </S.Screen>
-          <Fab
-            onClick={handleGoRight}
-            sx={{
-              position: "absolute",
-              left: "23rem",
-              boxShadow: "none",
-              top: "15rem",
-              backgroundColor: Theme.palette.mainGreen.main,
-              "&:hover": {
-                backgroundColor: Theme.palette.mainGreen.dark,
-              },
-            }}
-            id={"fab"}
-            size={"large"}
-          >
-            <ArrowRightIcon sx={{ color: "white", fontSize: "3rem" }} />
-          </Fab>
-          <S.PageNumber>
-            {pageNum + 1} / {numPages}
-          </S.PageNumber>
-        </S.Wrapper>
+        <Wrapper style={{}}>{listInputs}</Wrapper>
+        <MobileViewComponent
+          handleGoLeft={handleGoLeft}
+          currentPage={currentPage}
+          callbackFunction={(card: Message) => (
+            <InteractionSwitch
+              key={card.id}
+              id={card.id}
+              person={card.person}
+              content={card.content}
+              format={card.format}
+            />
+          )}
+          handleGoRight={handleGoRight}
+          pageNum={pageNum}
+          numPages={numPages}
+        />
       </MainContainer>
     </>
   );
