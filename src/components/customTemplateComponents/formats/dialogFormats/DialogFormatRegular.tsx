@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 
 const CharacterName = styled.h3<{ align?: string }>`
   padding: 0;
-  margin: 0;
+  margin-bottom: 5px;
   font-size: 0.5em;
   text-transform: uppercase;
   color: #d6bf5a;
@@ -49,7 +49,7 @@ const CharacterText = styled.p<{ align?: string }>`
   position: relative;
   font-size: 0.7em;
   z-index: 1000;
-  text-align: right;
+  position: relative;
 
   ${(props) =>
     props.align === "right" &&
@@ -77,7 +77,7 @@ const Arrow = styled.div<{ align?: string }>`
   ${(props) =>
     props.align === "right" &&
     `
-        right: 100%;
+        left: 100%;
         transform: scaleX(1);
       `}
   \`;
