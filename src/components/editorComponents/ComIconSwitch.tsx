@@ -29,11 +29,6 @@ export const ComIconSwitch: React.FC<Props> = ({ category  }) => {
         case "SHOUT":
             return <CampaignIcon/>
         default:
-            return (
-                <ArticleIcon/>
-                )
+            return <ArticleIcon/>
     }
-
-
-
 }

@@ -22,32 +22,35 @@ export const Expandable = styled.div<{height: string;}>`
   display: flex;
   flex-direction: row;
   flex-wrap: no-wrap;
-  flex-grow: 1;
+  flex-grow: 0;
   margin-bottom:4%;
-  
-
-  & div {
-    
-  }
 `;
 
 export const IconContainer = styled.div`
   width: 20%;
   border-radius: 20px;
-
+  flex-direction: row;
+  margin-right: 2%;
   & div {
     margin-top: 25%;
   }
-  & div:hover {
-    color:blue;
+`;
+
+export const IconElements = styled.div`
+  
+
+  &:hover {
+    color: blue;
     cursor: pointer;
   }
+
 `;
+
 
 export const InputContainer = styled.div`
   border: 1px solid lightgray;
   border-radius: 0;
-  width:60%;
+  width:75%;
 `;
 
 export const TextInput = styled.input`

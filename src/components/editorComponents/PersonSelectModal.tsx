@@ -6,18 +6,18 @@ import {
   allCharactersState,
   setSelectedPerson,
 } from "../../atoms/Characters";
-import { activePerson } from "../../selectors/Characters";
+import { activePerson, alignedPersonsList } from "../../selectors/Characters";
 
 // Component props
 type Props = {
   viewModal: boolean;
-  side: number;
+  side: string;
 };
 
 // Component wrapper function
 export const PersonSelectModal: React.FC<Props> = ({ viewModal, side }) => {
-  const [personList] = useRecoilState(allCharactersState);
   const selectedPerson = useRecoilValue(activePerson);
+  const alignedCharacters = useRecoilValue(alignedPersonsList)
 
   const handleModalSelection = (person: Person) => {
     selectedPerson === person
@@ -25,7 +25,7 @@ export const PersonSelectModal: React.FC<Props> = ({ viewModal, side }) => {
       : setSelectedPerson(person);
   };
 
-  const personsList = personList.map((person, index) => {
+  const personsList = alignedCharacters.map((person, index) => {
     return (
       <p
         key={index}
