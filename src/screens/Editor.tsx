@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { activeStoryIndex } from "../atoms/stories";
 import { EditorComponent } from "../components/editorComponents/EditorComponent";
 import { MobileView } from "../components/editorComponents/MobileView";
+import { AddAndDeletePage } from "../components/editorComponents/AddAndDeletePage";
 
 export const Editor: React.FC = () => {
   //maps storyinformation to editor using story id.
@@ -19,6 +20,7 @@ export const Editor: React.FC = () => {
   return (
     <div>
       <EditorComponent />
+      <AddAndDeletePage />
     </div>
   );
 };

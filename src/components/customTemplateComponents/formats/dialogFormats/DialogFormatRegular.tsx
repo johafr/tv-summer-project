@@ -5,7 +5,10 @@ import { Message } from "../../../../atoms/stories";
 export const DialogFormatRegular: React.FC<Message> = ({ person, content }) => {
   return (
     <Wrapper>
-      <CharacterName align={person !== undefined ? person.align : "left"}>
+      <CharacterName
+        align={person !== undefined ? person.align : "left"}
+        color={person !== undefined ? person.color : ""}
+      >
         {person?.name}
       </CharacterName>
       <CharacterText align={person !== undefined ? person.align : "left"}>
@@ -27,17 +30,15 @@ const Wrapper = styled.div`
   padding: 1rem;
 `;
 
-const CharacterName = styled.h3<{ align?: string }>`
-  padding: 0;
+const CharacterName = styled.h3<{ align?: string; color?: string }>`
   margin-bottom: 5px;
   font-size: 0.5em;
   text-transform: uppercase;
-  color: #d6bf5a;
-  position: relative;
-
+  color: black;
   ${(props) =>
     props.align === "right" &&
     `
+        position: relative;
         left: 90%;
       `}
   \`;

@@ -7,6 +7,7 @@ import {
 } from "../../atoms/stories";
 import { activeStoryStats, activeStory } from "../../selectors/stories";
 import * as S from "../../styles/screens/EditorStyles";
+import styled from "styled-components";
 
 export const AddAndDeletePage = () => {
   const pages = useRecoilValue(activeStory).activeStoryPages;
@@ -32,9 +33,15 @@ export const AddAndDeletePage = () => {
   };
 
   return (
-    <>
-      <S.Button onClick={handleAddPage}>new page</S.Button>
+    <Container>
+      <S.Button onClick={handleAddPage}>Add page</S.Button>
       <S.Button onClick={handleDeleteCurrentPage}>Delete Page</S.Button>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  position: relative;
+  left: 20%;
+  margin-top: 2rem;
+`;

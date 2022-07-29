@@ -4,7 +4,9 @@ import { Fab } from "@mui/material";
 import { Theme } from "../../styles/Theme";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import React from "react";
+import React, { useRef, useState } from "react";
+import { useRecoilState } from "recoil";
+import { pageOverflowState } from "../../atoms/pageOverflow";
 
 
 export function MobileViewComponent(props: {
@@ -15,6 +17,16 @@ export function MobileViewComponent(props: {
   pageNum: number;
   numPages: number;
 }) {
+  const [, setPageOverflow] = useRecoilState<boolean>(pageOverflowState);
+  // Refs
+  const screenRef = useRef<HTMLHeadingElement>(null);
+
+  if (screenRef.current !== null) {
+    if (screenRef.current.scrollHeight > 571) {
+      setPageOverflow(true);
+    }
+  }
+
   return (
     <S.Wrapper style={{}}>
       <Fab
@@ -35,7 +47,7 @@ export function MobileViewComponent(props: {
         <ArrowLeftIcon sx={{ color: "white", fontSize: "3rem" }} />
       </Fab>
       <S.LoudSpeaker />
-      <S.Screen>
+      <S.Screen ref={screenRef}>
         {props.currentPage?.messages.map(props.messagesMapFunction)}
       </S.Screen>
       <Fab
