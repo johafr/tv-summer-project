@@ -6,6 +6,7 @@ import { CommunicationCategory } from "../../atoms/template";
 import { IconSwitch } from "./EditorIconSwitch";
 import { visibileBoxesState } from "../../atoms/editor";
 import { communicationCategoriesList } from "../../selectors/template";
+import { pageOverflowState } from "../../atoms/pageOverflow";
 
 // Component props
 type Props = {};
@@ -19,16 +20,21 @@ export const NarrativeBoxes: React.FC<Props> = ({}) => {
   // Component Local States
   const [textField, setTextField] = useState("");
   const [activeBox, setActiveBox] = useState("");
+  const [pageOverflow, setPageOverflow] =
+    useRecoilState<boolean>(pageOverflowState);
 
   const handleAddMessage = (
     e: React.FormEvent,
     category: CommunicationCategory
   ) => {
     e.preventDefault();
-    // Push message to list
-    addMessage(textField, category);
-    // Set inputfield to empty
-    setTextField("");
+
+    if (!pageOverflow) {
+      // Push message to list
+      addMessage(textField, category);
+      // Set inputfield to empty
+      setTextField("");
+    }
   };
 
   const handleToggleVisibility = (interactionName: string) => {
@@ -105,10 +111,6 @@ export const NarrativeBoxes: React.FC<Props> = ({}) => {
     }
   });
 
-    // Component end-return
-    return (
-        <>
-            {listNarrativeBoxes}
-        </>
-    )
-}
+  // Component end-return
+  return <>{listNarrativeBoxes}</>;
+};

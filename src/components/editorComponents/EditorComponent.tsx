@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import {
   activePageIndex,
+  deleteMessage,
   Message,
   Page,
   updateMessage,
@@ -23,6 +24,7 @@ import {
 } from "../../selectors/template";
 import { activePerson } from "../../selectors/Characters";
 import { visibileBoxesState } from "../../atoms/editor";
+import { overflowRanState, pageOverflowState } from "../../atoms/pageOverflow";
 
 export const EditorComponent: React.FC = () => {
   //Recoil selectors
@@ -38,10 +40,9 @@ export const EditorComponent: React.FC = () => {
     activeCommunicationCategory
   );
   const categoriesList = useRecoilValue(communicationCategoriesList);
-  const selectedPerson = useRecoilValue(activePerson);
 
-  const [visibleBoxes, setVisibleBoxes] = useRecoilState(visibileBoxesState);
-  const amountVisible = useRecoilValue(visibleNumber);
+  const [pageOverflow, setPageOverflow] =
+    useRecoilState<boolean>(pageOverflowState);
 
   const handleGoLeft = () => {
     if (pageNum !== 0) {
@@ -55,15 +56,14 @@ export const EditorComponent: React.FC = () => {
     }
   };
 
+  console.log(currentPage?.messages);
+
   function handleChangeCategoryModal(message: Message) {
     setSelectedMessage(message);
     setShowModal(!showModal);
   }
 
   function setNewCategory(c: CommunicationCategory) {
-    const currentIndex = currentPage.messages.findIndex(
-      (m) => m === selectedMessage
-    );
     const newFormat: string[] = [
       c.interactionName.toString(),
       c.premadeFormats[c.activeFormatIndex].formatName,
@@ -108,6 +108,13 @@ export const EditorComponent: React.FC = () => {
           pageNum={pageNum}
           numPages={numPages}
         />
+        {pageOverflow && (
+          <OverflowErrorMessage>
+            There is not enough space left, please consider changing the amount
+            of text, or move to a different page!
+          </OverflowErrorMessage>
+        )}
+
         {showModal && (
           <ChangeCategoryModal>
             {categoriesList
@@ -133,6 +140,17 @@ export const EditorComponent: React.FC = () => {
     </>
   );
 };
+
+const OverflowErrorMessage = styled.section`
+  position: absolute;
+  max-width: 10rem;
+  right: 0;
+  margin-right: 18rem;
+  background: ${Theme.palette.mainGreen.light};
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+`;
 
 const MessageCard = styled.div`
   &:hover {
@@ -161,8 +179,6 @@ const ChangeCategoryModal = styled.div``;
 export const MainContainer = styled.div`
   padding-top: 2vh;
   margin-top: 20px;
-  width: 100%;
-  min-height: 75vh;
   align-self: stretch;
   display: flex;
 `;

@@ -10,9 +10,9 @@ export type Person = {
 
 // Init data
 const initialData = [
-  { id: 0, name: "Markus", color: "rgb(132, 176, 214", align: "left" },
-  { id: 1, name: "Lisa", color: "rgb(10, 214, 214", align: "right" },
-  { id: 1, name: "Sanna", color: "lightgreen", align: "" },
+  { id: 0, name: "Markus", color: "rgb(132, 176, 214)", align: "left" },
+  { id: 1, name: "Lisa", color: "rgb(10, 214, 214)", align: "right" },
+  { id: 2, name: "Sanna", color: "lightgreen", align: "" },
 ];
 
 // State
@@ -45,16 +45,16 @@ export const setSelectedPerson = (newSelectedPerson: Person | undefined) => {
   }
 };
 
-export const updatePerson = (oldPerson : Person, newPerson : Person) => {
-  const currentPersons = getRecoil(allCharactersState)
+export const updatePerson = (oldPerson: Person, newPerson: Person) => {
+  const currentPersons = getRecoil(allCharactersState);
   const personIndex = currentPersons.findIndex((p) => p === oldPerson);
   const newList = [
     ...currentPersons.slice(0, personIndex),
     newPerson,
     ...currentPersons.slice(personIndex + 1),
-  ]
-  setRecoil(allCharactersState,newList);
-}
+  ];
+  setRecoil(allCharactersState, newList);
+};
 
 export const deletePerson = (personToDelete: Person) => {
   const currentPersons = getRecoil(allCharactersState);

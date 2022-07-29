@@ -10,6 +10,7 @@ import { communicationCategoriesList } from "../../selectors/template";
 import * as S from "../../styles/components/EditorStyles";
 import { IconSwitch } from "./EditorIconSwitch";
 import { PersonSelectModal } from "./PersonSelectModal";
+import { pageOverflowState } from "../../atoms/pageOverflow";
 
 // Component props
 type Props = {};
@@ -25,9 +26,13 @@ export const DialogBoxes: React.FC<Props> = ({}) => {
   const [activeBox, setActiveBox] = useState("");
   const [textField, setTextField] = useState("");
   const [viewPersonModal, setViewPersonModal] = useState<boolean>(false);
+  const [pageOverflow, setPageOverflow] =
+    useRecoilState<boolean>(pageOverflowState);
 
   let boxheight = "25";
-    if (numberVisible !== 0) {boxheight = "50"}
+  if (numberVisible !== 0) {
+    boxheight = "50";
+  }
 
   const mapIcons = categoriesList.map((category, index: number) => {
     if (
@@ -47,7 +52,6 @@ export const DialogBoxes: React.FC<Props> = ({}) => {
         </S.IconElements>
       );
   });
-
 
   // Handler for toggling between left/right alignment
   const handleAlignmentSwitch = (person: Person, newAlignment: string) => {
@@ -70,10 +74,12 @@ export const DialogBoxes: React.FC<Props> = ({}) => {
   ) => {
     e.preventDefault();
 
-    // Push message to list
-    addMessage(textField, category);
-    // Set inputfield to empty
-    setTextField("");
+    if (!pageOverflow) {
+      // Push message to list
+      addMessage(textField, category);
+      // Set inputfield to empty
+      setTextField("");
+    }
   };
 
   const headerHandler = () => {

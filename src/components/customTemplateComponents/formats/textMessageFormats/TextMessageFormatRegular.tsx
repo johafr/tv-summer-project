@@ -6,10 +6,14 @@ export const TextMessageFormatRegular: React.FC<Message> = ({
   person,
   content,
 }) => {
+  console.log(person?.color);
   return (
     <Container>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <CharacterName align={person !== undefined ? person.align : "left"}>
+        <CharacterName
+          align={person !== undefined ? person.align : "left"}
+          color={person?.color}
+        >
           {person?.name}
         </CharacterName>
         <TextMessageIndicator
@@ -30,7 +34,7 @@ const Container = styled.div<{ align?: string }>`
   width: 60%;
   max-width: 60%;
   word-wrap: break-word;
-  background: #fcf9f6;
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   font-size: 0.6em;
   text-align: left;
@@ -38,12 +42,12 @@ const Container = styled.div<{ align?: string }>`
   padding: 1rem;
 `;
 
-const CharacterName = styled.h3<{ align?: string }>`
-  color: #9ca9ea;
+const CharacterName = styled.h3<{ align?: string; color?: string }>`
   margin: 0;
   text-transform: uppercase;
   margin-bottom: 2px;
   font-size: 0.8em;
+  color: black;
 
   ${(props) =>
     props.align === "right" &&
