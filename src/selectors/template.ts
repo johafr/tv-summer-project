@@ -55,3 +55,19 @@ export const getActiveTemplate = selector({
     return currentTemplates[index];
   },
 });
+
+export const templatesCategory = selector({
+  key: "premadeTemplates",
+  get: ({ get }) => {
+    const allTemplates = get(templates);
+    const premadeTemplates = allTemplates.filter(
+      (template) => !template.custom
+    );
+    const customTemplates = allTemplates.filter((template) => template.custom);
+
+    return {
+      premadeTemplates,
+      customTemplates,
+    };
+  },
+});

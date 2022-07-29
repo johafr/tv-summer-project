@@ -21,7 +21,9 @@ export interface ComponentFormat {
 }
 
 export interface Template {
+  id: number;
   templateName: string;
+  custom: boolean;
   indexes: {
     communicationName: string;
     index: number;
@@ -113,7 +115,9 @@ export const templates = atom<Template[]>({
   key: "templates",
   default: [
     {
+      id: 0,
       templateName: "default template 1",
+      custom: false,
       indexes: [
         { communicationName: "NARRATIVE", index: 0 },
         { communicationName: "TEXTMESSAGE", index: 0 },
@@ -123,13 +127,27 @@ export const templates = atom<Template[]>({
       ],
     },
     {
+      id: 1,
       templateName: "default template 2",
+      custom: false,
       indexes: [
         { communicationName: "NARRATIVE", index: 1 },
         { communicationName: "TEXTMESSAGE", index: 1 },
         { communicationName: "DIALOG", index: 1 },
         { communicationName: "THOUGHT", index: 1 },
         { communicationName: "SHOUT", index: 1 },
+      ],
+    },
+    {
+      id: 2,
+      templateName: "Custom template 1",
+      custom: true,
+      indexes: [
+        { communicationName: "NARRATIVE", index: 0 },
+        { communicationName: "TEXTMESSAGE", index: 1 },
+        { communicationName: "DIALOG", index: 0 },
+        { communicationName: "THOUGHT", index: 1 },
+        { communicationName: "SHOUT", index: 0 },
       ],
     },
   ],
@@ -160,4 +178,29 @@ export const updateCurrentActiveFormat = (index: number) => {
       ...communicationCategories.slice(CCIndex + 1),
     ],
   });
+};
+
+export const addTemplate = (newTemplate: Template) => {
+  const currentTemplates = getRecoil(templates);
+  setRecoil(templates, [...currentTemplates, newTemplate]);
+};
+
+export const updateTemplate = (updatedTemplate: Template) => {
+  const templateIndex = getRecoil(activeTemplateIndex);
+  const currentTemplates = getRecoil(templates);
+  setRecoil(templates, [
+    ...currentTemplates.slice(0, templateIndex),
+    updatedTemplate,
+    ...currentTemplates.slice(templateIndex + 1),
+  ]);
+};
+
+export const deleteTemplate = (templateToBeDeleted: Template) => {
+  const currentTemplates = getRecoil(templates);
+  setRecoil(
+    templates,
+    currentTemplates.filter(
+      (template) => template.id !== templateToBeDeleted.id
+    )
+  );
 };
