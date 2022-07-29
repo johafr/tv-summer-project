@@ -56,12 +56,22 @@ export const InputContainer = styled.div`
 export const TextInput = styled.input`
   width: 99%;
   height: 7.7rem;
+  height: 27rem;
   position:relative;
   border: none;
-  borde
   margin-bottom:0;
   margin-top:0rem;
+`;
 
+export const TextAreaInput = styled.textarea`
+  width: 99%;
+  height: 100%;
+  height: 27rem;
+  position:relative;
+  border: none;
+  margin-bottom:0;
+  margin-top:0rem;
+  resize: none;
 `;
 
 export const ConvoName = styled.h5`
@@ -71,6 +81,7 @@ export const ConvoName = styled.h5`
   border-bottom: 1px solid lightgray;
   border-radius-top:30px;
   text-align: left;
+  cursor: pointer;
 
   & p {
     margin-left: 2rem;

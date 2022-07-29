@@ -23,9 +23,6 @@ export const TextMessageFormatRegular: React.FC<Message> = ({
       <CharacterText align={person !== undefined ? person.align : "left"}>
         {content}
       </CharacterText>
-      <ChangeType>
-        <LoopIcon style={{fontSize:"large",position:'absolute',right:'-7%',top:'33%'}}/>
-    </ChangeType>
     </Container>
 
     </>
@@ -94,10 +91,4 @@ const CharacterText = styled.p<{ align?: string }>`
   \`;
 `;
 
-const ChangeType = styled.div`
-  opacity: 0;
 
-  &:hover {
-    opacity: 1;
-  }
-  `;

@@ -10,6 +10,7 @@ import { communicationCategoriesList } from "../../selectors/template";
 import * as S from "../../styles/components/EditorStyles";
 import { IconSwitch } from "./EditorIconSwitch";
 import { PersonSelectModal } from "./PersonSelectModal";
+import { Tooltip } from "@mui/material";
 
 // Component props
 type Props = {};
@@ -89,6 +90,7 @@ export const DialogBoxes: React.FC<Props> = ({}) => {
                 width: "50%",
                 backgroundColor: "lightgray",
                 textAlign: "center",
+                cursor: "grab"
               }}
             />
             <S.ConvoName
@@ -161,11 +163,22 @@ export const DialogBoxes: React.FC<Props> = ({}) => {
           <S.InputContainer key={index}>
             {headerHandler()}
             <form onSubmit={(event) => handleAddMessage(event, category)}>
-              <S.TextInput
+              {/* <S.TextInput
+                type="text"
                 value={textField}
                 placeholder="Write something.."
                 onChange={(event) => setTextField(event.target.value)}
-              />
+              /> */}
+              <Tooltip title="Shift + Enter for linebreaks!">
+              <S.TextAreaInput
+                value={textField}
+                placeholder="Write something.."
+                onChange={(event) => setTextField(event.target.value)}
+                onKeyDown={(event) => {
+                    if (event.key === 'Enter' && event.shiftKey === false) {
+                        handleAddMessage(event,category)
+                }}}/>
+                </Tooltip>
             </form>
           </S.InputContainer>
         );

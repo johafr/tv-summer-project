@@ -7,6 +7,7 @@ import * as S from "../../styles/components/MobileView";
 import { InteractionSwitch } from "./InteractionSwitch";
 import { MobileViewComponent } from "./MobileViewComponent";
 
+
 export const MobileView: React.FC = () => {
   //Recoil values
   const [pageNum, setPageNum] = useRecoilState(activePageIndex);
@@ -57,6 +58,8 @@ export const MobileView: React.FC = () => {
           <S.OutputScreenMobile className="output-screen">
             <S.ContentDivMobile className="content-div">
               {currentPage?.messages.map((card: Message) => (
+                <>
+                
                 <InteractionSwitch
                   key={card.id}
                   id={card.id}
@@ -64,6 +67,7 @@ export const MobileView: React.FC = () => {
                   content={card.content}
                   format={card.format}
                 />
+                </>
               ))}
             </S.ContentDivMobile>
           </S.OutputScreenMobile>

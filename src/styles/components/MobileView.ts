@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   border-radius: 20px;
   position: relative;
   background: #c9e4d4;
+  white-space: pre-line;
 `;
 
 export const Screen = styled.div`
@@ -59,6 +60,7 @@ export const OutputScreenMobile = styled.div`
   height: 100vh;
   overflow: hidden;
   background: #c9e4d4;
+  white-space: pre-line;
 `;
 
 export const ScreenMobile = styled.div`

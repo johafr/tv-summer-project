@@ -191,11 +191,15 @@ export const updateMessage = (oldMessage: Message, updatedMessage: Message) => {
 export const addMessage = (newcontent : string, category : CommunicationCategory) => {
   const currentPage = getRecoil(activePage)!;
   const selectedPerson = getRecoil(activePerson)!;
-  const newID : number = currentPage.messages[currentPage.messages.length - 1].id + 1
+  
 
   const newMessage : Message = {
-    id : newID,
-    person : category.interactionName !== "NARRATIVE" ? selectedPerson : undefined,
+    id : currentPage.messages.length !== 0
+      ? currentPage.messages[currentPage.messages.length - 1].id + 1
+      : 0,
+    person : category.interactionName !== "NARRATIVE" 
+      ? selectedPerson 
+      : undefined,
     content : newcontent,
     format: [
       category.interactionName,
