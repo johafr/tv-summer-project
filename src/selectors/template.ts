@@ -86,7 +86,7 @@ export const templateCommunications = selector<string[]>({
       ? get(cachedCustomTemplateState)
       : get(getActiveTemplate);
     const formats: string[] = [];
-    CCList.forEach((com: CommunicationCategory, forEachIndex) =>
+    CCList.forEach((com: CommunicationCategory, forEachIndex: number) =>
       formats.push(
         com.premadeFormats[template.indexes[forEachIndex].index].formatName
       )

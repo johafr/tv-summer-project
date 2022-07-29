@@ -4,6 +4,10 @@ import { getRecoil, setRecoil } from "recoil-nexus";
 import { activePage, activeStory } from "../selectors/stories";
 import { activePerson } from "../selectors/Characters";
 import { CommunicationCategory } from "./template";
+import {
+  communicationCategoriesList,
+  templateCommunications,
+} from "../selectors/template";
 
 export type StoryCollection = {
   id: number;
@@ -42,10 +46,7 @@ const dummyPage1: Page = {
         align: "left",
       },
       content: "This is dummy data",
-      format: [
-        "DIALOG",
-        "Speech Bubble (regular)"
-      ],
+      format: ["DIALOG", "Speech Bubble (regular)"],
     },
     {
       id: 1,
@@ -56,10 +57,7 @@ const dummyPage1: Page = {
         align: "right",
       },
       content: "This is the second line",
-      format: [
-        "DIALOG",
-        "Speech Bubble (regular)"
-      ],
+      format: ["DIALOG", "Speech Bubble (regular)"],
     },
   ],
 };
@@ -187,32 +185,35 @@ export const updateMessage = (oldMessage: Message, updatedMessage: Message) => {
   updatePage(newPage);
 };
 
-
-export const addMessage = (newcontent : string, category : CommunicationCategory) => {
+export const addMessage = (
+  newcontent: string,
+  category: CommunicationCategory
+) => {
+  const activeFormats = getRecoil(templateCommunications);
   const currentPage = getRecoil(activePage)!;
   const selectedPerson = getRecoil(activePerson)!;
-  
+  const components = getRecoil(communicationCategoriesList);
+  const categoryIndex = components.findIndex(
+    (entry) => entry.interactionName === category.interactionName
+  );
 
-  const newMessage : Message = {
-    id : currentPage.messages.length !== 0
-      ? currentPage.messages[currentPage.messages.length - 1].id + 1
-      : 0,
-    person : category.interactionName !== "NARRATIVE" 
-      ? selectedPerson 
-      : undefined,
-    content : newcontent,
-    format: [
-      category.interactionName,
-      category.premadeFormats[category.activeFormatIndex].formatName
-    ]
-  }
+  const newMessage: Message = {
+    id:
+      currentPage.messages.length !== 0
+        ? currentPage.messages[currentPage.messages.length - 1].id + 1
+        : 0,
+    person:
+      category.interactionName !== "NARRATIVE" ? selectedPerson : undefined,
+    content: newcontent,
+    format: [category.interactionName, activeFormats[categoryIndex]],
+  };
 
   const newPage = {
     ...currentPage,
-    messages: [...currentPage.messages,newMessage]
-  }
+    messages: [...currentPage.messages, newMessage],
+  };
   updatePage(newPage);
-}
+};
 
 export const deleteMessage = (currentMessage: Message) => {
   const currentPage = getRecoil(activePage)!;
