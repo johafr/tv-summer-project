@@ -1,14 +1,11 @@
 import React from "react";
 import { Message } from "../../atoms/stories";
-import { SpeechBubbleChat } from "../customTemplateComponents/formats/dialogFormats/SpeechBubbleChat";
-import { ThoughtBubbleChat } from "../customTemplateComponents/formats/thoughtFormats/ThoughtBubbleChat";
 import { ThoughtBubbleFormatRegular } from "../customTemplateComponents/formats/thoughtFormats/ThoughtBubbleFormatRegular";
 import { TextMessageFormatRegular } from "../customTemplateComponents/formats/textMessageFormats/TextMessageFormatRegular";
 import { DialogFormatRegular } from "../customTemplateComponents/formats/dialogFormats/DialogFormatRegular";
 import { NarrativeFormatRegular } from "../customTemplateComponents/formats/narrativeFormats/NarrativeFormatRegular";
 import { DialogFormatTextHeavyLarge } from "../customTemplateComponents/formats/dialogFormats/DialogFormatTextHeavyLarge";
 import { DialogFormatTextHeavySmall } from "../customTemplateComponents/formats/dialogFormats/DialogFormatTextHeavySmall";
-import { DialogFormatOutlined } from "../customTemplateComponents/formats/dialogFormats/DialogFormatOutlined";
 
 export const InteractionSwitch: React.FC<Message> = (props) => {
   //This can maybe be done in a reducer
