@@ -5,11 +5,13 @@ import {
   allCharactersState,
   setSelectedPerson,
   deletePerson,
+  updatePerson,
 } from "../../atoms/Characters";
 import * as S from "../../styles/components/EditorNameInput";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ChromePicker from "react-color/lib/components/chrome/Chrome";
 import { activePerson } from "../../selectors/Characters";
+import { selectedPersonSide } from "../../atoms/editor";
 
 type Props = {
   numSelections: number;
@@ -22,6 +24,7 @@ export const EditorNamesList: React.FC<Props> = ({ numSelections, width }) => {
   const selectedPerson = useRecoilValue(activePerson);
 
   const [viewColorPicker, setViewColorPicker] = useState(false);
+  const [activeSide,setActiveSide] = useRecoilState(selectedPersonSide);
   const [selectedColor, setSelectedColor] = useState<any>(
     selectedPerson?.color
   );
@@ -38,6 +41,14 @@ export const EditorNamesList: React.FC<Props> = ({ numSelections, width }) => {
   };
 
   const handleToggleSelectPerson = (person: Person) => {
+    if (person.align === '') {
+      const newPerson : Person = {...person,align: activeSide.toLowerCase()}
+      updatePerson(person,newPerson);
+    }
+    if (person.align === 'left') {setActiveSide("LEFT")}
+    if (person.align === 'right') {setActiveSide("RIGHT")}
+
+    
     selectedPerson === person
       ? setSelectedPerson(undefined)
       : setSelectedPerson(person);

@@ -37,8 +37,8 @@ export const EditorComponent: React.FC = () => {
       <EditorNamesList numSelections={1} width={50} />
       <MainContainer>
         <Wrapper style={{}}>
-          <NarrativeBoxes/>
           <DialogBoxes/>
+          <NarrativeBoxes/>
         </Wrapper>
         <MobileViewComponent
           handleGoLeft={handleGoLeft}
@@ -62,7 +62,7 @@ export const EditorComponent: React.FC = () => {
 };
 
 export const MainContainer = styled.div`
-  padding-top: 5vh;
+  padding-top: 2vh;
   margin-top: 20px;
   width: 100%;
   min-height: 75vh;

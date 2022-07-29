@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Person } from "../../atoms/Characters";
+import { Person, setSelectedPerson } from "../../atoms/Characters";
 import { selectedPersonSide, visibileBoxesState } from "../../atoms/editor";
 import { addMessage} from "../../atoms/stories";
 import { CommunicationCategory } from "../../atoms/template";
@@ -43,6 +43,7 @@ export const DialogBoxes: React.FC<Props> = ({  }) => {
 
     // Handler for toggling between left/right alignment
     const handleAlignmentSwitch = (person : Person, newAlignment : string) => {
+        setSelectedPerson(undefined)
         setActiveSide(newAlignment);
     }
 
