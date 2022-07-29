@@ -6,6 +6,7 @@ export const Container = styled.div`
   gap: 2rem;
   height: 4rem;
   width: 100%;
+  box-shadow: var(--middle-shadow-elevation-low);
 `;
 
 export const NavbarDiv = styled.div`
