@@ -105,42 +105,10 @@ export const NarrativeBoxes: React.FC<Props> = ({}) => {
     }
   });
 
-  // Component end-return
-  return (
-    <>{listNarrativeBoxes}</>
-
-    //     <S.Expandable height={boxheight}>
-    //     <S.IconContainer style={{ }} onClick={() => handleToggleVisibility(category.interactionName)}>
-    //         <S.IconElements style={{color: category.interactionName !== activeBox ? 'blue':''}}>
-    //             <IconSwitch category={category}/>
-    //             <p>{category.interactionName}</p>
-    //         </S.IconElements>
-    //     </S.IconContainer>
-
-    //     { visibleBoxes[visibleBoxes.findIndex(v => v.interactionName === category.interactionName)].visible === true ?
-    //     <S.InputContainer style={{}}>
-    //          <div style={{ display: "flex", flexDirection: "row", width:'100.0%'}}>
-    //             <S.ConvoName
-    //                 style={{
-    //                     border: 'none',
-    //                     textAlign: 'center',
-    //                     backgroundColor: 'lightgray'
-    //                     }}>
-    //                 <p>
-    //                     {category.interactionName}
-    //                 </p>
-    //             </S.ConvoName>
-    //         </div>
-    //         <form onSubmit={(event) => handleAddMessage(event, category)}>
-    //             <S.TextInput
-    //                 value={textField}
-    //                 placeholder="Write something.."
-    //                 onChange={(event) => setTextField(event.target.value)}
-    //             />
-    //         </form>
-    //     </S.InputContainer>
-    //     : null
-    //     }
-    //   </S.Expandable>
-  );
-};
+    // Component end-return
+    return (
+        <>
+            {listNarrativeBoxes}
+        </>
+    )
+}

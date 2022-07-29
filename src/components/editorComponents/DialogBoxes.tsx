@@ -5,6 +5,7 @@ import { selectedPersonSide, visibileBoxesState } from "../../atoms/editor";
 import { addMessage } from "../../atoms/stories";
 import { CommunicationCategory } from "../../atoms/template";
 import { activePerson } from "../../selectors/Characters";
+import { visibleNumber } from "../../selectors/editor";
 import { communicationCategoriesList } from "../../selectors/template";
 import * as S from "../../styles/components/EditorStyles";
 import { IconSwitch } from "./EditorIconSwitch";
@@ -14,16 +15,19 @@ import { PersonSelectModal } from "./PersonSelectModal";
 type Props = {};
 
 // Component wrapper function
+
 export const DialogBoxes: React.FC<Props> = ({}) => {
   const [visibleBoxes, setVisibleBoxes] = useRecoilState(visibileBoxesState);
   const [activeSide, setActiveSide] = useRecoilState(selectedPersonSide);
   const categoriesList = useRecoilValue(communicationCategoriesList);
   const selectedPerson = useRecoilValue(activePerson);
+  const numberVisible = useRecoilValue(visibleNumber);
   const [activeBox, setActiveBox] = useState("");
   const [textField, setTextField] = useState("");
   const [viewPersonModal, setViewPersonModal] = useState<boolean>(false);
 
-  const boxheight = "50";
+  let boxheight = "25";
+    if (numberVisible !== 0) {boxheight = "50"}
 
   const mapIcons = categoriesList.map((category, index: number) => {
     if (
@@ -43,6 +47,7 @@ export const DialogBoxes: React.FC<Props> = ({}) => {
         </S.IconElements>
       );
   });
+
 
   // Handler for toggling between left/right alignment
   const handleAlignmentSwitch = (person: Person, newAlignment: string) => {
