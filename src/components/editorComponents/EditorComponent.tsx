@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   activePageIndex,
@@ -14,8 +14,15 @@ import { EditorNamesList } from "./EditorNamesList";
 import { NarrativeBoxes } from "./NarrativeBoxes";
 import { MobileViewComponent } from "./MobileViewComponent";
 import { visibleNumber } from "../../selectors/editor";
-import { DialogBoxes } from "./ComDialogBoxes";
+import { DialogBoxes } from "./DialogBoxes";
 import { Theme } from "../../styles/Theme";
+import { CommunicationCategory } from "../../atoms/template";
+import {
+  activeCommunicationCategory,
+  communicationCategoriesList,
+} from "../../selectors/template";
+import { activePerson } from "../../selectors/Characters";
+import { visibileBoxesState } from "../../atoms/editor";
 
 export const EditorComponent: React.FC = () => {
   //Recoil selectors
@@ -80,8 +87,8 @@ export const EditorComponent: React.FC = () => {
       <EditorNamesList numSelections={1} width={50} />
       <MainContainer>
         <Wrapper style={{}}>
-          <DialogBoxes/>
-          <NarrativeBoxes/>
+          <DialogBoxes />
+          <NarrativeBoxes />
         </Wrapper>
         <MobileViewComponent
           handleGoLeft={handleGoLeft}
@@ -211,6 +218,6 @@ export const Output = styled.div`
   margin-left: 1%;
 `;
 
-
-
-      {/* <AddNewPersonInputField numSelections={1} /> */}
+{
+  /* <AddNewPersonInputField numSelections={1} /> */
+}
