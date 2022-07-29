@@ -110,17 +110,23 @@ export const EditorComponent: React.FC = () => {
         />
         {showModal && (
           <ChangeCategoryModal>
-            {categoriesList.map((c) => (
-              <CategoryList
-                onClick={() => {
-                  setNewCategory(c);
-                  setShowModal(false);
-                  setSelectedMessage(undefined);
-                }}
-              >
-                {c.interactionName}
-              </CategoryList>
-            ))}
+            {categoriesList
+              .filter(
+                (c) =>
+                  c.interactionName !== "SHOUT" &&
+                  c.interactionName !== "NARRATIVE"
+              )
+              .map((c) => (
+                <CategoryList
+                  onClick={() => {
+                    setNewCategory(c);
+                    setShowModal(false);
+                    setSelectedMessage(undefined);
+                  }}
+                >
+                  {c.interactionName}
+                </CategoryList>
+              ))}
           </ChangeCategoryModal>
         )}
       </MainContainer>
