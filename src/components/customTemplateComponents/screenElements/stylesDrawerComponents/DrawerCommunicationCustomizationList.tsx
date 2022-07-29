@@ -14,6 +14,23 @@ import {
 } from "../../../../atoms/template";
 import { activeCommunicationCategory } from "../../../../selectors/template";
 
+export const GetIcon = (interaction: CommunicationCategory) => {
+  switch (interaction.interactionName) {
+    case "NARRATIVE":
+      return <FormatAlignCenterOutlinedIcon></FormatAlignCenterOutlinedIcon>;
+    case "TEXTMESSAGE":
+      return <MessageOutlinedIcon></MessageOutlinedIcon>;
+    case "DIALOG":
+      return <ChatBubbleOutlineOutlinedIcon />;
+    case "THOUGHT":
+      return <PsychologyOutlinedIcon />;
+    case "SHOUT":
+      return <CampaignOutlinedIcon />;
+    default:
+      return <EditOutlinedIcon />;
+  }
+};
+
 export const DrawerCommunicationCustomizationList = () => {
   const [interactionList] = useRecoilState(componentsState);
   const [, setActiveIndex] = useRecoilState(activeCommunicationCategoryIndex);
@@ -40,23 +57,6 @@ export const DrawerCommunicationCustomizationList = () => {
               interaction.interactionName === interactionInList.interactionName
           );
     setActiveIndex(newIndex);
-  };
-
-  const GetIcon = (interaction: CommunicationCategory) => {
-    switch (interaction.interactionName) {
-      case "NARRATIVE":
-        return <FormatAlignCenterOutlinedIcon></FormatAlignCenterOutlinedIcon>;
-      case "TEXTMESSAGE":
-        return <MessageOutlinedIcon></MessageOutlinedIcon>;
-      case "DIALOG":
-        return <ChatBubbleOutlineOutlinedIcon />;
-      case "THOUGHT":
-        return <PsychologyOutlinedIcon />;
-      case "SHOUT":
-        return <CampaignOutlinedIcon />;
-      default:
-        return <EditOutlinedIcon />;
-    }
   };
 
   return (
