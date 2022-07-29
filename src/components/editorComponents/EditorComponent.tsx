@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import {
   activePageIndex,
-  addMessage,
   Message,
   Page,
   updateMessage,
@@ -10,19 +9,9 @@ import {
 } from "../../atoms/stories";
 import { InteractionSwitch } from "./InteractionSwitch";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  activeCommunicationCategory,
-  communicationCategoriesList,
-} from "../../selectors/template";
 import { activePage, activeStoryStats } from "../../selectors/stories";
-import { AddNewPersonInputField } from "./AddNewPersonInputField";
 import { EditorNamesList } from "./EditorNamesList";
-import { Person, setSelectedPerson } from "../../atoms/Characters";
-import { PersonSelectModal } from "./PersonSelectModal";
-import { activePerson } from "../../selectors/Characters";
-import { ComInputBox } from "./ComInputBox";
-import { CommunicationCategory } from "../../atoms/template";
-import { visibileBoxesState } from "../../atoms/editor";
+import { NarrativeBoxes } from "./NarrativeBoxes";
 import { MobileViewComponent } from "./MobileViewComponent";
 import { visibleNumber } from "../../selectors/editor";
 import { DialogBoxes } from "./ComDialogBoxes";
@@ -47,25 +36,6 @@ export const EditorComponent: React.FC = () => {
   const [visibleBoxes, setVisibleBoxes] = useRecoilState(visibileBoxesState);
   const amountVisible = useRecoilValue(visibleNumber);
 
-  const dummycategory = {
-    activeFormatIndex: 0,
-    interactionName: "DIALOG",
-    premadeFormats: [
-      {
-        formatName: "Speech Bubble (regular)",
-      },
-      {
-        formatName: "Speech Bubble (outlined)",
-      },
-      {
-        formatName: "Text Heavy (large)",
-      },
-      {
-        formatName: "Text Heavy (small)",
-      },
-    ],
-  };
-
   const handleGoLeft = () => {
     if (pageNum !== 0) {
       setPageNum(pageNum! - 1);
@@ -77,40 +47,6 @@ export const EditorComponent: React.FC = () => {
       setPageNum(pageNum! + 1);
     }
   };
-  const listNarrative = categoriesList.map(
-    (category: CommunicationCategory, index: number) => {
-      const currentIndex = visibleBoxes.findIndex(
-        (box) => box.interactionName === category.interactionName
-      );
-      let height: string = "10";
-      if (visibleBoxes[currentIndex].visible === true) {
-        height = "50";
-      }
-
-      if (category.interactionName === "NARRATIVE")
-        return (
-          <ComInputBox key={index} category={category} boxheight={height} />
-        );
-    }
-  );
-
-  const listInputs = categoriesList.map(
-    (category: CommunicationCategory, index: number) => {
-      if (category.interactionName !== "NARRATIVE") {
-        const currentIndex = visibleBoxes.findIndex(
-          (box) => box.interactionName === category.interactionName
-        );
-        let height: string = "10";
-        if (visibleBoxes[currentIndex].visible === false) {
-          height = "10";
-        } else height = "50";
-
-        return (
-          <ComInputBox key={index} category={category} boxheight={height} />
-        );
-      }
-    }
-  );
 
   function handleChangeCategoryModal(message: Message) {
     setSelectedMessage(message);
@@ -142,14 +78,10 @@ export const EditorComponent: React.FC = () => {
   return (
     <>
       <EditorNamesList numSelections={1} width={50} />
-      {/* <AddNewPersonInputField numSelections={1} /> */}
-
-      {/* Wrapper for Editor Boxes + Output Screen */}
       <MainContainer>
-        {/* Wrapper for only the editor boxes */}
         <Wrapper style={{}}>
-          {listNarrative}
-          <DialogBoxes />
+          <DialogBoxes/>
+          <NarrativeBoxes/>
         </Wrapper>
         <MobileViewComponent
           handleGoLeft={handleGoLeft}
@@ -214,7 +146,7 @@ const CategoryList = styled.li`
 const ChangeCategoryModal = styled.div``;
 
 export const MainContainer = styled.div`
-  padding-top: 5vh;
+  padding-top: 2vh;
   margin-top: 20px;
   width: 100%;
   min-height: 75vh;
@@ -278,3 +210,7 @@ export const Output = styled.div`
   box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.1);
   margin-left: 1%;
 `;
+
+
+
+      {/* <AddNewPersonInputField numSelections={1} /> */}

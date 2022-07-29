@@ -2,6 +2,8 @@ import { atom } from "recoil";
 import { Person } from "./Characters";
 import { getRecoil, setRecoil } from "recoil-nexus";
 import { activePage, activeStory } from "../selectors/stories";
+import { activePerson } from "../selectors/Characters";
+import { CommunicationCategory } from "./template";
 
 export type StoryCollection = {
   id: number;
@@ -40,7 +42,10 @@ const dummyPage1: Page = {
         align: "left",
       },
       content: "This is dummy data",
-      format: [],
+      format: [
+        "DIALOG",
+        "Speech Bubble (regular)"
+      ],
     },
     {
       id: 1,
@@ -51,7 +56,10 @@ const dummyPage1: Page = {
         align: "right",
       },
       content: "This is the second line",
-      format: [],
+      format: [
+        "DIALOG",
+        "Speech Bubble (regular)"
+      ],
     },
   ],
 };
@@ -179,14 +187,28 @@ export const updateMessage = (oldMessage: Message, updatedMessage: Message) => {
   updatePage(newPage);
 };
 
-export const addMessage = (newMessage: Message) => {
+
+export const addMessage = (newcontent : string, category : CommunicationCategory) => {
   const currentPage = getRecoil(activePage)!;
-  const newPage: Page = {
+  const selectedPerson = getRecoil(activePerson)!;
+  const newID : number = currentPage.messages[currentPage.messages.length - 1].id + 1
+
+  const newMessage : Message = {
+    id : newID,
+    person : category.interactionName !== "NARRATIVE" ? selectedPerson : undefined,
+    content : newcontent,
+    format: [
+      category.interactionName,
+      category.premadeFormats[category.activeFormatIndex].formatName
+    ]
+  }
+
+  const newPage = {
     ...currentPage,
-    messages: [...currentPage.messages, newMessage],
-  };
+    messages: [...currentPage.messages,newMessage]
+  }
   updatePage(newPage);
-};
+}
 
 export const deleteMessage = (currentMessage: Message) => {
   const currentPage = getRecoil(activePage)!;

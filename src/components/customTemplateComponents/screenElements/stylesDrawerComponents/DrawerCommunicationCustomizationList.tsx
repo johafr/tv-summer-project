@@ -11,8 +11,8 @@ import {
   activeCommunicationCategoryIndex,
   CommunicationCategory,
   componentsState,
-} from "../../atoms/template";
-import { activeCommunicationCategory } from "../../selectors/template";
+} from "../../../../atoms/template";
+import { activeCommunicationCategory } from "../../../../selectors/template";
 
 export const DrawerCommunicationCustomizationList = () => {
   const [interactionList] = useRecoilState(componentsState);
@@ -88,6 +88,7 @@ const InteractionBody = styled.div<{ active: boolean }>`
   align-items: center;
   cursor: pointer;
   margin: 0 auto;
+  user-select: none;
 `;
 
 const InteractionName = styled.p``;

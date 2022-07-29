@@ -5,6 +5,7 @@ import {
   Person,
   allCharactersState,
   setSelectedPerson,
+  updatePerson,
 } from "../../atoms/Characters";
 import { activePerson, alignedPersonsList } from "../../selectors/Characters";
 
@@ -20,6 +21,12 @@ export const PersonSelectModal: React.FC<Props> = ({ viewModal, side }) => {
   const alignedCharacters = useRecoilValue(alignedPersonsList)
 
   const handleModalSelection = (person: Person) => {
+    if (person.align === "") {
+      const newPerson : Person = {
+        ...person,align: "left"
+      }
+      updatePerson(person,newPerson);
+    }
     selectedPerson === person
       ? setSelectedPerson(undefined)
       : setSelectedPerson(person);
