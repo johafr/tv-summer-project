@@ -13,6 +13,7 @@ const initialData = [
   { id: 0, name: "Markus", color: "rgb(132, 176, 214)", align: "left" },
   { id: 1, name: "Lisa", color: "rgb(10, 214, 214)", align: "right" },
   { id: 2, name: "Sanna", color: "lightgreen", align: "" },
+
 ];
 
 // State

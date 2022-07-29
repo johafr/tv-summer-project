@@ -11,6 +11,7 @@ import * as S from "../../styles/components/EditorStyles";
 import { IconSwitch } from "./EditorIconSwitch";
 import { PersonSelectModal } from "./PersonSelectModal";
 import { pageOverflowState } from "../../atoms/pageOverflow";
+import { Tooltip } from "@mui/material";
 
 // Component props
 type Props = {};
@@ -23,7 +24,7 @@ export const DialogBoxes: React.FC<Props> = ({}) => {
   const categoriesList = useRecoilValue(communicationCategoriesList);
   const selectedPerson = useRecoilValue(activePerson);
   const numberVisible = useRecoilValue(visibleNumber);
-  const [activeBox, setActiveBox] = useState("");
+  const [activeBox, setActiveBox] = useState("DIALOG");
   const [textField, setTextField] = useState("");
   const [viewPersonModal, setViewPersonModal] = useState<boolean>(false);
   const [pageOverflow, setPageOverflow] =
@@ -95,6 +96,7 @@ export const DialogBoxes: React.FC<Props> = ({}) => {
                 width: "50%",
                 backgroundColor: "lightgray",
                 textAlign: "center",
+                cursor: "grab"
               }}
             />
             <S.ConvoName
@@ -167,11 +169,22 @@ export const DialogBoxes: React.FC<Props> = ({}) => {
           <S.InputContainer key={index}>
             {headerHandler()}
             <form onSubmit={(event) => handleAddMessage(event, category)}>
-              <S.TextInput
+              {/* <S.TextInput
+                type="text"
                 value={textField}
                 placeholder="Write something.."
                 onChange={(event) => setTextField(event.target.value)}
-              />
+              /> */}
+              <Tooltip title="Shift + Enter for linebreaks!">
+              <S.TextAreaInput
+                value={textField}
+                placeholder="Write something.."
+                onChange={(event) => setTextField(event.target.value)}
+                onKeyDown={(event) => {
+                    if (event.key === 'Enter' && event.shiftKey === false) {
+                        handleAddMessage(event,category)
+                }}}/>
+                </Tooltip>
             </form>
           </S.InputContainer>
         );

@@ -37,7 +37,7 @@ export const List = styled.li`
   align-items: center;
   box-shadow: 2px 5px 5px 2px rgba(0, 0, 0, 0.2);
   &:hover {
-    cursor: pointer;
+    //cursor: pointer;
   }
 
   & .editor__deletePerson {
@@ -60,8 +60,12 @@ export const NameForm = styled.div`
 export const Input = styled.input`
   width: 25rem;
   height: 1.9rem;
-  border-radius: 15px;
-  border: none;
+  border-radius: 10px;
+  border: 1px solid lightgray;
   box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.2);
   text-align: center;
+
+  &:hover {
+    border: 1px solid gray;
+  }
 `;

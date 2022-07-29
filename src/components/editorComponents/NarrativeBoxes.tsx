@@ -7,6 +7,7 @@ import { IconSwitch } from "./EditorIconSwitch";
 import { visibileBoxesState } from "../../atoms/editor";
 import { communicationCategoriesList } from "../../selectors/template";
 import { pageOverflowState } from "../../atoms/pageOverflow";
+import { Tooltip } from "@mui/material";
 
 // Component props
 type Props = {};
@@ -98,11 +99,16 @@ export const NarrativeBoxes: React.FC<Props> = ({}) => {
                 </S.ConvoName>
               </div>
               <form onSubmit={(event) => handleAddMessage(event, category)}>
-                <S.TextInput
+              <Tooltip title="Shift + Enter for linebreaks!">
+                <S.TextAreaInput
                   value={textField}
                   placeholder="Write something.."
                   onChange={(event) => setTextField(event.target.value)}
-                />
+                  onKeyDown={(event) => {
+                      if (event.key === 'Enter' && event.shiftKey === false) {
+                          handleAddMessage(event,category)
+                  }}}/>
+              </Tooltip>
               </form>
             </S.InputContainer>
           ) : null}

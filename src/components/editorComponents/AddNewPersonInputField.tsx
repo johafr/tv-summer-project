@@ -68,10 +68,10 @@ export const AddNewPersonInputField: React.FC<Props> = ({ numSelections }) => {
         align: "",
       };
       addNewPerson(newPerson);
-      setSelectedPerson(newPerson);
+      //setSelectedPerson(newPerson);
       setNameNewPerson("");
     } else {
-      setSelectedPerson(personList[nameExists]);
+      //setSelectedPerson(personList[nameExists]);
       setNameNewPerson("");
     }
   }; // End add person
@@ -85,8 +85,8 @@ export const AddNewPersonInputField: React.FC<Props> = ({ numSelections }) => {
   // Component end-return
   return (
     <S.NameForm>
-      <Tooltip title="Add name/remove name.">
-        <form onSubmit={(event) => handleAddName(event)}>
+      <form onSubmit={(event) => handleAddName(event)}>
+        <Tooltip title="Add name/remove name.">
           <S.Input
             style={{cursor: selectedPerson ? "pointer" : "text"}}
             type="text"
@@ -95,8 +95,8 @@ export const AddNewPersonInputField: React.FC<Props> = ({ numSelections }) => {
             value={nameNewPerson}
             onChange={(event) => setNameNewPerson(event.target.value)}
           />
-        </form>
-      </Tooltip>
+        </Tooltip>
+      </form>
     </S.NameForm>
   );
 };

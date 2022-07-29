@@ -19,9 +19,7 @@ export const RenderScreenToolbar = () => {
   );
   const [, setEdit] = useRecoilState(editState);
   const currentTemplate = useRecoilValue(getActiveTemplate);
-  const [cachedCustomTemplate, setCachedCustomTemplate] = useRecoilState(
-    cachedCustomTemplateState
-  );
+  const [, setCachedCustomTemplate] = useRecoilState(cachedCustomTemplateState);
   const [, setActiveCommunicationCategoryIndex] = useRecoilState(
     activeCommunicationCategoryIndex
   );

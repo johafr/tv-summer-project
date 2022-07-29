@@ -8,6 +8,7 @@ import React, { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { pageOverflowState } from "../../atoms/pageOverflow";
 
+
 export function MobileViewComponent(props: {
   handleGoLeft: () => void;
   currentPage: Page;

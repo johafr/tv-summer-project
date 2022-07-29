@@ -25,6 +25,9 @@ import {
 import { activePerson } from "../../selectors/Characters";
 import { visibileBoxesState } from "../../atoms/editor";
 import { overflowRanState, pageOverflowState } from "../../atoms/pageOverflow";
+import { AddNewPersonInputField } from "./AddNewPersonInputField";
+import DeleteIcon from "@mui/icons-material/Delete";
+import LoopIcon from '@mui/icons-material/Loop';
 
 export const EditorComponent: React.FC = () => {
   //Recoil selectors
@@ -63,6 +66,10 @@ export const EditorComponent: React.FC = () => {
     setShowModal(!showModal);
   }
 
+  const handleDeleteMessage = (message: Message) => {
+    deleteMessage(message);
+  };
+
   function setNewCategory(c: CommunicationCategory) {
     const newFormat: string[] = [
       c.interactionName.toString(),
@@ -84,6 +91,8 @@ export const EditorComponent: React.FC = () => {
   // Component end-return
   return (
     <>
+    <div style={{marginTop: '3%'}}></div>
+      <AddNewPersonInputField numSelections={1}/>
       <EditorNamesList numSelections={1} width={50} />
       <MainContainer>
         <Wrapper style={{}}>
@@ -94,7 +103,7 @@ export const EditorComponent: React.FC = () => {
           handleGoLeft={handleGoLeft}
           currentPage={currentPage}
           messagesMapFunction={(card: Message) => (
-            <MessageCard onClick={() => handleChangeCategoryModal(card)}>
+            <MessageCard>
               <InteractionSwitch
                 key={card.id}
                 id={card.id}
@@ -102,6 +111,17 @@ export const EditorComponent: React.FC = () => {
                 content={card.content}
                 format={card.format}
               />
+              <DeleteIconContainer>
+                <DeleteIcon
+                  sx={{ fontSize: 20 }}
+                  onClick={() => handleDeleteMessage(card)}
+                />
+            </DeleteIconContainer>
+            <ChangeIconContainer>
+              <LoopIcon 
+                sx={{ fontSize: 20 }}
+                onClick={() => handleChangeCategoryModal(card)}/>
+           </ChangeIconContainer>
             </MessageCard>
           )}
           handleGoRight={handleGoRight}
@@ -212,6 +232,31 @@ export const IconContainer = styled.div`
   }
 `;
 
+export const DeleteIconContainer = styled.div`
+  float:right;
+  position: relative;
+  left: -5rem;
+  top:-4.5rem;
+  color:;
+  opacity: 0;
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+export const ChangeIconContainer = styled.div`
+  float:right;
+  position: relative;
+  left: -3.8rem;
+  top:-3.0rem;
+  color:;
+  opacity: 0;
+
+  &:hover {
+    opacity: 1;
+  }
+  `;
+
 export const InputContainer = styled.div`
   border: 1px solid gray;
   border-radius: 5px;
@@ -240,6 +285,4 @@ export const Output = styled.div`
   margin-left: 1%;
 `;
 
-{
-  /* <AddNewPersonInputField numSelections={1} /> */
-}
+

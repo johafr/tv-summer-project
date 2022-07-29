@@ -44,11 +44,12 @@ export const EditorNamesList: React.FC<Props> = ({ numSelections, width }) => {
     if (person.align === '') {
       const newPerson : Person = {...person,align: activeSide.toLowerCase()}
       updatePerson(person,newPerson);
+      person = newPerson;
     }
     if (person.align === 'left') {setActiveSide("LEFT")}
     if (person.align === 'right') {setActiveSide("RIGHT")}
 
-    
+
     selectedPerson === person
       ? setSelectedPerson(undefined)
       : setSelectedPerson(person);
@@ -103,8 +104,8 @@ export const EditorNamesList: React.FC<Props> = ({ numSelections, width }) => {
             onClick={handleClickColorPicker}
             style={{
               backgroundColor: person.color?.toString(),
-              width: "30px",
-              height: "30px",
+              width: "0.938rem",
+              height: "0.938rem",
               borderRadius: "50%",
               marginRight: ".5rem",
             }}

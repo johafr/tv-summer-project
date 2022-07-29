@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Message } from "../../../../atoms/stories";
+import LoopIcon from '@mui/icons-material/Loop';
 
 export const TextMessageFormatRegular: React.FC<Message> = ({
   person,
@@ -8,6 +9,7 @@ export const TextMessageFormatRegular: React.FC<Message> = ({
 }) => {
   console.log(person?.color);
   return (
+    <>
     <Container>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <CharacterName
@@ -26,6 +28,8 @@ export const TextMessageFormatRegular: React.FC<Message> = ({
         {content}
       </CharacterText>
     </Container>
+
+    </>
   );
 };
 
@@ -40,6 +44,12 @@ const Container = styled.div<{ align?: string }>`
   text-align: left;
   margin: 1rem;
   padding: 1rem;
+
+  &:hover {
+    div {
+      opacity: 1;
+    }
+  }
 `;
 
 const CharacterName = styled.h3<{ align?: string; color?: string }>`
@@ -84,3 +94,5 @@ const CharacterText = styled.p<{ align?: string }>`
       `}
   \`;
 `;
+
+
