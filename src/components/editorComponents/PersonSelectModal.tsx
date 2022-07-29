@@ -1,9 +1,8 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import {
   Person,
-  allCharactersState,
   setSelectedPerson,
   updatePerson,
 } from "../../atoms/Characters";
@@ -26,10 +25,13 @@ export const PersonSelectModal: React.FC<Props> = ({ viewModal, side }) => {
         ...person,align: "left"
       }
       updatePerson(person,newPerson);
+      setSelectedPerson(newPerson)
     }
+    else {
     selectedPerson === person
       ? setSelectedPerson(undefined)
       : setSelectedPerson(person);
+    }
   };
 
   const personsList = alignedCharacters.map((person, index) => {

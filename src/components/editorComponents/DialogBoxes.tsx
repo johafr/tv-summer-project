@@ -5,6 +5,7 @@ import { selectedPersonSide, visibileBoxesState } from "../../atoms/editor";
 import { addMessage} from "../../atoms/stories";
 import { CommunicationCategory } from "../../atoms/template";
 import { activePerson } from "../../selectors/Characters";
+import { visibleNumber } from "../../selectors/editor";
 import { communicationCategoriesList } from "../../selectors/template";
 import * as S from "../../styles/components/EditorStyles";
 import { IconSwitch } from "./EditorIconSwitch";
@@ -21,13 +22,15 @@ export const DialogBoxes: React.FC<Props> = ({  }) => {
     const [activeSide,setActiveSide] = useRecoilState(selectedPersonSide);
     const categoriesList = useRecoilValue(communicationCategoriesList)
     const selectedPerson = useRecoilValue(activePerson);
+    const numberVisible = useRecoilValue(visibleNumber);
     const [activeBox,setActiveBox] = useState("");
     const [textField,setTextField] = useState("");
     const [viewPersonModal, setViewPersonModal] = useState<boolean>(false);
+
     
-
-
-    const boxheight = "50"
+    let boxheight = "25";
+    if (numberVisible !== 0) {boxheight = "50"}
+    
 
 
 
