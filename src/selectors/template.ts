@@ -2,10 +2,15 @@ import { selector } from "recoil";
 import {
   activeCommunicationCategoryIndex,
   activeTemplateIndex,
+  CommunicationCategory,
   ComponentFormat,
   componentsState,
   templates,
 } from "../atoms/template";
+import {
+  cachedCustomTemplateState,
+  editState,
+} from "../screens/CreateCustomTemplate";
 
 export const communicationCategoriesList = selector({
   key: "communicationCategoriesList",
@@ -69,5 +74,23 @@ export const templatesCategory = selector({
       premadeTemplates,
       customTemplates,
     };
+  },
+});
+
+export const templateCommunications = selector<string[]>({
+  key: "templateCommunications",
+  get: ({ get }) => {
+    const edit = get(editState);
+    const CCList = get(communicationCategoriesList);
+    const template = edit
+      ? get(cachedCustomTemplateState)
+      : get(getActiveTemplate);
+    const formats: string[] = [];
+    CCList.forEach((com: CommunicationCategory, forEachIndex) =>
+      formats.push(
+        com.premadeFormats[template.indexes[forEachIndex].index].formatName
+      )
+    );
+    return formats;
   },
 });

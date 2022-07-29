@@ -1,12 +1,33 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { activeCommunicationCategory } from "../../../selectors/template";
 import { ToolbarHeight } from "./RenderScreen";
+import { EditRenderCommunication } from "./renderScreenComponents/EditRenderCommunication";
 import { EditRenderScreenToolbar } from "./renderScreenComponents/EditRenderScreenToolbar";
+import { EditRenderTemplate } from "./renderScreenComponents/EditRenderTemplate";
+import { EditSaveCommunicationButton } from "./renderScreenComponents/EditSaveCommunicationButton";
+import { EditSaveTemplateButton } from "./renderScreenComponents/EditSaveTemplateButton";
 
 export const EditRenderScreen = () => {
+  const { currentCommunicationCategory } = useRecoilValue(
+    activeCommunicationCategory
+  );
   return (
     <Screen>
       <EditRenderScreenToolbar />
-      <ComponentDisplay></ComponentDisplay>
+      <ComponentDisplay>
+        {currentCommunicationCategory ? (
+          <>
+            <EditRenderCommunication />
+            <EditSaveCommunicationButton />
+          </>
+        ) : (
+          <>
+            <EditRenderTemplate />
+            <EditSaveTemplateButton />
+          </>
+        )}
+      </ComponentDisplay>
     </Screen>
   );
 };
@@ -24,4 +45,5 @@ const ComponentDisplay = styled.div`
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   user-select: none;
   cursor: pointer;
+  position: relative;
 `;

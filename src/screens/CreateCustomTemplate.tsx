@@ -6,10 +6,16 @@ import { activeStoryIndex } from "../atoms/stories";
 import { RenderScreen } from "../components/customTemplateComponents/screenElements/RenderScreen";
 import { TemplateDrawer } from "../components/customTemplateComponents/screenElements/TemplateDrawer";
 import { StylesDrawer } from "../components/customTemplateComponents/screenElements/StylesDrawer";
-import { Template } from "../atoms/template";
+import {
+  activeCommunicationCategoryIndex,
+  addTemplate,
+  Template,
+  templates,
+  updateTemplate,
+} from "../atoms/template";
 import { EditTemplateDrawer } from "../components/customTemplateComponents/screenElements/EditTemplateDrawer";
 import { EditRenderScreen } from "../components/customTemplateComponents/screenElements/EditRenderScreen";
-import { EditStylesDrawer } from "../components/customTemplateComponents/screenElements/EditStylesDrawer";
+import { getRecoil, resetRecoil } from "recoil-nexus";
 
 export const editState = atom({
   key: "editState",
@@ -20,6 +26,17 @@ export const cachedCustomTemplateState = atom<Template>({
   key: "cachedCustomTemplate",
   default: { id: -1, templateName: "cached", custom: true, indexes: [] },
 });
+
+export const handleSave = () => {
+  const currentTemplates = getRecoil(templates);
+  const cachedTemplate = getRecoil(cachedCustomTemplateState);
+  currentTemplates.findIndex((template) => template.id === cachedTemplate.id) <
+  0
+    ? addTemplate(cachedTemplate)
+    : updateTemplate(cachedTemplate);
+  resetRecoil(editState);
+  resetRecoil(activeCommunicationCategoryIndex);
+};
 
 export const CreateCustomTemplate = () => {
   const { id } = useParams();
@@ -33,21 +50,20 @@ export const CreateCustomTemplate = () => {
   }, [id, setStoryIndex]);
 
   return (
-    <>
+    <ContentDiv>
       {edit ? (
-        <ContentDiv>
+        <>
           <EditTemplateDrawer />
           <EditRenderScreen />
-          <EditStylesDrawer />
-        </ContentDiv>
+        </>
       ) : (
-        <ContentDiv>
+        <>
           <TemplateDrawer />
           <RenderScreen />
-          <StylesDrawer />
-        </ContentDiv>
+        </>
       )}
-    </>
+      <StylesDrawer />
+    </ContentDiv>
   );
 };
 

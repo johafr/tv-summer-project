@@ -1,9 +1,17 @@
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { activeCommunicationCategory } from "../../../../selectors/template";
 
 export const EditRenderScreenToolbar = () => {
+  const activeCC = useRecoilValue(activeCommunicationCategory);
+
   return (
     <Toolbar>
-      <TemplateHeader>Custom Template</TemplateHeader>
+      <TemplateHeader>
+        {activeCC.currentCommunicationCategory
+          ? "Change " + activeCC.currentCommunicationCategory.interactionName
+          : "Template"}
+      </TemplateHeader>
     </Toolbar>
   );
 };

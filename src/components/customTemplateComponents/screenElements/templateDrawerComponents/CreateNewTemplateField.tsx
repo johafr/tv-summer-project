@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { Template, templates } from "../../../../atoms/template";
+import {
+  activeCommunicationCategoryIndex,
+  Template,
+  templates,
+} from "../../../../atoms/template";
 import {
   cachedCustomTemplateState,
   editState,
@@ -12,6 +16,7 @@ export const CreateNewTemplateField = () => {
   const [newTemplateName, setNewTemplateName] = useState("");
   const [, setCachedCustomTemplate] = useRecoilState(cachedCustomTemplateState);
   const allTemplates = useRecoilValue(templates);
+  const [, setActiveCCIndex] = useRecoilState(activeCommunicationCategoryIndex);
 
   const handleSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const newTemplate: Template = {
@@ -29,6 +34,7 @@ export const CreateNewTemplateField = () => {
     setCachedCustomTemplate(newTemplate);
     setNewTemplateName("");
     e.currentTarget.blur();
+    setActiveCCIndex(-1);
     setEdit(true);
   };
 

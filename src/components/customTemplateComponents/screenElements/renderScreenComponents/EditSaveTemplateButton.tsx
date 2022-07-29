@@ -1,18 +1,12 @@
 import styled from "styled-components";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
-import { useRecoilState } from "recoil";
-import { editState } from "../../../../screens/CreateCustomTemplate";
+import { handleSave } from "../../../../screens/CreateCustomTemplate";
 
-export const EditSaveButton = () => {
-  const [, setEdit] = useRecoilState(editState);
-  const tempSave = () => {
-    setEdit(false);
-  };
-
+export const EditSaveTemplateButton = () => {
   return (
-    <SaveButtonDiv onClick={tempSave}>
+    <SaveButtonDiv onClick={handleSave}>
       <SaveOutlinedIcon />
-      <SaveButtonHeader>Save</SaveButtonHeader>
+      <SaveButtonHeader>Save Template</SaveButtonHeader>
     </SaveButtonDiv>
   );
 };

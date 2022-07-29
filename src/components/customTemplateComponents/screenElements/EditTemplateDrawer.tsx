@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { drawerWidth } from "./TemplateDrawer";
-import { EditSaveButton } from "./templateDrawerComponents/EditSaveButton";
+import { EditChangeNameOfTemplate } from "./templateDrawerComponents/EditChangeNameOfTemplate";
+import { EditPremadeTemplatesList } from "./templateDrawerComponents/EditPremadeTemplatesList";
 
 export const EditTemplateDrawer = () => {
   return (
     <Drawer>
-      <EditSaveButton />
+      <EditChangeNameOfTemplate />
+      <EditPremadeTemplatesList />
     </Drawer>
   );
 };
