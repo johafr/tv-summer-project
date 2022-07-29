@@ -1,15 +1,11 @@
 import React from "react";
-import styled from "styled-components";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import { Fab } from "@mui/material";
-import { Theme } from "../../styles/Theme";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { activePageIndex, Message } from "../../atoms/stories";
 import { activePage, activeStoryStats } from "../../selectors/stories";
 import { screenDimensions } from "../../atoms/screenDimensions";
 import * as S from "../../styles/components/MobileView";
 import { InteractionSwitch } from "./InteractionSwitch";
+import { MobileViewComponent } from "./MobileViewComponent";
 
 export const MobileView: React.FC = () => {
   //Recoil values
@@ -37,57 +33,23 @@ export const MobileView: React.FC = () => {
     <>
       {screen.winWidth > 650 ? (
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <S.Wrapper>
-            <Fab
-              onClick={handleGoLeft}
-              sx={{
-                position: "absolute",
-                left: "-6rem",
-                boxShadow: "none",
-                top: "15rem",
-                backgroundColor: Theme.palette.mainGreen.main,
-                "&:hover": {
-                  backgroundColor: Theme.palette.mainGreen.dark,
-                },
-              }}
-              id={"fab"}
-              size={"large"}
-            >
-              <ArrowLeftIcon sx={{ color: "white", fontSize: "3rem" }} />
-            </Fab>
-            <S.LoudSpeaker />
-            <S.Screen>
-              {currentPage?.messages.map((card: Message) => (
-                <InteractionSwitch
-                  key={card.id}
-                  id={card.id}
-                  person={card.person}
-                  content={card.content}
-                  format={card.format}
-                />
-              ))}
-            </S.Screen>
-            <Fab
-              onClick={handleGoRight}
-              sx={{
-                position: "absolute",
-                left: "23rem",
-                boxShadow: "none",
-                top: "15rem",
-                backgroundColor: Theme.palette.mainGreen.main,
-                "&:hover": {
-                  backgroundColor: Theme.palette.mainGreen.dark,
-                },
-              }}
-              id={"fab"}
-              size={"large"}
-            >
-              <ArrowRightIcon sx={{ color: "white", fontSize: "3rem" }} />
-            </Fab>
-            <S.PageNumber>
-              {pageNum + 1} / {numPages}
-            </S.PageNumber>
-          </S.Wrapper>
+          <MobileViewComponent
+            handleGoLeft={handleGoLeft}
+            currentPage={currentPage}
+            messagesMapFunction={(card: Message) => (
+
+              <InteractionSwitch
+                key={card.id}
+                id={card.id}
+                person={card.person}
+                content={card.content}
+                format={card.format}
+              />
+            )}
+            handleGoRight={handleGoRight}
+            pageNum={pageNum}
+            numPages={numPages}
+          />
         </div>
       ) : (
         <S.ScreenMobile className="screen">

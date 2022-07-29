@@ -15,46 +15,53 @@ export const Wrapper = styled.div`
   width: 75%;
 `;
 
-export const Expandable = styled.div`
+export const Expandable = styled.div<{height: string;}>`
   text-align: center;
   width: 100%;
+  height:${(props) => props.height}%;
   display: flex;
   flex-direction: row;
   flex-wrap: no-wrap;
-  flex-grow: 1;
+  flex-grow: 0;
   margin-bottom:4%;
-  
-
-  & div {
-    
-  }
 `;
 
 export const IconContainer = styled.div`
   width: 20%;
   border-radius: 20px;
-
+  flex-direction: row;
+  margin-right: 2%;
   & div {
     margin-top: 25%;
   }
-  & div:hover {
-    color:blue;
+`;
+
+export const IconElements = styled.div`
+  
+
+  &:hover {
+    color: blue;
     cursor: pointer;
   }
+
 `;
+
 
 export const InputContainer = styled.div`
   border: 1px solid lightgray;
   border-radius: 0;
-  width:80%;
+  width:75%;
 `;
 
 export const TextInput = styled.input`
   width: 99%;
-  height: 4rem;
+  height: 7.7rem;
+  position:relative;
   border: none;
-  margin:0;
-  margin-top:1rem;
+  borde
+  margin-bottom:0;
+  margin-top:0rem;
+
 `;
 
 export const ConvoName = styled.h5`

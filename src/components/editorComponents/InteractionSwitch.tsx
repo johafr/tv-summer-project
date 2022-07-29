@@ -1,17 +1,32 @@
 import React from "react";
 import { Message } from "../../atoms/stories";
 import { SpeechBubbleChat } from "../customTemplateComponents/formats/dialogFormats/SpeechBubbleChat";
+
 import { TextMessageFormatRegular } from "../customTemplateComponents/formats/textMessageFormats/TextMessageFormatRegular";
+
 import { ThoughtBubbleChat } from "../customTemplateComponents/formats/thoughtFormats/ThoughtBubbleChat";
 import { ThoughtBubbleFormatRegular } from "../customTemplateComponents/formats/thoughtFormats/ThoughtBubbleFormatRegular";
+import { TextMessageFormatRegular } from "../customTemplateComponents/formats/textMessageFormats/TextMessageFormatRegular";
+import { DialogFormatRegular } from "../customTemplateComponents/formats/dialogFormats/DialogFormatRegular";
+import { NarrativeFormatRegular } from "../customTemplateComponents/formats/narrativeFormats/NarrativeFormatRegular";
+import { DialogFormatTextHeavyLarge } from "../customTemplateComponents/formats/dialogFormats/DialogFormatTextHeavyLarge";
+import { DialogFormatTextHeavySmall } from "../customTemplateComponents/formats/dialogFormats/DialogFormatTextHeavySmall";
+import { DialogFormatOutlined } from "../customTemplateComponents/formats/dialogFormats/DialogFormatOutlined";
 
 export const InteractionSwitch: React.FC<Message> = (props) => {
   //This can maybe be done in a reducer
   switch (props.format[0]) {
     case "NARRATIVE":
       switch (props.format[1]) {
-        case "Default Narrative":
-          return <p>{props.content}</p>;
+        case "Narrative (regular)":
+          return (
+            <NarrativeFormatRegular
+              id={props.id}
+              content={props.content}
+              format={props.format}
+              person={props.person}
+            />
+          );
         case "Narrative 1":
           return <p>{props.content}</p>;
         default:
@@ -19,7 +34,7 @@ export const InteractionSwitch: React.FC<Message> = (props) => {
       }
     case "TEXTMESSAGE":
       switch (props.format[1]) {
-        case "Default Textmessage":
+        case "Text Message (regular)":
           return (
             <TextMessageFormatRegular
               id={props.id}
@@ -35,23 +50,41 @@ export const InteractionSwitch: React.FC<Message> = (props) => {
       }
     case "DIALOG":
       switch (props.format[1]) {
-        case "SpeechBubbleChat":
+        case "Speech Bubble (regular)":
           return (
-            <SpeechBubbleChat
+            <DialogFormatRegular
               id={props.id}
-              format={props.format}
               content={props.content}
+              format={props.format}
               person={props.person}
             />
           );
-        case "Dialog Option 2":
-          return <p>{props.content}</p>;
+        case "Speech Bubble (outlined)":
+          return <div>Outlined</div>;
+        case "Text Heavy (large)":
+          return (
+            <DialogFormatTextHeavyLarge
+              id={props.id}
+              content={props.content}
+              format={props.format}
+              person={props.person}
+            />
+          );
+        case "Text Heavy (small)":
+          return (
+            <DialogFormatTextHeavySmall
+              id={props.id}
+              content={props.content}
+              format={props.format}
+              person={props.person}
+            />
+          );
         default:
           return <p>default dialog</p>;
       }
     case "THOUGHT":
       switch (props.format[1]) {
-        case "ThoughtBubbleChat":
+        case "Thought Bubble (regular)":
           return (
             <ThoughtBubbleFormatRegular
               id={props.id}

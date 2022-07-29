@@ -11,16 +11,15 @@ import { CreateCustomTemplate } from "./screens/CreateCustomTemplate";
 import { renderScreen, screenDimensions } from "./atoms/screenDimensions";
 import { useRecoilValue } from "recoil";
 import { AiFillHome } from "react-icons/ai";
-import { ThoughtBubbleChat } from "./components/customTemplateComponents/formats/thoughtFormats/ThoughtBubbleChat";
-import { ThoughtBubbleFormatRegular } from "./components/customTemplateComponents/formats/thoughtFormats/ThoughtBubbleFormatRegular";
-import { Message } from "./atoms/stories";
 import { Person } from "./atoms/Characters";
+import { DialogFormatTextHeavyLarge } from "./components/customTemplateComponents/formats/dialogFormats/DialogFormatTextHeavyLarge";
+import { DialogFormatRegular } from "./components/customTemplateComponents/formats/dialogFormats/DialogFormatRegular";
 
 const TestPerson: Person = {
   id: -5,
   name: "TESTY",
   color: "#000000",
-  align: "right",
+  align: "left",
 };
 
 const Router: React.FC = () => {
@@ -32,11 +31,11 @@ const Router: React.FC = () => {
         <Route element={<Preview />} path={"story:id/preview"} />
         <Route
           element={
-            <ThoughtBubbleFormatRegular
-              format={["test, test"]}
+            <DialogFormatRegular
+              format={["test", "test"]}
+              content={"Men jeg skal ikke reise!"}
               id={-5}
               person={TestPerson}
-              content={"Test tekasdasdasdasdasdasda"}
             />
           }
           path={"/dontosh"}

@@ -1,38 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { activePageIndex, addMessage, Message } from "../../atoms/stories";
+import {
+  activePageIndex,
+  Message,
+} from "../../atoms/stories";
 import { InteractionSwitch } from "./InteractionSwitch";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  activeCommunicationCategory,
-  communicationCategoriesList,
-} from "../../selectors/template";
 import { activePage, activeStoryStats } from "../../selectors/stories";
-import { AddNewPersonInputField } from "./AddNewPersonInputField";
 import { EditorNamesList } from "./EditorNamesList";
-import { Person, setSelectedPerson } from "../../atoms/Characters";
-import { PersonSelectModal } from "./PersonSelectModal";
-import { activePerson } from "../../selectors/Characters";
-import { ComInputBox } from "./ComInputBox";
-import { Fab } from "@mui/material";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import { Theme } from "../../styles/Theme";
-import * as S from "../../styles/components/MobileView";
+import { NarrativeBoxes } from "./NarrativeBoxes";
+import { MobileViewComponent } from "./MobileViewComponent";
+import { DialogBoxes } from "./DialogBoxes";
 
-// Component wrapper function
 export const EditorComponent: React.FC = () => {
   //Recoil selectors
   const currentPage = useRecoilValue(activePage);
   const [pageNum, setPageNum] = useRecoilState(activePageIndex);
   const { numPages } = useRecoilValue(activeStoryStats);
   const numberOfPages = useRecoilValue(activeStoryStats).numPages!;
-  const { currentCommunicationCategory } = useRecoilValue(
-    activeCommunicationCategory
-  );
-  const categoriesList = useRecoilValue(communicationCategoriesList);
-  const selectedPerson = useRecoilValue(activePerson);
-
+  
   const handleGoLeft = () => {
     if (pageNum !== 0) {
       setPageNum(pageNum! - 1);
@@ -45,71 +31,31 @@ export const EditorComponent: React.FC = () => {
     }
   };
 
-  const listInputs = categoriesList.map((category, index) => {
-    return <ComInputBox category={category} />;
-  });
-
   // Component end-return
   return (
     <>
       <EditorNamesList numSelections={1} width={50} />
-      <AddNewPersonInputField numSelections={1} />
-
-      {/* Wrapper for Editor Boxes + Output Screen */}
       <MainContainer>
-        {/* Wrapper for only the editor boxes */}
-        <Wrapper style={{}}>{listInputs}</Wrapper>
-        <S.Wrapper>
-          <Fab
-            onClick={handleGoLeft}
-            sx={{
-              position: "absolute",
-              left: "-6rem",
-              boxShadow: "none",
-              top: "15rem",
-              backgroundColor: Theme.palette.mainGreen.main,
-              "&:hover": {
-                backgroundColor: Theme.palette.mainGreen.dark,
-              },
-            }}
-            id={"fab"}
-            size={"large"}
-          >
-            <ArrowLeftIcon sx={{ color: "white", fontSize: "3rem" }} />
-          </Fab>
-          <S.LoudSpeaker />
-          <S.Screen>
-            {currentPage?.messages.map((card: Message) => (
-              <InteractionSwitch
-                key={card.id}
-                id={card.id}
-                person={card.person}
-                content={card.content}
-                format={card.format}
-              />
-            ))}
-          </S.Screen>
-          <Fab
-            onClick={handleGoRight}
-            sx={{
-              position: "absolute",
-              left: "23rem",
-              boxShadow: "none",
-              top: "15rem",
-              backgroundColor: Theme.palette.mainGreen.main,
-              "&:hover": {
-                backgroundColor: Theme.palette.mainGreen.dark,
-              },
-            }}
-            id={"fab"}
-            size={"large"}
-          >
-            <ArrowRightIcon sx={{ color: "white", fontSize: "3rem" }} />
-          </Fab>
-          <S.PageNumber>
-            {pageNum + 1} / {numPages}
-          </S.PageNumber>
-        </S.Wrapper>
+        <Wrapper style={{}}>
+          <NarrativeBoxes/>
+          <DialogBoxes/>
+        </Wrapper>
+        <MobileViewComponent
+          handleGoLeft={handleGoLeft}
+          currentPage={currentPage}
+          messagesMapFunction={(card: Message) => (
+            <InteractionSwitch
+              key={card.id}
+              id={card.id}
+              person={card.person}
+              content={card.content}
+              format={card.format}
+            />
+          )}
+          handleGoRight={handleGoRight}
+          pageNum={pageNum}
+          numPages={numPages}
+        />
       </MainContainer>
     </>
   );
@@ -118,7 +64,8 @@ export const EditorComponent: React.FC = () => {
 export const MainContainer = styled.div`
   padding-top: 5vh;
   margin-top: 20px;
-  width: 100rem;
+  width: 100%;
+  min-height: 75vh;
   align-self: stretch;
   display: flex;
 `;
@@ -180,143 +127,6 @@ export const Output = styled.div`
   margin-left: 1%;
 `;
 
-{
-  /* Temp gravyard */
-}
 
-{
-  /*  <Wrapper>
-          <Expandable>
-            <div
-              style={{
-                width: "30rem",
-                height: "8rem",
-                border: "2px solid lightgray",
-                borderRadius: "0px",
-              }}
-            >
-              <h4 style={{ color: "gray" }}>NARRATIVE</h4>
-              <form
-                onSubmit={(event) => handleAddMessage(0, event, "NARRATIVE")}
-              >
-                <TextInput
-                  value={textInputs[0][0].inputField}
-                  placeholder="...."
-                  onChange={(event) => handleChangeTextInput(0, event)}
-                />
-              </form>
-            </div>
-          </Expandable> */
-}
-{
-  /* <Expandable>
-            <div
-              style={{
-                width: "30rem",
-                height: "8rem",
-                border: "1px solid lightgray",
-                borderRadius: "0px",
-              }}
-            >
-              <div
-                style={{
-                  display: "inline-flex",
-                  width: "100%",
-                  position: "relative",
-                  top: "-24px",
-                }}
-              >
-                <ConvoName
-                  style={{
-                    textAlign: "left",
-                    backgroundColor: selectedPerson
-                      ? selectedPerson.color
-                      : "white",
-                  }}
-                  onClick={() => handleViewModal(0)}
-                >
-                  <div
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      backgroundColor: "grey",
-                      float: "left",
-                      position: "relative",
-                      top: "7px",
-                      marginRight: "5px",
-                      borderRadius: "100px",
-                    }}
-                  />
-                  <div
-                    style={{ position: "relative", left: "4px", top: "9px" }}
-                  >
-                    {selectedPerson?.name}
-                  </div>
-                  <PersonSelectModal viewModal={viewPersonSelector} side={0} />
-                </ConvoName>
-                <ConvoName
-                  style={{
-                    textAlign: "right",
-                    backgroundColor: "grey",
-                  }}
-                  onClick={() => handleViewModal(1)}
-                >
-                  <div
-                    style={{ position: "relative", right: "30px", top: "9px" }}
-                  >
-                    {selectedPerson?.name}
-                  </div>
-                  <div
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      backgroundColor: "grey",
-                      float: "right",
-                      position: "relative",
-                      top: "-10px",
-                      marginLeft: "5px",
-                      borderRadius: "100px",
-                    }}
-                  />
-                  <PersonSelectModal viewModal={viewPersonSelector} side={1} />
-                </ConvoName>
-              </div>
-              <TextInput
-                placeholder="...."
-                style={{ position: "relative", top: "-24px" }}
-              />
-            </div>
-          </Expandable>
-          <Expandable>
-            <div
-              style={{
-                width: "30rem",
-                height: "8rem",
-                border: "2px solid lightgray",
-                borderRadius: "0px",
-              }}
-            >
-              <h4 style={{ color: "gray" }}>TEXT MESSAGE</h4>
-              <input
-                placeholder="Write something..."
-                style={{ width: "19.6rem", height: "4rem", border: "none" }}
-              />
-            </div>
-          </Expandable>
-          <Expandable>
-            <div
-              style={{
-                width: "30rem",
-                height: "8rem",
-                border: "2px solid lightgray",
-                borderRadius: "0px",
-              }}
-            >
-              <h4 style={{ color: "gray" }}>THOUGHT</h4>
-              <TextInput placeholder="...." />
-            </div>
-          </Expandable> */
-}
-{
-  /* </Wrapper>  */
-}
+
+      {/* <AddNewPersonInputField numSelections={1} /> */}

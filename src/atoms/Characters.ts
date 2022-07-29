@@ -5,7 +5,7 @@ export type Person = {
   id: number;
   name: string;
   color: string;
-  align: string;
+  align?: string;
 };
 
 // Init data

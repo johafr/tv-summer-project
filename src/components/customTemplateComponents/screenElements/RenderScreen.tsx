@@ -1,9 +1,24 @@
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+
 import { activeCommunicationCategory } from "../../../selectors/template";
 import { RenderTemplate } from "./renderScreenComponents/RenderTemplate";
 import { RenderCommunication } from "./renderScreenComponents/RenderCommunication";
 import { RenderScreenToolbar } from "./renderScreenComponents/RenderScreenToolbar";
+
+import {
+  activeCommunicationCategoryIndex,
+  CommunicationCategory,
+  ComponentFormat,
+} from "../../../atoms/template";
+import {
+  activeCommunicationCategory,
+  communicationCategoriesList,
+  getActiveTemplate,
+} from "../../../selectors/template";
+import { InteractionSwitch } from "../../editorComponents/InteractionSwitch";
+import { Person } from "../../../atoms/Characters";
+
 
 export const ToolbarHeight: number = 45.5;
 
@@ -12,14 +27,42 @@ export const RenderScreen: React.FC = () => {
     activeCommunicationCategory
   );
 
+const DummyPerson: Person = {
+  id: -5,
+  name: "TESTY",
+  color: "#000000",
+  align: "left",
+};
+
+export const RenderScreen = () => {
+  const { currentCommunicationCategory, currentCommunicationFormats } =
+    useRecoilValue(activeCommunicationCategory);
+  const [, setCCIndex] = useRecoilState(activeCommunicationCategoryIndex);
+  const currentTemplate = useRecoilValue(getActiveTemplate);
+  const components = useRecoilValue(communicationCategoriesList);
+
+  //might be possible to shorten this
+  const getFormatName = (communicationName: string) => {
+    const communicationIndex = components.findIndex(
+      (c: CommunicationCategory) => c.interactionName === communicationName
+    );
+    const formatName =
+      components[communicationIndex].premadeFormats[
+        currentTemplate.indexes[communicationIndex].index
+      ].formatName;
+    return formatName;
+  };
+
   return (
     <Screen>
       <RenderScreenToolbar />
       <ComponentDisplay>
         {currentCommunicationCategory ? (
+
           <RenderCommunication />
         ) : (
           <RenderTemplate />
+
         )}
       </ComponentDisplay>
     </Screen>

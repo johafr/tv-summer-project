@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   border: 2px solid black;
   border-radius: 20px;
   position: relative;
+  background: #c9e4d4;
 `;
 
 export const Screen = styled.div`
@@ -15,6 +16,7 @@ export const Screen = styled.div`
   height: 35.7rem;
   top: 5px;
   left: 5px;
+  overflow: hidden;
 `;
 
 export const LoudSpeaker = styled.div`
@@ -56,6 +58,7 @@ export const OutputScreenMobile = styled.div`
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  background: #c9e4d4;
 `;
 
 export const ScreenMobile = styled.div`
@@ -63,7 +66,6 @@ export const ScreenMobile = styled.div`
 `;
 
 export const ContentDivMobile = styled.div`
-  background-color: #d3d3d3;
   color: black;
 `;
 
