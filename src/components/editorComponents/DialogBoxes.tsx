@@ -22,7 +22,7 @@ export const DialogBoxes: React.FC<Props> = ({}) => {
   const categoriesList = useRecoilValue(communicationCategoriesList);
   const selectedPerson = useRecoilValue(activePerson);
   const numberVisible = useRecoilValue(visibleNumber);
-  const [activeBox, setActiveBox] = useState("");
+  const [activeBox, setActiveBox] = useState("DIALOG");
   const [textField, setTextField] = useState("");
   const [viewPersonModal, setViewPersonModal] = useState<boolean>(false);
 

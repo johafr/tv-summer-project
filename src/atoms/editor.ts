@@ -13,7 +13,7 @@ export type BoxVisibility = {
 const initVisible : BoxVisibility[] = [
     {interactionName: "NARRATIVE", visible: true},
     {interactionName: "TEXTMESSAGE",visible: false},
-    {interactionName: "DIALOG",visible: false},
+    {interactionName: "DIALOG",visible: true},
     {interactionName: "THOUGHT",visible: false},
     {interactionName: "SHOUT",visible: false},
 ]
