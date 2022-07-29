@@ -173,10 +173,10 @@ export const deletePage = (currentPage: Page) => {
   updateStory(newStory);
 };
 
-export const updateMessage = (updatedMessage: Message) => {
+export const updateMessage = (oldMessage: Message, updatedMessage: Message) => {
   const currentPage = getRecoil(activePage)!;
   const messageIndex = currentPage.messages.findIndex(
-    (listElement: Message) => listElement.id === updatedMessage.id
+    (listElement: Message) => listElement === oldMessage
   );
   const newMessageList: Message[] = [
     ...currentPage.messages.slice(0, messageIndex),

@@ -3,6 +3,9 @@ import styled from "styled-components";
 import {
   activePageIndex,
   Message,
+  Page,
+  updateMessage,
+  updatePage,
 } from "../../atoms/stories";
 import { InteractionSwitch } from "./InteractionSwitch";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -10,7 +13,9 @@ import { activePage, activeStoryStats } from "../../selectors/stories";
 import { EditorNamesList } from "./EditorNamesList";
 import { NarrativeBoxes } from "./NarrativeBoxes";
 import { MobileViewComponent } from "./MobileViewComponent";
-import { DialogBoxes } from "./DialogBoxes";
+import { visibleNumber } from "../../selectors/editor";
+import { DialogBoxes } from "./ComDialogBoxes";
+import { Theme } from "../../styles/Theme";
 
 export const EditorComponent: React.FC = () => {
   //Recoil selectors
@@ -18,7 +23,19 @@ export const EditorComponent: React.FC = () => {
   const [pageNum, setPageNum] = useRecoilState(activePageIndex);
   const { numPages } = useRecoilValue(activeStoryStats);
   const numberOfPages = useRecoilValue(activeStoryStats).numPages!;
-  
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [selectedMessage, setSelectedMessage] = useState<Message>();
+  const [newSelectedCategory, setNewSelectedCategory] =
+    useState<CommunicationCategory>();
+  const { currentCommunicationCategory } = useRecoilValue(
+    activeCommunicationCategory
+  );
+  const categoriesList = useRecoilValue(communicationCategoriesList);
+  const selectedPerson = useRecoilValue(activePerson);
+
+  const [visibleBoxes, setVisibleBoxes] = useRecoilState(visibileBoxesState);
+  const amountVisible = useRecoilValue(visibleNumber);
+
   const handleGoLeft = () => {
     if (pageNum !== 0) {
       setPageNum(pageNum! - 1);
@@ -30,6 +47,32 @@ export const EditorComponent: React.FC = () => {
       setPageNum(pageNum! + 1);
     }
   };
+
+  function handleChangeCategoryModal(message: Message) {
+    setSelectedMessage(message);
+    setShowModal(!showModal);
+  }
+
+  function setNewCategory(c: CommunicationCategory) {
+    const currentIndex = currentPage.messages.findIndex(
+      (m) => m === selectedMessage
+    );
+    const newFormat: string[] = [
+      c.interactionName.toString(),
+      c.premadeFormats[c.activeFormatIndex].formatName,
+    ];
+
+    const updatedMsg: Message = {
+      id: selectedMessage!.id,
+      person: selectedMessage?.person,
+      content: selectedMessage!.content,
+      format: newFormat,
+    };
+
+    if (selectedMessage) {
+      updateMessage(selectedMessage, updatedMsg);
+    }
+  }
 
   // Component end-return
   return (
@@ -44,22 +87,63 @@ export const EditorComponent: React.FC = () => {
           handleGoLeft={handleGoLeft}
           currentPage={currentPage}
           messagesMapFunction={(card: Message) => (
-            <InteractionSwitch
-              key={card.id}
-              id={card.id}
-              person={card.person}
-              content={card.content}
-              format={card.format}
-            />
+            <MessageCard onClick={() => handleChangeCategoryModal(card)}>
+              <InteractionSwitch
+                key={card.id}
+                id={card.id}
+                person={card.person}
+                content={card.content}
+                format={card.format}
+              />
+            </MessageCard>
           )}
           handleGoRight={handleGoRight}
           pageNum={pageNum}
           numPages={numPages}
         />
+        {showModal && (
+          <ChangeCategoryModal>
+            {categoriesList.map((c) => (
+              <CategoryList
+                onClick={() => {
+                  setNewCategory(c);
+                  setShowModal(false);
+                  setSelectedMessage(undefined);
+                }}
+              >
+                {c.interactionName}
+              </CategoryList>
+            ))}
+          </ChangeCategoryModal>
+        )}
       </MainContainer>
     </>
   );
 };
+
+const MessageCard = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const CategoryList = styled.li`
+  background: ${Theme.palette.mainGreen.dark};
+  color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  list-style: none;
+  margin: 1rem;
+  position: relative;
+  left: 60%;
+
+  &:hover {
+    cursor: pointer;
+    background: ${Theme.palette.mainGreen.light};
+  }
+`;
+
+const ChangeCategoryModal = styled.div``;
 
 export const MainContainer = styled.div`
   padding-top: 2vh;
